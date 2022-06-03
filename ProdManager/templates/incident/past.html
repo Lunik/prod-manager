@@ -1,0 +1,8 @@
+{% if (past_incidents.count()) > 0 %}
+<h2 id="past_incidents">Past incidents</h2>
+<ul id="incident-list">
+{% for incident in past_incidents %}
+<li>{{ incident.severity.name }}/{{ incident.status.name }} - <a href="{{ url_for('incident.show', resource_id=incident.id) }}">{{ incident.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}

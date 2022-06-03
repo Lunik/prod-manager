@@ -1,0 +1,8 @@
+{% if (past_maintenances.count()) > 0 %}
+<h2 id="past_maintenances">Past maintenances</h2>
+<ul id="maintenance-list">
+{% for maintenance in past_maintenances %}
+<li>{{ maintenance.status.name }} - <a href="{{ url_for('maintenance.show', resource_id=maintenance.id) }}">{{ maintenance.name }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}

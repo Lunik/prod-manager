@@ -1,0 +1,8 @@
+{% if scope.description %}
+<div id="description">
+  <h3 id="description">Description :</h3>
+  {% for line in scope.description.split('\n') %}
+  <p>{{ line }}</p>
+  {% endfor %}
+</div>
+{% endif %}
