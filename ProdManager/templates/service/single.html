@@ -1,0 +1,16 @@
+{% extends "resource.html" %}
+{% set resource_type = "Service" %}
+{% set resource_endpoint = "service" %}
+{% set resource = service %}
+
+{% block resource_metadata %}
+  {% include "service/metadata.html" %}
+{% endblock %}
+
+{% block resource_extra_content %}
+  {% include "incident/ongoing.html" %}
+  {% include "maintenance/ongoing.html" %}
+
+  {% include "incident/past.html" %}
+  {% include "maintenance/past.html" %}
+{% endblock %}

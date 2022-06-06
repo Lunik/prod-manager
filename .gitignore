@@ -3,7 +3,19 @@ venv/
 instance/
 
 __pycache__/
+*.pyc
 
 node_modules/
 
 dist/
+
+.pytest_cache
+
+pylint-report.txt
+
+coverage.xml
+result.xml
+
+.coverage
+
+.scannerwork/

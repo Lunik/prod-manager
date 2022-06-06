@@ -1,0 +1,27 @@
+{% if maintenance.description %}
+<div id="description">
+  <h3 id="description">Description :</h3>
+  {% for line in maintenance.description.split('\n') %}
+  <p>{{ line }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+{% if maintenance.external_reference %}
+<h3 id="external_reference">External reference : {{ maintenance.external_reference }}</a></h3>
+{% endif %}
+<h3 id="scope">Scope : <a href="{{ url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a></h3>
+<h3 id="service">Service : <a href="{{ url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a></h3>
+<h3 id="service_planned_status">Service planned status : {{ maintenance.service_planned_status.name }}</h3>
+<h3 id="status">Status : {{ maintenance.status.name }}</h3>
+{% if maintenance.scheduled_start_date %}
+<h3 id="scheduled_start_date">Scheduled start date : {{ maintenance.scheduled_start_date }}</h3>
+{% endif %}
+{% if maintenance.scheduled_end_date %}
+<h3 id="scheduled_end_date">Scheduled end date : {{ maintenance.scheduled_end_date }}</h3>
+{% endif %}
+{% if maintenance.start_date %}
+<h3 id="start_date">Start date : {{ maintenance.start_date }}</h3>
+{% endif %}
+{% if maintenance.end_date %}
+<h3 id="end_date">End date : {{ maintenance.end_date }}</h3>
+{% endif %}

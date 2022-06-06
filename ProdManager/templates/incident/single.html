@@ -1,0 +1,8 @@
+{% extends "resource.html" %}
+{% set resource_type = "Incident" %}
+{% set resource_endpoint = "incident" %}
+{% set resource = incident %}
+
+{% block resource_metadata %}
+  {% include "incident/metadata.html" %}
+{% endblock %}

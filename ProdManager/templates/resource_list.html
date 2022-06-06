@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ resource_type }}{% endblock %}
+
+{% block content %}
+<h1>{{ resource_type }} list</h1>
+<ul id="{{ resource_type }}-list">
+  {% for resource in resources.items %}
+  <li class="resource" id="resource-{{ resource.id }}">
+    <a href="{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}">{{ resource.name }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% if g.jwt %}
+<div id="forms">
+  {% if create_form %} 
+    <h3>Create new {{ resource_type }}</h3>
+    {% with form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value="Create", form=create_form %}
+      {% include "form.html" %}
+    {% endwith %}
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% set paginate = True %}
+{% set paginate_obj = resources %}

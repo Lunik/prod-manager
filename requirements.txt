@@ -1,0 +1,20 @@
+python-dotenv
+
+# Flask requirements
+Flask
+
+# Authentication
+PyJWT
+
+# Forms
+Flask-WTF
+
+# ORM
+flask_sqlalchemy
+Flask-Migrate
+
+## Postgres Database requirements
+psycopg2-binary
+
+# WSGI server to run the Flask application
+gunicorn

@@ -1,0 +1,42 @@
+
+version: "3"
+services: 
+  app:
+    image: prod-manager:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+    environment:
+      PORT: 8080
+      PM_SECRET_KEY: changeit
+      PM_DATABASE_URI: postgresql://prodmanager:changeit@database/prodmanager
+    ports:
+      - 80:8080
+    networks: 
+      - prod-manager
+
+  database:
+    image: postgres:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    environment:
+      POSTGRES_PASSWORD: changeit
+      POSTGRES_USER: prodmanager
+      POSTGRES_DB: prodmanager
+    networks: 
+      - prod-manager
+
+networks: 
+  prod-manager:

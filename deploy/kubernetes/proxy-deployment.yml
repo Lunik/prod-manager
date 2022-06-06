@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prod-manager
+    component: proxy
+  name: prod-manager-proxy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prod-manager
+      component: proxy
+  template:
+    metadata:
+      labels:
+        app: prod-manager
+        component: proxy
+    spec:
+      initContainers:
+      - image: lunik/prod-manager:latest
+        imagePullPolicy: Always
+        name: static
+        command: ["cp", "-rv", "ProdManager/static", "/static"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 10M
+          limits:
+            cpu: 250m
+            memory: 25M
+        volumeMounts:
+        - name: static-files
+          mountPath: /static
+      containers:
+      - image: nginx:latest
+        name: proxy
+        resources:
+          requests:
+            cpu: 100m
+            memory: 10M
+          limits:
+            cpu: 250m
+            memory: 25M
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
+        - name: static-files
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: prod-manager-proxy
+        - name: static-files
+          emptyDir: {}

@@ -1,0 +1,21 @@
+{% if incident.description %}
+<div id="description">
+  <h3 id="description">Description :</h3>
+  {% for line in incident.description.split('\n') %}
+  <p>{{ line }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+{% if incident.external_reference %}
+<h3 id="external_reference">External reference : {{ incident.external_reference }}</a></h3>
+{% endif %}
+<h3 id="scope">Scope : <a href="{{ url_for('scope.show', resource_id=incident.scope.id) }}">{{ incident.scope.name }}</a></h3>
+<h3 id="service">Service : <a href="{{ url_for('service.show', resource_id=incident.service.id) }}">{{ incident.service.name }}</a></h3>
+<h3 id="severity">Severity : {{ incident.severity.name }}</h3>
+<h3 id="status">Status : {{ incident.status.name }}</h3>
+{% if incident.start_impact_date %}
+<h3 id="start_impact_date">Start impact date : {{ incident.start_impact_date }}</h3>
+{% endif %}
+{% if incident.resolve_date %}
+<h3 id="resolve_date">Resolve date : {{ incident.resolve_date }}</h3>
+{% endif %}

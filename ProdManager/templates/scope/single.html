@@ -1,0 +1,16 @@
+{% extends "resource.html" %}
+{% set resource_type = "Scope" %}
+{% set resource_endpoint = "scope" %}
+{% set resource = scope %}
+
+{% block resource_metadata %}
+  {% include "scope/metadata.html" %}
+{% endblock %}
+
+{% block resource_extra_content %}
+  {% include "incident/ongoing.html" %}
+  {% include "maintenance/ongoing.html" %}
+
+  {% include "incident/past.html" %}
+  {% include "maintenance/past.html" %}
+{% endblock %}

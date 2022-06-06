@@ -1,0 +1,8 @@
+{% extends "resource.html" %}
+{% set resource_type = "Maintenance" %}
+{% set resource_endpoint = "maintenance" %}
+{% set resource = maintenance %}
+
+{% block resource_metadata %}
+  {% include "maintenance/metadata.html" %}
+{% endblock %}

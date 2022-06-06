@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Token{% endblock %}
+
+{% block content %}
+<h1 id="title">Token</h1>
+{% if token %}
+<p id="token">
+{{ token }}
+</p>
+{% endif %}
+<div id="form">
+  <form id="token" method="post">
+    {{ form.csrf_token }}
+    {{ form.secret.label }} : {{ form.secret }}
+    {{ form.expiration.label }} : {{ form.expiration }}
+    <input type="submit" value="Generate" />
+  </form>
+</div>
+{% endblock %}
