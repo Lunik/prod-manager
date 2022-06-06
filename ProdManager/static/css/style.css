@@ -1,4 +1,140 @@
 
+/*****
+  APP
+******/
+
+div#app {
+  width: 70%;
+
+  margin: 25px auto;
+
+  overflow: hidden;
+  border-radius: 5px;
+
+  background-color: lightgrey;
+  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
+}
+
+/******
+  MENU
+*******/
+
+nav#menu {
+  background-color: blue;
+}
+
+nav#menu ul {
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+}
+
+nav#menu ul li:last-child {
+  margin-left: auto;
+}
+
+nav#menu li {
+  padding: 10px;
+
+  list-style-type: none;
+}
+
 nav#menu li.active {
   background-color: red;
+}
+
+nav#menu li a {
+  text-decoration: none;
+
+  color: white;
+}
+
+/*********
+  CONTENT
+**********/
+
+div#content {
+  padding: 10px;
+}
+
+div#content .resource_metadata {
+  margin: auto 10px;
+}
+
+/**********
+  PAGINATE
+***********/
+
+div#pagination {
+  margin: 10px;
+
+  text-align: center;
+}
+
+div#pagination a { }
+
+div#pagination a:hover {
+  color: red;
+}
+
+/********
+  FOOTER
+*********/
+
+div#footer {
+  padding: 5px;
+
+  background-color: grey;
+  color: white;
+}
+
+div#footer a {
+  color: white;
+}
+
+div#footer a:hover {
+  color: red;
+}
+
+/******
+  FORM
+*******/
+
+div#forms h3 {
+  padding: 0 10px;
+
+  border-top: 5px solid grey;
+}
+
+form {
+  padding: 0 25px;
+}
+
+form .field {
+  display: block;
+
+  margin: 5px auto;
+  padding: 5px;
+
+  border-bottom: 1px solid grey;
+}
+
+form .field label, form .field input {
+  display: inline-block;
+}
+
+form .field label {
+  width: 100px;
+}
+
+form .field input, form .field textarea {
+  padding: 2px;
+
+  border-radius: 2px;
+}
+
+form .field textarea {
+  width: 50%;
+  min-height: 50px;
 }

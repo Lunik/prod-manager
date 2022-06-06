@@ -9,52 +9,53 @@
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div id="header">
-      <nav id="menu">
-        <ul>
-          <li id="home" class="{{ 'active' if is_home }}">
-            <a id="home" href="{{ url_for('root.index')}}">Home</a>
-          </li>
-          <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
-            <a id="scope" href="{{ url_for('scope.list')}}">Scopes</a>
-          </li>
-          <li id="service" class="{{ 'active' if resource_type == 'service' }}">
-            <a id="service" href="{{ url_for('service.list')}}">Services</a>
-          </li>
-          <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
-            <a id="incident" href="{{ url_for('incident.list')}}">Incidents</a>
-          </li>
-          <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
-            <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
-          </li>
-          {% if g.jwt %}
-          <li id="logout" class="{{ 'active' if is_auth }}">
-            <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
-          </li>
-          {% else %}
-          <li id="login" class="{{ 'active' if is_auth }}">
-            <a id="login" href="{{ url_for('auth.login') }}">Login</a>
-          </li>
+    <div id="app">
+      <div id="header">
+        <nav id="menu">
+          <ul>
+            <li id="home" class="{{ 'active' if is_home }}">
+              <a id="home" href="{{ url_for('root.index')}}">Home</a>
+            </li>
+            <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
+              <a id="scope" href="{{ url_for('scope.list')}}">Scopes</a>
+            </li>
+            <li id="service" class="{{ 'active' if resource_type == 'service' }}">
+              <a id="service" href="{{ url_for('service.list')}}">Services</a>
+            </li>
+            <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
+              <a id="incident" href="{{ url_for('incident.list')}}">Incidents</a>
+            </li>
+            <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
+              <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
+            </li>
+            {% if g.jwt %}
+            <li id="logout" class="{{ 'active' if is_auth }}">
+              <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <li id="login" class="{{ 'active' if is_auth }}">
+              <a id="login" href="{{ url_for('auth.login') }}">Login</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <div id="content">
+        {% if error %}
+          <p id="error">{{ error.message }}</p>
+          {% if "reasons" in error %}
+          <ul>
+          {% for param, message in error.reasons.items() %}
+            <li>{{ param }} : {{ message }}</li>
+          {% endfor %}
+          </ul>
           {% endif %}
-        </ul>
-      </nav>
-    </div>
-    <div id="content">
-      {% if error %}
-        <p id="error">{{ error.message }}</p>
-        {% if "reasons" in error %}
-        <ul>
-        {% for param, message in error.reasons.items() %}
-          <li>{{ param }} : {{ message }}</li>
-        {% endfor %}
-        </ul>
         {% endif %}
-      {% endif %}
-      {% block content %}{% endblock %}
-    </div>
-    <div id="footer">
+        {% block content %}{% endblock %}
+      </div>
       {% if paginate %}
         <div id="pagination">
+          <h4>Pages</h4>
           {% if paginate_obj.has_prev %}
             <a href="{{ url_for(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; Previous</a>
           {% endif %}
@@ -74,8 +75,10 @@
           {% endif %}
         </div>
       {% endif %}
-      {% block footer %}{% endblock %}
-      &copy; Copyright 2021 by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>.
+      <div id="footer">
+        {% block footer %}{% endblock %}
+        &copy; Copyright 2022 by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>
+      </div>
     </div>
   </body>
 </html>

@@ -3,7 +3,7 @@
     {% if field.id == 'csrf_token' %}
       {{ field }}
     {% else %}
-      {{ field.label }} : {{ field }}
+      <div class="field">{{ field.label }} {{ field }}</div>
     {% endif %}
   {% endfor %}
   <input type="submit" value="{{ form_submit_value }}" />
