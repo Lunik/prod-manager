@@ -4,6 +4,8 @@
 
 ### Added
 
+- feat(template): add navbar menu (!3)
+
 ### Changed
 
 ### Added

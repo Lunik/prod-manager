@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}{{ resource_type }}{% endblock %}
+{% block title %}{{ resource_type.capitalize() }}{% endblock %}
 
 {% block content %}
-<h1>{{ resource_type }} list</h1>
+<h1>{{ resource_type.capitalize() }} list</h1>
 <ul id="{{ resource_type }}-list">
   {% for resource in resources.items %}
   <li class="resource" id="resource-{{ resource.id }}">

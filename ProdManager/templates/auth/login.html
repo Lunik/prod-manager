@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+{% set is_auth = True %}
 
 {% block content %}
 <h1 id="title">Login</h1>
@@ -10,4 +11,5 @@
     <input type="submit" value="Login" />
   </form>
 </div>
+<a id="token" href="{{ url_for('auth.token')}}">Generate token</a>
 {% endblock %}

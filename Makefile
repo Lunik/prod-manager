@@ -12,6 +12,7 @@ REQUIREMENTS      = requirements.txt
 REQUIREMENTS_DEV  = requirements.dev.txt
 
 APP_NAME = prod-manager
+PACKAGE_NAME = ProdManager
 
 SERVER    ?= 127.0.0.1
 PORT      ?= 8080
@@ -89,7 +90,7 @@ sonar: lint test
 check: lint
 
 lint:
-	${PYLINT} ${FLASK_APP}/* tests/ | tee pylint-report.txt
+	${PYLINT} ${PACKAGE_NAME}/* tests/${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
-	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml ${FLASK_APP}/* tests/
+	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml ${PACKAGE_NAME}/ tests/${PACKAGE_NAME}/
