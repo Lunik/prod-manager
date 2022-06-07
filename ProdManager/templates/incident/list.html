@@ -2,3 +2,6 @@
 {% set resource_type = "incident" %}
 {% set resource_endpoint = "incident" %}
 {% set resources = incidents %}
+{% set resource_attributes = [
+  ("string", "name"), ("string", "external_reference"), ("enum", "severity"), ("enum", "status"), ("obj", "scope"), ("obj", "service"), ("date", "start_impact_date"), ("date", "resolve_date")
+] %}

@@ -1,8 +1,10 @@
 {% if (past_maintenances.count()) > 0 %}
 <h2 id="past_maintenances">Past maintenances</h2>
-<ul id="maintenance-list">
-{% for maintenance in past_maintenances %}
-<li>{{ maintenance.status.name }} - <a href="{{ url_for('maintenance.show', resource_id=maintenance.id) }}">{{ maintenance.name }}</a></li>
-{% endfor %}
-</ul>
+{% set resource_type = "maintenance" %}
+{% set resource_endpoint = "maintenance" %}
+{% set resources = past_maintenances %}
+{% set resource_attributes = [
+  ("string", "name"), ("string", "external_reference"), ("enum", "status"), ("obj", "scope"), ("obj", "service"), ("date", "scheduled_start_date"), ("date", "scheduled_end_date")
+] %}
+{% include "fragments/table.html" %}
 {% endif %}

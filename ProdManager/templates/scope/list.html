@@ -2,3 +2,6 @@
 {% set resource_type = "scope" %}
 {% set resource_endpoint = "scope" %}
 {% set resources = scopes %}
+{% set resource_attributes = [
+  ("string", "name"), ("count", "incidents"), ("count", "maintenances")
+] %}

@@ -62,6 +62,50 @@ div#content .resource_metadata {
   margin: auto 10px;
 }
 
+/***************
+  RESOURCE LIST
+****************/
+
+table#resource-list {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+table#resource-list th {
+  padding: 12px auto;
+
+  text-align: left;
+
+  background-color: blue;
+  color: white;
+}
+
+table#resource-list th, table#resource-list td {
+  padding: 8px;
+}
+
+table#resource-list tr {
+  cursor: pointer;
+}
+
+table#resource-list tr:nth-child(even){
+  background-color: white;
+}
+
+table#resource-list tr:hover {
+  background-color: lightgrey;
+}
+
+table#resource-list tr.resource:hover {
+  background-color: grey;
+  color: white;
+}
+
+table#resource-list td._show {
+  width: 20px;
+}
+
 /**********
   PAGINATE
 ***********/
@@ -72,7 +116,9 @@ div#pagination {
   text-align: center;
 }
 
-div#pagination a { }
+div#pagination h4 {
+  margin: 10px auto;
+}
 
 div#pagination a:hover {
   color: red;

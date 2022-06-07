@@ -1,0 +1,35 @@
+<table id="resource-list">
+  <tr>
+    {% for _, key in resource_attributes %}
+      <th>{{ key.replace('_', ' ').capitalize() }}</th>
+    {% endfor %}
+  </tr>
+  {% for resource in resources %}
+  <tr class="resource" id="resource-{{ resource.id }}" onclick="document.location = '{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}';">
+    {% for type, key in resource_attributes %}
+      {% set attr = resource[key] %}
+      <td class="{{ type }}">
+        {% if type == "enum" %}  
+          {{ attr.name }}
+        {% elif type == "count" %}
+          {{ attr.count() }}
+        {% elif type == "obj" %}
+          {{ attr.name }}
+        {% elif type == "date" %}
+          {% if attr %}
+            {{ attr.strftime('%Y-%m-%d - %H:%M') }}
+          {% else %}
+            {{ attr }}
+          {% endif %}
+        {% else %}
+          {{ attr }}
+        {% endif %}
+      </td>
+      {% set first_colum = False %}
+    {% endfor %}
+    <td class="_show">
+      <a href="{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}">show</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
