@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(template): Add new filter 'format_column_name' to beautify the column name for tables
+
+### Changed
+
+- refactor(Model.Maintenance): Change column name from 'service_planned_status' into 'service_status'
 
 ## 0.2.0
 

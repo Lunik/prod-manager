@@ -1,7 +1,7 @@
 <table id="resource-list">
   <tr>
     {% for _, key in resource_attributes %}
-      <th>{{ key.replace('_', ' ').capitalize() }}</th>
+      <th>{{ key | format_column_name }}</th>
     {% endfor %}
   </tr>
   {% for resource in resources %}

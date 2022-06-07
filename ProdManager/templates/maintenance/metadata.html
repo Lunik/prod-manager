@@ -11,7 +11,7 @@
 {% endif %}
 <h3 id="scope">Scope : <a href="{{ url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a></h3>
 <h3 id="service">Service : <a href="{{ url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a></h3>
-<h3 id="service_planned_status">Service planned status : {{ maintenance.service_planned_status.name }}</h3>
+<h3 id="service_status">Service status : {{ maintenance.service_status.name }}</h3>
 <h3 id="status">Status : {{ maintenance.status.name }}</h3>
 {% if maintenance.scheduled_start_date %}
 <h3 id="scheduled_start_date">Scheduled start date : {{ maintenance.scheduled_start_date }}</h3>

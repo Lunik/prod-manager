@@ -25,7 +25,7 @@ class Maintenance(db.Model):
   status = Column(Enum(MaintenanceStatus), nullable=False)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
   service_id = Column(Integer, ForeignKey('service.id'), nullable=False)
-  service_planned_status = Column(Enum(ServiceStatus), nullable=False)
+  service_status = Column(Enum(ServiceStatus), nullable=False)
   creation_date = Column(DateTime(), nullable=False)
   scheduled_start_date = Column(DateTime(), nullable=True)
   scheduled_end_date = Column(DateTime(), nullable=True)
