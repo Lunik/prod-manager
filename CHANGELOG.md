@@ -8,7 +8,9 @@
 - style(app): Base application style (!4)
 - feat(template): Improve resources list and resume display (!5)
 
-### Changed
+### Removed
+
+- refactor(model.App): Remove unused `App` model
 
 ### Breaking changes
 
