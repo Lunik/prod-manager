@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [Unreleased]
+
+
 ## 0.2.0
 
 ### Added
@@ -11,8 +14,6 @@
 ### Removed
 
 - refactor(model.App): Remove unused `App` model
-
-### Breaking changes
 
 
 ## 0.1.0
