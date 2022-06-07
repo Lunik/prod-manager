@@ -1,7 +1,6 @@
 
 from flask import Blueprint, render_template
 
-from ProdManager.models.App import App
 from ProdManager.models.Incident import Incident, filter_ongoing_incident, filter_past_incident
 from ProdManager.models.Maintenance import Maintenance, filter_ongoing_maintenance, filter_past_maintenance
 
@@ -22,5 +21,4 @@ def index():
 
 @bp.route('/about')
 def about():
-  app = App.query.first()
-  return render_template("about.html", app=app), 200
+  return render_template("about.html"), 200

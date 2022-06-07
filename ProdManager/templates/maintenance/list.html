@@ -1,4 +1,7 @@
 {% extends "resource_list.html" %}
-{% set resource_type = "Maintenance" %}
+{% set resource_type = "maintenance" %}
 {% set resource_endpoint = "maintenance" %}
 {% set resources = maintenances %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "status"), ("string", "external_reference"), ("date", "scheduled_start_date"), ("date", "scheduled_end_date")
+] %}

@@ -1,4 +1,7 @@
 {% extends "resource_list.html" %}
-{% set resource_type = "Incident" %}
+{% set resource_type = "incident" %}
 {% set resource_endpoint = "incident" %}
 {% set resources = incidents %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "severity"), ("enum", "status"), ("string", "external_reference"), ("date", "start_impact_date"), ("date", "resolve_date")
+] %}

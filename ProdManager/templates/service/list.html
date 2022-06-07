@@ -1,4 +1,7 @@
 {% extends "resource_list.html" %}
-{% set resource_type = "Service" %}
+{% set resource_type = "service" %}
 {% set resource_endpoint = "service" %}
 {% set resources = services %}
+{% set resource_attributes = [
+  ("string", "name"), ("enum", "status"), ("count", "incidents"), ("count", "maintenances")
+] %}

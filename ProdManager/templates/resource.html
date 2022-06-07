@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ resource_type }}{% endblock %}
+{% block title %}{{ resource_type.capitalize() }}{% endblock %}
 
 {% block content %}
   <a href="{{ url_for(resource_endpoint + '.list') }}" id="back">&lt; Get back to {{ resource_type }} list</a>
-  <h1 id="title">{{ resource_type }} {{ resource.name }}</h1>
+  <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name }}</h1>
   <div class="resource_metadata">
     {% block resource_metadata %}{% endblock %}
   </div>
@@ -16,14 +16,14 @@
       {% if update_form %}
         <h3>Edit {{ resource_type }} info</h3>
         {% with form_id="update-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.update', resource_id=resource.id), form_submit_value="Update", form=update_form %}
-          {% include "form.html" %}
+          {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
 
       {% if delete_form %}
         <h3>Delete {{ resource_type }}</h3>
         {% with form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value="Delete", form=delete_form %}
-          {% include "form.html" %}
+          {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
     </div>

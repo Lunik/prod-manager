@@ -9,51 +9,54 @@
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div id="header">
-      <a id="home" href="{{ url_for('root.index')}}">Home</a>
-      {% if g.jwt %}
-      <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
-      {% else %}
-      <a id="login" href="{{ url_for('auth.login') }}">Login</a>
-      {% endif %}
-    </div>
-    <div id="content">
-      {% if error %}
-        <p id="error">{{ error.message }}</p>
-        {% if "reasons" in error %}
-        <ul>
-        {% for param, message in error.reasons.items() %}
-          <li>{{ param }} : {{ message }}</li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-      {% endif %}
-      {% block content %}{% endblock %}
-    </div>
-    <div id="footer">
-      {% if paginate %}
-        <div id="pagination">
-          {% if paginate_obj.has_prev %}
-            <a href="{{ url_for(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; Previous</a>
-          {% endif %}
-          {% for page in paginate_obj.iter_pages() %}
-            {% if page %}
-              {% if page != paginate_obj.page %}
-                <a href="{{ url_for(resource_endpoint + '.list', page=page, per_page=paginate_obj.per_page) }}">{{ page }}</a>
-              {% else %}
-                <strong>{{ page }}</strong>
-              {% endif %}
+    <div id="app">
+      <div id="header">
+        <nav id="menu">
+          <ul>
+            <li id="home" class="{{ 'active' if is_home }}">
+              <a id="home" href="{{ url_for('root.index')}}">Home</a>
+            </li>
+            <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
+              <a id="scope" href="{{ url_for('scope.list')}}">Scopes</a>
+            </li>
+            <li id="service" class="{{ 'active' if resource_type == 'service' }}">
+              <a id="service" href="{{ url_for('service.list')}}">Services</a>
+            </li>
+            <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
+              <a id="incident" href="{{ url_for('incident.list')}}">Incidents</a>
+            </li>
+            <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
+              <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
+            </li>
+            {% if g.jwt %}
+            <li id="logout" class="{{ 'active' if is_auth }}">
+              <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
             {% else %}
-              <span class=ellipsis>…</span>
+            <li id="login" class="{{ 'active' if is_auth }}">
+              <a id="login" href="{{ url_for('auth.login') }}">Login</a>
+            </li>
             {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <div id="content">
+        {% if error %}
+          <p id="error">{{ error.message }}</p>
+          {% if "reasons" in error %}
+          <ul>
+          {% for param, message in error.reasons.items() %}
+            <li>{{ param }} : {{ message }}</li>
           {% endfor %}
-          {% if paginate_obj.has_next %}
-            <a href="{{ url_for(resource_endpoint + '.list', page=paginate_obj.next_num, per_page=paginate_obj.per_page) }}" id="next">Next &gt;</a>
+          </ul>
           {% endif %}
-        </div>
-      {% endif %}
-      {% block footer %}{% endblock %}
-      &copy; Copyright 2021 by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>.
+        {% endif %}
+        {% block content %}{% endblock %}
+      </div>
+      <div id="footer">
+        {% block footer %}{% endblock %}
+        &copy; Copyright 2022 by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>
+      </div>
     </div>
   </body>
 </html>

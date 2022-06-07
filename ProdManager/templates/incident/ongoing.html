@@ -1,8 +1,10 @@
 {% if (ongoing_incidents.count()) > 0 %}
 <h2 id="ongoing_incidents">Ongoing incidents</h2>
-<ul id="incident-list">
-{% for incident in ongoing_incidents %}
-<li>{{ incident.severity.name }}/{{ incident.status.name }} - <a href="{{ url_for('incident.show', resource_id=incident.id) }}">{{ incident.name }}</a></li>
-{% endfor %}
-</ul>
+{% set resource_type = "incident" %}
+{% set resource_endpoint = "incident" %}
+{% set resources = ongoing_incidents %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "severity"), ("enum", "status"), ("string", "external_reference"), ("date", "start_impact_date"), ("date", "resolve_date")
+] %}
+{% include "fragments/table.html" %}
 {% endif %}

@@ -1,12 +1,18 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.2.0
 
 ### Added
 
-### Changed
+- feat(template): add navbar menu (!3)
+- style(app): Base application style (!4)
+- feat(template): Improve resources list and resume display (!5)
 
-### Added
+### Removed
+
+- refactor(model.App): Remove unused `App` model
+
+### Breaking changes
 
 
 ## 0.1.0

@@ -12,8 +12,6 @@ db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
 
-APP_VERSION = "0.1.0"
-
 def create_app():
   app = Flask(
     __name__,
