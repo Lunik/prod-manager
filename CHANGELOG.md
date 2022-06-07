@@ -9,7 +9,7 @@
 
 ### Changed
 
-### Added
+### Breaking changes
 
 
 ## 0.1.0
