@@ -17,7 +17,7 @@
           {{ attr.name }}
         {% elif type == "date" %}
           {% if attr %}
-            {{ attr.strftime('%Y-%m-%d - %H:%M') }}
+            {{ attr.strftime('%d/%m/%Y at %H:%M') }}
           {% else %}
             {{ attr }}
           {% endif %}
