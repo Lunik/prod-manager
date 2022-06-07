@@ -3,7 +3,7 @@
 
 {% block content %}
   <a href="{{ url_for(resource_endpoint + '.list') }}" id="back">&lt; Get back to {{ resource_type }} list</a>
-  <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name.capitalize() }}</h1>
+  <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name }}</h1>
   <div class="resource_metadata">
     {% block resource_metadata %}{% endblock %}
   </div>
