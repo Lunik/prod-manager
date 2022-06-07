@@ -5,6 +5,8 @@
 ### Added
 
 - feat(template): Add new filter 'format_column_name' to beautify the column name for tables
+- feat(template.Service): Display service status
+- feat(view.Service): Allow to update service status
 
 ### Changed
 
