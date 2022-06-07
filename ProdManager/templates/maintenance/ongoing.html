@@ -4,7 +4,7 @@
 {% set resource_endpoint = "maintenance" %}
 {% set resources = ongoing_maintenances %}
 {% set resource_attributes = [
-  ("string", "name"), ("string", "external_reference"), ("enum", "status"), ("obj", "scope"), ("obj", "service"), ("date", "scheduled_start_date"), ("date", "scheduled_end_date")
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "status"), ("string", "external_reference"), ("date", "scheduled_start_date"), ("date", "scheduled_end_date")
 ] %}
 {% include "fragments/table.html" %}
 {% endif %}
