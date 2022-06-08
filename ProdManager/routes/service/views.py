@@ -11,7 +11,7 @@ from ProdManager.helpers.resource import (
   list_resources_as_choices
 )
 
-from ProdManager.models.Service import Service
+from ProdManager.models.Service import Service, ServiceStatus
 from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
 from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance
 
@@ -106,6 +106,7 @@ def update(resource_id):
     service, _ = update_resource(Service, resource_id, dict(
       name=form.name.data,
       description=form.description.data,
+      status=ServiceStatus(form.status.data),
     ))
   except Exception as error:
     return abort(error.code, dict(

@@ -82,9 +82,11 @@ def create_app():
   app.register_blueprint(incident.view, url_prefix="/incident")
   app.register_blueprint(maintenance.view, url_prefix="/maintenance")
 
-  from ProdManager.filters.basic import ternary
+  from ProdManager.filters.basic import ternary, format_column_name, format_timeline_date
 
   app.jinja_env.filters['ternary'] = ternary
+  app.jinja_env.filters['format_column_name'] = format_column_name
+  app.jinja_env.filters['format_timeline_date'] = format_timeline_date
 
 
   return app

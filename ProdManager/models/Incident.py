@@ -1,5 +1,3 @@
-import enum
-
 from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
@@ -17,9 +15,9 @@ class IncidentSeverity(ModelEnum):
 
 class IncidentStatus(ModelEnum):
   ACTIVE = 'active'
+  INVESTIGATING = 'investigating'
   STABLE = 'stable'
   RESOLVED = 'resolved'
-  COMPLETED = 'completed'
 
 class Incident(db.Model):
   id = Column(Integer, primary_key=True)
@@ -32,18 +30,30 @@ class Incident(db.Model):
   service_id = Column(Integer, ForeignKey('service.id'), nullable=False)
   creation_date = Column(DateTime(), nullable=False)
   start_impact_date = Column(DateTime(), nullable=True)
+  investigation_date = Column(DateTime(), nullable=True)
+  stable_date = Column(DateTime(), nullable=True)
   resolve_date = Column(DateTime(), nullable=True)
-  comments = relationship('IncidentComment', backref='incident', lazy='dynamic', order_by='desc(IncidentComment.creation_date)', cascade="all, delete")
+  comments = relationship(
+    'IncidentComment',
+    backref='incident',
+    lazy='dynamic',
+    order_by='desc(IncidentComment.creation_date)',
+    cascade="all, delete",
+  )
 
   def __repr__(self):
     return f"<Incident '{self.name}'>"
 
 def filter_ongoing_incident(query, limit=10):
   return query.filter(
-    Incident.status.in_([IncidentStatus.ACTIVE, IncidentStatus.STABLE])
+    Incident.status.in_([
+      IncidentStatus.ACTIVE,
+      IncidentStatus.INVESTIGATING,
+      IncidentStatus.STABLE,
+    ])
   ).limit(limit)
 
 def filter_past_incident(query, limit=10):
   return query.filter(
-    Incident.status.in_([IncidentStatus.RESOLVED, IncidentStatus.COMPLETED])
+    Incident.status.in_([IncidentStatus.RESOLVED])
   ).limit(limit)

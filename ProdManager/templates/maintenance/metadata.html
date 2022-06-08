@@ -1,27 +1,35 @@
+<div id="target">
+  <div id="scope">
+    <a href="{{ url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a>
+  </div>
+  /
+  <div id="service">
+    <a href="{{ url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a>
+  </div>
+</div>
+{% if maintenance.external_reference %}
+  <div id="external_reference" class="badge external_reference">{{ maintenance.external_reference }}</div>
+{% endif %}
+<div id="status" class="badge maintenance {{ maintenance.status.value }}">{{ maintenance.status.name }}</div>
 {% if maintenance.description %}
 <div id="description">
-  <h3 id="description">Description :</h3>
   {% for line in maintenance.description.split('\n') %}
   <p>{{ line }}</p>
   {% endfor %}
 </div>
 {% endif %}
-{% if maintenance.external_reference %}
-<h3 id="external_reference">External reference : {{ maintenance.external_reference }}</a></h3>
-{% endif %}
-<h3 id="scope">Scope : <a href="{{ url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a></h3>
-<h3 id="service">Service : <a href="{{ url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a></h3>
-<h3 id="service_planned_status">Service planned status : {{ maintenance.service_planned_status.name }}</h3>
-<h3 id="status">Status : {{ maintenance.status.name }}</h3>
+
+{% set dots = [] %}
 {% if maintenance.scheduled_start_date %}
-<h3 id="scheduled_start_date">Scheduled start date : {{ maintenance.scheduled_start_date }}</h3>
-{% endif %}
-{% if maintenance.scheduled_end_date %}
-<h3 id="scheduled_end_date">Scheduled end date : {{ maintenance.scheduled_end_date }}</h3>
+  {% set dots = dots + [("scheduled_start_date", "scheduled start", (maintenance.scheduled_start_date | format_timeline_date("horizontal")), "🕑")] %}
 {% endif %}
 {% if maintenance.start_date %}
-<h3 id="start_date">Start date : {{ maintenance.start_date }}</h3>
+  {% set dots = dots + [("start_date", "start", (maintenance.start_date | format_timeline_date("horizontal")), "▶️")] %}
+{% endif %}
+{% if maintenance.scheduled_end_date %}
+  {% set dots = dots + [("scheduled_end_date", "scheduled end", (maintenance.scheduled_end_date | format_timeline_date("horizontal")), "🕙")] %}
 {% endif %}
 {% if maintenance.end_date %}
-<h3 id="end_date">End date : {{ maintenance.end_date }}</h3>
+  {% set dots = dots + [("end_date", "end", (maintenance.end_date | format_timeline_date("horizontal")), ((maintenance.status.value == "succeed") | ternary("✅", "❌")))] %}
 {% endif %}
+{% include "fragments/timeline/horizontal.html" %}

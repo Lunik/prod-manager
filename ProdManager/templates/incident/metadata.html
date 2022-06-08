@@ -1,21 +1,33 @@
+<div id="target">
+  <div id="scope">
+    <a href="{{ url_for('scope.show', resource_id=incident.scope.id) }}">{{ incident.scope.name }}</a>
+  </div>
+  /
+  <div id="service">
+    <a href="{{ url_for('service.show', resource_id=incident.service.id) }}">{{ incident.service.name }}</a>
+  </div>
+</div>
+{% if incident.external_reference %}
+  <div id="external_reference" class="badge external_reference">{{ incident.external_reference }}</div>
+{% endif %}
+<div id="severity" class="badge incident {{ incident.severity.value }}">{{ incident.severity.name }}</div>
+<div id="status" class="badge incident {{ incident.status.value }}">{{ incident.status.name }}</div>
 {% if incident.description %}
 <div id="description">
-  <h3 id="description">Description :</h3>
   {% for line in incident.description.split('\n') %}
   <p>{{ line }}</p>
   {% endfor %}
 </div>
 {% endif %}
-{% if incident.external_reference %}
-<h3 id="external_reference">External reference : {{ incident.external_reference }}</a></h3>
+
+{% set dots = [("start_impact_date", "impact", (incident.start_impact_date | format_timeline_date("horizontal")), "⚠️")] %}
+{% if incident.investigation_date %}
+  {% set dots = dots + [("investigation_date", "investigating", (incident.investigation_date | format_timeline_date("horizontal")), "🔍")] %}
 {% endif %}
-<h3 id="scope">Scope : <a href="{{ url_for('scope.show', resource_id=incident.scope.id) }}">{{ incident.scope.name }}</a></h3>
-<h3 id="service">Service : <a href="{{ url_for('service.show', resource_id=incident.service.id) }}">{{ incident.service.name }}</a></h3>
-<h3 id="severity">Severity : {{ incident.severity.name }}</h3>
-<h3 id="status">Status : {{ incident.status.name }}</h3>
-{% if incident.start_impact_date %}
-<h3 id="start_impact_date">Start impact date : {{ incident.start_impact_date }}</h3>
+{% if incident.stable_date %}
+  {% set dots = dots + [("stable_date", "stable", (incident.stable_date | format_timeline_date("horizontal")), "☑️")] %}
 {% endif %}
 {% if incident.resolve_date %}
-<h3 id="resolve_date">Resolve date : {{ incident.resolve_date }}</h3>
+  {% set dots = dots + [("resolve_date", "resolved", (incident.resolve_date | format_timeline_date("horizontal")), "✅")] %}
 {% endif %}
+{% include "fragments/timeline/horizontal.html" %}

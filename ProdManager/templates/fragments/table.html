@@ -1,8 +1,9 @@
 <table id="resource-list">
   <tr>
     {% for _, key in resource_attributes %}
-      <th>{{ key.replace('_', ' ').capitalize() }}</th>
+      <th>{{ key | format_column_name }}</th>
     {% endfor %}
+    <th></th>
   </tr>
   {% for resource in resources %}
   <tr class="resource" id="resource-{{ resource.id }}" onclick="document.location = '{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}';">
