@@ -63,7 +63,7 @@ def create():
       creation_date=datetime.now(),
       scheduled_start_date=form.scheduled_start_date.data,
       scheduled_end_date=form.scheduled_end_date.data,
-      service_planned_status=ServiceStatus(form.service_planned_status.data),
+      service_status=ServiceStatus(form.service_status.data),
       status=MaintenanceStatus.CREATED
     ))
   except Exception as error:
@@ -154,7 +154,7 @@ def update(resource_id):
       scheduled_end_date=form.scheduled_end_date.data,
       start_date=form.start_date.data,
       end_date=form.end_date.data,
-      service_planned_status=ServiceStatus(form.service_planned_status.data),
+      service_status=ServiceStatus(form.service_status.data),
       scope_id=form.scope_id.data,
       service_id=form.service_id.data,
     ))

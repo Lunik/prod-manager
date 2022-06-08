@@ -23,7 +23,7 @@ class MaintenanceCreateForm(FlaskForm):
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M'
   )
-  service_planned_status = SelectField(name='service planed status', validators=[DataRequired()], choices=ServiceStatus.choices(), coerce=ServiceStatus.coerce)
+  service_status = SelectField(name='service status', validators=[DataRequired()], choices=ServiceStatus.choices(), coerce=ServiceStatus.coerce)
   description = TextAreaField(name='description', validators=[Optional()])
   scope_id = SelectField(name='scope', validators=[DataRequired()])
   service_id = SelectField(name='service', validators=[DataRequired()])
@@ -54,7 +54,7 @@ class MaintenanceUpdateForm(FlaskForm):
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M'
   )
-  service_planned_status = SelectField(name='service planed status', validators=[DataRequired()], choices=ServiceStatus.choices(), coerce=ServiceStatus.coerce)
+  service_status = SelectField(name='service status', validators=[DataRequired()], choices=ServiceStatus.choices(), coerce=ServiceStatus.coerce)
   description = TextAreaField(name='description', validators=[Optional()])
   scope_id = SelectField(name='scope', validators=[DataRequired()])
   service_id = SelectField(name='service', validators=[DataRequired()])
