@@ -1,0 +1,21 @@
+<div class="timeline timeline-vertical">
+  {% for dot_id, dot_title, dot_date, dot_icon in dots %}
+    <div class="dot" id="{{ dot_id }}">
+      <div class="line">
+        {% if loop.first %}
+          <div class="padding-line"></div>
+        {% else %}
+          <div class="connect-line"></div>
+        {% endif %}
+        <i class="dot-icon">{{ dot_icon }}</i>
+        {% if loop.last %}
+          <div class="padding-line"></div>
+        {% else %}
+          <div class="connect-line"></div>
+        {% endif %}
+      </div>
+      <p>{{ dot_title | format_column_name }}</p>
+      <p>{{ dot_date }}</p>
+    </div>
+  {% endfor %}
+</div>

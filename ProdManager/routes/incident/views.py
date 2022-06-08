@@ -115,32 +115,34 @@ def update(resource_id):
     ))
 
   new_incident_status = IncidentStatus(form.status.data)
-  if new_incident_status in [IncidentStatus.RESOLVED, IncidentStatus.COMPLETED] \
-    and form.resolve_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(resolve_date="This field is required")
-    ))
+  new_data = dict(
+    name=form.name.data,
+    description=form.description.data,
+    severity=IncidentSeverity(form.severity.data),
+    status=new_incident_status,
+    external_reference=form.external_reference.data,
+    scope_id=form.scope_id.data,
+    service_id=form.service_id.data,
+    start_impact_date=form.start_impact_date.data,
+  )
 
-  if new_incident_status in [IncidentStatus.COMPLETED] \
-    and form.start_impact_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(start_impact_date="This field is required")
-    ))
+  if new_incident_status == IncidentStatus.INVESTIGATING:
+    new_data["investigation_date"] = datetime.now()
+  elif new_incident_status < IncidentStatus.INVESTIGATING:
+    new_data["investigation_date"] = None
+
+  if new_incident_status == IncidentStatus.STABLE:
+    new_data["stable_date"] = datetime.now()
+  elif new_incident_status < IncidentStatus.STABLE:
+    new_data["stable_date"] = None
+
+  if new_incident_status == IncidentStatus.RESOLVED:
+    new_data["resolve_date"] = datetime.now()
+  elif new_incident_status < IncidentStatus.RESOLVED:
+    new_data["resolve_date"] = None
 
   try:
-    incident, _ = update_resource(Incident, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
-      severity=IncidentSeverity(form.severity.data),
-      status=IncidentStatus(form.status.data),
-      external_reference=form.external_reference.data,
-      scope_id=form.scope_id.data,
-      service_id=form.service_id.data,
-      start_impact_date=form.start_impact_date.data,
-      resolve_date=form.resolve_date.data,
-    ))
+    incident, _ = update_resource(Incident, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message="Incident update failed",

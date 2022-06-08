@@ -1,4 +1,25 @@
 
+/*
+  Base palette :
+    orange: #FF6700;
+    darkwhite: #E1E5f2;
+    lightgrey: #EBEBEB;
+    grey: #C0C0C0;
+    lightblue: #3A6EA5;
+    blue: #004E98;
+*/
+
+/*
+  Badge palette:
+    purple: #560BAD;  text:  white
+    red: #EF476F      text:  white
+    orange: #FB8500;  text:  black
+    yellow: #FFD166;  text:  black
+    green: #06D6A0;   text:  black
+    blue: #00A8E8;    text:  white
+    dark: #073B4C;    text:  white
+/*
+
 /*****
   APP
 ******/
@@ -11,7 +32,7 @@ div#app {
   overflow: hidden;
   border-radius: 5px;
 
-  background-color: lightgrey;
+  background-color: #EBEBEB;
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -20,7 +41,7 @@ div#app {
 *******/
 
 nav#menu {
-  background-color: blue;
+  background-color: #3A6EA5;
 }
 
 nav#menu ul {
@@ -41,7 +62,7 @@ nav#menu li {
 }
 
 nav#menu li.active {
-  background-color: red;
+  background-color: #004E98;
 }
 
 nav#menu li a {
@@ -58,9 +79,32 @@ div#content {
   padding: 10px;
 }
 
-div#content .resource_metadata {
-  margin: auto 10px;
+.badge {
+  display: inline-block;
+
+  padding: 5px;
+  margin-right: 5px;
+
+  border-radius: 3px;
+
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+
+  letter-spacing: 0.5px;
 }
+
+.badge.external_reference { background-color: #00A8E8; color: white; }
+
+.badge.incident#severity.critical { background-color: #560BAD; color: white; }
+.badge.incident#severity.high     { background-color: #EF476F; color: white; }
+.badge.incident#severity.moderate { background-color: #FB8500; }
+.badge.incident#severity.low      { background-color: #FFD166; }
+.badge.incident#severity.minor    { background-color: #00A8E8; color: white; }
+
+.badge.incident#status.active        { background-color: #EF476F; color: white; }
+.badge.incident#status.investigating { background-color: #FB8500; }
+.badge.incident#status.stable        { background-color: #FFD166; }
+.badge.incident#status.resolved      { background-color: #06D6A0; }
+
 
 /***************
   RESOURCE LIST
@@ -69,7 +113,12 @@ div#content .resource_metadata {
 table#resource-list {
   width: 100%;
 
+  overflow: hidden;
+
   border-collapse: collapse;
+  border-radius: 3px;
+
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 table#resource-list th {
@@ -77,7 +126,7 @@ table#resource-list th {
 
   text-align: left;
 
-  background-color: blue;
+  background-color: #3A6EA5;
   color: white;
 }
 
@@ -85,7 +134,7 @@ table#resource-list th, table#resource-list td {
   padding: 8px;
 }
 
-table#resource-list tr {
+table#resource-list td {
   cursor: pointer;
 }
 
@@ -93,13 +142,16 @@ table#resource-list tr:nth-child(even){
   background-color: white;
 }
 
+table#resource-list tr:nth-child(odd){
+  background-color: #e1e5f2;
+}
+
 table#resource-list tr:hover {
-  background-color: lightgrey;
+  background-color: #EBEBEB;
 }
 
 table#resource-list tr.resource:hover {
-  background-color: grey;
-  color: white;
+  background-color: #C0C0C0;
 }
 
 table#resource-list td._show {
@@ -124,6 +176,83 @@ div#pagination a:hover {
   color: red;
 }
 
+/**********
+  RESOURCE
+***********/
+
+div#resource_metadata {
+  margin: auto 10px;
+}
+
+div#resource_metadata #description {
+  background-color: white;
+
+  border-radius: 3px;
+}
+
+div#resource_metadata #description p {
+  padding: 10px;
+}
+
+div#resource_metadata #target {
+  display: inline-block;
+
+  margin-right: 10px;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div#resource_metadata #target * {
+  display: inline-block;
+}
+
+/**********
+  TIMELINE
+***********/
+
+div.timeline {
+  margin-top: 50px;
+}
+
+div.timeline-vertical {
+  display: flex;
+
+  justify-content: center;
+}
+
+div.timeline-vertical .dot {
+  flex: 1;
+
+  text-align: center;
+}
+
+div.timeline-vertical .dot > * {
+  display: block;
+}
+
+div.timeline-vertical .dot .line {
+  display: flex;
+
+  width: 100%;
+
+  align-items: center;
+}
+
+div.timeline-vertical .dot .line .dot-icon {
+  flex: 1;
+}
+
+div.timeline-vertical .dot .line .padding-line, div.timeline-vertical .dot .line .connect-line {
+  flex: 6;
+}
+
+div.timeline-vertical .dot .line .connect-line {
+  height: 5px;
+
+  background-color: #C0C0C0;
+}
+
 /********
   FOOTER
 *********/
@@ -131,7 +260,7 @@ div#pagination a:hover {
 div#footer {
   padding: 5px;
 
-  background-color: grey;
+  background-color: #C0C0C0;
   color: white;
 }
 
@@ -150,7 +279,7 @@ div#footer a:hover {
 div#forms h3 {
   padding: 0 10px;
 
-  border-top: 5px solid grey;
+  border-top: 5px solid #C0C0C0;
 }
 
 form {
@@ -163,7 +292,7 @@ form .field {
   margin: 5px auto;
   padding: 5px;
 
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #C0C0C0;
 }
 
 form .field label, form .field input {

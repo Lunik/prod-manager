@@ -9,3 +9,11 @@ class ModelEnum(enum.Enum):
   def coerce(cls, item):
     item = cls(item) if not isinstance(item, cls) else item
     return item.value
+
+  def __gt__(self, other):
+    if isinstance(other, ModelEnum):
+      return (
+        self._member_names_.index(self.name) >
+        self._member_names_.index(other.name)
+      )
+    return NotImplemented
