@@ -19,6 +19,7 @@
   {% endfor %}
 </div>
 {% endif %}
+
 {% set dots = [("start_impact_date", "impact", (incident.start_impact_date | format_timeline_date("horizontal")), "⚠️")] %}
 {% if incident.investigation_date %}
   {% set dots = dots + [("investigation_date", "investigating", (incident.investigation_date | format_timeline_date("horizontal")), "🔍")] %}

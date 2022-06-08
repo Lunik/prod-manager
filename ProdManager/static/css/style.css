@@ -105,6 +105,10 @@ div#content {
 .badge.incident#status.stable        { background-color: #FFD166; }
 .badge.incident#status.resolved      { background-color: #06D6A0; }
 
+.badge.maintenance#status.scheduled   { background-color: #00A8E8; color: white; }
+.badge.maintenance#status.in-progress { background-color: #FFD166; }
+.badge.maintenance#status.succeed     { background-color: #06D6A0; }
+.badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
 
 /***************
   RESOURCE LIST
@@ -241,6 +245,8 @@ div.timeline-vertical .dot .line {
 
 div.timeline-vertical .dot .line .dot-icon {
   flex: 1;
+
+  margin: auto 5px;
 }
 
 div.timeline-vertical .dot .line .padding-line, div.timeline-vertical .dot .line .connect-line {

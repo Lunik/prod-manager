@@ -64,7 +64,7 @@ def create():
       scheduled_start_date=form.scheduled_start_date.data,
       scheduled_end_date=form.scheduled_end_date.data,
       service_status=ServiceStatus(form.service_status.data),
-      status=MaintenanceStatus.CREATED
+      status=MaintenanceStatus.SCHEDULED
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -117,47 +117,30 @@ def update(resource_id):
     ))
 
   new_maintenance_status = MaintenanceStatus(form.status.data)
-  if new_maintenance_status in [MaintenanceStatus.SHEDULED, MaintenanceStatus.IN_PROGRESS, MaintenanceStatus.SUCCESS, MaintenanceStatus.FAILED] \
-    and form.scheduled_start_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(scheduled_start_date="This field is required")
-    ))
-  if new_maintenance_status in [MaintenanceStatus.SHEDULED, MaintenanceStatus.IN_PROGRESS, MaintenanceStatus.SUCCESS, MaintenanceStatus.FAILED] \
-    and form.scheduled_end_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(scheduled_end_date="This field is required")
-    ))
+  new_data = dict(
+    name=form.name.data,
+    external_reference=form.external_reference.data,
+    description=form.description.data,
+    status=new_maintenance_status,
+    scheduled_start_date=form.scheduled_start_date.data,
+    scheduled_end_date=form.scheduled_end_date.data,
+    service_status=ServiceStatus(form.service_status.data),
+    scope_id=form.scope_id.data,
+    service_id=form.service_id.data,
+  )
 
+  if new_maintenance_status == MaintenanceStatus.IN_PROGRESS:
+    new_data["start_date"] = datetime.now()
+  elif new_maintenance_status < MaintenanceStatus.IN_PROGRESS:
+    new_data["start_date"] = None
 
-  if new_maintenance_status in [MaintenanceStatus.IN_PROGRESS, MaintenanceStatus.SUCCESS, MaintenanceStatus.FAILED] \
-    and form.start_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(start_date="This field is required")
-    ))
-  if new_maintenance_status in [MaintenanceStatus.SUCCESS, MaintenanceStatus.FAILED] \
-    and form.end_date.data is None:
-    abort(400, dict(
-      message="Incident update failed",
-      reasons=dict(end_date="This field is required")
-    ))
+  if new_maintenance_status in [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED]:
+    new_data["end_date"] = datetime.now()
+  elif new_maintenance_status < MaintenanceStatus.SUCCEED:
+    new_data["end_date"] = None
 
   try:
-    maintenance, _ = update_resource(Maintenance, resource_id, dict(
-      name=form.name.data,
-      external_reference=form.external_reference.data,
-      description=form.description.data,
-      status=MaintenanceStatus(form.status.data),
-      scheduled_start_date=form.scheduled_start_date.data,
-      scheduled_end_date=form.scheduled_end_date.data,
-      start_date=form.start_date.data,
-      end_date=form.end_date.data,
-      service_status=ServiceStatus(form.service_status.data),
-      scope_id=form.scope_id.data,
-      service_id=form.service_id.data,
-    ))
+    maintenance, _ = update_resource(Maintenance, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance update failed",

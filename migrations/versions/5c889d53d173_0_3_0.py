@@ -22,6 +22,7 @@ def upgrade():
     op.add_column('incident', sa.Column('investigation_date', sa.DateTime(), nullable=True))
     op.add_column('incident', sa.Column('stable_date', sa.DateTime(), nullable=True))
     op.alter_column("incident", "status", existing_type=sa.Enum('ACTIVE', 'INVESTIGATING', 'STABLE', 'RESOLVED', name='incidentstatus'))
+    op.alter_column("maintenance", "status", existing_type=sa.Enum('SCHEDULED', 'IN_PROGRESS', 'SUCCEED', 'FAILED', name='maintenancestatus'))
     # ### end Alembic commands ###
 
 
@@ -31,4 +32,5 @@ def downgrade():
     op.drop_column('incident', 'investigation_date')
     op.drop_column('incident', 'stable_date')
     op.alter_column("incident", "status", existing_type=sa.Enum('ACTIVE', 'STABLE', 'RESOLVED', 'COMPLETED', name='incidentstatus'))
+    op.alter_column("maintenance", "status", existing_type=sa.Enum('CREATED', 'VALIDATED', 'SHEDULED', 'IN_PROGRESS', 'SUCCESS', 'FAILED', name='maintenancestatus'))
     # ### end Alembic commands ###
