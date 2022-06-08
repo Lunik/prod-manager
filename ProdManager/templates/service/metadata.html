@@ -1,6 +1,5 @@
 {% if service.description %}
 <div id="description">
-  <h3 id="description">Description :</h3>
   {% for line in service.description.split('\n') %}
   <p>{{ line }}</p>
   {% endfor %}
