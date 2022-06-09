@@ -36,6 +36,10 @@ div#app {
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
 }
 
+.hidden {
+  display: none;
+}
+
 /******
   MENU
 *******/
@@ -109,6 +113,23 @@ div#content {
 .badge.maintenance#status.in-progress { background-color: #FFD166; }
 .badge.maintenance#status.succeed     { background-color: #06D6A0; }
 .badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
+
+.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: #06D6A0; }
+.badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: #FB8500; }
+.badge.maintenance#service_status.down, .badge.service#status.down         { background-color: #EF476F; color: white; }
+
+.error {
+  padding: 5px 20px;
+
+  background-color: #EF476F;
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.error .message {
+  font-size: bloc;
+}
 
 /***************
   RESOURCE LIST
@@ -184,6 +205,13 @@ div#pagination a:hover {
   RESOURCE
 ***********/
 
+a#back {
+  font-weight: bold;
+
+  text-decoration: none;
+}
+
+
 div#resource_metadata {
   margin: auto 10px;
 }
@@ -215,48 +243,99 @@ div#resource_metadata #target * {
   TIMELINE
 ***********/
 
-div.timeline {
-  margin-top: 50px;
-}
-
-div.timeline-vertical {
+div.timeline-horizontal {
   display: flex;
+
+  margin-top: 50px;
 
   justify-content: center;
 }
 
-div.timeline-vertical .dot {
+div.timeline-horizontal .dot {
   flex: 1;
 
   text-align: center;
 }
 
-div.timeline-vertical .dot > * {
+div.timeline-horizontal .dot > * {
   display: block;
 }
 
-div.timeline-vertical .dot .line {
+div.timeline-horizontal .dot .line {
   display: flex;
+  flex-direction: row;
 
   width: 100%;
 
   align-items: center;
 }
 
-div.timeline-vertical .dot .line .dot-icon {
+div.timeline-horizontal .dot .line .dot-icon {
   flex: 1;
 
   margin: auto 5px;
 }
 
-div.timeline-vertical .dot .line .padding-line, div.timeline-vertical .dot .line .connect-line {
+div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .line .connect-line {
   flex: 6;
 }
 
-div.timeline-vertical .dot .line .connect-line {
+div.timeline-horizontal .dot .line .connect-line {
   height: 5px;
 
   background-color: #C0C0C0;
+}
+
+div.timeline-vertical {
+  display: block;
+}
+
+div.timeline-vertical .dot {
+  display: flex;
+  flex-direction: column;
+
+  margin: 12px auto;
+  width: 70%;
+
+  background-color: #3A6EA5;
+  color: white;
+
+  border-radius: 3px;
+
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+div.timeline-vertical .dot .content {
+  flex: 1;
+
+  margin: auto 5px;
+  padding: 10px;
+}
+
+div.timeline-vertical .dot .content > * {
+  display: block;
+}
+
+div.timeline-vertical .dot .content .title {
+  margin: 5px auto;
+}
+
+div.timeline-vertical .dot .content .data {
+  margin-left: 20px;
+}
+
+div.timeline-vertical .dot .content .data .line {
+  margin: 3px auto;
+}
+
+div.timeline-vertical .dot .connect-line {
+  flex: 2;
+
+  width: 20px;
+
+  margin: -10px auto;
+
+  background-color: #3A6EA5;
 }
 
 /********
@@ -282,10 +361,11 @@ div#footer a:hover {
   FORM
 *******/
 
-div#forms h3 {
-  padding: 0 10px;
+div#forms .form-toogle {
+  height: 25px;
 
-  border-top: 5px solid #C0C0C0;
+  margin: 20px 10px;
+  padding: 0 10px;
 }
 
 form {

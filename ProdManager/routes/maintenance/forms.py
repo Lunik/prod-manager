@@ -1,9 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from markupsafe import escape
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Optional
+
+from ProdManager.helpers.date import current_date
 
 from ProdManager.models.Maintenance import MaintenanceStatus
 from ProdManager.models.Service import ServiceStatus
@@ -22,13 +24,13 @@ class MaintenanceCreateForm(FlaskForm):
   )
   scheduled_start_date = DateTimeLocalField(
     name='scheduled start date',
-    default=datetime.now(),
+    default=current_date(),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   scheduled_end_date = DateTimeLocalField(
     name='scheduled end date',
-    default=datetime.now() + timedelta(hours=1),
+    default=current_date() + timedelta(hours=1),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
@@ -53,16 +55,20 @@ class MaintenanceUpdateForm(FlaskForm):
   )
   scheduled_start_date = DateTimeLocalField(
     name='scheduled start date',
-    default=datetime.now(),
+    default=current_date(),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   scheduled_end_date = DateTimeLocalField(
     name='scheduled end date',
-    default=datetime.now() + timedelta(hours=1),
+    default=current_date() + timedelta(hours=1),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
+
+class MaintenanceCommentForm(FlaskForm):
+  comment = TextAreaField(name='comment', validators=[DataRequired()])
+
 
 class MaintenanceDeleteForm(FlaskForm):
   pass

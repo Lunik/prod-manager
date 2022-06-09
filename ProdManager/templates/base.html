@@ -28,7 +28,7 @@
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
               <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
             </li>
-            {% if g.jwt %}
+            {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">
               <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
             </li>
@@ -42,14 +42,7 @@
       </div>
       <div id="content">
         {% if error %}
-          <p id="error">{{ error.message }}</p>
-          {% if "reasons" in error %}
-          <ul>
-          {% for param, message in error.reasons.items() %}
-            <li>{{ param }} : {{ message }}</li>
-          {% endfor %}
-          </ul>
-          {% endif %}
+          {% include "fragments/error.html" %}
         {% endif %}
         {% block content %}{% endblock %}
       </div>
@@ -58,5 +51,6 @@
         Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>
       </div>
     </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

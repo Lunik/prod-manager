@@ -1,10 +1,10 @@
 from sqlalchemy import Integer, Column, ForeignKey
 
 from ProdManager import db
-from .Comment import Comment
+from .Event import Event
 
-class IncidentComment(Comment, db.Model):
+class IncidentEvent(Event, db.Model):
   incident_id = Column(Integer, ForeignKey('incident.id'), nullable=False)
 
   def __repr__(self):
-    return f"<IncidentComment '{self.id}'>"
+    return f"<IncidentEvent '{self.id}'>"

@@ -1,7 +1,10 @@
 from flask import Blueprint,url_for, render_template, redirect, abort
 
 from ProdManager.helpers.auth import login_required
-from ProdManager.helpers.resource import create_resource, list_resources, get_resource, update_resource, delete_resource
+from ProdManager.helpers.resource import (
+  create_resource, list_resources, get_resource,
+  update_resource, delete_resource,
+)
 from ProdManager.models.Scope import Scope
 from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
 from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance

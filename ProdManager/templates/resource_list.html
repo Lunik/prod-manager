@@ -29,11 +29,10 @@
   </div>
 {% endif %}
 
-{% if g.jwt %}
+{% if g.logged %}
 <div id="forms">
   {% if create_form %} 
-    <h3>Create new {{ resource_type }}</h3>
-    {% with form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value="Create", form=create_form %}
+    {% with form_title="Create new " + resource_type, form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value="Create", form=create_form %}
       {% include "fragments/form.html" %}
     {% endwith %}
   {% endif %}

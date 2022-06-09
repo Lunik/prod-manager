@@ -4,6 +4,33 @@
 
 ### Added
 
+- feat(view.Auth): Logout users after a defined amount of time
+- feat(template.\*): Improve error style display
+- feat(forms.\*): Add toggle button on forms
+- feat(helpers.\*): Add new helpers
+- feat(template.fragments): Add vertical timeline
+- feat(\*.Incident): Allow to comment an incident
+- feat(\*.Incident): Track creation and modification to the incident
+- feat(\*.Maintenance): Allow to comment a maintenance
+- feat(\*.Maintenance): Track creation and modification to the maintenance
+- feat(\*.style): Enchancments
+- feat(template.Maintenance): Show service status badge
+- feat(template.Service): Add status badge
+
+### Changed
+
+- change(\*.Auth): Removed jwt token authentication
+- change(model.Event): Rename model '\*Comment' in '\*Event'
+
+### Fixed
+
+### Breaking Change
+
+
+## 0.3.0
+
+### Added
+
 - feat(template): Add new filter 'format_column_name' to beautify the column name for tables
 - feat(template.Service): Display service status
 - feat(view.Service): Allow to update service status

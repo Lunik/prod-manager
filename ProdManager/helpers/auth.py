@@ -1,18 +1,17 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 import functools
 
-import jwt
-from flask import session, current_app, redirect, url_for, g, abort, request
+from flask import session, redirect, url_for, g, abort
 
 def retreiv_auth():
-  g.jwt = None
+  logged_until = session.get("logged_until", None)
 
-  jwt_token = request.headers.get('X-PRIVATE-TOKEN') or session.get("jwt")
+  #raise Exception(logged_until)
 
-  if jwt_token:
-    is_valid, playload, _ = verify_jwt(jwt_token)
-    if is_valid:
-      g.jwt = playload
+  if logged_until and (datetime.now() > datetime.fromtimestamp(logged_until)):
+    session.clear()
+
+  g.logged = session.get("logged", None)
 
 
 def login_required(view):
@@ -20,7 +19,7 @@ def login_required(view):
 
   @functools.wraps(view)
   def wrapped_view(**kwargs):
-    if g.jwt:
+    if g.logged:
       return view(**kwargs)
 
     return abort(403)
@@ -33,42 +32,9 @@ def logout_required(view):
 
   @functools.wraps(view)
   def wrapped_view(**kwargs):
-    if g.jwt:
+    if g.logged:
       return redirect(url_for('root.index'))
 
     return view(**kwargs)
 
   return wrapped_view
-
-
-def generate_jwt(days, hours, minutes, seconds, metadata=None):
-  playload = dict(
-    iss=current_app.config['APP_NAME'],
-    iat=datetime.now(),
-    exp=datetime.now() + timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds),
-    metadata=metadata or dict(),
-  )
-
-  return jwt.encode(
-    playload,
-    current_app.config['SECRET_KEY'],
-    algorithm=current_app.config['JWT_ALGORITHM'],
-  )
-
-
-def verify_jwt(encoded):
-  is_valid = True
-  playload = dict()
-  error = None
-
-  try:
-    playload = jwt.decode(
-      encoded,
-      current_app.config['SECRET_KEY'],
-      algorithms=current_app.config['JWT_ALGORITHM'],
-    )
-  except Exception as err:
-    is_valid = False
-    error = err
-
-  return is_valid, playload, error

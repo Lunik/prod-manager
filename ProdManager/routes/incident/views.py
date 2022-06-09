@@ -1,5 +1,6 @@
-from datetime import datetime
-from flask import Blueprint,url_for, render_template, redirect, abort
+import json
+
+from flask import Blueprint,url_for, render_template, redirect, abort, current_app
 
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
@@ -10,12 +11,16 @@ from ProdManager.helpers.resource import (
   delete_resource,
   list_resources_as_choices
 )
+from ProdManager.helpers.date import current_date
+from ProdManager.helpers.json import json_defaults
 
 from ProdManager.models.Incident import Incident, IncidentSeverity, IncidentStatus
 from ProdManager.models.Scope import Scope
 from ProdManager.models.Service import Service
+from ProdManager.models.Event import EventType
+from ProdManager.models.IncidentEvent import IncidentEvent
 
-from .forms import IncidentCreateForm, IncidentUpdateForm, IncidentDeleteForm
+from .forms import IncidentCreateForm, IncidentUpdateForm, IncidentCommentForm, IncidentDeleteForm
 
 bp = Blueprint("incident", __name__)
 
@@ -59,16 +64,26 @@ def create():
       description=form.description.data,
       severity=IncidentSeverity(form.severity.data),
       external_reference=form.external_reference.data,
-      scope_id=form.scope_id.data,
-      service_id=form.service_id.data,
-      creation_date=datetime.now(),
-      start_impact_date=datetime.now(),
+      scope_id=int(form.scope_id.data),
+      service_id=int(form.service_id.data),
+      creation_date=current_date(),
+      start_impact_date=current_date(),
     ))
   except Exception as error:
     return abort(error.code, dict(
       message="Incident creation failed",
       reasons=dict(incident=error.message)
     ))
+
+  try:
+    _ = create_resource(IncidentEvent, dict(
+      creation_date=current_date(rounded=False),
+      type=EventType.CREATE,
+      content=json.dumps(incident.serialize, default=json_defaults),
+      incident_id=incident.id,
+    ))
+  except Exception as error:
+    current_app.logger.error(f"Unable to create event during Incident creation : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 
@@ -93,7 +108,8 @@ def show(resource_id):
   return render_template("incident/single.html",
     incident=incident,
     update_form=update_form,
-    delete_form=IncidentDeleteForm(obj=incident)
+    comment_form=IncidentCommentForm(),
+    delete_form=IncidentDeleteForm(obj=incident),
   ), 200
 
 
@@ -121,35 +137,76 @@ def update(resource_id):
     severity=IncidentSeverity(form.severity.data),
     status=new_incident_status,
     external_reference=form.external_reference.data,
-    scope_id=form.scope_id.data,
-    service_id=form.service_id.data,
+    scope_id=int(form.scope_id.data),
+    service_id=int(form.service_id.data),
     start_impact_date=form.start_impact_date.data,
   )
 
   if new_incident_status == IncidentStatus.INVESTIGATING:
-    new_data["investigation_date"] = datetime.now()
+    new_data["investigation_date"] = current_date()
   elif new_incident_status < IncidentStatus.INVESTIGATING:
     new_data["investigation_date"] = None
 
   if new_incident_status == IncidentStatus.STABLE:
-    new_data["stable_date"] = datetime.now()
+    new_data["stable_date"] = current_date()
   elif new_incident_status < IncidentStatus.STABLE:
     new_data["stable_date"] = None
 
   if new_incident_status == IncidentStatus.RESOLVED:
-    new_data["resolve_date"] = datetime.now()
+    new_data["resolve_date"] = current_date()
   elif new_incident_status < IncidentStatus.RESOLVED:
     new_data["resolve_date"] = None
 
   try:
-    incident, _ = update_resource(Incident, resource_id, new_data)
+    incident, changed = update_resource(Incident, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message="Incident update failed",
       reasons=dict(incident=error.message)
     ))
 
+  if len(changed) > 0:
+    try:
+      _ = create_resource(IncidentEvent, dict(
+        creation_date=current_date(rounded=False),
+        type=EventType.UPDATE,
+        content=json.dumps(changed, default=json_defaults),
+        incident_id=incident.id,
+      ))
+    except Exception as error:
+      current_app.logger.error(f"Unable to create event during Incident update : {error}")
+
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
+
+#############
+## COMMENT ##
+#############
+
+@bp.route("/<int:resource_id>/comment", methods=("POST",))
+@login_required
+def comment(resource_id):
+  form = IncidentCommentForm()
+
+  if not form.validate_on_submit():
+    abort(400, dict(
+      message="Incident comment failed",
+      reasons=form.errors
+    ))
+
+  try:
+    _ = create_resource(IncidentEvent, dict(
+      creation_date=current_date(rounded=False),
+      type=EventType.COMMENT,
+      content=form.comment.data,
+      incident_id=resource_id,
+    ))
+  except Exception as error:
+    return abort(error.code, dict(
+      message="Incident update failed",
+      reasons=dict(incident=error.message)
+    ))
+
+  return redirect(url_for('incident.show', resource_id=resource_id), 302)
 
 ############
 ## DELETE ##

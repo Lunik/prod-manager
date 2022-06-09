@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 
-from .IncidentComment import IncidentComment
+from .IncidentEvent import IncidentEvent
 
 class IncidentSeverity(ModelEnum):
   CRITICAL = 'critical'
@@ -33,16 +33,33 @@ class Incident(db.Model):
   investigation_date = Column(DateTime(), nullable=True)
   stable_date = Column(DateTime(), nullable=True)
   resolve_date = Column(DateTime(), nullable=True)
-  comments = relationship(
-    'IncidentComment',
+  events = relationship(
+    'IncidentEvent',
     backref='incident',
     lazy='dynamic',
-    order_by='desc(IncidentComment.creation_date)',
+    order_by='desc(IncidentEvent.creation_date)',
     cascade="all, delete",
   )
 
   def __repr__(self):
     return f"<Incident '{self.name}'>"
+
+  @property
+  def serialize(self):
+    return dict(
+      name=self.name,
+      description=self.description,
+      external_reference=self.external_reference,
+      status=self.status.name,
+      severity=self.severity.name,
+      scope=self.scope.name,
+      service=self.service.name,
+      creation_date=self.creation_date,
+      start_impact_date=self.start_impact_date,
+      investigation_date=self.investigation_date,
+      stable_date=self.stable_date,
+      resolve_date=self.resolve_date,
+    )
 
 def filter_ongoing_incident(query, limit=10):
   return query.filter(

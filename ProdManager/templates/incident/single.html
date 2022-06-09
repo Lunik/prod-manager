@@ -6,3 +6,13 @@
 {% block resource_metadata %}
   {% include "incident/metadata.html" %}
 {% endblock %}
+
+dot_id, dot_title, dot_date, dot_icon
+
+{% block resource_extra_content %}
+  {% set dots = [] %}
+  {% for event in incident.events %}
+    {% set __ = dots.append((event.type.value, event.type.value.capitalize() + " incident", event.get_content(), event.creation_date)) %}
+  {% endfor %}
+  {% include "fragments/timeline/vertical.html" %}
+{% endblock %}

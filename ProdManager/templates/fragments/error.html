@@ -1,0 +1,10 @@
+<div class="error">
+  <p class="message">{{ error.message }}</h3>
+  {% if "reasons" in error %}
+    <ul class="reasons">
+      {% for attribute, reason in error.reasons.items() %}
+      <li class="reason">{{ attribute }} : {{ reason }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

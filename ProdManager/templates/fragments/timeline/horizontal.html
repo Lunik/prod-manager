@@ -1,4 +1,4 @@
-<div class="timeline timeline-vertical">
+<div class="timeline timeline-horizontal">
   {% for dot_id, dot_title, dot_date, dot_icon in dots %}
     <div class="dot" id="{{ dot_id }}">
       <div class="line">
@@ -15,7 +15,7 @@
         {% endif %}
       </div>
       <p>{{ dot_title | format_column_name }}</p>
-      <p>{{ dot_date }}</p>
+      <p>{{ dot_date | format_timeline_date }}</p>
     </div>
   {% endfor %}
 </div>

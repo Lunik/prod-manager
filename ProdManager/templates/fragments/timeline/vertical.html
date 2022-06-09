@@ -1,0 +1,33 @@
+<div class="timeline timeline-vertical">
+  {% for dot_type, dot_title, dot_content, dot_date in dots %}
+    <div class="dot">
+      {% if not loop.first %}
+        <div class="connect-line"> </div>
+      {% endif %}
+      <div class="content">
+        <p class="date">{{ dot_date | format_timeline_date }}</p>
+        <h4 class="title">{{ dot_title }}</h4>
+        <div class="data">
+          {% if dot_type in ['create', 'update'] %}
+            {% for attribute, value in dot_content.items() %}
+              {% if dot_type == 'create' %}
+                {% if (value is not none) and (value != "") %}
+                  <p class="line">{{ attribute }} = {{ value }}</p>
+                {% endif %}
+              {% elif dot_type == 'update' %}
+                <p class="line">{{ attribute }} : {{ value[0] }} => {{ value[1] }}</p>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for line in dot_content.split('\n') %}
+              <p class="line">{{ line }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      {% if not loop.last %}
+        <div class="connect-line"> </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
