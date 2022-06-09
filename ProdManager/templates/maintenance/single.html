@@ -6,3 +6,11 @@
 {% block resource_metadata %}
   {% include "maintenance/metadata.html" %}
 {% endblock %}
+
+{% block resource_extra_content %}
+  {% set dots = [] %}
+  {% for event in maintenance.events %}
+    {% set __ = dots.append((event.type.value, event.type.value.capitalize() + " maintenance", event.get_content(), event.creation_date)) %}
+  {% endfor %}
+  {% include "fragments/timeline/vertical.html" %}
+{% endblock %}

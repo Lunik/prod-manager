@@ -4,6 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Optional
 
+from ProdManager.helpers.date import current_date
+
 from ProdManager.models.Incident import IncidentSeverity, IncidentStatus
 
 class IncidentCreateForm(FlaskForm):
@@ -20,7 +22,7 @@ class IncidentCreateForm(FlaskForm):
   )
   start_impact_date = DateTimeLocalField(
     name='start impact date',
-    default=datetime.now(),
+    default=current_date(),
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M',
   )
@@ -45,10 +47,13 @@ class IncidentUpdateForm(FlaskForm):
     )
   start_impact_date = DateTimeLocalField(
     name='start impact date',
-    default=datetime.now(),
+    default=current_date(),
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M',
   )
+
+class IncidentCommentForm(FlaskForm):
+  comment = TextAreaField(name='comment', validators=[DataRequired()])
 
 class IncidentDeleteForm(FlaskForm):
   pass

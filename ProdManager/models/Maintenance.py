@@ -5,7 +5,7 @@ from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 
 from .Service import ServiceStatus
-from .MaintenanceComment import MaintenanceComment
+from .MaintenanceEvent import MaintenanceEvent
 
 class MaintenanceStatus(ModelEnum):
   SCHEDULED = 'scheduled'
@@ -27,16 +27,33 @@ class Maintenance(db.Model):
   scheduled_end_date = Column(DateTime(), nullable=False)
   start_date = Column(DateTime(), nullable=True)
   end_date = Column(DateTime(), nullable=True)
-  comments = relationship(
-    'MaintenanceComment',
+  events = relationship(
+    'MaintenanceEvent',
     backref='maintenance',
     lazy='dynamic',
-    order_by='desc(MaintenanceComment.creation_date)',
+    order_by='desc(MaintenanceEvent.creation_date)',
     cascade="all, delete",
-)
+  )
 
   def __repr__(self):
     return f"<Maintenance '{self.name}'>"
+
+  @property
+  def serialize(self):
+    return dict(
+      name=self.name,
+      description=self.description,
+      external_reference=self.external_reference,
+      status=self.status.name,
+      scope=self.scope.name,
+      service=self.service.name,
+      service_status=self.service_status.name,
+      creation_date=self.creation_date,
+      scheduled_start_date=self.scheduled_start_date,
+      scheduled_end_date=self.scheduled_end_date,
+      start_date=self.start_date,
+      end_date=self.end_date,
+    )
 
 def filter_ongoing_maintenance(query, limit=10):
   return query.filter(
