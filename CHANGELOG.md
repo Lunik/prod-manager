@@ -4,6 +4,8 @@
 
 ### Added
 
+- feat(view.Auth): Logout users after a defined amount of time
+
 ### Changed
 
 - change(\*.Auth): Removed jwt token authentication

@@ -1,8 +1,16 @@
+from datetime import datetime
 import functools
 
 from flask import session, redirect, url_for, g, abort
 
 def retreiv_auth():
+  logged_until = session.get("logged_until", None)
+
+  #raise Exception(logged_until)
+
+  if logged_until and (datetime.now() > datetime.fromtimestamp(logged_until)):
+    session.clear()
+
   g.logged = session.get("logged", None)
 
 

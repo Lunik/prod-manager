@@ -52,8 +52,8 @@ def do_login(form):
 
   session.clear()
   session["logged"] = True
-  session["logged_at"] = datetime.now()
-  session["logged_until"] = datetime.now() + timedelta(days=1)
+  session["logged_at"] = datetime.now().timestamp()
+  session["logged_until"] = (datetime.now() + timedelta(days=1)).timestamp()
 
   return url_for('root.index'), None, None
 
