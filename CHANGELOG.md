@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+
+## 0.4.0
+
 ### Added
 
 - feat(view.Auth): Logout users after a defined amount of time
@@ -21,10 +24,6 @@
 
 - change(\*.Auth): Removed jwt token authentication
 - change(model.Event): Rename model '\*Comment' in '\*Event'
-
-### Fixed
-
-### Breaking Change
 
 
 ## 0.3.0
