@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
-from ProdManager.helpers.date import beautifull_date
 
 from .IncidentEvent import IncidentEvent
 

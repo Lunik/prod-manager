@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint,url_for, render_template, redirect, abort
+from flask import Blueprint,url_for, render_template, redirect, abort, current_app
 
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
@@ -76,7 +76,7 @@ def create():
     ))
 
   try:
-    event = create_resource(IncidentEvent, dict(
+    _ = create_resource(IncidentEvent, dict(
       creation_date=current_date(rounded=False),
       type=EventType.CREATE,
       content=json.dumps(incident.serialize, default=json_defaults),
@@ -167,7 +167,7 @@ def update(resource_id):
 
   if len(changed) > 0:
     try:
-      event = create_resource(IncidentEvent, dict(
+      _ = create_resource(IncidentEvent, dict(
         creation_date=current_date(rounded=False),
         type=EventType.UPDATE,
         content=json.dumps(changed, default=json_defaults),
@@ -194,7 +194,7 @@ def comment(resource_id):
     ))
 
   try:
-    event = create_resource(IncidentEvent, dict(
+    _ = create_resource(IncidentEvent, dict(
       creation_date=current_date(rounded=False),
       type=EventType.COMMENT,
       content=form.comment.data,

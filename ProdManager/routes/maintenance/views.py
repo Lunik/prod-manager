@@ -19,7 +19,10 @@ from ProdManager.models.Service import Service, ServiceStatus
 from ProdManager.models.Event import EventType
 from ProdManager.models.MaintenanceEvent import MaintenanceEvent
 
-from .forms import MaintenanceCreateForm, MaintenanceUpdateForm, MaintenanceCommentForm, MaintenanceDeleteForm
+from .forms import (
+  MaintenanceCreateForm, MaintenanceUpdateForm, MaintenanceCommentForm,
+  MaintenanceDeleteForm,
+)
 
 bp = Blueprint("maintenance", __name__)
 
@@ -77,7 +80,7 @@ def create():
     ))
 
   try:
-    event = create_resource(MaintenanceEvent, dict(
+    _ = create_resource(MaintenanceEvent, dict(
       creation_date=current_date(rounded=False),
       type=EventType.CREATE,
       content=json.dumps(maintenance.serialize, default=json_defaults),
@@ -164,7 +167,7 @@ def update(resource_id):
 
   if len(changed) > 0:
     try:
-      event = create_resource(MaintenanceEvent, dict(
+      _ = create_resource(MaintenanceEvent, dict(
         creation_date=current_date(rounded=False),
         type=EventType.UPDATE,
         content=json.dumps(changed, default=json_defaults),
@@ -191,7 +194,7 @@ def comment(resource_id):
     ))
 
   try:
-    event = create_resource(MaintenanceEvent, dict(
+    _ = create_resource(MaintenanceEvent, dict(
       creation_date=current_date(rounded=False),
       type=EventType.COMMENT,
       content=form.comment.data,

@@ -38,7 +38,7 @@ def update_resource(resource_class, ressource_id, attributs):
 
   for attribute, new_value in attributs.items():
     old_value = getattr(resource, attribute)
-    
+
     if old_value != new_value:
       setattr(resource, attribute, new_value)
       changed[attribute] = (old_value, new_value)
