@@ -11,7 +11,12 @@ class ServiceCreateForm(FlaskForm):
 class ServiceUpdateForm(FlaskForm):
   name = StringField(name='name', validators=[DataRequired(), Length(min=3)])
   description = TextAreaField(name='description', validators=[])
-  status = SelectField(name='status', validators=[DataRequired()], choices=ServiceStatus.choices(), coerce=ServiceStatus.coerce)
+  status = SelectField(
+    name='status',
+    validators=[DataRequired()],
+    choices=ServiceStatus.choices(),
+    coerce=ServiceStatus.coerce,
+  )
 
 class ServiceDeleteForm(FlaskForm):
   pass

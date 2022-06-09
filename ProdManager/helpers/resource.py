@@ -1,7 +1,10 @@
 from flask import current_app
 from sqlalchemy.exc import IntegrityError
 from ProdManager import db
-from ProdManager.helpers.response import NotFoundError, ServerError, ConflictError, UndeletableRessourceError, DependencyError
+from ProdManager.helpers.response import (
+  NotFoundError, ServerError, ConflictError,
+  UndeletableRessourceError, DependencyError,
+)
 
 def list_resources(ressource_class):
   # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate

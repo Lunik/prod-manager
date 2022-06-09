@@ -1,8 +1,12 @@
 
 from flask import Blueprint, render_template
 
-from ProdManager.models.Incident import Incident, filter_ongoing_incident, filter_past_incident
-from ProdManager.models.Maintenance import Maintenance, filter_ongoing_maintenance, filter_past_maintenance
+from ProdManager.models.Incident import (
+  Incident, filter_ongoing_incident, filter_past_incident,
+)
+from ProdManager.models.Maintenance import (
+  Maintenance, filter_ongoing_maintenance, filter_past_maintenance,
+)
 
 bp = Blueprint("root", __name__, url_prefix="/")
 

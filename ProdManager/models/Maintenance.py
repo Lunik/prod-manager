@@ -32,7 +32,7 @@ class Maintenance(db.Model):
     backref='maintenance',
     lazy='dynamic',
     order_by='desc(MaintenanceComment.creation_date)',
-    cascade="all, delete"
+    cascade="all, delete",
 )
 
   def __repr__(self):

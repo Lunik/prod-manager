@@ -1,6 +1,4 @@
-import enum
-
-from sqlalchemy import String, Integer, Column, ForeignKey, Enum, UniqueConstraint, Boolean
+from sqlalchemy import String, Integer, Column, Enum
 from sqlalchemy.orm import relationship
 
 from ProdManager import db
@@ -16,8 +14,18 @@ class Service(db.Model):
   name = Column(String(), unique=True, nullable=False)
   description = Column(String(), nullable=True)
   status = Column(Enum(ServiceStatus), nullable=False, default=ServiceStatus.UP)
-  incidents = relationship('Incident', backref='service', lazy='dynamic', order_by='desc(Incident.creation_date)')
-  maintenances = relationship('Maintenance', backref='service', lazy='dynamic', order_by='desc(Maintenance.creation_date)')
+  incidents = relationship(
+    'Incident',
+    backref='service',
+    lazy='dynamic',
+    order_by='desc(Incident.creation_date)'
+  )
+  maintenances = relationship(
+    'Maintenance',
+    backref='service',
+    lazy='dynamic',
+    order_by='desc(Maintenance.creation_date)'
+  )
 
   def __repr__(self):
     return f"<Service '{self.name}'>"

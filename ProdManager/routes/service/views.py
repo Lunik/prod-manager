@@ -8,7 +8,6 @@ from ProdManager.helpers.resource import (
   get_resource,
   update_resource,
   delete_resource,
-  list_resources_as_choices
 )
 
 from ProdManager.models.Service import Service, ServiceStatus
