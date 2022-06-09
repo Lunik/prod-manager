@@ -7,10 +7,18 @@
 - feat(view.Auth): Logout users after a defined amount of time
 - feat(template.\*): Improve error style display
 - feat(forms.\*): Add toggle button on forms
+- feat(helpers.\*): Add new helpers
+- feat(template.fragments): Add vertical timeline
+- feat(\*.Incident): Allow to comment an incident
+- feat(\*.Incident): Track creation and modification to the incident
+- feat(\*.Maintenance): Allow to comment a maintenance
+- feat(\*.Maintenance): Track creation and modification to the maintenance
+- feat(\*.style): Enchancments
 
 ### Changed
 
 - change(\*.Auth): Removed jwt token authentication
+- change(model.Event): Rename model '\*Comment' in '\*Event'
 
 ### Fixed
 
