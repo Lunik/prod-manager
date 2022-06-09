@@ -11,14 +11,14 @@
       {% set attr = resource[key] %}
       <td class="{{ type }}">
         {% if type == "enum" %}  
-          {{ attr.name }}
+          <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">{{ attr.name }}</div>
         {% elif type == "count" %}
           {{ attr.count() }}
         {% elif type == "obj" %}
           {{ attr.name }}
         {% elif type == "date" %}
           {% if attr %}
-            {{ attr.strftime('%d/%m/%Y at %H:%M') }}
+            {{ attr | format_timeline_date }}
           {% else %}
             {{ attr }}
           {% endif %}

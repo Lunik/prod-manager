@@ -114,6 +114,10 @@ div#content {
 .badge.maintenance#status.succeed     { background-color: #06D6A0; }
 .badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
 
+.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: #06D6A0; }
+.badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: #FB8500; }
+.badge.maintenance#service_status.down, .badge.service#status.down         { background-color: #EF476F; color: white; }
+
 .error {
   padding: 5px 20px;
 

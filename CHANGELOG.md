@@ -14,6 +14,8 @@
 - feat(\*.Maintenance): Allow to comment a maintenance
 - feat(\*.Maintenance): Track creation and modification to the maintenance
 - feat(\*.style): Enchancments
+- feat(template.Maintenance): Show service status badge
+- feat(template.Service): Add status badge
 
 ### Changed
 
