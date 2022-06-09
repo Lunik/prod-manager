@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import Blueprint,url_for, render_template, redirect
 from flask import current_app
@@ -6,62 +6,10 @@ from flask import g
 from flask import request
 from flask import session
 
-from ProdManager.helpers.auth import logout_required, generate_jwt, verify_jwt
-from .forms import AuthTokenForm, AuthLoginForm
+from ProdManager.helpers.auth import logout_required
+from .forms import AuthLoginForm
 
 bp = Blueprint("auth", __name__)
-
-###########
-## TOKEN ##
-###########
-
-@bp.route("/token", methods=("GET", "POST",))
-def token():
-  form = AuthTokenForm()
-
-  token, error, code = dict(
-    GET=show_generate_token,
-    POST=do_generate_token
-  )[request.method](form)
-
-  return render_template("auth/token.html",
-    token=token,
-    error=error,
-    form=form
-  ), code
-
-def show_generate_token(form):
-  return None, None, 200
-
-def do_generate_token(form):
-  if not form.validate_on_submit():
-    return None, dict(
-      message="Token generation failed",
-      reasons=form.errors
-    ), 400
-
-  if form.secret.data != current_app.config['SECRET_KEY']:
-    return None, dict(
-      message="Token generation failed",
-      reasons=dict(secret="Invalid secret key")
-    ), 400
-
-  delta = form.expiration.data - datetime.now()
-
-  duration = dict(
-    days=delta.days,
-    hours=0,
-    minutes=0,
-    seconds=delta.seconds
-  )
-
-  token = generate_jwt(
-    metadata=dict(
-      remote_addr=request.remote_addr
-    ), **duration
-  )
-
-  return token, None, 200
 
 ###########
 ## LOGIN ##
@@ -86,7 +34,7 @@ def login():
     form=form
   ), code
 
-def show_login(form):
+def show_login(_):
   return None, None, 200
 
 def do_login(form):
@@ -96,15 +44,16 @@ def do_login(form):
       reasons=form.errors
     ), 400
 
-  jwt_is_valid, _, jwt_error = verify_jwt(form.token.data)
-  if not jwt_is_valid:
+  if form.secret.data != current_app.config['SECRET_KEY']:
     return None, dict(
       message="Login failed",
-      reasons=dict(token=jwt_error)
+      reasons=dict(secret="Invalid secret")
     ), 400
 
   session.clear()
-  session["jwt"] = form.token.data
+  session["logged"] = True
+  session["logged_at"] = datetime.now()
+  session["logged_until"] = datetime.now() + timedelta(days=1)
 
   return url_for('root.index'), None, None
 
@@ -123,4 +72,4 @@ def logout():
 
 @bp.route("/logged", methods=("GET",))
 def whoami():
-  return str(g.jwt is not None)
+  return str(g.logged is not None)

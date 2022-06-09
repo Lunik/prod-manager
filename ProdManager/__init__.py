@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 
 from flask import Flask, session, g
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 
@@ -28,7 +27,6 @@ def create_app():
       "changeit"
     ),
     APP_NAME="ProdManager",
-    JWT_ALGORITHM="HS256",
     SESSION_COOKIE_NAME=os.environ.get(
       "PM_SESSION_COOKIE_NAME",
       "session_BREAKING_THE_PRODUCTION"

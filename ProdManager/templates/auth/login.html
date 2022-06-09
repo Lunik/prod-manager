@@ -7,9 +7,8 @@
 <div id="form">
   <form id="login" method="post">
     {{ form.csrf_token }}
-    {{ form.token.label }} : {{ form.token }}
+    {{ form.secret.label }} : {{ form.secret }}
     <input type="submit" value="Login" />
   </form>
 </div>
-<a id="token" href="{{ url_for('auth.token')}}">Generate token</a>
 {% endblock %}

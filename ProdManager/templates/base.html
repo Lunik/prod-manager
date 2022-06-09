@@ -28,7 +28,7 @@
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
               <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
             </li>
-            {% if g.jwt %}
+            {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">
               <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
             </li>

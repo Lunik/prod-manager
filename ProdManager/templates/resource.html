@@ -11,7 +11,7 @@
     {% block resource_extra_content %}{% endblock %}
   </div>
 
-  {% if g.jwt %}
+  {% if g.logged %}
     <div id="forms">
       {% if update_form %}
         <h3>Edit {{ resource_type }} info</h3>

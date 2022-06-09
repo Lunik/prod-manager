@@ -6,6 +6,8 @@
 
 ### Changed
 
+- change(\*.Auth): Removed jwt token authentication
+
 ### Fixed
 
 ### Breaking Change
