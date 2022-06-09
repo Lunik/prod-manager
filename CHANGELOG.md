@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## 0.4.1
+
+### Changed
+
+- feat(template.base): Change footer
+
 
 ## 0.4.0
 
