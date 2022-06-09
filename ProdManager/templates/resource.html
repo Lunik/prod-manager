@@ -14,22 +14,19 @@
   {% if g.logged %}
     <div id="forms">
       {% if update_form %}
-        <h3>Edit the {{ resource_type }} info</h3>
-        {% with form_id="update-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.update', resource_id=resource.id), form_submit_value="Update", form=update_form %}
+        {% with form_title="Edit the " + resource_type + " info", form_id="update-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.update', resource_id=resource.id), form_submit_value="Update", form=update_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
 
       {% if comment_form %}
-        <h3>Add a comment to the {{ resource_type }}</h3>
-        {% with form_id="comment-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.comment', resource_id=resource.id), form_submit_value="Comment", form=comment_form %}
+        {% with form_title="Add a comment to the " + resource_type, form_id="comment-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.comment', resource_id=resource.id), form_submit_value="Comment", form=comment_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
 
       {% if delete_form %}
-        <h3>Delete the {{ resource_type }}</h3>
-        {% with form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value="Delete", form=delete_form %}
+        {% with form_title="Delete the " + resource_type, form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value="Delete", form=delete_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
