@@ -205,6 +205,13 @@ div#pagination a:hover {
   RESOURCE
 ***********/
 
+a#back {
+  font-weight: bold;
+
+  text-decoration: none;
+}
+
+
 div#resource_metadata {
   margin: auto 10px;
 }
