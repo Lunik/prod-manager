@@ -42,14 +42,7 @@
       </div>
       <div id="content">
         {% if error %}
-          <p id="error">{{ error.message }}</p>
-          {% if "reasons" in error %}
-          <ul>
-          {% for param, message in error.reasons.items() %}
-            <li>{{ param }} : {{ message }}</li>
-          {% endfor %}
-          </ul>
-          {% endif %}
+          {% include "fragments/error.html" %}
         {% endif %}
         {% block content %}{% endblock %}
       </div>

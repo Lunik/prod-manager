@@ -5,6 +5,7 @@
 ### Added
 
 - feat(view.Auth): Logout users after a defined amount of time
+- feat(template.\*): Improve error style display
 
 ### Changed
 

@@ -110,6 +110,19 @@ div#content {
 .badge.maintenance#status.succeed     { background-color: #06D6A0; }
 .badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
 
+.error {
+  padding: 5px 20px;
+
+  background-color: #EF476F;
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.error .message {
+  font-size: bloc;
+}
+
 /***************
   RESOURCE LIST
 ****************/
