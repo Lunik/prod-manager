@@ -23,7 +23,11 @@
             {{ attr }}
           {% endif %}
         {% else %}
-          {{ attr }}
+          {% if key == "external_reference" %}
+            <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">{{ attr }}</div>
+          {% else %}
+            {{ attr }}
+          {% endif %}
         {% endif %}
       </td>
       {% set first_colum = False %}

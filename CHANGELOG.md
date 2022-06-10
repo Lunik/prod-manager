@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(style): Add badge in colum is an external reference
+
 ## 0.4.1
 
 ### Changed
