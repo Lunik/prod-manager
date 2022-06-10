@@ -102,6 +102,6 @@ def create_resource(resource_class, attributs):
 
   except Exception as error:
     current_app.logger.error(error)
-    raise error
+    raise ServerError(error) from error
 
   return resource

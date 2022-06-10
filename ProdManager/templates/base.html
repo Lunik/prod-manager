@@ -22,6 +22,9 @@
             <li id="service" class="{{ 'active' if resource_type == 'service' }}">
               <a id="service" href="{{ url_for('service.list')}}">Services</a>
             </li>
+            <li id="monitor" class="{{ 'active' if resource_type == 'monitor' }}">
+              <a id="monitor" href="{{ url_for('monitor.list')}}">Monitors</a>
+            </li>
             <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
               <a id="incident" href="{{ url_for('incident.list')}}">Incidents</a>
             </li>

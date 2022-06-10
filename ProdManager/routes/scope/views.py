@@ -1,4 +1,4 @@
-from flask import Blueprint,url_for, render_template, redirect, abort
+from flask import Blueprint, url_for, render_template, redirect, abort
 
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
@@ -8,6 +8,7 @@ from ProdManager.helpers.resource import (
 from ProdManager.models.Scope import Scope
 from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
 from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance
+from ProdManager.models.Monitor import count_monitors
 
 from .forms import ScopeCreateForm, ScopeUpdateForm, ScopeDeleteForm
 
@@ -76,6 +77,7 @@ def show(resource_id):
     past_incidents=filter_past_incident(scope.incidents),
     ongoing_maintenances=filter_ongoing_maintenance(scope.maintenances),
     past_maintenances=filter_past_maintenance(scope.maintenances),
+    monitors_count=count_monitors(scope.monitors),
   ), 200
 
 

@@ -11,3 +11,9 @@ def format_column_name(key):
 
 def format_timeline_date(date):
   return beautifull_date(date)
+
+def format_template_name(key, keep="folder"):
+  if keep == "folder":
+    return f"{key.split('/')[0]}s".capitalize()
+
+  return key

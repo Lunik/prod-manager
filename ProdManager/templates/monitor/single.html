@@ -1,0 +1,8 @@
+{% extends "resource.html" %}
+{% set resource_type = "monitor" %}
+{% set resource_endpoint = "monitor" %}
+{% set resource = monitor %}
+
+{% block resource_metadata %}
+  {% include "monitor/metadata.html" %}
+{% endblock %}

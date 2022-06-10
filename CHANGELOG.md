@@ -4,7 +4,16 @@
 
 ### Added
 
-- feat(style): Add badge in colum is an external reference
+- feat(style): Add badge in column is an external reference
+- feat(\*.Monitor): Introduce monitors
+- feat(template.Scope): Display relate monitors
+- feat(template.Service): Display relate monitors
+
+### Changed
+
+- change(\*.Service): Remove 'status' attribute from Service
+- change(style.\*): Change theme green color
+
 
 ## 0.4.1
 

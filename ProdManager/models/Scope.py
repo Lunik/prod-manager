@@ -3,9 +3,7 @@ from sqlalchemy.orm import relationship
 
 from ProdManager import db
 
-from .Incident import Incident
-from .Maintenance import Maintenance
-from .Service import Service
+from .Monitor import count_monitors
 
 class Scope(db.Model):
   id = Column(Integer, primary_key=True)
@@ -23,6 +21,15 @@ class Scope(db.Model):
     lazy='dynamic',
     order_by="desc(Maintenance.creation_date)",
   )
+  monitors = relationship(
+    'Monitor',
+    backref='scope',
+    lazy='dynamic',
+  )
 
   def __repr__(self):
     return f"<Scope '{self.name}'>"
+
+  @property
+  def monitors_count(self):
+    return count_monitors(self.monitors)

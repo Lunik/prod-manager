@@ -1,7 +1,11 @@
 <table id="resource-list">
   <tr>
-    {% for _, key in resource_attributes %}
-      <th>{{ key | format_column_name }}</th>
+    {% for type, key in resource_attributes %}
+      {% if type == "template" %}
+        <th>{{ key | format_template_name }}</th>
+      {% else %}
+        <th>{{ key | format_column_name }}</th>
+      {% endif %}
     {% endfor %}
     <th></th>
   </tr>
@@ -16,6 +20,8 @@
           {{ attr.count() }}
         {% elif type == "obj" %}
           {{ attr.name }}
+        {% elif type == "template" %}
+          {% include key %}
         {% elif type == "date" %}
           {% if attr %}
             {{ attr | format_timeline_date }}
@@ -23,7 +29,7 @@
             {{ attr }}
           {% endif %}
         {% else %}
-          {% if key == "external_reference" %}
+          {% if key == "external_reference" and attr != "" %}
             <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">{{ attr }}</div>
           {% else %}
             {{ attr }}

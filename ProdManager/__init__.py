@@ -71,7 +71,7 @@ def create_app():
     retreiv_auth()
 
 
-  from ProdManager.routes import root,auth,scope,service,incident,maintenance
+  from ProdManager.routes import root,auth,scope,service,incident,maintenance,monitor
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
   app.register_blueprint(auth.view, url_prefix="/")
@@ -79,12 +79,17 @@ def create_app():
   app.register_blueprint(service.view, url_prefix="/service")
   app.register_blueprint(incident.view, url_prefix="/incident")
   app.register_blueprint(maintenance.view, url_prefix="/maintenance")
+  app.register_blueprint(monitor.view, url_prefix="/monitor")
 
-  from ProdManager.filters.basic import ternary, format_column_name, format_timeline_date
+  from ProdManager.filters.basic import (
+    ternary, format_column_name, format_timeline_date,
+    format_template_name,
+  )
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
   app.jinja_env.filters['format_timeline_date'] = format_timeline_date
+  app.jinja_env.filters['format_template_name'] = format_template_name
 
 
   return app

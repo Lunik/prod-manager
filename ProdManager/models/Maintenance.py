@@ -5,7 +5,6 @@ from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 
 from .Service import ServiceStatus
-from .MaintenanceEvent import MaintenanceEvent
 
 class MaintenanceStatus(ModelEnum):
   SCHEDULED = 'scheduled'

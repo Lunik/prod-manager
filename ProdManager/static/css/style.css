@@ -15,7 +15,7 @@
     red: #EF476F      text:  white
     orange: #FB8500;  text:  black
     yellow: #FFD166;  text:  black
-    green: #06D6A0;   text:  black
+    green: #06B636;   text:  black
     blue: #00A8E8;    text:  white
     dark: #073B4C;    text:  white
 /*
@@ -96,6 +96,11 @@ div#content {
   letter-spacing: 0.5px;
 }
 
+.badge a {
+  color: black;
+  text-decoration: none;
+}
+
 .badge.external_reference { background-color: #00A8E8; color: white; }
 
 .badge.incident#severity.critical { background-color: #560BAD; color: white; }
@@ -107,16 +112,25 @@ div#content {
 .badge.incident#status.active        { background-color: #EF476F; color: white; }
 .badge.incident#status.investigating { background-color: #FB8500; }
 .badge.incident#status.stable        { background-color: #FFD166; }
-.badge.incident#status.resolved      { background-color: #06D6A0; }
+.badge.incident#status.resolved      { background-color: #06B636; }
 
 .badge.maintenance#status.scheduled   { background-color: #00A8E8; color: white; }
 .badge.maintenance#status.in-progress { background-color: #FFD166; }
-.badge.maintenance#status.succeed     { background-color: #06D6A0; }
+.badge.maintenance#status.succeed     { background-color: #06B636; }
 .badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
 
-.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: #06D6A0; }
+.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: #06B636; }
 .badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: #FB8500; }
 .badge.maintenance#service_status.down, .badge.service#status.down         { background-color: #EF476F; color: white; }
+
+.badge.monitor#status.ok      { background-color: #06B636; color: white; }
+.badge.monitor#status.warning { background-color: #FB8500 }
+.badge.monitor#status.alert   { background-color: #EF476F; color: white; }
+
+.badge.monitor#external_link   { background-color: #00A8E8; }
+.badge.monitor#external_link a { color: white; }
+
+.badge.monitor .count { font-weight: bold; }
 
 .error {
   padding: 5px 20px;
@@ -237,6 +251,12 @@ div#resource_metadata #target {
 
 div#resource_metadata #target * {
   display: inline-block;
+}
+
+div#extra_content #monitors {
+  display: inline-block;
+
+  margin: 0;
 }
 
 /**********
