@@ -15,3 +15,7 @@ psycopg2-binary
 
 # WSGI server to run the Flask application
 gunicorn
+
+# Integrations
+## Datadog
+datadog-api-client

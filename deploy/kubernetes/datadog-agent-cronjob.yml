@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: prod-manager
+    component: datadog-agent
+  name: prod-manager-datadog-agent
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      name: prod-manager-datadog-agent
+    spec:
+      template:
+        metadata:
+          labels:
+            app: prod-manager
+            component: datadog-agent
+        spec:
+          containers:
+          - command: ["python3", "ProdManager/integrations/datadog/update_monitors.py"]
+            image: lunik/prod-manager:latest
+            imagePullPolicy: Always
+            name: datadog-agent
+            envFrom:
+            - secretRef:
+                name: prod-manager
+            - secretRef:
+                name: prod-manager-datadog
+            env:
+            - name: DD_SITE
+              value: datadoghq.eu
+            - name: PYTHONPATH
+              value: "."
+            resources:
+              requests:
+                cpu: 250m
+                memory: 20M
+              limits:
+                cpu: 500m
+                memory: 200M
+          restartPolicy: OnFailure
+  schedule: '* * * * *'

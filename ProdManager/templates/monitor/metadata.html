@@ -10,7 +10,7 @@
 <div id="status" class="badge monitor {{ monitor.status.value }}">{{ monitor.status.name }}</div>
 {% if monitor.external_link %}
   <div id="external_link" class="badge monitor external_link">
-    <a href="{{ monitor.external_link }}" target="_blank">Go to monitor</a>
+    <a href="{{ monitor.external_link }}" target="_blank" rel="noopener">Go to monitor</a>
   </div>
 {% endif %}
 {% if monitor.description %}

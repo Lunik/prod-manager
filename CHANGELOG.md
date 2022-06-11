@@ -8,6 +8,7 @@
 - feat(\*.Monitor): Introduce monitors
 - feat(template.Scope): Display relate monitors
 - feat(template.Service): Display relate monitors
+- feat(integration.Datadog): Add Datadog integration for updating monitors
 
 ### Changed
 
