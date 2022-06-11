@@ -14,7 +14,8 @@ RUN apk add --update --no-cache --virtual .build build-base \
   && apk del .build
 
 ADD ProdManager ProdManager
-ADD main.py .
+ADD migrations migrations
+ADD main.py .flaskenv .
 
 RUN python -m compileall ProdManager main.py
 

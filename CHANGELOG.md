@@ -14,6 +14,10 @@
 - change(\*.Service): Remove 'status' attribute from Service
 - change(style.\*): Change theme green color
 
+### Fixed
+
+- fix(postgresql): Correct database migrations on enum types
+
 
 ## 0.4.1
 
