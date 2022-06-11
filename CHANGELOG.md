@@ -9,6 +9,7 @@
 - feat(template.Scope): Display relate monitors
 - feat(template.Service): Display relate monitors
 - feat(integration.Datadog): Add Datadog integration for updating monitors
+- feat(deploy.kubernetes): Add Ingress manifest
 
 ### Changed
 
