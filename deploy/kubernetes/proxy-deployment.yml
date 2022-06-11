@@ -7,7 +7,7 @@ metadata:
     component: proxy
   name: prod-manager-proxy
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: prod-manager

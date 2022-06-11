@@ -1,6 +1,25 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.5.0
+
+### Added
+
+- feat(style): Add badge in column is an external reference
+- feat(\*.Monitor): Introduce monitors
+- feat(template.Scope): Display relate monitors
+- feat(template.Service): Display relate monitors
+- feat(integration.Datadog): Add Datadog integration for updating monitors
+- feat(deploy.kubernetes): Add Ingress manifest
+
+### Changed
+
+- change(\*.Service): Remove 'status' attribute from Service
+- change(style.\*): Change theme green color
+
+### Fixed
+
+- fix(postgresql): Correct database migrations on enum types
+
 
 ## 0.4.1
 

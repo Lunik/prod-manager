@@ -1,0 +1,22 @@
+<div id="target">
+  <div id="scope">
+    <a href="{{ url_for('scope.show', resource_id=monitor.scope.id) }}">{{ monitor.scope.name }}</a>
+  </div>
+  /
+  <div id="service">
+    <a href="{{ url_for('service.show', resource_id=monitor.service.id) }}">{{ monitor.service.name }}</a>
+  </div>
+</div>
+<div id="status" class="badge monitor {{ monitor.status.value }}">{{ monitor.status.name }}</div>
+{% if monitor.external_link %}
+  <div id="external_link" class="badge monitor external_link">
+    <a href="{{ monitor.external_link }}" target="_blank" rel="noopener">Go to monitor</a>
+  </div>
+{% endif %}
+{% if monitor.description %}
+<div id="description">
+  {% for line in monitor.description.split('\n') %}
+  <p>{{ line }}</p>
+  {% endfor %}
+</div>
+{% endif %}

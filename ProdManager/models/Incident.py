@@ -4,8 +4,6 @@ from sqlalchemy.orm import relationship
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 
-from .IncidentEvent import IncidentEvent
-
 class IncidentSeverity(ModelEnum):
   CRITICAL = 'critical'
   HIGH = 'high'

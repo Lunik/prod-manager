@@ -1,0 +1,7 @@
+{% extends "resource_list.html" %}
+{% set resource_type = "monitor" %}
+{% set resource_endpoint = "monitor" %}
+{% set resources = monitors %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "status")
+] %}

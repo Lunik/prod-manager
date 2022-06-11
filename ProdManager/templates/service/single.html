@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block resource_extra_content %}
+  {% include "monitor/resume.html" %}
+
   {% include "incident/ongoing.html" %}
   {% include "maintenance/ongoing.html" %}
 

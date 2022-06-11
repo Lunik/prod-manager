@@ -1,5 +1,5 @@
 import json
-from flask import Blueprint,url_for, render_template, redirect, abort, current_app
+from flask import Blueprint, url_for, render_template, redirect, abort, current_app
 
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
