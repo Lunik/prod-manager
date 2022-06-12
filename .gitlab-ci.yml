@@ -6,7 +6,6 @@ variables:
   PYTHON_VERSION: "3.10"
   PACKAGE_NAME: ProdManager
   SCAN_KUBERNETES_MANIFESTS: "true"
-  SAST_DISABLED: ""
 
 workflow:
   rules:
