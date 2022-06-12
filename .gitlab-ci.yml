@@ -1,0 +1,121 @@
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PYTHON_VERSION: "3.10"
+  PACKAGE_NAME: ProdManager
+  SCAN_KUBERNETES_MANIFESTS: "true"
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_REF_PROTECTED == "true"
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+# Pip's cache doesn't store the python packages
+# https://pip.pypa.io/en/stable/topics/caching/
+#
+# If you want to also cache the installed packages, you have to install
+# them in a virtualenv and cache it as well.
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+stages:
+  - test
+  - build
+
+
+.python-tests:
+  stage: test
+  image: python:$PYTHON_VERSION
+  before_script:
+    - python --version  # For debugging
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.dev.txt
+    - pip install -r requirements.txt
+
+test:
+  extends: .python-tests
+  rules:
+    - if: ! $CI_COMMIT_REF_PROTECTED
+      allow_failure: true
+  script:
+    - >
+      pytest
+      --cov --cov-report xml:coverage.xml
+      --junitxml=result.xml
+      tests/${PACKAGE_NAME}/
+  artifacts:
+    when: on_failure
+    paths:
+      - coverage.xml
+      - result.xml
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+      junit: result.xml
+
+lint:
+  extends: .python-tests
+  rules:
+    - if: ! $CI_COMMIT_REF_PROTECTED
+      allow_failure: true
+  script:
+    - >
+      pylint
+      ${PACKAGE_NAME}/*
+      tests/${PACKAGE_NAME}/*
+      | tee pylint-report.txt
+  artifacts:
+    when: on_failure
+    paths:
+      - pylint-report.txt
+
+scan:
+  stage: test
+  image: sonarsource/sonar-scanner-cli:latest
+  needs:
+    - lint
+    - test
+  script:
+    - >
+      sonar-scanner
+      -Dsonar.branch.name="$CI_COMMIT_REF_NAME"
+
+image-build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - >
+      docker login
+      -u "$CI_REGISTRY_USER"
+      -p "$CI_REGISTRY_PASSWORD"
+      $CI_REGISTRY
+  # Default branch leaves tag empty (= latest tag)
+  # All other branches are tagged with the escaped branch name (commit ref slug)
+  script:
+    - >
+      docker image build
+      --pull
+      --tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+      --file="docker/Dockerfile"
+      .
+    - |
+      if [[ "$CI_COMMIT_REF_PROTECTED" == "true" ]]; then
+        docker image push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+      fi
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        docker image tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE:latest"
+        docker image push "$CI_REGISTRY_IMAGE:latest"
+      fi
