@@ -12,8 +12,6 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_REF_PROTECTED == "true"
 
-image: python:$PYTHON_VERSION
-
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
@@ -32,25 +30,19 @@ stages:
   - test
   - build
 
-before_script:
-  - python --version  # For debugging
-  - python -m venv venv
-  - source venv/bin/activate
 
-.tests: &tests
+.python-tests:
   stage: test
+  image: python:$PYTHON_VERSION
   before_script:
+    - python --version  # For debugging
+    - python -m venv venv
+    - source venv/bin/activate
     - pip install -r requirements.dev.txt
     - pip install -r requirements.txt
 
-
-debug:
-  stage: test
-  script:
-    - printenv
-
 test:
-  <<: *tests
+  extends: .python-tests
   rules:
     - if: ! $CI_COMMIT_REF_PROTECTED
       allow_failure: true
@@ -72,7 +64,7 @@ test:
       junit: result.xml
 
 lint:
-  <<: *tests
+  extends: .python-tests
   rules:
     - if: ! $CI_COMMIT_REF_PROTECTED
       allow_failure: true
@@ -88,7 +80,7 @@ lint:
       - pylint-report.txt
 
 scan:
-  <<: *tests
+  stage: test
   image: sonarsource/sonar-scanner-cli:latest
   needs:
     - lint
