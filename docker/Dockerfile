@@ -8,14 +8,14 @@ RUN apk add \
   make
 
 
-ADD requirements.txt Makefile .
+ADD requirements.txt Makefile ./
 RUN apk add --update --no-cache --virtual .build build-base \
   && make install-docker \
   && apk del .build
 
 ADD ProdManager ProdManager
 ADD migrations migrations
-ADD main.py .flaskenv .
+ADD main.py .flaskenv ./
 
 RUN python -m compileall ProdManager main.py
 
