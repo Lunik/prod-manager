@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- ci(GitLab): Add GitLab CI pipelines
+
 ## 0.5.0
 
 ### Added
