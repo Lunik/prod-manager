@@ -45,6 +45,11 @@ before_script:
     - pip install -r requirements.txt
 
 
+debug:
+  stage: test
+  script:
+    - printenv
+
 test:
   <<: *tests
   rules:
