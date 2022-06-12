@@ -93,4 +93,4 @@ lint:
 	${PYLINT} ${PACKAGE_NAME}/* tests/${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
-	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml ${PACKAGE_NAME}/ tests/${PACKAGE_NAME}/
+	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml tests/${PACKAGE_NAME}/
