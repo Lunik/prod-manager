@@ -7,6 +7,14 @@
 - ci(GitLab): Add GitLab CI pipelines
 - feat(forms.Incident): Allow to update `*_date` fields (#4)
 - feat(forms.Maintenance): Allow to update `*_date` fields (#12)
+- feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15)
+- feat(deploy.Kubernetes): Provide default PersistentVolumeClaim manifest for database storage (#16)
+
+### Changed
+
+- change(deploy.Kubernetes): Use un-namespaced DNS names for service networking (#17)
+- change(deploy.\*): Update image in exaples to match new registry (#19)
+- change(deploy.\*): Update default resources requests and limits based on real world performances (#14)
 
 ### Fixed
 

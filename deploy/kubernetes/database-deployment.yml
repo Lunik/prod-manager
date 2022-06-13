@@ -26,8 +26,8 @@ spec:
             name: prod-manager-database
         resources:
           requests:
-            cpu: 250m
-            memory: 20M
+            cpu: 50m
+            memory: 50M
           limits:
             cpu: 500m
             memory: 200M
@@ -36,4 +36,5 @@ spec:
           mountPath: /var/lib/postgresql/data
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: prod-manager-database

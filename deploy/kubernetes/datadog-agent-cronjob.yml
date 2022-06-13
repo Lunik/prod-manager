@@ -36,10 +36,10 @@ spec:
               value: "."
             resources:
               requests:
-                cpu: 250m
-                memory: 20M
+                cpu: 50m
+                memory: 50M
               limits:
-                cpu: 500m
-                memory: 200M
+                cpu: 250m
+                memory: 100M
           restartPolicy: OnFailure
   schedule: '* * * * *'

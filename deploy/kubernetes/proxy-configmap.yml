@@ -21,6 +21,6 @@ data:
         location / {
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
-            proxy_pass http://prod-manager.default.svc.cluster.local:80/;
+            proxy_pass http://prod-manager:80/;
         }
     }
