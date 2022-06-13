@@ -19,13 +19,11 @@ class Service(db.Model):
     'Incident',
     backref='service',
     lazy='dynamic',
-    order_by='desc(Incident.creation_date)'
   )
   maintenances = relationship(
     'Maintenance',
     backref='service',
     lazy='dynamic',
-    order_by='desc(Maintenance.creation_date)'
   )
   monitors = relationship(
     'Monitor',
@@ -35,6 +33,10 @@ class Service(db.Model):
 
   def __repr__(self):
     return f"<Service '{self.name}'>"
+
+  @classmethod
+  def default_order(cls):
+    return cls.name.asc()
 
   @property
   def monitors_count(self):

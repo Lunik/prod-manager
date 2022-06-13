@@ -21,6 +21,11 @@ class Monitor(db.Model):
   def __repr__(self):
     return f"<Monitor '{self.name}'>"
 
+  @classmethod
+  def default_order(cls):
+    return cls.name.asc()
+
+
 def count_monitors_in_status(query, status):
   return query.filter(
     Monitor.status == status

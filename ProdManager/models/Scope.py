@@ -13,13 +13,11 @@ class Scope(db.Model):
     'Incident',
     backref='scope',
     lazy='dynamic',
-    order_by="desc(Incident.creation_date)",
   )
   maintenances = relationship(
     'Maintenance',
     backref='scope',
     lazy='dynamic',
-    order_by="desc(Maintenance.creation_date)",
   )
   monitors = relationship(
     'Monitor',
@@ -29,6 +27,10 @@ class Scope(db.Model):
 
   def __repr__(self):
     return f"<Scope '{self.name}'>"
+
+  @classmethod
+  def default_order(cls):
+    return cls.name.asc()
 
   @property
   def monitors_count(self):
