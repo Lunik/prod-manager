@@ -64,6 +64,16 @@ class MaintenanceUpdateForm(FlaskForm):
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
+  start_date = DateTimeLocalField(
+    name='start date',
+    validators=[Optional()],
+    format='%Y-%m-%dT%H:%M',
+  )
+  end_date = DateTimeLocalField(
+    name='end date',
+    validators=[Optional()],
+    format='%Y-%m-%dT%H:%M',
+  )
 
 class MaintenanceCommentForm(FlaskForm):
   comment = TextAreaField(name='comment', validators=[DataRequired()])

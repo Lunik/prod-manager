@@ -13,10 +13,13 @@ def list_resources(ressource_class):
     ressource_class.id.asc()
   ).paginate(error_out=False)
 
-def list_resources_as_choices(ressource_class):
+def list_resources_as_choices(ressource_class, order=None):
+  if order is None:
+    order = ressource_class.id.asc()
+
   return [
     (resource.id, resource.name) for resource in
-    ressource_class.query.order_by(ressource_class.id.asc())
+    ressource_class.query.order_by(order)
   ]
 
 def get_resource(resource_class, ressource_id):
