@@ -15,6 +15,7 @@
 - fix(forms.\*): Order Scope/Service select dropdown by ascending name
 - fix(forms.\*): Strip text inputs in forms (#7)
 - fix(style.\*): Reduce the gap between lines in descriptions (#7)
+- fix(template.timeline): Remplace `<i>` tags by `<em>` (#6)
 
 ## 0.5.0
 
