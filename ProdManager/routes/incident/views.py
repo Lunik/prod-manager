@@ -33,8 +33,8 @@ def list():
   incidents = list_resources(Incident)
 
   create_form = IncidentCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope)
-  create_form.service_id.choices = list_resources_as_choices(Service)
+  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("incident/list.html",
     incidents=incidents,
@@ -49,8 +49,8 @@ def list():
 @login_required
 def create():
   form=IncidentCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -67,7 +67,7 @@ def create():
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       creation_date=current_date(),
-      start_impact_date=current_date(),
+      start_impact_date=form.start_impact_date.data,
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -102,8 +102,8 @@ def show(resource_id):
     ))
 
   update_form = IncidentUpdateForm(obj=incident)
-  update_form.scope_id.choices = list_resources_as_choices(Scope)
-  update_form.service_id.choices = list_resources_as_choices(Service)
+  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("incident/single.html",
     incident=incident,
@@ -121,8 +121,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = IncidentUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -140,19 +140,22 @@ def update(resource_id):
     scope_id=int(form.scope_id.data),
     service_id=int(form.service_id.data),
     start_impact_date=form.start_impact_date.data,
+    investigation_date=form.investigation_date.data,
+    stable_date=form.stable_date.data,
+    resolve_date=form.resolve_date.data,
   )
 
-  if new_incident_status == IncidentStatus.INVESTIGATING:
+  if new_incident_status == IncidentStatus.INVESTIGATING and new_data['investigation_date'] is None:
     new_data["investigation_date"] = current_date()
   elif new_incident_status < IncidentStatus.INVESTIGATING:
     new_data["investigation_date"] = None
 
-  if new_incident_status == IncidentStatus.STABLE:
+  if new_incident_status == IncidentStatus.STABLE and new_data['stable_date'] is None:
     new_data["stable_date"] = current_date()
   elif new_incident_status < IncidentStatus.STABLE:
     new_data["stable_date"] = None
 
-  if new_incident_status == IncidentStatus.RESOLVED:
+  if new_incident_status == IncidentStatus.RESOLVED and new_data['resolve_date'] is None:
     new_data["resolve_date"] = current_date()
   elif new_incident_status < IncidentStatus.RESOLVED:
     new_data["resolve_date"] = None
