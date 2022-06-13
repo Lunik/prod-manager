@@ -231,13 +231,15 @@ div#resource_metadata {
 }
 
 div#resource_metadata #description {
+  padding: 10px 15px;
+
   background-color: white;
 
   border-radius: 3px;
 }
 
 div#resource_metadata #description p {
-  padding: 10px;
+  margin: 5px auto;
 }
 
 div#resource_metadata #target {
