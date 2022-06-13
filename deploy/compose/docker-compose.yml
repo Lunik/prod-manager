@@ -2,7 +2,7 @@
 version: "3"
 services: 
   app:
-    image: prod-manager:latest
+    image: registry.gitlab.com/prod-manager/prod-manager:latest
     deploy:
       restart_policy:
         condition: on-failure

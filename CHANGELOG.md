@@ -13,6 +13,7 @@
 ### Changed
 
 - change(deploy.Kubernetes): Use un-namespaced DNS names for service networking (#17)
+- change(deploy.\*): Update image in exaples to match new registry (#19)
 
 ### Fixed
 

@@ -19,7 +19,7 @@ spec:
         component: proxy
     spec:
       initContainers:
-      - image: lunik/prod-manager:latest
+      - image: registry.gitlab.com/prod-manager/prod-manager:latest
         imagePullPolicy: Always
         name: static
         command: ["cp", "-rv", "ProdManager/static", "/static"]
