@@ -29,6 +29,7 @@
 - fix(\*.Service): Fix service display order (#9)
 - fix(\*.Scope): Fix scope display order (#9)
 - fix(\*.Monitor): Fix monitor display order (#9)
+- ci(GitLab): Fix builded image version on tag build
 
 ## 0.5.0
 
