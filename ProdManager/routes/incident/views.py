@@ -67,7 +67,7 @@ def create():
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       creation_date=current_date(),
-      start_impact_date=current_date(),
+      start_impact_date=form.start_impact_date.data,
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -140,19 +140,22 @@ def update(resource_id):
     scope_id=int(form.scope_id.data),
     service_id=int(form.service_id.data),
     start_impact_date=form.start_impact_date.data,
+    investigation_date=form.investigation_date.data,
+    stable_date=form.stable_date.data,
+    resolve_date=form.resolve_date.data,
   )
 
-  if new_incident_status == IncidentStatus.INVESTIGATING:
+  if new_incident_status == IncidentStatus.INVESTIGATING and new_data['investigation_date'] is None:
     new_data["investigation_date"] = current_date()
   elif new_incident_status < IncidentStatus.INVESTIGATING:
     new_data["investigation_date"] = None
 
-  if new_incident_status == IncidentStatus.STABLE:
+  if new_incident_status == IncidentStatus.STABLE and new_data['stable_date'] is None:
     new_data["stable_date"] = current_date()
   elif new_incident_status < IncidentStatus.STABLE:
     new_data["stable_date"] = None
 
-  if new_incident_status == IncidentStatus.RESOLVED:
+  if new_incident_status == IncidentStatus.RESOLVED and new_data['resolve_date'] is None:
     new_data["resolve_date"] = current_date()
   elif new_incident_status < IncidentStatus.RESOLVED:
     new_data["resolve_date"] = None

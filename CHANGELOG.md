@@ -5,10 +5,12 @@
 ### Added
 
 - ci(GitLab): Add GitLab CI pipelines
+- feat(forms.Incident): Allow to update `*_date` fields (#4)
 
 ### Fixed
 
 - fix(forms.Service): Remove deprecated 'status' attribute from update form (#3)
+- fix(forms.Incident): Don't overwrite `start_impact_date` on Incident creation (#5)
 
 ## 0.5.0
 
