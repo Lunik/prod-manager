@@ -6,17 +6,39 @@ from ProdManager.helpers.response import (
   UndeletableRessourceError, DependencyError,
 )
 
-def list_resources(ressource_class):
+def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True):
+  if orders is None:
+    orders = ressource_class.default_order()
+
+  if not isinstance(orders, tuple):
+    orders = (orders,)
+
+  if filters is not None:
+    if not isinstance(filters, tuple):
+      filters = (filters,)
+
+    query = query.filter(*filters)
+
+  result = query.order_by(*orders)
+
   # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
   # page, per_page and max_per_page are retreived from the Flask.request object
-  return ressource_class.query.order_by(
-    ressource_class.id.asc()
-  ).paginate(error_out=False)
+  if paginate:
+    result = result.paginate(error_out=False)
 
-def list_resources_as_choices(ressource_class):
+  return result
+
+def list_resources(ressource_class, *args, **kwargs):
+  return list_resources_from_query(ressource_class, ressource_class.query, *args, **kwargs)
+
+
+def list_resources_as_choices(ressource_class, order=None):
+  if order is None:
+    order = ressource_class.id.asc()
+
   return [
     (resource.id, resource.name) for resource in
-    ressource_class.query.order_by(ressource_class.id.asc())
+    ressource_class.query.order_by(order)
   ]
 
 def get_resource(resource_class, ressource_id):

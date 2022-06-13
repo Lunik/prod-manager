@@ -12,6 +12,7 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.json import json_defaults
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Maintenance import Maintenance, MaintenanceStatus
 from ProdManager.models.Scope import Scope
@@ -35,8 +36,8 @@ def list():
   maintenances = list_resources(Maintenance)
 
   create_form = MaintenanceCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope)
-  create_form.service_id.choices = list_resources_as_choices(Service)
+  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/list.html",
     maintenances=maintenances,
@@ -51,8 +52,8 @@ def list():
 @login_required
 def create():
   form=MaintenanceCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -62,9 +63,9 @@ def create():
 
   try:
     maintenance = create_resource(Maintenance, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_reference=form.external_reference.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_reference=strip_input(form.external_reference.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       creation_date=current_date(),
@@ -106,8 +107,8 @@ def show(resource_id):
     ))
 
   update_form = MaintenanceUpdateForm(obj=maintenance)
-  update_form.scope_id.choices = list_resources_as_choices(Scope)
-  update_form.service_id.choices = list_resources_as_choices(Service)
+  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/single.html",
     maintenance=maintenance,
@@ -125,8 +126,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = MaintenanceUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -136,23 +137,25 @@ def update(resource_id):
 
   new_maintenance_status = MaintenanceStatus(form.status.data)
   new_data = dict(
-    name=form.name.data,
-    external_reference=form.external_reference.data,
-    description=form.description.data,
+    name=strip_input(form.name.data),
+    external_reference=strip_input(form.external_reference.data),
+    description=strip_input(form.description.data),
     status=new_maintenance_status,
     scheduled_start_date=form.scheduled_start_date.data,
     scheduled_end_date=form.scheduled_end_date.data,
+    start_date=form.start_date.data,
+    end_date=form.end_date.data,
     service_status=ServiceStatus(form.service_status.data),
     scope_id=int(form.scope_id.data),
     service_id=int(form.service_id.data),
   )
 
-  if new_maintenance_status == MaintenanceStatus.IN_PROGRESS:
+  if new_maintenance_status == MaintenanceStatus.IN_PROGRESS and new_data['start_date'] is None:
     new_data["start_date"] = current_date()
   elif new_maintenance_status < MaintenanceStatus.IN_PROGRESS:
     new_data["start_date"] = None
 
-  if new_maintenance_status in [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED]:
+  if new_maintenance_status in [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED] and new_data['end_date'] is None:
     new_data["end_date"] = current_date()
   elif new_maintenance_status < MaintenanceStatus.SUCCEED:
     new_data["end_date"] = None

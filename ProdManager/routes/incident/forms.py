@@ -45,7 +45,21 @@ class IncidentUpdateForm(FlaskForm):
     )
   start_impact_date = DateTimeLocalField(
     name='start impact date',
-    default=current_date(),
+    validators=[Optional()],
+    format='%Y-%m-%dT%H:%M',
+  )
+  investigation_date = DateTimeLocalField(
+    name='investigation date',
+    validators=[Optional()],
+    format='%Y-%m-%dT%H:%M',
+  )
+  stable_date = DateTimeLocalField(
+    name='stable date',
+    validators=[Optional()],
+    format='%Y-%m-%dT%H:%M',
+  )
+  resolve_date = DateTimeLocalField(
+    name='resolve date',
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M',
   )

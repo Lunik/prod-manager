@@ -9,6 +9,7 @@ from ProdManager.helpers.resource import (
   delete_resource,
   list_resources_as_choices
 )
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Monitor import Monitor, MonitorStatus
 from ProdManager.models.Scope import Scope
@@ -27,8 +28,8 @@ def list():
   monitors = list_resources(Monitor)
 
   create_form = MonitorCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope)
-  create_form.service_id.choices = list_resources_as_choices(Service)
+  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("monitor/list.html",
     monitors=monitors,
@@ -43,8 +44,8 @@ def list():
 @login_required
 def create():
   form=MonitorCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -54,9 +55,9 @@ def create():
 
   try:
     monitor = create_resource(Monitor, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_link=form.external_link.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
     ))
@@ -83,8 +84,8 @@ def show(resource_id):
     ))
 
   update_form = MonitorUpdateForm(obj=monitor)
-  update_form.scope_id.choices = list_resources_as_choices(Scope)
-  update_form.service_id.choices = list_resources_as_choices(Service)
+  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("monitor/single.html",
     monitor=monitor,
@@ -101,8 +102,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = MonitorUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -112,9 +113,9 @@ def update(resource_id):
 
   try:
     monitor, _ = update_resource(Monitor, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_link=form.external_link.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       status=MonitorStatus(form.status.data),

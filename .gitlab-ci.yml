@@ -105,10 +105,16 @@ image-build:
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
+    - |
+      if [[ ! -z "$CI_COMMIT_TAG" ]]; then
+        tag="$CI_COMMIT_TAG"
+      else
+        tag="$CI_COMMIT_REF_SLUG"
+      fi
     - >
       docker image build
       --pull
-      --tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+      --tag "$CI_REGISTRY_IMAGE:${tag}"
       --file="docker/Dockerfile"
       .
-    - docker image push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker image push "$CI_REGISTRY_IMAGE:${tag}"

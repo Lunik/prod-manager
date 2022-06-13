@@ -5,7 +5,10 @@
 {% block content %}
 <h1 id="title">Dashboard</h1>
 
-{% include "incident/resume.html" %}
-{% include "maintenance/resume.html" %}
+{% include "incident/ongoing.html" %}
+{% include "maintenance/ongoing.html" %}
+
+{% include "incident/past.html" %}
+{% include "maintenance/past.html" %}
 
 {% endblock %}

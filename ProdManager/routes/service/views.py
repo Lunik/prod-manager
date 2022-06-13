@@ -8,12 +8,14 @@ from ProdManager.helpers.resource import (
   get_resource,
   update_resource,
   delete_resource,
+  list_resources_from_query,
 )
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Service import Service, ServiceStatus
-from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
-from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance
 from ProdManager.models.Monitor import count_monitors
+from ProdManager.models.Incident import Incident
+from ProdManager.models.Maintenance import Maintenance
 
 from .forms import ServiceCreateForm, ServiceUpdateForm, ServiceDeleteForm
 
@@ -49,8 +51,8 @@ def create():
 
   try:
     service = create_resource(Service, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -80,10 +82,30 @@ def show(resource_id):
     service=service,
     update_form=update_form,
     delete_form=ServiceDeleteForm(obj=service),
-    ongoing_incidents=filter_ongoing_incident(service.incidents),
-    past_incidents=filter_past_incident(service.incidents),
-    ongoing_maintenances=filter_ongoing_maintenance(service.maintenances),
-    past_maintenances=filter_past_maintenance(service.maintenances),
+    ongoing_incidents=list_resources_from_query(
+      Incident,
+      query=service.incidents,
+      filters=Incident.ongoing_filter(),
+      paginate=False,
+    ),
+    past_incidents=list_resources_from_query(
+      Incident,
+      query=service.incidents,
+      filters=Incident.past_filter(),
+      paginate=False,
+    ),
+    ongoing_maintenances=list_resources_from_query(
+      Maintenance,
+      query=service.maintenances,
+      filters=Maintenance.ongoing_filter(),
+      paginate=False,
+    ),
+    past_maintenances=list_resources_from_query(
+      Maintenance,
+      query=service.maintenances,
+      filters=Maintenance.past_filter(),
+      paginate=False,
+    ),
     monitors_count=count_monitors(service.monitors),
   ), 200
 
@@ -105,8 +127,8 @@ def update(resource_id):
 
   try:
     service, _ = update_resource(Service, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
       status=ServiceStatus(form.status.data),
     ))
   except Exception as error:
