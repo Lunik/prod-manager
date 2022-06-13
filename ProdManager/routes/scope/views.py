@@ -5,6 +5,8 @@ from ProdManager.helpers.resource import (
   create_resource, list_resources, get_resource,
   update_resource, delete_resource,
 )
+from ProdManager.helpers.form import strip_input
+
 from ProdManager.models.Scope import Scope
 from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
 from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance
@@ -44,8 +46,8 @@ def create():
 
   try:
     scope = create_resource(Scope, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -98,8 +100,8 @@ def update(resource_id):
 
   try:
     scope, _ = update_resource(Scope, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
