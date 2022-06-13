@@ -54,12 +54,14 @@ class Maintenance(db.Model):
       end_date=self.end_date,
     )
 
-def filter_ongoing_maintenance(query, limit=10):
-  return query.filter(
-    Maintenance.status.in_([MaintenanceStatus.SCHEDULED, MaintenanceStatus.IN_PROGRESS])
-  ).limit(limit)
+  @classmethod
+  def default_order(cls):
+    return (cls.scheduled_start_date.desc(), cls.status.asc())
 
-def filter_past_maintenance(query, limit=10):
-  return query.filter(
-    Maintenance.status.in_([MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED])
-  ).limit(limit)
+  @classmethod
+  def ongoing_filter(cls):
+    return Maintenance.status.in_([MaintenanceStatus.SCHEDULED, MaintenanceStatus.IN_PROGRESS])
+
+  @classmethod
+  def past_filter(cls):
+    return Maintenance.status.in_([MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED])
