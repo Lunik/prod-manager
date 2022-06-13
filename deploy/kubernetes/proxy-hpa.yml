@@ -1,0 +1,16 @@
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: prod-manager
+    component: proxy
+  name: prod-manager-proxy
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: prod-manager-proxy
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

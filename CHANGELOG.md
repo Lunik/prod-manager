@@ -7,6 +7,7 @@
 - ci(GitLab): Add GitLab CI pipelines
 - feat(forms.Incident): Allow to update `*_date` fields (#4)
 - feat(forms.Maintenance): Allow to update `*_date` fields (#12)
+- feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15)
 
 ### Fixed
 
