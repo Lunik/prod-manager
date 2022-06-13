@@ -9,6 +9,10 @@
 - feat(forms.Maintenance): Allow to update `*_date` fields (#12)
 - feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15)
 
+### Changed
+
+- change(deploy.Kubernetes): Use un-namespaced DNS names for service networking (#17)
+
 ### Fixed
 
 - fix(forms.Service): Remove deprecated 'status' attribute from update form (#3)
