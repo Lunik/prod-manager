@@ -142,17 +142,19 @@ def update(resource_id):
     status=new_maintenance_status,
     scheduled_start_date=form.scheduled_start_date.data,
     scheduled_end_date=form.scheduled_end_date.data,
+    start_date=form.start_date.data,
+    end_date=form.end_date.data,
     service_status=ServiceStatus(form.service_status.data),
     scope_id=int(form.scope_id.data),
     service_id=int(form.service_id.data),
   )
 
-  if new_maintenance_status == MaintenanceStatus.IN_PROGRESS:
+  if new_maintenance_status == MaintenanceStatus.IN_PROGRESS and new_data['start_date'] is None:
     new_data["start_date"] = current_date()
   elif new_maintenance_status < MaintenanceStatus.IN_PROGRESS:
     new_data["start_date"] = None
 
-  if new_maintenance_status in [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED]:
+  if new_maintenance_status in [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED] and new_data['end_date'] is None:
     new_data["end_date"] = current_date()
   elif new_maintenance_status < MaintenanceStatus.SUCCEED:
     new_data["end_date"] = None
