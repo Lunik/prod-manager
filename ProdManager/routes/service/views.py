@@ -9,6 +9,7 @@ from ProdManager.helpers.resource import (
   update_resource,
   delete_resource,
 )
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Service import Service, ServiceStatus
 from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
@@ -49,8 +50,8 @@ def create():
 
   try:
     service = create_resource(Service, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
@@ -105,8 +106,8 @@ def update(resource_id):
 
   try:
     service, _ = update_resource(Service, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
       status=ServiceStatus(form.status.data),
     ))
   except Exception as error:

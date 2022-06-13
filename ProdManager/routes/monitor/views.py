@@ -9,6 +9,7 @@ from ProdManager.helpers.resource import (
   delete_resource,
   list_resources_as_choices
 )
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Monitor import Monitor, MonitorStatus
 from ProdManager.models.Scope import Scope
@@ -54,9 +55,9 @@ def create():
 
   try:
     monitor = create_resource(Monitor, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_link=form.external_link.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
     ))
@@ -112,9 +113,9 @@ def update(resource_id):
 
   try:
     monitor, _ = update_resource(Monitor, resource_id, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_link=form.external_link.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       status=MonitorStatus(form.status.data),

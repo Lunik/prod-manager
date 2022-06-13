@@ -12,6 +12,7 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.json import json_defaults
+from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Maintenance import Maintenance, MaintenanceStatus
 from ProdManager.models.Scope import Scope
@@ -62,9 +63,9 @@ def create():
 
   try:
     maintenance = create_resource(Maintenance, dict(
-      name=form.name.data,
-      description=form.description.data,
-      external_reference=form.external_reference.data,
+      name=strip_input(form.name.data),
+      description=strip_input(form.description.data),
+      external_reference=strip_input(form.external_reference.data),
       scope_id=int(form.scope_id.data),
       service_id=int(form.service_id.data),
       creation_date=current_date(),
@@ -136,9 +137,9 @@ def update(resource_id):
 
   new_maintenance_status = MaintenanceStatus(form.status.data)
   new_data = dict(
-    name=form.name.data,
-    external_reference=form.external_reference.data,
-    description=form.description.data,
+    name=strip_input(form.name.data),
+    external_reference=strip_input(form.external_reference.data),
+    description=strip_input(form.description.data),
     status=new_maintenance_status,
     scheduled_start_date=form.scheduled_start_date.data,
     scheduled_end_date=form.scheduled_end_date.data,
