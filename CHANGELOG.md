@@ -6,6 +6,10 @@
 
 - ci(GitLab): Add GitLab CI pipelines
 
+### Fixed
+
+- fix(forms.Service): Remove deprecated 'status' attribute from update form (#3)
+
 ## 0.5.0
 
 ### Added
