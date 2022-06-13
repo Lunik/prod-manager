@@ -8,6 +8,7 @@
 - feat(forms.Incident): Allow to update `*_date` fields (#4)
 - feat(forms.Maintenance): Allow to update `*_date` fields (#12)
 - feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15)
+- feat(deploy.Kubernetes): Provide default PersistentVolumeClaim manifest for database storage (#16)
 
 ### Changed
 

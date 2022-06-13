@@ -36,4 +36,5 @@ spec:
           mountPath: /var/lib/postgresql/data
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: prod-manager-database
