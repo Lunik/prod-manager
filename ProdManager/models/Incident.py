@@ -59,16 +59,18 @@ class Incident(db.Model):
       resolve_date=self.resolve_date,
     )
 
-def filter_ongoing_incident(query, limit=10):
-  return query.filter(
-    Incident.status.in_([
+  @classmethod
+  def default_order(cls):
+    return (cls.start_impact_date.desc(), cls.status.asc(), cls.severity.asc())
+
+  @classmethod
+  def ongoing_filter(cls):
+    return Incident.status.in_([
       IncidentStatus.ACTIVE,
       IncidentStatus.INVESTIGATING,
       IncidentStatus.STABLE,
     ])
-  ).limit(limit)
 
-def filter_past_incident(query, limit=10):
-  return query.filter(
-    Incident.status.in_([IncidentStatus.RESOLVED])
-  ).limit(limit)
+  @classmethod
+  def past_filter(cls):
+    return Incident.status.in_([IncidentStatus.RESOLVED])

@@ -3,14 +3,14 @@ from flask import Blueprint, url_for, render_template, redirect, abort
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource, list_resources, get_resource,
-  update_resource, delete_resource,
+  update_resource, delete_resource, list_resources_from_query,
 )
 from ProdManager.helpers.form import strip_input
 
 from ProdManager.models.Scope import Scope
-from ProdManager.models.Incident import filter_ongoing_incident, filter_past_incident
-from ProdManager.models.Maintenance import filter_ongoing_maintenance, filter_past_maintenance
 from ProdManager.models.Monitor import count_monitors
+from ProdManager.models.Incident import Incident
+from ProdManager.models.Maintenance import Maintenance
 
 from .forms import ScopeCreateForm, ScopeUpdateForm, ScopeDeleteForm
 
@@ -75,10 +75,30 @@ def show(resource_id):
     scope=scope,
     update_form=ScopeUpdateForm(obj=scope),
     delete_form=ScopeDeleteForm(obj=scope),
-    ongoing_incidents=filter_ongoing_incident(scope.incidents),
-    past_incidents=filter_past_incident(scope.incidents),
-    ongoing_maintenances=filter_ongoing_maintenance(scope.maintenances),
-    past_maintenances=filter_past_maintenance(scope.maintenances),
+    ongoing_incidents=list_resources_from_query(
+      Incident,
+      query=scope.incidents,
+      filters=Incident.ongoing_filter(),
+      paginate=False,
+    ),
+    past_incidents=list_resources_from_query(
+      Incident,
+      query=scope.incidents,
+      filters=Incident.past_filter(),
+      paginate=False,
+    ),
+    ongoing_maintenances=list_resources_from_query(
+      Maintenance,
+      query=scope.maintenances,
+      filters=Maintenance.ongoing_filter(),
+      paginate=False,
+    ),
+    past_maintenances=list_resources_from_query(
+      Maintenance,
+      query=scope.maintenances,
+      filters=Maintenance.past_filter(),
+      paginate=False,
+    ),
     monitors_count=count_monitors(scope.monitors),
   ), 200
 

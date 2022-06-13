@@ -22,3 +22,7 @@ class Event:
       return json.loads(self.content)
 
     return self.content
+
+  @classmethod
+  def default_order(cls):
+    return cls.creation_date.desc()

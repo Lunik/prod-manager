@@ -16,6 +16,11 @@
 - fix(forms.\*): Strip text inputs in forms (#7)
 - fix(style.\*): Reduce the gap between lines in descriptions (#7)
 - fix(template.timeline): Remplace `<i>` tags by `<em>` (#6)
+- fix(\*.Maintenance): Fix maintenance display order (#8)
+- fix(\*.Incident): Fix incident display order (#8)
+- fix(\*.Service): Fix service display order (#9)
+- fix(\*.Scope): Fix scope display order (#9)
+- fix(\*.Monitor): Fix monitor display order (#9)
 
 ## 0.5.0
 
