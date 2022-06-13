@@ -35,8 +35,8 @@ def list():
   maintenances = list_resources(Maintenance)
 
   create_form = MaintenanceCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope)
-  create_form.service_id.choices = list_resources_as_choices(Service)
+  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/list.html",
     maintenances=maintenances,
@@ -51,8 +51,8 @@ def list():
 @login_required
 def create():
   form=MaintenanceCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -106,8 +106,8 @@ def show(resource_id):
     ))
 
   update_form = MaintenanceUpdateForm(obj=maintenance)
-  update_form.scope_id.choices = list_resources_as_choices(Scope)
-  update_form.service_id.choices = list_resources_as_choices(Service)
+  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/single.html",
     maintenance=maintenance,
@@ -125,8 +125,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = MaintenanceUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope)
-  form.service_id.choices = list_resources_as_choices(Service)
+  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
