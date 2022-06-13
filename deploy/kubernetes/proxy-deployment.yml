@@ -25,10 +25,10 @@ spec:
         command: ["cp", "-rv", "ProdManager/static", "/static"]
         resources:
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 10M
           limits:
-            cpu: 250m
+            cpu: 100m
             memory: 25M
         volumeMounts:
         - name: static-files
@@ -38,11 +38,11 @@ spec:
         name: proxy
         resources:
           requests:
-            cpu: 100m
+            cpu: 10m
             memory: 10M
           limits:
-            cpu: 250m
-            memory: 25M
+            cpu: 100m
+            memory: 50L
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d

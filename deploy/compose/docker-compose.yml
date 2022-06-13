@@ -11,10 +11,10 @@ services:
       resources:
         limits:
           cpus: '0.50'
-          memory: 100M
+          memory: 150M
         reservations:
-          cpus: '0.25'
-          memory: 20M
+          cpus: '0.05'
+          memory: 100M
     environment:
       PORT: 8080
       PM_SECRET_KEY: changeit
