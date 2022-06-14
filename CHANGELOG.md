@@ -9,6 +9,7 @@
 - fix(style.App): Fix app display on small width screens (#25)
 - fix(style.Resource): Add more space between resource description and badges (#26)
 - fix(style.Resource): Remove italic on timeline icons (#27)
+- fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
 
 ## 0.6.0
 
