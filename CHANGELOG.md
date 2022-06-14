@@ -11,6 +11,7 @@
 - fix(style.Resource): Remove italic on timeline icons (#27)
 - fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
 - fix(deploy.Kubernetes): Mount host timezone in pods to allow user to select his (#33)
+- ci(GitLab): Fix build `latest` image tag when pushing on the default branch (#23)
 
 ## 0.6.0
 

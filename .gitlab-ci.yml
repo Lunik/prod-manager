@@ -108,6 +108,8 @@ image-build:
     - |
       if [[ ! -z "$CI_COMMIT_TAG" ]]; then
         tag="$CI_COMMIT_TAG"
+      elif [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag="latest"
       else
         tag="$CI_COMMIT_REF_SLUG"
       fi
