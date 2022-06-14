@@ -33,8 +33,14 @@ spec:
             memory: 200M
         volumeMounts:
         - name: data
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
+        - name: tz-config
+          mountPath: /etc/localtime
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: prod-manager-database
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Paris
+            type: File

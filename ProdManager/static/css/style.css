@@ -18,7 +18,13 @@
     green: #06B636;   text:  black
     blue: #00A8E8;    text:  white
     dark: #073B4C;    text:  white
-/*
+*/
+
+body {
+  margin: auto;
+
+  min-width: 820px;
+}
 
 /*****
   APP
@@ -26,6 +32,8 @@
 
 div#app {
   width: 70%;
+
+  min-width: 800px;
 
   margin: 25px auto;
 
@@ -231,6 +239,8 @@ div#resource_metadata {
 }
 
 div#resource_metadata #description {
+  margin-top: 15px;
+
   padding: 10px 15px;
 
   background-color: white;
@@ -296,6 +306,8 @@ div.timeline-horizontal .dot .line .dot-icon {
   flex: 1;
 
   margin: auto 5px;
+
+  font-style: normal;
 }
 
 div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .line .connect-line {

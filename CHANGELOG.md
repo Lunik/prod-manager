@@ -1,6 +1,19 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.6.1
+
+### Fixed
+
+- fix(deploy.Kubernetes): Correct invalid memory limit on proxy pod (#24)
+- fix(deploy.Kubernetes): Correct image in datadog agent `CronJob` template (#28)
+- fix(style.App): Fix app display on small width screens (#25)
+- fix(style.Resource): Add more space between resource description and badges (#26)
+- fix(style.Resource): Remove italic on timeline icons (#27)
+- fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
+- fix(deploy.Kubernetes): Mount host timezone in pods to allow user to select his (#33)
+- ci(GitLab): Fix build `latest` image tag when pushing on the default branch (#23)
+
+## 0.6.0
 
 ### Added
 
