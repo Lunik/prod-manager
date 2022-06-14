@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [Unreleased]
+
+
 ## 0.6.1
 
 ### Fixed
@@ -12,6 +15,7 @@
 - fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
 - fix(deploy.Kubernetes): Mount host timezone in pods to allow user to select his (#33)
 - ci(GitLab): Fix build `latest` image tag when pushing on the default branch (#23)
+
 
 ## 0.6.0
 
@@ -43,6 +47,7 @@
 - fix(\*.Scope): Fix scope display order (#9)
 - fix(\*.Monitor): Fix monitor display order (#9)
 - ci(GitLab): Fix builded image version on tag build
+
 
 ## 0.5.0
 
