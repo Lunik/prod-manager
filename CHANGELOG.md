@@ -10,6 +10,7 @@
 - fix(style.Resource): Add more space between resource description and badges (#26)
 - fix(style.Resource): Remove italic on timeline icons (#27)
 - fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
+- fix(deploy.Kubernetes): Mount host timezone in pods to allow user to select his (#33)
 
 ## 0.6.0
 

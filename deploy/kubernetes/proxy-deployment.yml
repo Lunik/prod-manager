@@ -50,9 +50,15 @@ spec:
         - name: static-files
           mountPath: /usr/share/nginx/html
           readOnly: true
+        - name: tz-config
+          mountPath: /etc/localtime
       volumes:
         - name: nginx-config
           configMap:
             name: prod-manager-proxy
         - name: static-files
           emptyDir: {}
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Paris
+            type: File
