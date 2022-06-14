@@ -1,6 +1,13 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.6.1
+
+### Fixed
+
+- fix(deploy.Kubernetes): Correct invalid memory limit on proxy pod (#24)
+- fix(deploy.Kubernetes): Correct image in datadog agent `CronJob` template (#28)
+
+## 0.6.0
 
 ### Added
 

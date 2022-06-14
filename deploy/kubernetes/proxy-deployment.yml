@@ -42,7 +42,7 @@ spec:
             memory: 10M
           limits:
             cpu: 100m
-            memory: 50L
+            memory: 50M
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d

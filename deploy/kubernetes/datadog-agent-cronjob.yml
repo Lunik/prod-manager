@@ -21,7 +21,7 @@ spec:
         spec:
           containers:
           - command: ["python3", "ProdManager/integrations/datadog/update_monitors.py"]
-            image: lunik/prod-manager:latest
+            image: registry.gitlab.com/prod-manager/prod-manager:latest
             imagePullPolicy: Always
             name: datadog-agent
             envFrom:
