@@ -18,7 +18,13 @@
     green: #06B636;   text:  black
     blue: #00A8E8;    text:  white
     dark: #073B4C;    text:  white
-/*
+*/
+
+body {
+  margin: auto;
+
+  min-width: 820px;
+}
 
 /*****
   APP
@@ -26,6 +32,8 @@
 
 div#app {
   width: 70%;
+
+  min-width: 800px;
 
   margin: 25px auto;
 
