@@ -77,7 +77,7 @@ build-docker:
 	${DOCKER} build --file="docker/Dockerfile" --tag="${APP_NAME}:$(APP_VERSION)" .
 
 
-run:
+run: $(if $(PM_STANDALONE), database-upgrade)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
 
 database-upgrade:

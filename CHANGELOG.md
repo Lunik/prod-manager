@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(deploy.Docker): Add `PM_STANDALONE` environment var to initiate/upgrade database on simpler deployment
+
 
 ## 0.6.1
 
