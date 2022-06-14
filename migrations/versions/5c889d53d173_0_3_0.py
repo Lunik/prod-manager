@@ -7,6 +7,7 @@ Create Date: 2022-06-07 22:52:38.546822
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.dialects.sqlite.base import SQLiteDialect
 
 
 # revision identifiers, used by Alembic.
@@ -38,35 +39,36 @@ def upgrade():
 
     op.alter_column('maintenance', 'service_planned_status', new_column_name='service_status')
 
-    tmp_incident_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE incident
-        ALTER COLUMN status TYPE _incidentstatus
-        USING status::text::_incidentstatus
-    """)
-    old_incident_status.drop(op.get_bind(), checkfirst=False)
-    new_incident_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE incident
-        ALTER COLUMN status TYPE incidentstatus
-        USING status::text::incidentstatus
-    """)
-    tmp_incident_status.drop(op.get_bind(), checkfirst=False)
+    if not isinstance(op.get_bind().dialect, SQLiteDialect):
+        tmp_incident_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE incident
+            ALTER COLUMN status TYPE _incidentstatus
+            USING status::text::_incidentstatus
+        """)
+        old_incident_status.drop(op.get_bind(), checkfirst=False)
+        new_incident_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE incident
+            ALTER COLUMN status TYPE incidentstatus
+            USING status::text::incidentstatus
+        """)
+        tmp_incident_status.drop(op.get_bind(), checkfirst=False)
 
-    tmp_maintenance_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE maintenance
-        ALTER COLUMN status TYPE _maintenancestatus
-        USING status::text::_maintenancestatus
-    """)
-    old_maintenance_status.drop(op.get_bind(), checkfirst=False)
-    new_maintenance_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE maintenance
-        ALTER COLUMN status TYPE maintenancestatus
-        USING status::text::maintenancestatus
-    """)
-    tmp_maintenance_status.drop(op.get_bind(), checkfirst=False)
+        tmp_maintenance_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE maintenance
+            ALTER COLUMN status TYPE _maintenancestatus
+            USING status::text::_maintenancestatus
+        """)
+        old_maintenance_status.drop(op.get_bind(), checkfirst=False)
+        new_maintenance_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE maintenance
+            ALTER COLUMN status TYPE maintenancestatus
+            USING status::text::maintenancestatus
+        """)
+        tmp_maintenance_status.drop(op.get_bind(), checkfirst=False)
     # ### end Alembic commands ###
 
 
@@ -77,33 +79,34 @@ def downgrade():
 
     op.alter_column('maintenance', 'service_status', new_column_name='service_planned_status')
 
-    tmp_incident_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE incident
-        ALTER COLUMN status TYPE _incidentstatus
-        USING status::text::_incidentstatus
-    """)
-    new_incident_status.drop(op.get_bind(), checkfirst=False)
-    old_incident_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE incident
-        ALTER COLUMN status TYPE incidentstatus
-        USING status::text::incidentstatus
-    """)
-    tmp_incident_status.drop(op.get_bind(), checkfirst=False)
+    if not isinstance(op.get_bind().dialect, SQLiteDialect):
+        tmp_incident_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE incident
+            ALTER COLUMN status TYPE _incidentstatus
+            USING status::text::_incidentstatus
+        """)
+        new_incident_status.drop(op.get_bind(), checkfirst=False)
+        old_incident_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE incident
+            ALTER COLUMN status TYPE incidentstatus
+            USING status::text::incidentstatus
+        """)
+        tmp_incident_status.drop(op.get_bind(), checkfirst=False)
 
-    tmp_maintenance_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE maintenance
-        ALTER COLUMN status TYPE _maintenancestatus
-        USING status::text::_maintenancestatus
-    """)
-    new_maintenance_status.drop(op.get_bind(), checkfirst=False)
-    old_maintenance_status.create(op.get_bind(), checkfirst=False)
-    op.execute("""
-        ALTER TABLE maintenance
-        ALTER COLUMN status TYPE maintenancestatus
-        USING status::text::maintenancestatus
-    """)
-    tmp_maintenance_status.drop(op.get_bind(), checkfirst=False)
+        tmp_maintenance_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE maintenance
+            ALTER COLUMN status TYPE _maintenancestatus
+            USING status::text::_maintenancestatus
+        """)
+        new_maintenance_status.drop(op.get_bind(), checkfirst=False)
+        old_maintenance_status.create(op.get_bind(), checkfirst=False)
+        op.execute("""
+            ALTER TABLE maintenance
+            ALTER COLUMN status TYPE maintenancestatus
+            USING status::text::maintenancestatus
+        """)
+        tmp_maintenance_status.drop(op.get_bind(), checkfirst=False)
     # ### end Alembic commands ###

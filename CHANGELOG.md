@@ -6,6 +6,10 @@
 
 - feat(deploy.Docker): Add `PM_STANDALONE` environment var to initiate/upgrade database on simpler deployment
 
+### Fixed
+
+- fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
+
 
 ## 0.6.1
 
