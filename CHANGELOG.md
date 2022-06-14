@@ -7,6 +7,8 @@
 - fix(deploy.Kubernetes): Correct invalid memory limit on proxy pod (#24)
 - fix(deploy.Kubernetes): Correct image in datadog agent `CronJob` template (#28)
 - fix(style.App): Fix app display on small width screens (#25)
+- fix(style.Resource): Add more space between resource description and badges (#26)
+- fix(style.Resource): Remove italic on timeline icons (#27)
 
 ## 0.6.0
 
