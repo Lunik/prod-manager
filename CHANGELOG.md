@@ -5,6 +5,7 @@
 ### Added
 
 - feat(deploy.Docker): Add `PM_STANDALONE` environment var to initiate/upgrade database on simpler deployment
+- chore(Git): Community resources and documentation (#20)
 
 ### Fixed
 
