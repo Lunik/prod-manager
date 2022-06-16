@@ -12,7 +12,7 @@
 ### Fixed
 
 - fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
-
+- fix(python): Set `/app` as `PYTHONPATH` (#36)
 
 ## 0.6.1
 

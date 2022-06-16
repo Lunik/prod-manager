@@ -1,7 +1,7 @@
 FROM python:3-alpine
 
 WORKDIR /app
-
+ENV PYTHONPATH=/app
 
 RUN apk add \
   --update --no-cache \
