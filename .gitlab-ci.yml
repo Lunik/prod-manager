@@ -7,6 +7,9 @@ variables:
   PACKAGE_NAME: ProdManager
   SCAN_KUBERNETES_MANIFESTS: "true"
 
+default:
+  interruptible: true
+
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
