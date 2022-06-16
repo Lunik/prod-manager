@@ -8,6 +8,7 @@
 - chore(Git): Community resources and documentation (#20)
 - ci(GitLab): Add container scanning
 - ci(GitLab): Abort concurent jobs on the same ref (#35)
+- ci(GitLab): Add database upgrade validation tests
 
 ### Fixed
 
