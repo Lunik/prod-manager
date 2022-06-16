@@ -16,6 +16,7 @@ workflow:
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/topics/caching/
@@ -30,6 +31,7 @@ cache:
 stages:
   - test
   - build
+  - validate
 
 
 .python-tests:
@@ -91,6 +93,15 @@ scan:
       sonar-scanner
       -Dsonar.branch.name="$CI_COMMIT_REF_NAME"
 
+.image-tag: &image-tag |
+  if [[ ! -z "$CI_COMMIT_TAG" ]]; then
+    export tag="$CI_COMMIT_TAG"
+  elif [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+    export tag="latest"
+  else
+    export tag="$CI_COMMIT_REF_SLUG"
+  fi
+
 image-build:
   stage: build
   image: docker:latest
@@ -102,17 +113,10 @@ image-build:
       -u "$CI_REGISTRY_USER"
       -p "$CI_REGISTRY_PASSWORD"
       $CI_REGISTRY
+    - *image-tag
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
-    - |
-      if [[ ! -z "$CI_COMMIT_TAG" ]]; then
-        tag="$CI_COMMIT_TAG"
-      elif [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        tag="latest"
-      else
-        tag="$CI_COMMIT_REF_SLUG"
-      fi
     - >
       docker image build
       --pull
@@ -120,3 +124,13 @@ image-build:
       --file="docker/Dockerfile"
       .
     - docker image push "$CI_REGISTRY_IMAGE:${tag}"
+
+container_scanning:
+  stage: validate
+  before_script:
+    - *image-tag
+    - export DOCKER_IMAGE="$CI_REGISTRY_IMAGE:${tag}"
+  variables:
+    GIT_STRATEGY: fetch
+    DOCKERFILE_PATH: docker/Dockerfile
+    CS_DISABLE_LANGUAGE_VULNERABILITY_SCAN: 'false'
