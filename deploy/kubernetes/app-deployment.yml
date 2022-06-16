@@ -23,6 +23,9 @@ spec:
         app: prod-manager
         component: app
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       initContainers:
       - image: registry.gitlab.com/prod-manager/prod-manager:latest
         imagePullPolicy: Always

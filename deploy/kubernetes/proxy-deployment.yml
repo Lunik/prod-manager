@@ -41,6 +41,11 @@ spec:
       containers:
       - image: nginx:latest
         name: proxy
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
         resources:
           requests:
             cpu: 10m
@@ -48,6 +53,24 @@ spec:
           limits:
             cpu: 100m
             memory: 50M
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        startupProbe:
+          httpGet:
+            path: /ping
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
