@@ -57,20 +57,18 @@ spec:
           httpGet:
             path: /ping
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          periodSeconds: 5
         readinessProbe:
           httpGet:
             path: /ping
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          periodSeconds: 5
         startupProbe:
           httpGet:
             path: /ping
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          failureThreshold: 15
+          periodSeconds: 1
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d

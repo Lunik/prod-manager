@@ -63,22 +63,20 @@ spec:
             memory: 150M
         livenessProbe:
           httpGet:
-            path: /health/liveness
+            path: /health
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          periodSeconds: 5
         readinessProbe:
           httpGet:
-            path: /health/readiness
+            path: /health
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          periodSeconds: 5
         startupProbe:
           httpGet:
-            path: /health/startup
+            path: /health
             port: http
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          failureThreshold: 15
+          periodSeconds: 1
         volumeMounts:
         - name: tz-config
           mountPath: /etc/localtime
