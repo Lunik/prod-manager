@@ -8,6 +8,11 @@ metadata:
   name: prod-manager
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 50%
   selector:
     matchLabels:
       app: prod-manager
@@ -38,8 +43,11 @@ spec:
         imagePullPolicy: Always
         name: app
         env:
-          - name: PORT
-            value: "8080"
+        - name: PORT
+          value: "8080"
+        ports:
+        - name: http
+          containerPort: 8080
         envFrom:
         - secretRef:
             name: prod-manager
@@ -50,6 +58,24 @@ spec:
           limits:
             cpu: 500m
             memory: 150M
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
         volumeMounts:
         - name: tz-config
           mountPath: /etc/localtime
@@ -58,3 +84,19 @@ spec:
           hostPath:
             path: /usr/share/zoneinfo/Europe/Paris
             type: File
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: prod-manager
+                  component: app
+              topologyKey: topology.kubernetes.io/zone
+            weight: 100
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                  app: prod-manager
+                  component: app
+            topologyKey: kubernetes.io/hostname

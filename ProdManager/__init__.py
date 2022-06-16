@@ -71,7 +71,7 @@ def create_app():
     retreiv_auth()
 
 
-  from ProdManager.routes import root,auth,scope,service,incident,maintenance,monitor
+  from ProdManager.routes import root,auth,scope,service,incident,maintenance,monitor,health
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
   app.register_blueprint(auth.view, url_prefix="/")
@@ -80,6 +80,7 @@ def create_app():
   app.register_blueprint(incident.view, url_prefix="/incident")
   app.register_blueprint(maintenance.view, url_prefix="/maintenance")
   app.register_blueprint(monitor.view, url_prefix="/monitor")
+  app.register_blueprint(health.view, url_prefix="/health")
 
   from ProdManager.filters.basic import (
     ternary, format_column_name, format_timeline_date,
