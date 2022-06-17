@@ -14,6 +14,7 @@
 - feat(deploy.Kubernetes): Add `securityContext` strategy on app deployment
 - feat(deploy.Kubernetes): Add `probes` strategy on proxy/app deployment
 - feat(style.timeline): Change color on Maintenace/Incident `Comment` (#22)
+- feat(style.timeline): Allow to show/hidden technical events (#32)
 
 ### Fixed
 

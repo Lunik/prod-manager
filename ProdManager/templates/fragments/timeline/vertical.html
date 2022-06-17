@@ -1,9 +1,6 @@
 <div class="timeline timeline-vertical">
   {% for dot_type, dot_title, dot_content, dot_date in dots %}
-    <div class="dot {{ dot_type }}">
-      {% if not loop.first %}
-        <div class="connect-line"> </div>
-      {% endif %}
+    <div class="dot {{ dot_type }} {% if dot_type in ['create', 'update'] %}hidden{% endif %}">
       <div class="content">
         <p class="date">{{ dot_date | format_timeline_date }}</p>
         <h4 class="title">{{ dot_title }}</h4>
@@ -25,9 +22,7 @@
           {% endif %}
         </div>
       </div>
-      {% if not loop.last %}
-        <div class="connect-line"> </div>
-      {% endif %}
     </div>
   {% endfor %}
+<button class="technical-event-toggle display-toggle" target=".dot.update, .dot.create">Show technical events</button>
 </div>
