@@ -9,6 +9,7 @@
 ### Fixed
 
 - fix(view.Service): Fix update form by removing the `status` field
+- fix(style.timeline): Fix regression on horizontal timeline connect-line
 
 ## 0.7.0
 

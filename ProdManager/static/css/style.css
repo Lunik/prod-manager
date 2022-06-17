@@ -310,6 +310,16 @@ div.timeline-horizontal .dot .line .dot-icon {
   font-style: normal;
 }
 
+div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .line .connect-line {
+  flex: 6;
+}
+
+div.timeline-horizontal .dot .line .connect-line {
+  height: 5px;
+
+  background-color: #C0C0C0;
+}
+
 div.timeline-vertical {
   text-align: center;
 }
