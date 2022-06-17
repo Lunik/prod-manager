@@ -265,6 +265,10 @@ div#resource_metadata #target * {
   display: inline-block;
 }
 
+div#extra_content {
+  margin: 15px 0 0 10px;
+}
+
 div#extra_content #monitors {
   display: inline-block;
 
