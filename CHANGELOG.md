@@ -6,6 +6,9 @@
 
 - feat(integration.datadog): Use native Flask/SQLAlchemy SDK for updating monitors
 
+### Fixed
+
+- fix(view.Service): Fix update form by removing the `status` field
 
 ## 0.7.0
 
