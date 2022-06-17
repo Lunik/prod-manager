@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(integration.datadog): Use native Flask/SQLAlchemy SDK for updating monitors
+
 
 ## 0.7.0
 
