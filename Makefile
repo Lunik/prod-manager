@@ -67,7 +67,7 @@ stop-kube:
 	${KUBECTL} delete ${KUBECTL_OPTS}
 
 
-run-docker: build-docker
+run-docker:
 	${DOCKER} compose ${DOCKER_COMPOSE_OPTS} up --detach
 
 stop-docker:
@@ -77,8 +77,11 @@ build-docker:
 	${DOCKER} build --file="docker/Dockerfile" --tag="${APP_NAME}:$(APP_VERSION)" .
 
 
-run:
+run: $(if $(PM_STANDALONE), database-upgrade)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
+
+database-migration:
+	${FLASK} db migrate -m "<EDIT COMMIT MESSAGE>"
 
 database-upgrade:
 	${FLASK} db upgrade

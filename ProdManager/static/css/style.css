@@ -45,7 +45,7 @@ div#app {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /******
@@ -310,18 +310,8 @@ div.timeline-horizontal .dot .line .dot-icon {
   font-style: normal;
 }
 
-div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .line .connect-line {
-  flex: 6;
-}
-
-div.timeline-horizontal .dot .line .connect-line {
-  height: 5px;
-
-  background-color: #C0C0C0;
-}
-
 div.timeline-vertical {
-  display: block;
+  text-align: center;
 }
 
 div.timeline-vertical .dot {
@@ -331,12 +321,21 @@ div.timeline-vertical .dot {
   margin: 12px auto;
   width: 70%;
 
-  background-color: #3A6EA5;
-  color: white;
+  text-align: left;
 
   border-radius: 3px;
 
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+div.timeline-vertical .dot.comment {
+  background-color: #FF6700;
+  color: white;
+}
+
+div.timeline-vertical .dot.update, div.timeline-vertical .dot.create {
+  background-color: #3A6EA5;
+  color: white;
 }
 
 div.timeline-vertical .dot .content {
@@ -360,16 +359,6 @@ div.timeline-vertical .dot .content .data {
 
 div.timeline-vertical .dot .content .data .line {
   margin: 3px auto;
-}
-
-div.timeline-vertical .dot .connect-line {
-  flex: 2;
-
-  width: 20px;
-
-  margin: -10px auto;
-
-  background-color: #3A6EA5;
 }
 
 /********

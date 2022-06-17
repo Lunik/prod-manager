@@ -8,6 +8,8 @@ metadata:
   name: prod-manager-database
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: prod-manager
@@ -21,6 +23,9 @@ spec:
       containers:
       - image: postgres
         name: database
+        ports:
+        - name: postgres
+          containerPort: 5432
         envFrom:
         - secretRef:
             name: prod-manager-database
@@ -33,7 +38,8 @@ spec:
             memory: 200M
         volumeMounts:
         - name: data
-          mountPath: /var/lib/postgresql
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
         - name: tz-config
           mountPath: /etc/localtime
       volumes:

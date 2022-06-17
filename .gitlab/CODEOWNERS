@@ -1,0 +1,17 @@
+# When adding a group as a code owner, make sure to invite the group to the
+# project here: https://gitlab.com/prod-manager/prod-manager/-/project_members
+# As described in https://docs.gitlab.com/ee/user/project/code_owners.html
+
+^[Backend]
+*.py @Lunik
+
+^[Frontend]
+/ProdManager/static/ @Lunik
+/ProdManager/templates/ @Lunik
+
+^[Database]
+/migrations/ @Lunik
+/ProdManager/models/ @Lunik
+
+^[OPS]
+/deploy/ @Lunik

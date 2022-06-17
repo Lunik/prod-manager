@@ -32,8 +32,6 @@ spec:
             env:
             - name: DD_SITE
               value: datadoghq.eu
-            - name: PYTHONPATH
-              value: "."
             resources:
               requests:
                 cpu: 50m

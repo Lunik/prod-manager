@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### Added
+
+- feat(deploy.Docker): Add `PM_STANDALONE` environment var to initiate/upgrade database on simpler deployment
+- chore(Git): Community resources and documentation (#20)
+- ci(GitLab): Add container scanning
+- ci(GitLab): Abort concurent jobs on the same ref (#35)
+- ci(GitLab): Add database upgrade validation tests
+- feat(deploy.Kubernetes): Add `PodAntiAffinity` and `PodAffinity` on proxy/app deployment (#29)
+- feat(deploy.Kubernetes): Add `RollingUpdate` strategy on proxy/app deployment
+- feat(deploy.Kubernetes): Add `securityContext` strategy on app deployment
+- feat(deploy.Kubernetes): Add `probes` strategy on proxy/app deployment
+- feat(style.timeline): Change color on Maintenace/Incident `Comment` (#22)
+- feat(style.timeline): Allow to show/hidden technical events (#32)
+
+### Fixed
+
+- fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
+- fix(python): Set `/app` as `PYTHONPATH` (#36)
+- fix(deploy.Kubernetes): Fix database persistence volume
+
 ## 0.6.1
 
 ### Fixed
@@ -12,6 +34,7 @@
 - fix(deploy.Kubernetes): Remove `storageClassName` in database `PersistentVolumeClaim` to automatically select the default one
 - fix(deploy.Kubernetes): Mount host timezone in pods to allow user to select his (#33)
 - ci(GitLab): Fix build `latest` image tag when pushing on the default branch (#23)
+
 
 ## 0.6.0
 
@@ -43,6 +66,7 @@
 - fix(\*.Scope): Fix scope display order (#9)
 - fix(\*.Monitor): Fix monitor display order (#9)
 - ci(GitLab): Fix builded image version on tag build
+
 
 ## 0.5.0
 

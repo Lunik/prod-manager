@@ -19,6 +19,7 @@ services:
       PORT: 8080
       PM_SECRET_KEY: changeit
       PM_DATABASE_URI: postgresql://prodmanager:changeit@database/prodmanager
+      PM_STANDALONE: 'true'
     ports:
       - 80:8080
     networks: 

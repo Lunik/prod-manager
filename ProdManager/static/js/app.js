@@ -1,8 +1,8 @@
 
 function do_display_toggle() {
-  target = document.querySelector(this.getAttribute("target"))
+  targets = document.querySelectorAll(this.getAttribute("target"))
 
-  if (target) {
+  for (let target of targets) {
     target.classList.toggle("hidden")
   }
 }
