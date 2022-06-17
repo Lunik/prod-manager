@@ -1,17 +1,19 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.7.1
 
 ### Added
 
 - feat(integration.datadog): Use native Flask/SQLAlchemy SDK for updating monitors
 - chore(README): Add application screenshots
+- feat(template.base): Add link to the gitlab repository in the footer (#38)
 
 ### Fixed
 
 - fix(view.Service): Fix update form by removing the `status` field
 - fix(style.timeline): Fix regression on horizontal timeline connect-line
 - fix(style.Monitor): Fix monitor display on Scope/Service pages
+
 
 ## 0.7.0
 
@@ -34,6 +36,7 @@
 - fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
 - fix(python): Set `/app` as `PYTHONPATH` (#36)
 - fix(deploy.Kubernetes): Fix database persistence volume
+
 
 ## 0.6.1
 
