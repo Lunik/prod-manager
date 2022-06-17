@@ -12,7 +12,7 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.form import strip_input
 
-from ProdManager.models.Service import Service, ServiceStatus
+from ProdManager.models.Service import Service
 from ProdManager.models.Monitor import count_monitors
 from ProdManager.models.Incident import Incident
 from ProdManager.models.Maintenance import Maintenance
@@ -129,7 +129,6 @@ def update(resource_id):
     service, _ = update_resource(Service, resource_id, dict(
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
-      status=ServiceStatus(form.status.data),
     ))
   except Exception as error:
     return abort(error.code, dict(

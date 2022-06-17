@@ -26,7 +26,10 @@ Please check [future Milestones][gitlab-milestones]
 
 ## Screenshots
 
-TODO
+![dashboard](resources/images/screenshot_dashboard.png)
+![incident](resources/images/screenshot_incident.png)
+
+[More screenshots](resources/images)
 
 ## How to Deploy ?
 
