@@ -331,12 +331,19 @@ div.timeline-vertical .dot {
   margin: 12px auto;
   width: 70%;
 
-  background-color: #3A6EA5;
-  color: white;
-
   border-radius: 3px;
 
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+div.timeline-vertical .dot.comment {
+  background-color: #FF6700;
+  color: white;
+}
+
+div.timeline-vertical .dot.update, div.timeline-vertical .dot.create {
+  background-color: #3A6EA5;
+  color: white;
 }
 
 div.timeline-vertical .dot .content {
@@ -367,7 +374,17 @@ div.timeline-vertical .dot .connect-line {
 
   width: 20px;
 
-  margin: -10px auto;
+  margin: -12px auto;
+}
+
+div.timeline-vertical .dot.comment .connect-line {
+  z-index: 100;
+
+  background-color: #FF6700;
+}
+
+div.timeline-vertical .dot.update .connect-line, div.timeline-vertical .dot.create .connect-line {
+  z-index: 50;
 
   background-color: #3A6EA5;
 }

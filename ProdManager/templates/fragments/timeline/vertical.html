@@ -1,6 +1,6 @@
 <div class="timeline timeline-vertical">
   {% for dot_type, dot_title, dot_content, dot_date in dots %}
-    <div class="dot">
+    <div class="dot {{ dot_type }}">
       {% if not loop.first %}
         <div class="connect-line"> </div>
       {% endif %}
