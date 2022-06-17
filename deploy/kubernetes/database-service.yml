@@ -12,7 +12,7 @@ spec:
     app: prod-manager
     component: database
   ports:
-  - name: psql
+  - name: postgres
     port: 5432
     protocol: TCP
-    targetPort: 5432
+    targetPort: postgres

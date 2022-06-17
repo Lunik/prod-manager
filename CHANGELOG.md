@@ -9,11 +9,16 @@
 - ci(GitLab): Add container scanning
 - ci(GitLab): Abort concurent jobs on the same ref (#35)
 - ci(GitLab): Add database upgrade validation tests
+- feat(deploy.Kubernetes): Add `PodAntiAffinity` and `PodAffinity` on proxy/app deployment (#29)
+- feat(deploy.Kubernetes): Add `RollingUpdate` strategy on proxy/app deployment
+- feat(deploy.Kubernetes): Add `securityContext` strategy on app deployment
+- feat(deploy.Kubernetes): Add `probes` strategy on proxy/app deployment
 
 ### Fixed
 
 - fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
 - fix(python): Set `/app` as `PYTHONPATH` (#36)
+- fix(deploy.Kubernetes): Fix database persistence volume
 
 ## 0.6.1
 

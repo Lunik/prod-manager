@@ -8,6 +8,11 @@ metadata:
   name: prod-manager-proxy
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 50%
   selector:
     matchLabels:
       app: prod-manager
@@ -36,6 +41,11 @@ spec:
       containers:
       - image: nginx:latest
         name: proxy
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
         resources:
           requests:
             cpu: 10m
@@ -43,6 +53,22 @@ spec:
           limits:
             cpu: 100m
             memory: 50M
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          periodSeconds: 5
+        startupProbe:
+          httpGet:
+            path: /ping
+            port: http
+          failureThreshold: 15
+          periodSeconds: 1
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
@@ -62,3 +88,28 @@ spec:
           hostPath:
             path: /usr/share/zoneinfo/Europe/Paris
             type: File
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: prod-manager
+                  component: proxy
+              topologyKey: topology.kubernetes.io/zone
+            weight: 50
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                  app: prod-manager
+                  component: proxy
+            topologyKey: kubernetes.io/hostname
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: prod-manager
+                  component: app
+              topologyKey: kubernetes.io/hostname
+            weight: 100
