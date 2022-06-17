@@ -5,6 +5,7 @@
 ### Added
 
 - feat(integration.datadog): Use native Flask/SQLAlchemy SDK for updating monitors
+- chore(README): Add application screenshots
 
 ### Fixed
 
