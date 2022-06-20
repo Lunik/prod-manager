@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(template.\*): Add [OpenGraph](https://ogp.me) metadata
+
 
 ## 0.7.1
 

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ resource_type.capitalize() }}{% endblock %}
+{% set share_title = resource_type.capitalize() + " list" %}
 
 {% block content %}
 <h1>{{ resource_type.capitalize() }}s list</h1>
