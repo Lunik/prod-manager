@@ -19,6 +19,9 @@
     <meta property="og:image" content="{{ url_for('static', filename='img/prod-manager.png') }}" />
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% if config['CUSTOM_CSS_SHEET'] %}
+      <link rel="stylesheet" href="{{ url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
+    {% endif %}
 
     {% block head %}{% endblock %}
   </head>

@@ -38,7 +38,8 @@ def create_app():
     ),
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     SQLALCHEMY_ECHO=False,
-    WTF_CSRF_ENABLED=True
+    WTF_CSRF_ENABLED=True,
+    CUSTOM_CSS_SHEET=os.environ.get("CUSTOM_CSS_SHEET", None),
   )
 
   app.config.from_pyfile("config.py", silent=True)

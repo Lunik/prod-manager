@@ -10,6 +10,8 @@
 - feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13)
 - feat(template.Scope): Make the monitors badges clikable to see related monitors
 - feat(template.Service): Make the monitors badges clikable to see related monitors
+- feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
+  - The Style sheet should be placed inside the `ProdManager/static` folder
 
 ## 0.7.1
 

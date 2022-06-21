@@ -1,29 +1,39 @@
 
-/*
-  Base palette :
-    orange: #FF6700;
-    darkwhite: #E1E5f2;
-    lightgrey: #EBEBEB;
-    grey: #C0C0C0;
-    lightblue: #3A6EA5;
-    blue: #004E98;
-*/
+:root {
+  --text-color: #000000;
 
-/*
-  Badge palette:
-    purple: #560BAD;  text:  white
-    red: #EF476F      text:  white
-    orange: #FB8500;  text:  black
-    yellow: #FFD166;  text:  black
-    green: #06B636;   text:  black
-    blue: #00A8E8;    text:  white
-    dark: #073B4C;    text:  white
-*/
+  --base-default-background-color: #FFFFFF;
+  --base-primary-background-color: #EBEBEB;
+  --base-secondary-background-color: #E1E5f2;
+  --base-ternary-background-color: #C0C0C0;
+  --base-main-color: #3A6EA5;
+  --base-main-darker-color: #004E98;
+  --base-secondary-color: #FF6700;
+
+
+  --badge-purple-color: #560BAD;
+  --badge-red-color: #EF476F;
+  --badge-orange-color: #FB8500;
+  --badge-yellow-color: #FFD166;
+  --badge-green-color: #06B636;
+  --badge-blue-color: #00A8E8;
+  --badge-dark-color: #073B4C;
+
+  --badge-purple-text-color: white;
+  --badge-red-text-color: white;
+  --badge-orange-text-color: black;
+  --badge-yellow-text-color: black;
+  --badge-green-text-color: white;
+  --badge-blue-text-color: white;
+  --badge-dark-text-color: white;
+}
 
 body {
   margin: auto;
 
   min-width: 820px;
+
+  background-color: var(--base-default-background-color);
 }
 
 /*****
@@ -40,7 +50,8 @@ div#app {
   overflow: hidden;
   border-radius: 5px;
 
-  background-color: #EBEBEB;
+  background-color: var(--base-primary-background-color);
+  color: var(--text-color);
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -53,7 +64,7 @@ div#app {
 *******/
 
 nav#menu {
-  background-color: #3A6EA5;
+  background-color: var(--base-main-color);
 }
 
 nav#menu ul {
@@ -74,7 +85,7 @@ nav#menu li {
 }
 
 nav#menu li.active {
-  background-color: #004E98;
+  background-color: var(--base-main-darker-color);
 }
 
 nav#menu li a {
@@ -109,41 +120,41 @@ div#content {
   text-decoration: none;
 }
 
-.badge.external_reference { background-color: #00A8E8; color: white; }
+.badge.external_reference { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
 
-.badge.incident#severity.critical { background-color: #560BAD; color: white; }
-.badge.incident#severity.high     { background-color: #EF476F; color: white; }
-.badge.incident#severity.moderate { background-color: #FB8500; }
-.badge.incident#severity.low      { background-color: #FFD166; }
-.badge.incident#severity.minor    { background-color: #00A8E8; color: white; }
+.badge.incident#severity.critical { background-color: var(--badge-purple-color); color: var(--badge-purple-text-color); }
+.badge.incident#severity.high     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
+.badge.incident#severity.moderate { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
+.badge.incident#severity.low      { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
+.badge.incident#severity.minor    { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
 
-.badge.incident#status.active        { background-color: #EF476F; color: white; }
-.badge.incident#status.investigating { background-color: #FB8500; }
-.badge.incident#status.stable        { background-color: #FFD166; }
-.badge.incident#status.resolved      { background-color: #06B636; }
+.badge.incident#status.active        { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
+.badge.incident#status.investigating { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
+.badge.incident#status.stable        { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
+.badge.incident#status.resolved      { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
 
-.badge.maintenance#status.scheduled   { background-color: #00A8E8; color: white; }
-.badge.maintenance#status.in-progress { background-color: #FFD166; }
-.badge.maintenance#status.succeed     { background-color: #06B636; }
-.badge.maintenance#status.failed      { background-color: #EF476F; color: white; }
+.badge.maintenance#status.scheduled   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge.maintenance#status.in-progress { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
+.badge.maintenance#status.succeed     { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
+.badge.maintenance#status.failed      { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
 
-.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: #06B636; }
-.badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: #FB8500; }
-.badge.maintenance#service_status.down, .badge.service#status.down         { background-color: #EF476F; color: white; }
+.badge.maintenance#service_status.up, .badge.service#status.up             { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
+.badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
+.badge.maintenance#service_status.down, .badge.service#status.down         { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
 
-.badge.monitor#status.ok      { background-color: #06B636; color: white; }
-.badge.monitor#status.warning { background-color: #FB8500 }
-.badge.monitor#status.alert   { background-color: #EF476F; color: white; }
+.badge.monitor#status.ok      { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
+.badge.monitor#status.warning { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
+.badge.monitor#status.alert   { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
 
-.badge.monitor#external_link   { background-color: #00A8E8; }
-.badge.monitor#external_link a { color: white; }
+.badge.monitor#external_link   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge.monitor#external_link a { color: var(--badge-blue-text-color); }
 
 .badge.monitor .count { font-weight: bold; }
 
 .error {
   padding: 5px 20px;
 
-  background-color: #EF476F;
+  background-color: var(--badge-red-color);
 
   border-radius: 3px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
@@ -173,7 +184,7 @@ table#resource-list th {
 
   text-align: left;
 
-  background-color: #3A6EA5;
+  background-color: var(--base-main-color);
   color: white;
 }
 
@@ -186,19 +197,19 @@ table#resource-list td {
 }
 
 table#resource-list tr:nth-child(even){
-  background-color: white;
+  background-color: var(--base-default-background-color);
 }
 
 table#resource-list tr:nth-child(odd){
-  background-color: #e1e5f2;
+  background-color: var(--base-secondary-background-color);
 }
 
 table#resource-list tr:hover {
-  background-color: #EBEBEB;
+  background-color: var(--base-primary-background-color);
 }
 
 table#resource-list tr.resource:hover {
-  background-color: #C0C0C0;
+  background-color: var(--base-ternary-background-color);
 }
 
 table#resource-list td._show {
@@ -228,9 +239,14 @@ div#pagination a:hover {
 ***********/
 
 a#back {
+  color: inherit;
   font-weight: bold;
 
   text-decoration: none;
+}
+
+a#back:hover {
+  color: red;
 }
 
 
@@ -238,12 +254,20 @@ div#resource_metadata {
   margin: auto 10px;
 }
 
+div#resource_metadata a {
+  color: inherit;
+}
+
+div#resource_metadata a:hover {
+  color: red;
+}
+
 div#resource_metadata #description {
   margin-top: 15px;
 
   padding: 10px 15px;
 
-  background-color: white;
+  background-color: var(--base-default-background-color);
 
   border-radius: 3px;
 }
@@ -321,7 +345,7 @@ div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .
 div.timeline-horizontal .dot .line .connect-line {
   height: 5px;
 
-  background-color: #C0C0C0;
+  background-color: var(--base-ternary-background-color);
 }
 
 div.timeline-vertical {
@@ -343,12 +367,12 @@ div.timeline-vertical .dot {
 }
 
 div.timeline-vertical .dot.comment {
-  background-color: #FF6700;
+  background-color: var(--base-secondary-color);
   color: white;
 }
 
 div.timeline-vertical .dot.update, div.timeline-vertical .dot.create {
-  background-color: #3A6EA5;
+  background-color: var(--base-main-color);
   color: white;
 }
 
@@ -382,12 +406,12 @@ div.timeline-vertical .dot .content .data .line {
 div#footer {
   padding: 5px;
 
-  background-color: #C0C0C0;
-  color: white;
+  background-color: var(--base-ternary-background-color);
+  color: var(--text-color);
 }
 
 div#footer a {
-  color: white;
+  color: inherit;
 }
 
 div#footer a:hover {
@@ -415,7 +439,7 @@ form .field {
   margin: 5px auto;
   padding: 5px;
 
-  border-bottom: 1px solid #C0C0C0;
+  border-bottom: 1px solid var(--base-ternary-background-color);
 }
 
 form .field label, form .field input {
