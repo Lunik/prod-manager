@@ -5,7 +5,11 @@
 ### Added
 
 - feat(template.\*): Add [OpenGraph](https://ogp.me) metadata
-
+- feat(view.Incident): Allow to filter by `status`, `severity`, `scope` and `service` (#13)
+- feat(view.Maintenance): Allow to filter by `status`, `scope` and `service` (#13)
+- feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13)
+- feat(template.Scope): Make the monitors badges clikable to see related monitors
+- feat(template.Service): Make the monitors badges clikable to see related monitors
 
 ## 0.7.1
 

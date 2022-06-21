@@ -9,7 +9,8 @@ from ProdManager.helpers.resource import (
   get_resource,
   update_resource,
   delete_resource,
-  list_resources_as_choices
+  list_resources_as_choices,
+  resource_filters,
 )
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.json import json_defaults
@@ -30,8 +31,9 @@ bp = Blueprint("incident", __name__)
 ##########
 
 @bp.route("", methods=("GET",))
-def list():
-  incidents = list_resources(Incident)
+@resource_filters(Incident.filters())
+def list(filters):
+  incidents = list_resources(Incident, filters=filters)
 
   create_form = IncidentCreateForm()
   create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())

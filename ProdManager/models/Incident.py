@@ -74,3 +74,12 @@ class Incident(db.Model):
   @classmethod
   def past_filter(cls):
     return Incident.status.in_([IncidentStatus.RESOLVED])
+
+  @classmethod
+  def filters(cls):
+    return [
+      ("status", cls.status, IncidentStatus),
+      ("severity", cls.severity, IncidentSeverity),
+      ("scope", cls.scope_id, int),
+      ("service", cls.service_id, int),
+    ]
