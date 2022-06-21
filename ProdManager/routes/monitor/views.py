@@ -7,7 +7,8 @@ from ProdManager.helpers.resource import (
   get_resource,
   update_resource,
   delete_resource,
-  list_resources_as_choices
+  list_resources_as_choices,
+  resource_filters,
 )
 from ProdManager.helpers.form import strip_input
 
@@ -24,8 +25,10 @@ bp = Blueprint("monitor", __name__)
 ##########
 
 @bp.route("", methods=("GET",))
-def list():
-  monitors = list_resources(Monitor)
+@resource_filters(Monitor.filters())
+def list(filters):
+
+  monitors = list_resources(Monitor, filters=filters)
 
   create_form = MonitorCreateForm()
   create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())

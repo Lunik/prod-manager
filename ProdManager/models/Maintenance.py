@@ -65,3 +65,11 @@ class Maintenance(db.Model):
   @classmethod
   def past_filter(cls):
     return Maintenance.status.in_([MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED])
+
+  @classmethod
+  def filters(cls):
+    return [
+      ("status", cls.status, MaintenanceStatus),
+      ("scope", cls.scope_id, int),
+      ("service", cls.service_id, int),
+    ]

@@ -11,12 +11,12 @@
   <div id="pagination">
     <h4>Pages</h4>
     {% if paginate_obj.has_prev %}
-      <a href="{{ url_for(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; Previous</a>
+      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; Previous</a>
     {% endif %}
     {% for page in paginate_obj.iter_pages() %}
       {% if page %}
         {% if page != paginate_obj.page %}
-          <a href="{{ url_for(resource_endpoint + '.list', page=page, per_page=paginate_obj.per_page) }}">{{ page }}</a>
+          <a href="{{ url_for_paginated(resource_endpoint + '.list', page=page, per_page=paginate_obj.per_page) }}">{{ page }}</a>
         {% else %}
           <strong>{{ page }}</strong>
         {% endif %}
@@ -25,7 +25,7 @@
       {% endif %}
     {% endfor %}
     {% if paginate_obj.has_next %}
-      <a href="{{ url_for(resource_endpoint + '.list', page=paginate_obj.next_num, per_page=paginate_obj.per_page) }}" id="next">Next &gt;</a>
+      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.next_num, per_page=paginate_obj.per_page) }}" id="next">Next &gt;</a>
     {% endif %}
   </div>
 {% endif %}
