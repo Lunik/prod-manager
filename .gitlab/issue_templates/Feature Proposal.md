@@ -4,13 +4,9 @@
 
 -->
 
-### Release notes
-
-<!-- What is the problem and solution you're proposing? -->
-
 ### Problem to solve
 
-<!-- What is the user problem you are trying to solve with this issue? -->
+<!-- What is the problem and solution you're proposing? -->
 
 ### Proposal
 
