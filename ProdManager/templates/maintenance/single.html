@@ -9,14 +9,17 @@
 
 {% block resource_extra_content %}
   {% set dots = [] %}
-  {% for event in maintenance.events %}
-    {% if (not event.internal) or (event.internal and g.logged) %}
-      {% set title = event.type.value.capitalize() + " maintenance" %}
-      {% if event.internal %}
-        {% set title = title + " (internal)" %}
-      {% endif %}
-      {% set __ = dots.append((event.type.value, title, event.get_content(), event.creation_date)) %}
+  {% if g.logged %}
+    {% set events = maintenance.events %}
+  {% else %}
+    {% set events = maintenance.events.filter_by(internal = False) %}
+  {% endif %}
+  {% for event in events %}
+    {% set title = event.type.value.capitalize() + " maintenance" %}
+    {% if event.internal %}
+      {% set title = title + " (internal)" %}
     {% endif %}
+    {% set __ = dots.append((event.type.value, title, event.get_content(), event.creation_date)) %}
   {% endfor %}
   {% include "fragments/timeline/vertical.html" %}
 {% endblock %}
