@@ -204,6 +204,7 @@ def comment(resource_id):
       creation_date=current_date(rounded=False),
       type=EventType.COMMENT,
       content=form.comment.data,
+      internal=form.internal.data,
       incident_id=resource_id,
     ))
   except Exception as error:

@@ -12,6 +12,8 @@
 - feat(template.Service): Make the monitors badges clikable to see related monitors
 - feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
   - The Style sheet should be placed inside the `ProdManager/static` folder
+- feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40)
+- feat(\*.MaintenanceEvent): Allow to create internal `MaintenanceEvent` only visible when logged in (#40)
 
 ### Fixed
 

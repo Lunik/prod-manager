@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField
+from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField, BooleanField
 from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager.helpers.date import current_date
@@ -66,6 +66,7 @@ class IncidentUpdateForm(FlaskForm):
 
 class IncidentCommentForm(FlaskForm):
   comment = TextAreaField(name='comment', validators=[DataRequired()])
+  internal = BooleanField(name='internal', validators=[])
 
 class IncidentDeleteForm(FlaskForm):
   pass
