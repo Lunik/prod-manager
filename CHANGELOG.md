@@ -13,6 +13,11 @@
 - feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
   - The Style sheet should be placed inside the `ProdManager/static` folder
 
+### Fixed
+
+- fix(template.Service): Fix Service list monitor badge links that where incorrect (#41)
+
+
 ## 0.7.1
 
 ### Added
