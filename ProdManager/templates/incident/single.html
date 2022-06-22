@@ -10,7 +10,13 @@
 {% block resource_extra_content %}
   {% set dots = [] %}
   {% for event in incident.events %}
-    {% set __ = dots.append((event.type.value, event.type.value.capitalize() + " incident", event.get_content(), event.creation_date)) %}
+    {% if (not event.internal) or (event.internal and g.logged) %}
+      {% set title = event.type.value.capitalize() + " incident" %}
+      {% if event.internal %}
+        {% set title = title + " (internal)" %}
+      {% endif %}
+      {% set __ = dots.append((event.type.value, title, event.get_content(), event.creation_date)) %}
+    {% endif %}
   {% endfor %}
   {% include "fragments/timeline/vertical.html" %}
 {% endblock %}

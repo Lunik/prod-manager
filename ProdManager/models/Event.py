@@ -1,5 +1,5 @@
 import json
-from sqlalchemy import String, Integer, Column, DateTime, Enum
+from sqlalchemy import String, Integer, Column, DateTime, Enum, Boolean
 
 from ProdManager.helpers.model import ModelEnum
 
@@ -13,6 +13,7 @@ class Event:
   creation_date = Column(DateTime(), nullable=False)
   type = Column(Enum(EventType), nullable=False)
   content = Column(String(), nullable=False)
+  internal = Column(Boolean(), default=True, nullable=False)
 
   def __repr__(self):
     return f"<Event '{self.id}'>"

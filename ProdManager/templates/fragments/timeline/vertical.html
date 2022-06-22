@@ -24,5 +24,7 @@
       </div>
     </div>
   {% endfor %}
+{% if g.logged %}
 <button class="technical-event-toggle display-toggle" target=".dot.update, .dot.create">Show technical events</button>
+{% endif %}
 </div>
