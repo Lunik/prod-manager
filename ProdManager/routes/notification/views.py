@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, abort, redirect, url_for
 from sqlalchemy.exc import NoResultFound
 
-from ProdManager.models.Subscriber import Subscriber
+from ProdManager.models import Subscriber
 
 from ProdManager.helpers.resource import create_resource, list_resources, delete_resource
 from ProdManager.helpers.response import ConflictError

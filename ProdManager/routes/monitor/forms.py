@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, URLField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Optional, URL
 
-from ProdManager.models.Monitor import MonitorStatus
+from ProdManager.models import MonitorStatus
 
 class MonitorCreateForm(FlaskForm):
   scope_id = SelectField(name='scope', validators=[DataRequired()])

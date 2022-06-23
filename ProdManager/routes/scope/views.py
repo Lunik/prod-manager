@@ -7,10 +7,9 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.form import strip_input
 
-from ProdManager.models.Scope import Scope
-from ProdManager.models.Monitor import count_monitors
-from ProdManager.models.Incident import Incident
-from ProdManager.models.Maintenance import Maintenance
+from ProdManager.models import (
+  Scope, Monitor, Incident, Maintenance,
+)
 
 from .forms import ScopeCreateForm, ScopeUpdateForm, ScopeDeleteForm
 
@@ -101,7 +100,7 @@ def show(resource_id):
       filters=Maintenance.past_filter(),
       paginate=False,
     ),
-    monitors_count=count_monitors(scope.monitors),
+    monitors_count=Monitor.count_monitors(scope.monitors),
   ), 200
 
 

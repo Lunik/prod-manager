@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager.helpers.date import current_date
 
-from ProdManager.models.Incident import IncidentSeverity, IncidentStatus
+from ProdManager.models import IncidentSeverity, IncidentStatus
 
 class IncidentCreateForm(FlaskForm):
   scope_id = SelectField(name='scope', validators=[DataRequired()])

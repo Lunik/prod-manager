@@ -17,11 +17,10 @@ from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
 from ProdManager.helpers.notification import send_notification
 
-from ProdManager.models.Incident import Incident, IncidentSeverity, IncidentStatus
-from ProdManager.models.Scope import Scope
-from ProdManager.models.Service import Service
-from ProdManager.models.Event import EventType
-from ProdManager.models.IncidentEvent import IncidentEvent
+from ProdManager.models import (
+  Incident, IncidentSeverity, IncidentStatus, Scope,
+  Service, EventType, IncidentEvent,
+)
 
 from .forms import IncidentCreateForm, IncidentUpdateForm, IncidentCommentForm, IncidentDeleteForm
 

@@ -6,8 +6,9 @@ from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager.helpers.date import current_date
 
-from ProdManager.models.Maintenance import MaintenanceStatus
-from ProdManager.models.Service import ServiceStatus
+from ProdManager.models import (
+  MaintenanceStatus, ServiceStatus,
+)
 
 class MaintenanceCreateForm(FlaskForm):
   scope_id = SelectField(name='scope', validators=[DataRequired()])
