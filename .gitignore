@@ -19,3 +19,5 @@ result.xml
 .coverage
 
 .scannerwork/
+
+.DS_Store

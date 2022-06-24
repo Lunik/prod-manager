@@ -172,6 +172,16 @@ div#about .about-section {
   margin: 50px;
 }
 
+div#about #logo {
+  margin: 10px;
+
+  text-align: center;
+}
+
+div#about #logo img {
+  width: 20%;
+}
+
 /***************
   RESOURCE LIST
 ****************/
