@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Notification about {{ resource_type.capitalize() }} - {{ resource.name }}</title>
+    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/theme.css') }}">
+    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/style.css') }}">
+    {% if config['CUSTOM_CSS_SHEET'] %}
+      <link rel="stylesheet" href="{{ custom_url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
+    {% endif %}
+  </head>
+  <body>
+
+  <div id="header">
+    <a href="{{ custom_url_for(resource_type + '.show', resource_id=resource.id) }}">
+      Show in browser
+    </a>
+  </div>
+  <div id="app">
+    <div id="content">
+      <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name }}</h1>
+      <div id="resource_metadata">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+    <div id="footer">
+      <div>
+        {% block footer %}{% endblock %}
+      </div>
+      <div>
+        Powered by <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
+      </div>
+      <div>
+        <a href="{{ custom_url_for('notification.index') }}">Unsuscribe</a>
+      </div>
+      <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
+    </div>
+  </div>
+  </body>
+</html>

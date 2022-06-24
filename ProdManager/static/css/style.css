@@ -1,33 +1,4 @@
 
-:root {
-  --text-color: #000000;
-
-  --base-default-background-color: #FFFFFF;
-  --base-primary-background-color: #EBEBEB;
-  --base-secondary-background-color: #E1E5f2;
-  --base-ternary-background-color: #C0C0C0;
-  --base-main-color: #3A6EA5;
-  --base-main-darker-color: #004E98;
-  --base-secondary-color: #FF6700;
-
-
-  --badge-purple-color: #560BAD;
-  --badge-red-color: #EF476F;
-  --badge-orange-color: #FB8500;
-  --badge-yellow-color: #FFD166;
-  --badge-green-color: #06B636;
-  --badge-blue-color: #00A8E8;
-  --badge-dark-color: #073B4C;
-
-  --badge-purple-text-color: white;
-  --badge-red-text-color: white;
-  --badge-orange-text-color: black;
-  --badge-yellow-text-color: black;
-  --badge-green-text-color: white;
-  --badge-blue-text-color: white;
-  --badge-dark-text-color: white;
-}
-
 body {
   margin: auto;
 
@@ -74,7 +45,7 @@ nav#menu ul {
   padding: 0;
 }
 
-nav#menu ul li:nth-last-child(2) {
+nav#menu ul li:nth-last-child(3) {
   margin-left: auto;
 }
 
@@ -92,6 +63,14 @@ nav#menu li a {
   text-decoration: none;
 
   color: white;
+}
+
+/******
+  MENU
+*******/
+
+div#header {
+  text-align: center;
 }
 
 /*********
@@ -151,17 +130,23 @@ div#content {
 
 .badge.monitor .count { font-weight: bold; }
 
-.error {
+.error, .info {
   padding: 5px 20px;
-
-  background-color: var(--badge-red-color);
 
   border-radius: 3px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+
+  font-weight: bold;
 }
 
-.error .message {
-  font-size: bloc;
+.error {
+  background-color: var(--badge-red-color);
+  color: var(--badge-red-text-color);
+}
+
+.info {
+  background-color: var(--badge-green-color);
+  color: var(--badge-green-text-color);
 }
 
 /*******
@@ -269,7 +254,7 @@ a#back:hover {
 
 
 div#resource_metadata {
-  margin: auto 10px;
+  margin: 10px;
 }
 
 div#resource_metadata a {
@@ -349,6 +334,8 @@ div.timeline-horizontal .dot .line {
 }
 
 div.timeline-horizontal .dot .line .dot-icon {
+  display: block !important;
+
   flex: 1;
 
   margin: auto 5px;

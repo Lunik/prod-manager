@@ -1,11 +1,11 @@
 <div id="target">
-  <div id="scope">
-    <a href="{{ url_for('scope.show', resource_id=monitor.scope.id) }}">{{ monitor.scope.name }}</a>
-  </div>
+  <span id="scope">
+    <a href="{{ custom_url_for('scope.show', resource_id=monitor.scope.id) }}">{{ monitor.scope.name }}</a>
+  </span>
   /
-  <div id="service">
-    <a href="{{ url_for('service.show', resource_id=monitor.service.id) }}">{{ monitor.service.name }}</a>
-  </div>
+  <span id="service">
+    <a href="{{ custom_url_for('service.show', resource_id=monitor.service.id) }}">{{ monitor.service.name }}</a>
+  </span>
 </div>
 <div id="status" class="badge monitor {{ monitor.status.value }}">{{ monitor.status.name }}</div>
 {% if monitor.external_link %}

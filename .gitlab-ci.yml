@@ -79,7 +79,6 @@ lint:
     - >
       pylint
       ${PACKAGE_NAME}/*
-      tests/${PACKAGE_NAME}/*
       | tee pylint-report.txt
   artifacts:
     when: on_failure

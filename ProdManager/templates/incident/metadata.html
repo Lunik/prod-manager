@@ -1,11 +1,11 @@
 <div id="target">
-  <div id="scope">
-    <a href="{{ url_for('scope.show', resource_id=incident.scope.id) }}">{{ incident.scope.name }}</a>
-  </div>
+  <span id="scope">
+    <a href="{{ custom_url_for('scope.show', resource_id=incident.scope.id) }}">{{ incident.scope.name }}</a>
+  </span>
   /
-  <div id="service">
-    <a href="{{ url_for('service.show', resource_id=incident.service.id) }}">{{ incident.service.name }}</a>
-  </div>
+  <span id="service">
+    <a href="{{ custom_url_for('service.show', resource_id=incident.service.id) }}">{{ incident.service.name }}</a>
+  </span>
 </div>
 {% if incident.external_reference %}
   <div id="external_reference" class="badge external_reference">{{ incident.external_reference }}</div>
