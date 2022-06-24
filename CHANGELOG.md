@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [Unreleased]
+
+
 ## 0.8.0
 
 ### Added
@@ -23,6 +26,7 @@
 - fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43)
 - fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43)
 - fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43)
+
 
 ## 0.7.1
 
