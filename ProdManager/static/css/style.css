@@ -74,7 +74,7 @@ nav#menu ul {
   padding: 0;
 }
 
-nav#menu ul li:last-child {
+nav#menu ul li:nth-last-child(2) {
   margin-left: auto;
 }
 
@@ -162,6 +162,14 @@ div#content {
 
 .error .message {
   font-size: bloc;
+}
+
+/*******
+  ABOUT
+********/
+
+div#about .about-section {
+  margin: 50px;
 }
 
 /***************

@@ -14,6 +14,7 @@
   - The Style sheet should be placed inside the `ProdManager/static` folder
 - feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40)
 - feat(\*.MaintenanceEvent): Allow to create internal `MaintenanceEvent` only visible when logged in (#40)
+- feat(template.About): Write the about page (#42)
 
 ### Fixed
 
