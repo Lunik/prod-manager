@@ -14,6 +14,7 @@ def index():
     ongoing_incidents=list_resources(
       Incident,
       filters=Incident.ongoing_filter(),
+      orders=Incident.reverse_order(),
       paginate=False,
     ),
     past_incidents=list_resources(
@@ -24,6 +25,7 @@ def index():
     ongoing_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.ongoing_filter(),
+      orders=Maintenance.reverse_order(),
       paginate=False,
     ),
     past_maintenances=list_resources(
