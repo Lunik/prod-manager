@@ -64,6 +64,10 @@ class Incident(db.Model):
     return (cls.start_impact_date.desc(), cls.status.asc(), cls.severity.asc())
 
   @classmethod
+  def reverse_order(cls):
+    return (cls.start_impact_date.asc(), cls.status.asc(), cls.severity.asc())
+
+  @classmethod
   def ongoing_filter(cls):
     return Incident.status.in_([
       IncidentStatus.ACTIVE,

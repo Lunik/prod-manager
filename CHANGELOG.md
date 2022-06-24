@@ -18,7 +18,9 @@
 ### Fixed
 
 - fix(template.Service): Fix Service list monitor badge links that where incorrect (#41)
-
+- fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43)
+- fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43)
+- fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43)
 
 ## 0.7.1
 
