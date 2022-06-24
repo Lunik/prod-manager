@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block title %}{{ resource_type.capitalize() }}{% endblock %}
 
+{% set share_title = resource_type.capitalize() %}
+{% if resource.external_reference %}
+{% set share_title = share_title + " " +resource.external_reference %}
+{% endif %}
+{% set share_title = share_title + " - " %}
+{% if resource.scope %}
+{% set share_title = share_title + resource.scope.name %}
+{% endif %}
+{% if resource.service %}
+{% set share_title = share_title + "/" + resource.service.name  %}
+{% endif %}
+{% set share_title = share_title + " " + resource.name %}
+
+{% set share_description = resource.description %}
+
 {% block content %}
   <a href="{{ url_for(resource_endpoint + '.list') }}" id="back">&lt;&lt; Back to {{ resource_type }} list</a>
   <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name }}</h1>

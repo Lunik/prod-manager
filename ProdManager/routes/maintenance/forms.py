@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField
+from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField, BooleanField
 from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager.helpers.date import current_date
@@ -77,6 +77,7 @@ class MaintenanceUpdateForm(FlaskForm):
 
 class MaintenanceCommentForm(FlaskForm):
   comment = TextAreaField(name='comment', validators=[DataRequired()])
+  internal = BooleanField(name='internal', validators=[])
 
 
 class MaintenanceDeleteForm(FlaskForm):

@@ -38,7 +38,8 @@ def create_app():
     ),
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     SQLALCHEMY_ECHO=False,
-    WTF_CSRF_ENABLED=True
+    WTF_CSRF_ENABLED=True,
+    CUSTOM_CSS_SHEET=os.environ.get("CUSTOM_CSS_SHEET", None),
   )
 
   app.config.from_pyfile("config.py", silent=True)
@@ -86,11 +87,13 @@ def create_app():
     ternary, format_column_name, format_timeline_date,
     format_template_name,
   )
+  from ProdManager.filters.pagination import url_for_paginated
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
   app.jinja_env.filters['format_timeline_date'] = format_timeline_date
   app.jinja_env.filters['format_template_name'] = format_template_name
+  app.jinja_env.globals['url_for_paginated'] = url_for_paginated
 
 
   return app

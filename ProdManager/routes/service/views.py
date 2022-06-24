@@ -86,6 +86,7 @@ def show(resource_id):
       Incident,
       query=service.incidents,
       filters=Incident.ongoing_filter(),
+      orders=Incident.reverse_order(),
       paginate=False,
     ),
     past_incidents=list_resources_from_query(
@@ -98,6 +99,7 @@ def show(resource_id):
       Maintenance,
       query=service.maintenances,
       filters=Maintenance.ongoing_filter(),
+      orders=Maintenance.reverse_order(),
       paginate=False,
     ),
     past_maintenances=list_resources_from_query(

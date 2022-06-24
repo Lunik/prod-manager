@@ -1,4 +1,6 @@
-from flask import current_app
+import functools
+
+from flask import current_app, request
 from sqlalchemy.exc import IntegrityError
 from ProdManager import db
 from ProdManager.helpers.response import (
@@ -127,3 +129,22 @@ def create_resource(resource_class, attributs):
     raise ServerError(error) from error
 
   return resource
+
+def resource_filters(filter_fields):
+  def decorate(view):
+
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+      filters = ()
+
+      for filter_name, filter_field, filter_type in filter_fields:
+        filter_value = request.args.get(filter_name, type=filter_type)
+        if filter_value is not None:
+          filters += (filter_field == filter_value,)
+
+      kwargs['filters'] = filters
+      return view(**kwargs)
+
+    return wrapped_view
+
+  return decorate

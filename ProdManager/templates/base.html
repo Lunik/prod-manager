@@ -4,7 +4,29 @@
     <title>{% block title %}{% endblock %} - ProManager</title>
 
     <meta charset="UTF-8" />
+    {% if share_title %}
+      <meta property="og:title" content="{{ share_title }}" />
+    {% else %}
+      <meta property="og:title" content="ProManager" />
+    {% endif %}
+    {% if share_description %}
+      <meta property="og:description" content="{{ share_description }}" />
+    {% else %}
+      <meta property="og:description" content="Prod manager is a lightweight tool that allow you to display your production infrastructure status to your client." />
+    {% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.url }}" />
+    <meta property="og:image" content="{{ url_for('static', filename='img/prod-manager.png') }}" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% if config['CUSTOM_CSS_SHEET'] %}
+      <link rel="stylesheet" href="{{ url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
+    {% endif %}
 
     {% block head %}{% endblock %}
   </head>
@@ -30,6 +52,9 @@
             </li>
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
               <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
+            </li>
+            <li id="about" class="{{ 'active' if is_about }}">
+              <a id="about" href="{{ url_for('root.about')}}">About</a>
             </li>
             {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">

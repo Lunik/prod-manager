@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 0.8.0
+
+### Added
+
+- feat(template.\*): Add [OpenGraph](https://ogp.me) metadata
+- feat(view.Incident): Allow to filter by `status`, `severity`, `scope` and `service` (#13)
+- feat(view.Maintenance): Allow to filter by `status`, `scope` and `service` (#13)
+- feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13)
+- feat(template.Scope): Make the monitors badges clikable to see related monitors
+- feat(template.Service): Make the monitors badges clikable to see related monitors
+- feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
+  - The Style sheet should be placed inside the `ProdManager/static` folder
+- feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40)
+- feat(\*.MaintenanceEvent): Allow to create internal `MaintenanceEvent` only visible when logged in (#40)
+- feat(template.About): Write the about page (#42)
+- feat(template.Base): Add app logo and favicon
+
+### Fixed
+
+- fix(template.Service): Fix Service list monitor badge links that where incorrect (#41)
+- fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43)
+- fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43)
+- fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43)
+
 ## 0.7.1
 
 ### Added

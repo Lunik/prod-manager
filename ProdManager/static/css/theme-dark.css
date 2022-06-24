@@ -1,0 +1,28 @@
+:root {
+  --text-color: #FFFFFF;
+
+  --base-default-background-color: #212529;
+  --base-primary-background-color: #495057;
+  --base-secondary-background-color: #343a40;
+  --base-ternary-background-color: #6c757d;
+  --base-main-color: black;
+  --base-main-darker-color: black;
+  --base-secondary-color: black;
+
+
+  --badge-purple-color: #560BAD;
+  --badge-red-color: #EF476F;
+  --badge-orange-color: #FB8500;
+  --badge-yellow-color: #FFD166;
+  --badge-green-color: #06B636;
+  --badge-blue-color: #00A8E8;
+  --badge-dark-color: #073B4C;
+
+  --badge-purple-text-color: white;
+  --badge-red-text-color: white;
+  --badge-orange-text-color: black;
+  --badge-yellow-text-color: black;
+  --badge-green-text-color: black;
+  --badge-blue-text-color: white;
+  --badge-dark-text-color: white;
+}

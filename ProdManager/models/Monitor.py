@@ -25,6 +25,14 @@ class Monitor(db.Model):
   def default_order(cls):
     return cls.name.asc()
 
+  @classmethod
+  def filters(cls):
+    return [
+      ("status", cls.status, MonitorStatus),
+      ("scope", cls.scope_id, int),
+      ("service", cls.service_id, int),
+    ]
+
 
 def count_monitors_in_status(query, status):
   return query.filter(

@@ -59,9 +59,21 @@ class Maintenance(db.Model):
     return (cls.scheduled_start_date.desc(), cls.status.asc())
 
   @classmethod
+  def reverse_order(cls):
+    return (cls.scheduled_start_date.asc(), cls.status.asc())
+
+  @classmethod
   def ongoing_filter(cls):
     return Maintenance.status.in_([MaintenanceStatus.SCHEDULED, MaintenanceStatus.IN_PROGRESS])
 
   @classmethod
   def past_filter(cls):
     return Maintenance.status.in_([MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED])
+
+  @classmethod
+  def filters(cls):
+    return [
+      ("status", cls.status, MaintenanceStatus),
+      ("scope", cls.scope_id, int),
+      ("service", cls.service_id, int),
+    ]

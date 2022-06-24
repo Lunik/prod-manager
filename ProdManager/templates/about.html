@@ -1,6 +1,42 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
+{% set share_title = "About - Prod Manager" %}
+{% set is_about = True %}
+
+{% set git_project_url = "https://gitlab.com/prod-manager/prod-manager" %}
 
 {% block content %}
 <h1 id="title">About ProdManager</h1>
+<div id="about">
+  <div id="logo" class="about-section">
+    <img alt="Prod Manager logo" src="{{ url_for('static', filename='img/prod-manager.svg') }}" />
+  </div>
+
+  <div id="init" class="about-section">
+    <p>
+      Prod manager is a lightweight tool that allow you to display
+      your production infrastructure status to your client.
+    </p>
+    <p>
+      <a href="{{ git_project_url }}/-/releases" target="_blank" rel="noopener">Check for updates</a>
+    </p>
+  </div>
+
+  <div id="sources" class="about-section">
+    <h3>Sources</h3>
+    <p>
+      Prod manager is developped under
+      <a href="{{ git_project_url }}/-/blob/master/LICENCE" target="_blank" rel="noopener">GPLv3 licence</a>
+      and you can find the <a href="{{ git_project_url }}" target="_blank" rel="noopener">source code here</a>.
+    </p>
+  </div>
+
+  <div id="community" class="about-section">
+    <h3>Bug Reports / Feature Requests</h3>
+    <p>
+      If you want to report a bug or request a new feature,
+      feel free to open a <a href="{{ git_project_url }}/-/issues/new" target="_blank" rel="noopener">new issue</a>.
+    </p>
+  </div>
+</div>
 {% endblock %}

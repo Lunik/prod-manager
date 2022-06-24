@@ -7,7 +7,6 @@
         <th>{{ key | format_column_name }}</th>
       {% endif %}
     {% endfor %}
-    <th></th>
   </tr>
   {% for resource in resources %}
   <tr class="resource" id="resource-{{ resource.id }}" onclick="document.location = '{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}';">
@@ -21,7 +20,17 @@
         {% elif type == "obj" %}
           {{ attr.name }}
         {% elif type == "template" %}
-          {% include key %}
+          {% if resource_type == "scope" %}
+            {% with scope = resource %}
+              {% include key %}
+            {% endwith %}
+          {% elif resource_type == "service" %}
+            {% with service = resource %}
+              {% include key %}
+            {% endwith %}
+          {% else %}
+            {% include key %}
+          {% endif %}
         {% elif type == "date" %}
           {% if attr %}
             {{ attr | format_timeline_date }}
@@ -38,9 +47,6 @@
       </td>
       {% set first_colum = False %}
     {% endfor %}
-    <td class="_show">
-      <a href="{{ url_for(resource_endpoint + '.show', resource_id=resource.id) }}">show</a>
-    </td>
   </tr>
   {% endfor %}
 </table>

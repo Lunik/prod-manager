@@ -64,6 +64,10 @@ class Incident(db.Model):
     return (cls.start_impact_date.desc(), cls.status.asc(), cls.severity.asc())
 
   @classmethod
+  def reverse_order(cls):
+    return (cls.start_impact_date.asc(), cls.status.asc(), cls.severity.asc())
+
+  @classmethod
   def ongoing_filter(cls):
     return Incident.status.in_([
       IncidentStatus.ACTIVE,
@@ -74,3 +78,12 @@ class Incident(db.Model):
   @classmethod
   def past_filter(cls):
     return Incident.status.in_([IncidentStatus.RESOLVED])
+
+  @classmethod
+  def filters(cls):
+    return [
+      ("status", cls.status, IncidentStatus),
+      ("severity", cls.severity, IncidentSeverity),
+      ("scope", cls.scope_id, int),
+      ("service", cls.service_id, int),
+    ]
