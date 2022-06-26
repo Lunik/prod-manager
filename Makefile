@@ -80,8 +80,11 @@ build-docker:
 run: $(if $(PM_STANDALONE), database-upgrade) $(if $(PM_DEMO), demo-data)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
 
-demo-data: database-upgrade
+demo-data-dev: database-upgrade
 	PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
+
+demo-data: database-upgrade
+	PYTHONPATH=. python3 ProdManager/demo/init.py
 
 database-migration:
 	${FLASK} db migrate -m "<EDIT COMMIT MESSAGE>"
