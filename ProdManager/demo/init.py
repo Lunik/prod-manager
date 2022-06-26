@@ -301,27 +301,6 @@ if __name__ == "__main__":
         type=EventType.COMMENT,
         internal=False,
       ))
-      create_resource(MaintenanceEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:46:10", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "TEST", "description": "", "external_reference": "", "status": "SCHEDULED", "scope": "France DCX01", "service": "Block Storage", "service_status": "UP", "creation_date": "24/06/2022 18:46", "scheduled_start_date": "26/06/2022 18:30", "scheduled_end_date": "26/06/2022 19:30", "start_date": null, "end_date": null}',
-        maintenance_id=3,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(MaintenanceEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:46:34", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "TEST2", "description": "", "external_reference": "", "status": "SCHEDULED", "scope": "France DCX01", "service": "Block Storage", "service_status": "UP", "creation_date": "24/06/2022 18:46", "scheduled_start_date": "24/06/2022 18:30", "scheduled_end_date": "24/06/2022 19:30", "start_date": null, "end_date": null}',
-        maintenance_id=4,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(MaintenanceEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:46:41", "%Y-%m-%d %H:%M:%S"),
-        content='{"status": ["SCHEDULED", "FAILED"], "end_date": [null, "24/06/2022 18:46"]}',
-        maintenance_id=4,
-        type=EventType.UPDATE,
-        internal=True,
-      ))
 
       # SUBSCRIBERS
       create_resource(Subscriber, dict(email="demo@demo.local"))
