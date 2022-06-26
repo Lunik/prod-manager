@@ -16,11 +16,10 @@ from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
 from ProdManager.helpers.notification import send_notification
 
-from ProdManager.models.Maintenance import Maintenance, MaintenanceStatus
-from ProdManager.models.Scope import Scope
-from ProdManager.models.Service import Service, ServiceStatus
-from ProdManager.models.Event import EventType
-from ProdManager.models.MaintenanceEvent import MaintenanceEvent
+from ProdManager.models import (
+  Maintenance, MaintenanceStatus, Scope, Service,
+  ServiceStatus, EventType, MaintenanceEvent,
+)
 
 from .forms import (
   MaintenanceCreateForm, MaintenanceUpdateForm, MaintenanceCommentForm,

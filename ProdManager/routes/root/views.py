@@ -1,8 +1,9 @@
 
 from flask import Blueprint, render_template
 
-from ProdManager.models.Incident import Incident
-from ProdManager.models.Maintenance import Maintenance
+from ProdManager.models import (
+  Incident, Maintenance,
+)
 from ProdManager.helpers.resource import list_resources
 
 bp = Blueprint("root", __name__, url_prefix="/")

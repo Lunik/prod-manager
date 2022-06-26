@@ -1,7 +1,7 @@
 
 from ProdManager import mail
 
-from ProdManager.models.Subscriber import Subscriber
+from ProdManager.models import Subscriber
 from ProdManager.helpers.resource import list_resources
 
 def send_notification(title, content):

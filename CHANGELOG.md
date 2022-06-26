@@ -6,10 +6,12 @@
 
 - feat(\*.Notification): Add notification support for user to stay updated (#44)
 - chore(Documentation): Add application configuration documentation
+- chore(Demo): Add demo data (#21)
 
 ### Changed
 
 - change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md)
+- change(model.\*): Change models imports in packages
 
 ## 0.8.0
 

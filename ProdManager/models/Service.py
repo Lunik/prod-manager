@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 
-from .Monitor import count_monitors
+from .Monitor import Monitor
 
 class ServiceStatus(ModelEnum):
   UP = 'up'
@@ -40,4 +40,4 @@ class Service(db.Model):
 
   @property
   def monitors_count(self):
-    return count_monitors(self.monitors)
+    return Monitor.count_monitors(self.monitors)
