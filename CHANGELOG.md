@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(\*.Notification): Add notification support for user to stay updated (#44)
+- chore(Documentation): Add application configuration documentation
+
+### Changed
+
+- change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md)
 
 ## 0.8.0
 

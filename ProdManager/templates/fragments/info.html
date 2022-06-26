@@ -1,0 +1,10 @@
+<div class="info">
+  <p class="message">{{ info.message }}</h3>
+  {% if "reasons" in info %}
+    <ul class="reasons">
+      {% for attribute, reason in info.reasons.items() %}
+      <li class="reason">{{ attribute }} : {{ reason }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

@@ -16,16 +16,17 @@
     {% endif %}
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.url }}" />
-    <meta property="og:image" content="{{ url_for('static', filename='img/prod-manager.png') }}" />
+    <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager.png') }}" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ custom_url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ custom_url_for('static', filename='img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ custom_url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ custom_url_for('static', filename='site.webmanifest') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/theme.css') }}">
+    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/style.css') }}">
     {% if config['CUSTOM_CSS_SHEET'] %}
-      <link rel="stylesheet" href="{{ url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
+      <link rel="stylesheet" href="{{ custom_url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
     {% endif %}
 
     {% block head %}{% endblock %}
@@ -36,41 +37,61 @@
         <nav id="menu">
           <ul>
             <li id="home" class="{{ 'active' if is_home }}">
-              <a id="home" href="{{ url_for('root.index')}}">Home</a>
+              <a id="home" href="{{ custom_url_for('root.index')}}">Home</a>
             </li>
             <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
-              <a id="scope" href="{{ url_for('scope.list')}}">Scopes</a>
+              <a id="scope" href="{{ custom_url_for('scope.list')}}">Scopes</a>
             </li>
             <li id="service" class="{{ 'active' if resource_type == 'service' }}">
-              <a id="service" href="{{ url_for('service.list')}}">Services</a>
+              <a id="service" href="{{ custom_url_for('service.list')}}">Services</a>
             </li>
             <li id="monitor" class="{{ 'active' if resource_type == 'monitor' }}">
-              <a id="monitor" href="{{ url_for('monitor.list')}}">Monitors</a>
+              <a id="monitor" href="{{ custom_url_for('monitor.list')}}">Monitors</a>
             </li>
             <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
-              <a id="incident" href="{{ url_for('incident.list')}}">Incidents</a>
+              <a id="incident" href="{{ custom_url_for('incident.list')}}">Incidents</a>
             </li>
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
-              <a id="maintenance" href="{{ url_for('maintenance.list')}}">Maintenances</a>
+              <a id="maintenance" href="{{ custom_url_for('maintenance.list')}}">Maintenances</a>
             </li>
+              <li id="subscribe" class="{{ 'active' if is_subscribe }}">
+                {% if config["MAIL_ENABLED"] %}
+                <a id="subscribe" href="{{ custom_url_for('notification.index')}}">Subscribe</a>
+                {% endif %}
+              </li>
             <li id="about" class="{{ 'active' if is_about }}">
-              <a id="about" href="{{ url_for('root.about')}}">About</a>
+              <a id="about" href="{{ custom_url_for('root.about')}}">About</a>
             </li>
             {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">
-              <a id="logout" href="{{ url_for('auth.logout') }}">Logout</a>
+              <a id="logout" href="{{ custom_url_for('auth.logout') }}">Logout</a>
             </li>
             {% else %}
             <li id="login" class="{{ 'active' if is_auth }}">
-              <a id="login" href="{{ url_for('auth.login') }}">Login</a>
+              <a id="login" href="{{ custom_url_for('auth.login') }}">Login</a>
             </li>
             {% endif %}
           </ul>
         </nav>
       </div>
       <div id="content">
+        {% set error_message = request.args.get("error_message") %}
+        {% if error_message %}
+          {% set error=dict(message=error_message) %}
+        {% endif %}
+
         {% if error %}
           {% include "fragments/error.html" %}
+        {% endif %}
+
+
+        {% set info_message = request.args.get("info_message") %}
+        {% if info_message %}
+          {% set info=dict(message=info_message) %}
+        {% endif %}
+        
+        {% if info %}
+          {% include "fragments/info.html" %}
         {% endif %}
         {% block content %}{% endblock %}
       </div>
@@ -80,6 +101,6 @@
         <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
       </div>
     </div>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ custom_url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

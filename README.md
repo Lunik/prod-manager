@@ -19,6 +19,7 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
     - Currently supported : [Datadog][datadog]
 - Track `Incident` status and resolution
 - Plan `Maintenances` when enhancing your `Service`
+- Mail notifications when `CREATE` or `UPDATE` an `Incident`/`Maintenance`
 
 ## What's Next?
 
@@ -37,6 +38,8 @@ There are 3 deployments options :
 - [Standalone][deploy-standalone]
 - [Docker Compose][deploy-compose]
 - [CloudNative][deploy-kubernetes]
+
+Advanced configurations can be found in the [application documentation][application-documentation]
 
 ## Contribute
 
@@ -71,3 +74,4 @@ If you want to modify Prod Manager, [thoses guidelines may be useful for you][co
 [deploy-kubernetes]: deploy/kubernetes/README.md
 
 [contributing-manifest]: CONTRIBUTING.md
+[application-documentation]: docs/README.md

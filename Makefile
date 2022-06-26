@@ -93,7 +93,7 @@ sonar: lint test
 check: lint
 
 lint:
-	${PYLINT} ${PACKAGE_NAME}/* tests/${PACKAGE_NAME}/* | tee pylint-report.txt
+	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
 	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml tests/${PACKAGE_NAME}/

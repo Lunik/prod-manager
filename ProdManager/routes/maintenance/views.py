@@ -14,6 +14,7 @@ from ProdManager.helpers.resource import (
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
+from ProdManager.helpers.notification import send_notification
 
 from ProdManager.models.Maintenance import Maintenance, MaintenanceStatus
 from ProdManager.models.Scope import Scope
@@ -91,6 +92,20 @@ def create():
     ))
   except Exception as error:
     current_app.logger.error(f"Unable to create event during Maintenance creation : {error}")
+
+  try:
+    notif_title = f"[{maintenance.status.name}] {maintenance.name} - Scheduled Maintenance"
+    if maintenance.external_reference:
+      notif_title = f"[{maintenance.external_reference}]{notif_title}"
+
+    send_notification(
+      notif_title,
+      render_template("notification/maintenance.html",
+        maintenance=maintenance,
+      )
+    )
+  except Exception as error:
+    current_app.logger.error(f"Unable to send notification during Maintenance creation : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
@@ -180,6 +195,19 @@ def update(resource_id):
       ))
     except Exception as error:
       current_app.logger.error(f"Unable to create event during Maintenance update : {error}")
+
+    try:
+      notif_title = f"[{maintenance.status.name}] {maintenance.name} - Updated Maintenance"
+      if maintenance.external_reference:
+        notif_title = f"[{maintenance.external_reference}]{notif_title}"
+      send_notification(
+        notif_title,
+        render_template("notification/maintenance.html",
+          maintenance=maintenance,
+        )
+      )
+    except Exception as error:
+      current_app.logger.error(f"Unable to send notification during Maintenance update : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
