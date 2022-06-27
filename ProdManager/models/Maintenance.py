@@ -63,8 +63,12 @@ class Maintenance(db.Model):
     return (cls.scheduled_start_date.asc(), cls.status.asc())
 
   @classmethod
+  def scheduled_filter(cls):
+    return Maintenance.status.in_([MaintenanceStatus.SCHEDULED])
+
+  @classmethod
   def ongoing_filter(cls):
-    return Maintenance.status.in_([MaintenanceStatus.SCHEDULED, MaintenanceStatus.IN_PROGRESS])
+    return Maintenance.status.in_([MaintenanceStatus.IN_PROGRESS])
 
   @classmethod
   def past_filter(cls):

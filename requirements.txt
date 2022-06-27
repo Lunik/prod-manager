@@ -5,6 +5,7 @@ Flask
 
 # Forms
 Flask-WTF
+wtforms[email]
 
 # ORM
 flask_sqlalchemy

@@ -1,0 +1,7 @@
+{% extends "notification/base.html" %}
+{% set resource_type = "incident" %}
+{% set resource = incident %}
+
+{% block content %}
+{% include "incident/metadata.html" %}
+{% endblock %}

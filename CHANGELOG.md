@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 0.9.0
+
+### Added
+
+- feat(\*.Notification): Add notification support for user to stay updated (#44)
+- chore(Documentation): Add application configuration documentation
+- chore(Demo): Add demo data (#21)
+
+### Changed
+
+- change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md)
+- change(model.\*): Change models imports in packages
+- change(template.Home): Add new section containing only `SCHEDULED` Maintenances (#50)
+- change(template.Service): Add new section containing only `SCHEDULED` Maintenances (#50)
+- change(template.Scope): Add new section containing only `SCHEDULED` Maintenances (#50)
+
+
 ## 0.8.0
 
 ### Added
@@ -23,6 +40,7 @@
 - fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43)
 - fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43)
 - fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43)
+
 
 ## 0.7.1
 

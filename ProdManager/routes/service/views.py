@@ -12,10 +12,9 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.form import strip_input
 
-from ProdManager.models.Service import Service
-from ProdManager.models.Monitor import count_monitors
-from ProdManager.models.Incident import Incident
-from ProdManager.models.Maintenance import Maintenance
+from ProdManager.models import (
+  Service, Monitor, Incident, Maintenance,
+)
 
 from .forms import ServiceCreateForm, ServiceUpdateForm, ServiceDeleteForm
 
@@ -95,6 +94,12 @@ def show(resource_id):
       filters=Incident.past_filter(),
       paginate=False,
     ),
+    scheduled_maintenances=list_resources(
+      Maintenance,
+      filters=Maintenance.scheduled_filter(),
+      orders=Maintenance.reverse_order(),
+      paginate=False,
+    ),
     ongoing_maintenances=list_resources_from_query(
       Maintenance,
       query=service.maintenances,
@@ -108,7 +113,7 @@ def show(resource_id):
       filters=Maintenance.past_filter(),
       paginate=False,
     ),
-    monitors_count=count_monitors(service.monitors),
+    monitors_count=Monitor.count_monitors(service.monitors),
   ), 200
 
 

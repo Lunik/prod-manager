@@ -12,9 +12,9 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.form import strip_input
 
-from ProdManager.models.Monitor import Monitor, MonitorStatus
-from ProdManager.models.Scope import Scope
-from ProdManager.models.Service import Service
+from ProdManager.models import (
+  Monitor, MonitorStatus, Scope, Service,
+)
 
 from .forms import MonitorCreateForm, MonitorUpdateForm, MonitorDeleteForm
 

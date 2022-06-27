@@ -79,7 +79,6 @@ lint:
     - >
       pylint
       ${PACKAGE_NAME}/*
-      tests/${PACKAGE_NAME}/*
       | tee pylint-report.txt
   artifacts:
     when: on_failure
@@ -145,6 +144,7 @@ container_scanning:
   needs: []
   script:
     - flask db upgrade
+    - PYTHONPATH=. python3 ProdManager/demo/init.py
 
 database_upgrade_postgresql:
   extends: .database_upgrade

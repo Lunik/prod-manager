@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from ProdManager import db
 
-from .Monitor import count_monitors
+from .Monitor import Monitor
 
 class Scope(db.Model):
   id = Column(Integer, primary_key=True)
@@ -34,4 +34,4 @@ class Scope(db.Model):
 
   @property
   def monitors_count(self):
-    return count_monitors(self.monitors)
+    return Monitor.count_monitors(self.monitors)

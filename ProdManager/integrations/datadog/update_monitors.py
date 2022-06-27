@@ -5,13 +5,10 @@ from datadog_api_client import Configuration, ApiClient
 from datadog_api_client.v1.api.monitors_api import MonitorsApi
 from datadog_api_client.exceptions import NotFoundException
 
-from ProdManager.models.Monitor import Monitor, MonitorStatus
-from ProdManager.models.Service import Service
-from ProdManager.models.Scope import Scope
-from ProdManager.models.Incident import Incident
-from ProdManager.models.IncidentEvent import IncidentEvent
-from ProdManager.models.Maintenance import Maintenance
-from ProdManager.models.MaintenanceEvent import MaintenanceEvent
+from ProdManager.models import (
+  Monitor, MonitorStatus, Service, Scope,
+  Incident, IncidentEvent, Maintenance, MaintenanceEvent,
+)
 
 from ProdManager.helpers.resource import list_resources, update_resource
 from ProdManager import create_app

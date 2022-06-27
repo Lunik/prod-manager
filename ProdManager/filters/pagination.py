@@ -1,11 +1,13 @@
-from flask import request, url_for
+from flask import request
+
+from .links import custom_url_for
 
 
 def url_for_paginated(endpoint, page, per_page):
 
-  args = request.args.copy()
+  kwargs = request.args.copy()
 
-  args["page"] = page
-  args["per_page"] = per_page
+  kwargs["page"] = page
+  kwargs["per_page"] = per_page
 
-  return url_for(endpoint, **args)
+  return custom_url_for(endpoint, **kwargs)

@@ -1,8 +1,9 @@
 
 from flask import Blueprint, render_template
 
-from ProdManager.models.Incident import Incident
-from ProdManager.models.Maintenance import Maintenance
+from ProdManager.models import (
+  Incident, Maintenance,
+)
 from ProdManager.helpers.resource import list_resources
 
 bp = Blueprint("root", __name__, url_prefix="/")
@@ -20,6 +21,12 @@ def index():
     past_incidents=list_resources(
       Incident,
       filters=Incident.past_filter(),
+      paginate=False,
+    ),
+    scheduled_maintenances=list_resources(
+      Maintenance,
+      filters=Maintenance.scheduled_filter(),
+      orders=Maintenance.reverse_order(),
       paginate=False,
     ),
     ongoing_maintenances=list_resources(

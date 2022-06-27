@@ -33,16 +33,17 @@ class Monitor(db.Model):
       ("service", cls.service_id, int),
     ]
 
+  @classmethod
+  def count_monitors_in_status(cls, query, status):
+    return query.filter(
+      cls.status == status
+    ).count()
 
-def count_monitors_in_status(query, status):
-  return query.filter(
-    Monitor.status == status
-  ).count()
+  @classmethod
+  def count_monitors(cls, query):
+    result = dict()
 
-def count_monitors(query):
-  result = dict()
+    for status in MonitorStatus:
+      result[status] = cls.count_monitors_in_status(query, status)
 
-  for status in MonitorStatus:
-    result[status] = count_monitors_in_status(query, status)
-
-  return result
+    return result

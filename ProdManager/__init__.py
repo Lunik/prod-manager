@@ -7,9 +7,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 
+from ProdManager.helpers.mail import MailWorker
+from ProdManager.helpers.config import boolean_param
+
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
+mail = MailWorker()
 
 def create_app():
   app = Flask(
@@ -37,12 +41,23 @@ def create_app():
       f"sqlite:///{os.path.join(app.instance_path, 'ProManager.sqlite')}"
     ),
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
-    SQLALCHEMY_ECHO=False,
+    SQLALCHEMY_ECHO=boolean_param(os.environ.get("PM_SQLALCHEMY_ECHO", 'False')),
     WTF_CSRF_ENABLED=True,
-    CUSTOM_CSS_SHEET=os.environ.get("CUSTOM_CSS_SHEET", None),
+    PREFERRED_URL_SCHEME=os.environ.get("PM_PREFERRED_URL_SCHEME", None),
+    CUSTOM_CSS_SHEET=os.environ.get("PM_CUSTOM_CSS_SHEET", None),
+    MAIL_ENABLED=boolean_param(os.environ.get("PM_MAIL_ENABLED", 'False')),
+    MAIL_SERVER=os.environ.get("PM_MAIL_SERVER", None),
+    MAIL_PORT=int(os.environ.get("PM_MAIL_PORT", 587)),
+    MAIL_USERNAME=os.environ.get("PM_MAIL_USERNAME", None),
+    MAIL_PASSWORD=os.environ.get("PM_MAIL_PASSWORD", None),
+    MAIL_USE_SSL=boolean_param(os.environ.get("PM_MAIL_USE_SSL", 'False')),
+    MAIL_USE_TLS=boolean_param(os.environ.get("PM_MAIL_USE_TLS", 'True')),
+    MAIL_VALIDATE_CERTS=boolean_param(os.environ.get("PM_MAIL_VALIDATE_CERTS", 'True')),
+    MAIL_USE_CREDENTIALS=boolean_param(os.environ.get("PM_MAIL_USE_CREDENTIALS", 'True')),
+    MAIL_SENDER=os.environ.get("PM_MAIL_SENDER", None),
+    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager]"),
+    MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
   )
-
-  app.config.from_pyfile("config.py", silent=True)
 
   # ensure the instance folder exists
   try:
@@ -55,6 +70,8 @@ def create_app():
   # register the database commands
   db.init_app(app)
   migrate.init_app(app, db)
+
+  mail.init_app(app)
 
   # apply Gunicorn logger config
   gunicorn_logger = logging.getLogger('gunicorn.error')
@@ -71,8 +88,16 @@ def create_app():
   def load_logged():
     retreiv_auth()
 
+  from ProdManager.models import (
+    Incident, IncidentEvent, Maintenance, MaintenanceEvent,
+    Monitor, Subscriber, Scope, Service,
+  )
 
-  from ProdManager.routes import root,auth,scope,service,incident,maintenance,monitor,health
+
+  from ProdManager.routes import (
+    root, auth, scope, service, incident,
+    maintenance, monitor, health, notification
+  )
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
   app.register_blueprint(auth.view, url_prefix="/")
@@ -82,18 +107,21 @@ def create_app():
   app.register_blueprint(maintenance.view, url_prefix="/maintenance")
   app.register_blueprint(monitor.view, url_prefix="/monitor")
   app.register_blueprint(health.view, url_prefix="/health")
+  app.register_blueprint(notification.view, url_prefix="/notification")
 
   from ProdManager.filters.basic import (
     ternary, format_column_name, format_timeline_date,
     format_template_name,
   )
   from ProdManager.filters.pagination import url_for_paginated
+  from ProdManager.filters.links import custom_url_for
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
   app.jinja_env.filters['format_timeline_date'] = format_timeline_date
   app.jinja_env.filters['format_template_name'] = format_template_name
   app.jinja_env.globals['url_for_paginated'] = url_for_paginated
+  app.jinja_env.globals['custom_url_for'] = custom_url_for
 
 
   return app

@@ -77,8 +77,14 @@ build-docker:
 	${DOCKER} build --file="docker/Dockerfile" --tag="${APP_NAME}:$(APP_VERSION)" .
 
 
-run: $(if $(PM_STANDALONE), database-upgrade)
+run: $(if $(PM_STANDALONE), database-upgrade) $(if $(PM_DEMO), demo-data)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
+
+demo-data-dev: database-upgrade
+	PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
+
+demo-data: database-upgrade
+	PYTHONPATH=. python3 ProdManager/demo/init.py
 
 database-migration:
 	${FLASK} db migrate -m "<EDIT COMMIT MESSAGE>"
@@ -93,7 +99,7 @@ sonar: lint test
 check: lint
 
 lint:
-	${PYLINT} ${PACKAGE_NAME}/* tests/${PACKAGE_NAME}/* | tee pylint-report.txt
+	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
 	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml tests/${PACKAGE_NAME}/

@@ -1,17 +1,17 @@
 <div id="target">
-  <div id="scope">
-    <a href="{{ url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a>
-  </div>
+  <span id="scope">
+    <a href="{{ custom_url_for('scope.show', resource_id=maintenance.scope.id) }}">{{ maintenance.scope.name }}</a>
+  </span>
   /
-  <div id="service">
-    <a href="{{ url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a>
-  </div>
+  <span id="service">
+    <a href="{{ custom_url_for('service.show', resource_id=maintenance.service.id) }}">{{ maintenance.service.name }}</a>
+  </span>
 </div>
 {% if maintenance.external_reference %}
   <div id="external_reference" class="badge external_reference">{{ maintenance.external_reference }}</div>
 {% endif %}
 <div id="status" class="badge maintenance {{ maintenance.status.value }}">{{ maintenance.status.name }}</div>
-<div id="service_status" class="badge maintenance {{ maintenance.service_status.value }}">{{ maintenance.service_status.name }}</div>
+<div id="service_status" class="badge maintenance {{ maintenance.service_status.value }}">Service/{{ maintenance.service_status.name }}</div>
 {% if maintenance.description %}
 <div id="description">
   {% for line in maintenance.description.split('\n') %}
