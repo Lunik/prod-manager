@@ -12,6 +12,10 @@
 
 - change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md)
 - change(model.\*): Change models imports in packages
+- change(template.Home): Add new section containing only `SCHEDULED` Maintenances (#50)
+- change(template.Service): Add new section containing only `SCHEDULED` Maintenances (#50)
+- change(template.Scope): Add new section containing only `SCHEDULED` Maintenances (#50)
+
 
 ## 0.8.0
 
