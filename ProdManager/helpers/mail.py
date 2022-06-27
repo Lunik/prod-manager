@@ -43,29 +43,34 @@ class MailWorker():
     if self.use_ssl and self.use_tls:
       raise Exception("SSL and TLS cannot be enabled together when configuring email notifications")
 
+    flask_app.mail = self
+
+  def connect(self):
     if self.validate_certs:
       context = ssl.create_default_context()
     else:
       context = ssl._create_unverified_context()
 
     if self.use_ssl:
-      self.server = smtplib.SMTP_SSL(self.server, self.port, context=context)
+      connection = smtplib.SMTP_SSL(self.server, self.port, context=context)
     else:
-      self.server = smtplib.SMTP(self.server, self.port)
+      connection = smtplib.SMTP(self.server, self.port)
 
     if self.use_tls:
-      self.server.starttls(context=context)
+      connection.starttls(context=context)
 
     if self.use_credentials:
-      self.server.login(self.username, self.password)
+      connection.login(self.username, self.password)
 
-    flask_app.mail = self
+    return connection
 
 
   @staticmethod
   def send_async_email(mail, message):
+    connection = mail.connect()
+    connection.send_message(message, message["From"])
     mail.logger.info("Mail sent")
-    mail.server.send_message(message, message["From"])
+    connection.close()
 
 
   def send_mail(self, to_emails, subject, body):
