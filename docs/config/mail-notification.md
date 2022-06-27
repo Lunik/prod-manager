@@ -15,6 +15,6 @@ To enable thoses functionnalities a list of environment variables should be conf
 | `PM_MAIL_USE_TLS`         | boolean | `true`          | Use TLS (with `starttls`) for communications with the mail server. Cannot be set if `MAIL_USE_SSL` is set |
 | `PM_MAIL_USE_SSL`         | boolean | `false`         | **DEPRECATED**. Use SSL for communications with the mail server. Cannot be set if `MAIL_USE_TLS` is set |
 | `PM_MAIL_VALIDATE_CERTS`  | boolean | `true`          | Validate the TLS/SSL certificate of the mail server for communications |
-| `MAIL_PREFIX`             | string  | `[ProdManager]` | Prefix used in the `Subject` section of mails |
+| `PM_MAIL_PREFIX`             | string  | `[ProdManager]` | Prefix used in the `Subject` section of mails |
 | `PM_MAIL_SENDER`          | string  | `None`          | Email used in the `From` section of mails |
-| `MAIL_REPLY_TO`           | string  | `None`          | Email used in the `Reply-To` section of mails |
+| `PM_MAIL_REPLY_TO`           | string  | `None`          | Email used in the `Reply-To` section of mails |
