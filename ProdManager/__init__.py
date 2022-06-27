@@ -43,7 +43,6 @@ def create_app():
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     SQLALCHEMY_ECHO=boolean_param(os.environ.get("PM_SQLALCHEMY_ECHO", 'False')),
     WTF_CSRF_ENABLED=True,
-    SERVER_NAME=os.environ.get("PM_SERVER_NAME", None),
     PREFERRED_URL_SCHEME=os.environ.get("PM_PREFERRED_URL_SCHEME", None),
     CUSTOM_CSS_SHEET=os.environ.get("PM_CUSTOM_CSS_SHEET", None),
     MAIL_ENABLED=boolean_param(os.environ.get("PM_MAIL_ENABLED", 'False')),
