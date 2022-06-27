@@ -243,6 +243,18 @@ if __name__ == "__main__":
         start_date=datetime.strptime("2022-06-01 08:12:00", "%Y-%m-%d %H:%M:%S"),
         end_date=datetime.strptime("2022-06-01 10:12:00", "%Y-%m-%d %H:%M:%S"),
       ))
+      create_resource(Maintenance, dict(
+        name="Optimize connection pool",
+        description="Deployment of the Serverless Function service in JADC01",
+        external_reference="CHG000176",
+        status=MaintenanceStatus.SCHEDULED,
+        scope_id=8,
+        service_id=1,
+        service_status=ServiceStatus.UP,
+        creation_date=datetime.strptime("2022-04-11 17:10:00", "%Y-%m-%d %H:%M:%S"),
+        scheduled_start_date=datetime.strptime("2022-04-12 03:00:00", "%Y-%m-%d %H:%M:%S"),
+        scheduled_end_date=datetime.strptime("2022-04-12 05:00:00", "%Y-%m-%d %H:%M:%S"),
+      ))
 
       # MAINTENANCE EVENTS
       create_resource(MaintenanceEvent, dict(

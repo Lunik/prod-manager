@@ -1,0 +1,10 @@
+{% if (scheduled_maintenances.count()) > 0 %}
+<h2 id="scheduled_maintenances">Scheduled maintenances</h2>
+{% set resource_type = "maintenance" %}
+{% set resource_endpoint = "maintenance" %}
+{% set resources = scheduled_maintenances %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "service_status"), ("enum", "status"), ("string", "external_reference"), ("date", "scheduled_start_date"), ("date", "scheduled_end_date")
+] %}
+{% include "fragments/table.html" %}
+{% endif %}

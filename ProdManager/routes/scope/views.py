@@ -87,6 +87,12 @@ def show(resource_id):
       filters=Incident.past_filter(),
       paginate=False,
     ),
+    scheduled_maintenances=list_resources(
+      Maintenance,
+      filters=Maintenance.scheduled_filter(),
+      orders=Maintenance.reverse_order(),
+      paginate=False,
+    ),
     ongoing_maintenances=list_resources_from_query(
       Maintenance,
       query=scope.maintenances,
