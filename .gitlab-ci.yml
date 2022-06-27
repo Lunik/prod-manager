@@ -6,6 +6,7 @@ variables:
   PYTHON_VERSION: "3-alpine"
   PACKAGE_NAME: ProdManager
   SCAN_KUBERNETES_MANIFESTS: "true"
+  SAST_EXCLUDED_PATHS: "tests, venv"
 
 default:
   interruptible: true
