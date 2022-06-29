@@ -130,7 +130,7 @@ div#content {
 
 .badge.monitor .count { font-weight: bold; }
 
-.error, .info {
+.error, .info_message, .info {
   padding: 5px 20px;
 
   border-radius: 3px;
@@ -144,7 +144,7 @@ div#content {
   color: var(--badge-red-text-color);
 }
 
-.info {
+.info_message, .info {
   background-color: var(--badge-green-color);
   color: var(--badge-green-text-color);
 }

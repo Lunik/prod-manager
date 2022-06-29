@@ -67,7 +67,7 @@ def create():
   except Exception as error:
     return abort(error.code, dict(
       message="MonitorCreateForm creation failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
@@ -83,7 +83,7 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="monitor show failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   update_form = MonitorUpdateForm(obj=monitor)
@@ -126,7 +126,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Monitor update failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
@@ -151,7 +151,7 @@ def delete(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Monitor deletion failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.list'), 302)

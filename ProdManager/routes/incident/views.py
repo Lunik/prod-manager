@@ -75,7 +75,7 @@ def create():
   except Exception as error:
     return abort(error.code, dict(
       message="Incident creation failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   try:
@@ -115,7 +115,7 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Incident show failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   update_form = IncidentUpdateForm(obj=incident)
@@ -182,7 +182,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Incident update failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   if len(changed) > 0:

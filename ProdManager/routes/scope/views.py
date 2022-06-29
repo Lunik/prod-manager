@@ -51,7 +51,7 @@ def create():
   except Exception as error:
     return abort(error.code, dict(
       message="Scope creation failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   return redirect(url_for('scope.show', resource_id=scope.id), 302)
@@ -67,7 +67,7 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Scope show failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   return render_template("scope/single.html",
@@ -133,7 +133,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Scope update failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   return redirect(url_for('scope.show', resource_id=scope.id), 302)
@@ -158,7 +158,7 @@ def delete(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Scope deletion failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   return redirect(url_for('scope.list'), 302)

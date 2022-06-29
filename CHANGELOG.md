@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+
+- Improve human readability on error (#46)
 
 ## 0.9.0
 

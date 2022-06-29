@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint,url_for, render_template, redirect
+from flask import Blueprint,url_for, render_template, redirect, abort
 from flask import current_app
 from flask import g
 from flask import request
@@ -15,47 +15,39 @@ bp = Blueprint("auth", __name__)
 ## LOGIN ##
 ###########
 
-@bp.route("/login", methods=("GET", "POST",))
+@bp.route("/login", methods=("GET",))
 @logout_required
 def login():
   form = AuthLoginForm()
 
-  redirect_to, error, code = dict(
-    GET=show_login,
-    POST=do_login
-  )[request.method](form)
-
-  if redirect_to:
-    return redirect(redirect_to, 302)
-
-
   return render_template("auth/login.html",
-    error=error,
     form=form
-  ), code
+  ), 200
 
-def show_login(_):
-  return None, None, 200
 
-def do_login(form):
+@bp.route("/login", methods=("POST",))
+@logout_required
+def do_login():
+  form = AuthLoginForm()
+
   if not form.validate_on_submit():
-    return None, dict(
+    abort(400, dict(
       message="Login failed",
-      reasons=form.errors
-    ), 400
+      reasons=form.errors,
+    ))
 
   if form.secret.data != current_app.config['SECRET_KEY']:
-    return None, dict(
+    abort(400, dict(
       message="Login failed",
-      reasons=dict(secret="Invalid secret")
-    ), 400
+      reasons=dict(secret=["Invalid secret"]),
+    ))
 
   session.clear()
   session["logged"] = True
   session["logged_at"] = datetime.now().timestamp()
   session["logged_until"] = (datetime.now() + timedelta(days=1)).timestamp()
 
-  return url_for('root.index'), None, None
+  return redirect(url_for('root.index'), 302)
 
 ############
 ## LOGOUT ##

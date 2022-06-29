@@ -79,7 +79,7 @@ def create():
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance creation failed",
-      reasons=dict(maintenance=error.message)
+      reasons=dict(maintenance=[error.message])
     ))
 
   try:
@@ -119,7 +119,7 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance show failed",
-      reasons=dict(maintenance=error.message)
+      reasons=dict(maintenance=[error.message])
     ))
 
   update_form = MaintenanceUpdateForm(obj=maintenance)
@@ -181,7 +181,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance update failed",
-      reasons=dict(maintenance=error.message)
+      reasons=dict(maintenance=[error.message])
     ))
 
   if len(changed) > 0:
@@ -236,7 +236,7 @@ def comment(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance update failed",
-      reasons=dict(maintenance=error.message)
+      reasons=dict(maintenance=[error.message])
     ))
 
   return redirect(url_for('maintenance.show', resource_id=resource_id), 302)
@@ -261,7 +261,7 @@ def delete(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Maintenance deletion failed",
-      reasons=dict(maintenance=error.message)
+      reasons=dict(maintenance=[error.message])
     ))
 
   return redirect(url_for('maintenance.list'), 302)

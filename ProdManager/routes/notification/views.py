@@ -38,7 +38,7 @@ def subscribe():
   except Exception as error:
     return abort(error.code, dict(
       message="Notification subscription failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   return redirect(url_for('notification.index', info_message="Successfully subscribed"), 302)
@@ -64,7 +64,7 @@ def unsubscribe():
   except Exception as error:
     return abort(error.code, dict(
       message="Notification subscription failed",
-      reasons=dict(scope=error.message)
+      reasons=dict(scope=[error.message])
     ))
 
   if subscriber:
@@ -73,7 +73,7 @@ def unsubscribe():
     except Exception as error:
       return abort(error.code, dict(
         message="Notification unsubscription failed",
-        reasons=dict(scope=error.message)
+        reasons=dict(scope=[error.message])
       ))
 
   return redirect(url_for('notification.index', info_message="Successfully unsubscribed"), 302)
