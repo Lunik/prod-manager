@@ -36,8 +36,8 @@
 - feat(view.Incident): Allow to filter by `status`, `severity`, `scope` and `service` (#13)
 - feat(view.Maintenance): Allow to filter by `status`, `scope` and `service` (#13)
 - feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13)
-- feat(template.Scope): Make the monitors badges clikable to see related monitors
-- feat(template.Service): Make the monitors badges clikable to see related monitors
+- feat(template.Scope): Make the monitors badges clikable to see related monitors (#10)
+- feat(template.Service): Make the monitors badges clikable to see related monitors (#10)
 - feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
   - The Style sheet should be placed inside the `ProdManager/static` folder
 - feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40)
