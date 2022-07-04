@@ -5,15 +5,15 @@ from wtforms.validators import DataRequired, Length, Optional, URL
 from ProdManager.models import MonitorStatus
 
 class MonitorCreateForm(FlaskForm):
-  scope_id = SelectField(name='scope', validators=[DataRequired()])
-  service_id = SelectField(name='service', validators=[DataRequired()])
+  scope = SelectField(name='scope', validators=[DataRequired()])
+  service = SelectField(name='service', validators=[DataRequired()])
   name = StringField(name='name', validators=[DataRequired(), Length(min=4)])
   description = TextAreaField(name='description', validators=[Optional()])
   external_link = URLField(name='external_link', validators=[Optional(), URL()])
 
 class MonitorUpdateForm(FlaskForm):
-  scope_id = SelectField(name='scope', validators=[DataRequired()])
-  service_id = SelectField(name='service', validators=[DataRequired()])
+  scope = SelectField(name='scope', validators=[DataRequired()])
+  service = SelectField(name='service', validators=[DataRequired()])
   name = StringField(name='name', validators=[DataRequired(), Length(min=4)])
   description = TextAreaField(name='description', validators=[Optional()])
   status = SelectField(

@@ -11,33 +11,33 @@ from ProdManager.models import (
 )
 
 class MaintenanceCreateForm(FlaskForm):
-  scope_id = SelectField(name='scope', validators=[DataRequired()])
-  service_id = SelectField(name='service', validators=[DataRequired()])
+  scope = SelectField(name='scope', validators=[DataRequired()])
+  service = SelectField(name='service', validators=[DataRequired()])
   name = StringField(name='name', validators=[DataRequired(), Length(min=4)])
   description = TextAreaField(name='description', validators=[Optional()])
   external_reference= StringField(name='external_reference', validators=[Optional()])
   service_status = SelectField(
-    name='service status',
+    name='service_status',
     validators=[DataRequired()],
     choices=ServiceStatus.choices(),
     coerce=ServiceStatus.coerce,
   )
   scheduled_start_date = DateTimeLocalField(
-    name='scheduled start date',
+    name='scheduled_start_date',
     default=current_date(),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   scheduled_end_date = DateTimeLocalField(
-    name='scheduled end date',
+    name='scheduled_end_date',
     default=current_date() + timedelta(hours=1),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
 
 class MaintenanceUpdateForm(FlaskForm):
-  scope_id = SelectField(name='scope', validators=[DataRequired()])
-  service_id = SelectField(name='service', validators=[DataRequired()])
+  scope = SelectField(name='scope', validators=[DataRequired()])
+  service = SelectField(name='service', validators=[DataRequired()])
   name = StringField(name='name', validators=[DataRequired(), Length(min=4)])
   description = TextAreaField(name='description', validators=[Optional()])
   external_reference= StringField(name='external_reference', validators=[Optional()])
@@ -48,30 +48,30 @@ class MaintenanceUpdateForm(FlaskForm):
     coerce=MaintenanceStatus.coerce,
   )
   service_status = SelectField(
-    name='service status',
+    name='service_status',
     validators=[DataRequired()],
     choices=ServiceStatus.choices(),
     coerce=ServiceStatus.coerce,
   )
   scheduled_start_date = DateTimeLocalField(
-    name='scheduled start date',
+    name='scheduled_start_date',
     default=current_date(),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   scheduled_end_date = DateTimeLocalField(
-    name='scheduled end date',
+    name='scheduled_end_date',
     default=current_date() + timedelta(hours=1),
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   start_date = DateTimeLocalField(
-    name='start date',
+    name='start_date',
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M',
   )
   end_date = DateTimeLocalField(
-    name='end date',
+    name='end_date',
     validators=[Optional()],
     format='%Y-%m-%dT%H:%M',
   )

@@ -38,8 +38,8 @@ def list(filters):
   maintenances = list_resources(Maintenance, filters=filters)
 
   create_form = MaintenanceCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/list.html",
     maintenances=maintenances,
@@ -54,8 +54,8 @@ def list(filters):
 @login_required
 def create():
   form=MaintenanceCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -68,8 +68,8 @@ def create():
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
       external_reference=strip_input(form.external_reference.data),
-      scope_id=int(form.scope_id.data),
-      service_id=int(form.service_id.data),
+      scope_id=int(form.scope.data),
+      service_id=int(form.service.data),
       creation_date=current_date(),
       scheduled_start_date=form.scheduled_start_date.data,
       scheduled_end_date=form.scheduled_end_date.data,
@@ -123,8 +123,8 @@ def show(resource_id):
     ))
 
   update_form = MaintenanceUpdateForm(obj=maintenance)
-  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("maintenance/single.html",
     maintenance=maintenance,
@@ -142,8 +142,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = MaintenanceUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -162,8 +162,8 @@ def update(resource_id):
     start_date=form.start_date.data,
     end_date=form.end_date.data,
     service_status=ServiceStatus(form.service_status.data),
-    scope_id=int(form.scope_id.data),
-    service_id=int(form.service_id.data),
+    scope_id=int(form.scope.data),
+    service_id=int(form.service.data),
   )
 
   if new_maintenance_status == MaintenanceStatus.IN_PROGRESS and new_data['start_date'] is None:

@@ -15,9 +15,13 @@ pylint-report.txt
 
 coverage.xml
 result.xml
+report.html
 
 .coverage
 
 .scannerwork/
 
 .DS_Store
+
+assets
+htmlcov
