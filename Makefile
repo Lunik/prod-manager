@@ -50,7 +50,7 @@ install-dev: env
 	${VENV_PY} -m pip install -r "${REQUIREMENTS_DEV}"
 
 install-docker:
-	${PY} -m pip install --compile -r "${REQUIREMENTS}"
+	${PY} -m pip install --no-cache-dir --compile -r "${REQUIREMENTS}"
 
 env:
 	${PY} -m venv "${VENV}"

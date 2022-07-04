@@ -8,6 +8,7 @@ variables:
   SCAN_KUBERNETES_MANIFESTS: "true"
   SAST_EXCLUDED_PATHS: "tests, venv"
   SECRET_DETECTION_EXCLUDED_PATHS: "venv"
+  DOCKER_DRIVER: overlay2
 
 default:
   interruptible: true
@@ -112,6 +113,8 @@ image-build:
   image: docker:latest
   services:
     - docker:dind
+  variables:
+    DOCKER_BUILDKIT: 1
   before_script:
     - >
       docker login

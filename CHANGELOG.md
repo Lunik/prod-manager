@@ -4,11 +4,12 @@
 
 ### Added
 
-- Improve human readability on error (#46)
+- feat(error): Improve human readability on error (#46)
+- feat(docker): Optimize container image
 
 ### Fixed
 
-- Fix demo data increment (#55)
+- fix(demo): Fix demo data increment (#55)
 
 
 ## 0.9.0
