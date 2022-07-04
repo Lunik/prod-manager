@@ -6,6 +6,11 @@
 
 - Improve human readability on error (#46)
 
+### Fixed
+
+- Fix demo data increment (#55)
+
+
 ## 0.9.0
 
 ### Added

@@ -16,7 +16,7 @@ if __name__ == "__main__":
       # SCOPES
       scopes = []
       for country in ["France", "West-US", "Japan"]:
-        for zone in range(3):
+        for zone in range(1, 4):
           scopes.append(
             create_resource(Scope, dict(
               name=f"{country} DC0{zone}",
