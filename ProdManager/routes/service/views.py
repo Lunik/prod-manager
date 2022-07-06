@@ -94,8 +94,9 @@ def show(resource_id):
       filters=Incident.past_filter(),
       paginate=False,
     ),
-    scheduled_maintenances=list_resources(
+    scheduled_maintenances=list_resources_from_query(
       Maintenance,
+      query=service.maintenances,
       filters=Maintenance.scheduled_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,

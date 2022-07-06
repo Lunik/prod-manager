@@ -12,6 +12,8 @@
 ### Fixed
 
 - fix(demo): Fix demo data increment (#55)
+- fix(views.Scope): Display only related scheduled maintenances (#58)
+- fix(views.Service): Display only related scheduled maintenances (#58)
 
 ### Changed
 
