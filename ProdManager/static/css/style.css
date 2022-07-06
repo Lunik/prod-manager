@@ -296,7 +296,7 @@ div#extra_content {
   margin: 15px 0 0 10px;
 }
 
-div#extra_content #monitors {
+div#extra_content #monitors, div#content #monitors {
   display: inline-block;
 
   margin: 0;

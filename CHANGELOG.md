@@ -7,6 +7,7 @@
 - feat(error): Improve human readability on error (#46)
 - feat(docker): Optimize container image
 - feat(TU): Add unit tests
+- feat(template.index): Display monitor resume on main dashboard page (#56)
 
 ### Fixed
 
