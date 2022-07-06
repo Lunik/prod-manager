@@ -6,10 +6,15 @@
 
 - feat(error): Improve human readability on error (#46)
 - feat(docker): Optimize container image
+- feat(TU): Add unit tests
 
 ### Fixed
 
 - fix(demo): Fix demo data increment (#55)
+
+### Changed
+
+- changed(ci): Remove SonarQube analysis
 
 
 ## 0.9.0
