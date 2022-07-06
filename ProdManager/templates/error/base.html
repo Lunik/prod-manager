@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Error{% endblock %}
+
+{% set share_title = "Error" %}
+
+{% block content %}
+<div class="error">
+  <h3 id="title">{{ error_title }}</h3>
+  <p>{{ error.description.message }}</p>
+  {% if error.description.reasons and error.description.reasons != "" %}
+    <ul class="reasons">
+      {% for attribute, reason in error.description.reasons.items() %}
+      <li class="reason">
+        {{ attribute }} : {{ ",".join(reason) }}
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

@@ -128,7 +128,7 @@ It is mainly a [Flask][flask] app served by [Gunicorn][gunicorn].
 
 ## Unit Test
 
-Test are made using [pytest][pytest] framework and run with :
+Test are made using [pytest][pytest] and [flask-unit][flask-unit] framework and run with :
 
 ```bash
 make test
@@ -152,6 +152,7 @@ make test
 [wtforms]: https://wtforms.readthedocs.io/en/3.0.x/
 [gunicorn]: https://gunicorn.org
 [pytest]: https://pytest.org
+[flask-unit]: https://github.com/TotallyNotChase/flask-unittest
 
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-mr]: https://gitlab.com/prod-manager/prod-manager/-/merge_requests/new?merge_request%5Btarget_branch%5D=develop

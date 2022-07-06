@@ -78,9 +78,16 @@ def create_app():
   gunicorn_logger.setLevel(gunicorn_logger.level)
   app.logger.handlers = gunicorn_logger.handlers
 
-  # from ProdManager.errors import error_404
+  from ProdManager.errors import (
+    page_not_found, conflict, forbiden,
+    internal_error, bad_request,
+  )
 
-  # app.register_error_handler(404, error_404)
+  app.register_error_handler(400, bad_request)
+  app.register_error_handler(403, forbiden)
+  app.register_error_handler(404, page_not_found)
+  app.register_error_handler(409, conflict)
+  app.register_error_handler(500, internal_error)
 
 
   from ProdManager.helpers.auth import retreiv_auth
@@ -96,7 +103,7 @@ def create_app():
 
   from ProdManager.routes import (
     root, auth, scope, service, incident,
-    maintenance, monitor, health, notification
+    maintenance, monitor, health, notification,
   )
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")

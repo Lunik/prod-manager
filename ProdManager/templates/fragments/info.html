@@ -1,8 +1,8 @@
-<div class="info">
-  <p class="message">{{ info.message }}</h3>
-  {% if "reasons" in info %}
+<div class="info_message">
+  <p class="message">{{ info_message.message }}</h3>
+  {% if "reasons" in info_message %}
     <ul class="reasons">
-      {% for attribute, reason in info.reasons.items() %}
+      {% for attribute, reason in info_message.reasons.items() %}
       <li class="reason">{{ attribute }} : {{ reason }}</li>
       {% endfor %}
     </ul>

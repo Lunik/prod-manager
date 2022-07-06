@@ -56,7 +56,7 @@ def create():
   except Exception as error:
     return abort(error.code, dict(
       message="Service creation failed",
-      reasons=dict(service=error.message)
+      reasons=dict(service=[error.message])
     ))
 
   return redirect(url_for('service.show', resource_id=service.id), 302)
@@ -72,7 +72,7 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Service show failed",
-      reasons=dict(service=error.message)
+      reasons=dict(service=[error.message])
     ))
 
   update_form = ServiceUpdateForm(obj=service)
@@ -94,8 +94,9 @@ def show(resource_id):
       filters=Incident.past_filter(),
       paginate=False,
     ),
-    scheduled_maintenances=list_resources(
+    scheduled_maintenances=list_resources_from_query(
       Maintenance,
+      query=service.maintenances,
       filters=Maintenance.scheduled_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,
@@ -140,7 +141,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Service update failed",
-      reasons=dict(service=error.message)
+      reasons=dict(service=[error.message])
     ))
 
   return redirect(url_for('service.show', resource_id=service.id), 302)
@@ -165,7 +166,7 @@ def delete(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Service deletion failed",
-      reasons=dict(service=error.message)
+      reasons=dict(service=[error.message])
     ))
 
   return redirect(url_for('service.list'), 302)

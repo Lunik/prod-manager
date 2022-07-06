@@ -2,3 +2,7 @@ pylint
 
 pytest
 pytest-cov
+pytest-html
+pytest-xdist
+
+flask-unittest

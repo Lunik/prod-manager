@@ -36,8 +36,8 @@ def list(filters):
   incidents = list_resources(Incident, filters=filters)
 
   create_form = IncidentCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("incident/list.html",
     incidents=incidents,
@@ -52,8 +52,8 @@ def list(filters):
 @login_required
 def create():
   form=IncidentCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -67,15 +67,15 @@ def create():
       description=strip_input(form.description.data),
       severity=IncidentSeverity(form.severity.data),
       external_reference=strip_input(form.external_reference.data),
-      scope_id=int(form.scope_id.data),
-      service_id=int(form.service_id.data),
+      scope_id=int(form.scope.data),
+      service_id=int(form.service.data),
       creation_date=current_date(),
       start_impact_date=form.start_impact_date.data,
     ))
   except Exception as error:
     return abort(error.code, dict(
       message="Incident creation failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   try:
@@ -115,12 +115,12 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Incident show failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   update_form = IncidentUpdateForm(obj=incident)
-  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("incident/single.html",
     incident=incident,
@@ -138,8 +138,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = IncidentUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -154,8 +154,8 @@ def update(resource_id):
     severity=IncidentSeverity(form.severity.data),
     status=new_incident_status,
     external_reference=strip_input(form.external_reference.data),
-    scope_id=int(form.scope_id.data),
-    service_id=int(form.service_id.data),
+    scope_id=int(form.scope.data),
+    service_id=int(form.service.data),
     start_impact_date=form.start_impact_date.data,
     investigation_date=form.investigation_date.data,
     stable_date=form.stable_date.data,
@@ -182,7 +182,7 @@ def update(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Incident update failed",
-      reasons=dict(incident=error.message)
+      reasons=dict(incident=[error.message])
     ))
 
   if len(changed) > 0:

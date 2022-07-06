@@ -5,17 +5,18 @@ ENV PYTHONPATH=/app
 
 RUN apk add \
   --update --no-cache \
-  make
+  make ca-certificates
 
 
-ADD requirements.txt Makefile ./
-RUN apk add --update --no-cache --virtual .build build-base \
+COPY Makefile ./
+RUN --mount=type=bind,source=requirements.txt,target=requirements.txt \
+  apk add --update --no-cache --virtual .build build-base \
   && make install-docker \
   && apk del .build
 
-ADD ProdManager ProdManager
-ADD migrations migrations
-ADD main.py .flaskenv ./
+COPY ProdManager ProdManager
+COPY migrations migrations
+COPY main.py .flaskenv ./
 
 RUN python -m compileall ProdManager main.py
 

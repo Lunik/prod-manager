@@ -47,9 +47,11 @@ Example below:
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings
 - [ ] My code needed automated testing. I have added them (this is optional task)
+- [ ] I have added user readable comment in the [CHANGELOG][changelog]
 
 <!-- Links -->
 
 [pylint]: https://pylint.pycqa.org/
 
 [contributing-manifest]: CONTRIBUTING.md
+[changelog]: CHANGELOG.md

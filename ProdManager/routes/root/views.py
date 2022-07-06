@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template
 
 from ProdManager.models import (
-  Incident, Maintenance,
+  Incident, Maintenance, Monitor
 )
 from ProdManager.helpers.resource import list_resources
 
@@ -40,6 +40,7 @@ def index():
       filters=Maintenance.past_filter(),
       paginate=False,
     ),
+    monitors_count=Monitor.count_monitors(Monitor.query),
   ), 200
 
 @bp.route('/about')

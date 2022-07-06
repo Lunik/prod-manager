@@ -6,6 +6,7 @@ FLASK    ?= venv/bin/flask
 GUNICORN ?= venv/bin/gunicorn
 PYLINT   ?= venv/bin/pylint
 PYTEST   ?= venv/bin/pytest
+COVERAGE ?= venv/bin/coverage
 
 VENV             ?= venv
 REQUIREMENTS      = requirements.txt
@@ -25,7 +26,7 @@ GUNICORN_OPTS = --bind="${SERVER}:${PORT}" --workers=${WORKERS} --threads=${THRE
 DOCKER_COMPOSE_OPTS = --project-directory="deploy/compose" --project-name="${APP_NAME}"
 KUBECTL_OPTS = --filename="deploy/kubernetes"
 
-SONAR_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
+GIT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
 STATICS = ProdManager/static
 
@@ -50,7 +51,7 @@ install-dev: env
 	${VENV_PY} -m pip install -r "${REQUIREMENTS_DEV}"
 
 install-docker:
-	${PY} -m pip install --compile -r "${REQUIREMENTS}"
+	${PY} -m pip install --no-cache-dir --compile -r "${REQUIREMENTS}"
 
 env:
 	${PY} -m venv "${VENV}"
@@ -92,14 +93,18 @@ database-migration:
 database-upgrade:
 	${FLASK} db upgrade
 
-sonar: lint test
-	sonar-scanner \
-	  -Dsonar.branch.name="$(SONAR_BRANCH)"
-
 check: lint
 
 lint:
 	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
-	${PYTEST} --cov --cov-report xml:coverage.xml --junitxml=result.xml tests/${PACKAGE_NAME}/
+	PYTHONPATH=. ${PYTEST} -v -n 4 --cov=${PACKAGE_NAME} --cov-report xml:coverage.xml --cov-report html:htmlcov --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/
+
+show-test: show-tests show-coverage
+
+show-tests:
+	open report.html
+
+show-coverage:
+	open htmlcov/index.html

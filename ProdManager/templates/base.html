@@ -75,22 +75,12 @@
         </nav>
       </div>
       <div id="content">
-        {% set error_message = request.args.get("error_message") %}
-        {% if error_message %}
-          {% set error=dict(message=error_message) %}
-        {% endif %}
-
-        {% if error %}
-          {% include "fragments/error.html" %}
-        {% endif %}
-
-
-        {% set info_message = request.args.get("info_message") %}
-        {% if info_message %}
-          {% set info=dict(message=info_message) %}
+        {% set info_query = request.args.get("info_message") %}
+        {% if info_query %}
+          {% set info_message=dict(message=info_query) %}
         {% endif %}
         
-        {% if info %}
+        {% if info_message %}
           {% include "fragments/info.html" %}
         {% endif %}
         {% block content %}{% endblock %}

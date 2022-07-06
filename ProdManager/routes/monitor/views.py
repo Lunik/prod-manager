@@ -31,8 +31,8 @@ def list(filters):
   monitors = list_resources(Monitor, filters=filters)
 
   create_form = MonitorCreateForm()
-  create_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  create_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("monitor/list.html",
     monitors=monitors,
@@ -47,8 +47,8 @@ def list(filters):
 @login_required
 def create():
   form=MonitorCreateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -61,13 +61,13 @@ def create():
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
       external_link=strip_input(form.external_link.data),
-      scope_id=int(form.scope_id.data),
-      service_id=int(form.service_id.data),
+      scope_id=int(form.scope.data),
+      service_id=int(form.service.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
       message="MonitorCreateForm creation failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
@@ -83,12 +83,12 @@ def show(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="monitor show failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   update_form = MonitorUpdateForm(obj=monitor)
-  update_form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  update_form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   return render_template("monitor/single.html",
     monitor=monitor,
@@ -105,8 +105,8 @@ def show(resource_id):
 @login_required
 def update(resource_id):
   form = MonitorUpdateForm()
-  form.scope_id.choices = list_resources_as_choices(Scope, Scope.name.asc())
-  form.service_id.choices = list_resources_as_choices(Service, Service.name.asc())
+  form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
+  form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -119,14 +119,14 @@ def update(resource_id):
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
       external_link=strip_input(form.external_link.data),
-      scope_id=int(form.scope_id.data),
-      service_id=int(form.service_id.data),
+      scope_id=int(form.scope.data),
+      service_id=int(form.service.data),
       status=MonitorStatus(form.status.data),
     ))
   except Exception as error:
     return abort(error.code, dict(
       message="Monitor update failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
@@ -151,7 +151,7 @@ def delete(resource_id):
   except Exception as error:
     return abort(error.code, dict(
       message="Monitor deletion failed",
-      reasons=dict(monitor=error.message)
+      reasons=dict(monitor=[error.message])
     ))
 
   return redirect(url_for('monitor.list'), 302)
