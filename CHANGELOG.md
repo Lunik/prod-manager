@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- ci(coverag): Fix coverage report in GitLab-CI
+
 
 ## 0.10.0
 
