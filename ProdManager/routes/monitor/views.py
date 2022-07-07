@@ -90,6 +90,10 @@ def show(resource_id):
   update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
+  update_form.scope.default = monitor.scope.id
+  update_form.service.default = monitor.service.id
+  update_form.process()  
+
   return render_template("monitor/single.html",
     monitor=monitor,
     update_form=update_form,
