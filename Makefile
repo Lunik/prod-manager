@@ -99,7 +99,9 @@ lint:
 	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test:
-	PYTHONPATH=. ${PYTEST} -v -n 4 --cov=${PACKAGE_NAME} --cov-report xml:coverage.xml --cov-report html:htmlcov --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/
+	${VENV_PY} -m pytest -v -n 4 --cov=${PACKAGE_NAME} --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/ \
+	&& ${COVERAGE} xml \
+	&& ${COVERAGE} html
 
 show-test: show-tests show-coverage
 

@@ -62,16 +62,15 @@ test:
       PYTHONPATH=.
       python3 ProdManager/demo/init.py
     - >
-      PYTHONPATH=.
-      pytest
+      python3 -m pytest
       -v
       -n 4
       --cov=${PACKAGE_NAME}
-      --cov-report xml:coverage.xml
-      --cov-report html:htmlcov
       --junitxml=result.xml
       --html=report.html
       tests/${PACKAGE_NAME}/
+    - coverage xml
+    - coverage html
   artifacts:
     when: always
     paths:
