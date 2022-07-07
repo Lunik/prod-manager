@@ -5,6 +5,7 @@
 ### Fixed
 
 - ci(coverag): Fix coverage report in GitLab-CI
+- fix(template.\*): Correct duplicated spaces (#59)
 
 
 ## 0.10.0

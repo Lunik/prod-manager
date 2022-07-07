@@ -3,16 +3,13 @@
 
 {% set share_title = resource_type.capitalize() %}
 {% if resource.external_reference %}
-{% set share_title = share_title + " " +resource.external_reference %}
+{% set share_title = share_title + " " + resource.external_reference %}
 {% endif %}
 {% set share_title = share_title + " - " %}
-{% if resource.scope %}
-{% set share_title = share_title + resource.scope.name %}
+{% if resource.scope and resource.service %}
+{% set share_title = share_title + resource.scope.name + "/" + resource.service.name + " " %}
 {% endif %}
-{% if resource.service %}
-{% set share_title = share_title + "/" + resource.service.name  %}
-{% endif %}
-{% set share_title = share_title + " " + resource.name %}
+{% set share_title = share_title + resource.name %}
 
 {% set share_description = resource.description %}
 
