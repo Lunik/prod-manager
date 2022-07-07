@@ -69,8 +69,9 @@ test:
       --junitxml=result.xml
       --html=report.html
       tests/${PACKAGE_NAME}/
-    - coverage xml
     - coverage html
+    - coverage xml
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
   artifacts:
     when: always
     paths:
