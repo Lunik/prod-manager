@@ -122,6 +122,10 @@ def show(resource_id):
   update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
+  update_form.scope.default = incident.scope.id
+  update_form.service.default = incident.service.id
+  update_form.process()  
+
   return render_template("incident/single.html",
     incident=incident,
     update_form=update_form,
