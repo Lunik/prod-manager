@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}{{ resource_type.capitalize() }}{% endblock %}
+{% block title %}{{ _("resource_" + resource_type) }}{% endblock %}
 
-{% set share_title = resource_type.capitalize() %}
+{% set share_title = _("resource_" + resource_type) %}
 {% if resource.external_reference %}
 {% set share_title = share_title + " " + resource.external_reference %}
 {% endif %}
@@ -14,8 +14,8 @@
 {% set share_description = resource.description %}
 
 {% block content %}
-  <a href="{{ custom_url_for(resource_endpoint + '.list') }}" id="back">&lt;&lt; Back to {{ resource_type }} list</a>
-  <h1 id="title">{{ resource_type.capitalize() }} - {{ resource.name }}</h1>
+  <a href="{{ custom_url_for(resource_endpoint + '.list') }}" id="back">&lt;&lt; {{ _("resource_back_to_list_" + resource_type) }}</a>
+  <h1 id="title">{{ _("resource_" + resource_type) }} - {{ resource.name }}</h1>
   <div id="resource_metadata">
     {% block resource_metadata %}{% endblock %}
   </div>
@@ -26,19 +26,19 @@
   {% if g.logged %}
     <div id="forms">
       {% if update_form %}
-        {% with form_title="Edit the " + resource_type + " info", form_id="update-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.update', resource_id=resource.id), form_submit_value="Update", form=update_form %}
+        {% with form_title=_("resource_update_" + resource_type), form_id="update-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.update', resource_id=resource.id), form_submit_value=_("resource_update_submit").capitalize(), form=update_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
 
       {% if comment_form %}
-        {% with form_title="Add a comment to the " + resource_type, form_id="comment-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.comment', resource_id=resource.id), form_submit_value="Comment", form=comment_form %}
+        {% with form_title=_("resource_comment_" + resource_type), form_id="comment-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.comment', resource_id=resource.id), form_submit_value=_("resource_comment_submit").capitalize(), form=comment_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}
 
       {% if delete_form %}
-        {% with form_title="Delete the " + resource_type, form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value="Delete", form=delete_form %}
+        {% with form_title=_("resource_delete_" + resource_type), form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value=_("resource_delete_submit").capitalize(), form=delete_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}

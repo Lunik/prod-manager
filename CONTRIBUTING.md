@@ -134,7 +134,52 @@ Test are made using [pytest][pytest] and [flask-unit][flask-unit] framework and 
 make test
 ```
 
-### Release Procedures
+## Translation
+
+The application has multilang support. This means that every string printed to the final user (except log output) should sould support translation.
+
+### Add a new supported language
+
+- Create a new YAML file in the [translation folder][translation-folder] with language code as file name (`en` for English, `fr` for Frensh, ...)
+- Duplicate the content of the default language file : `en`
+- Make your traduction
+
+**Notes:** If your traduction file doesn't implement a traduction string, the value of the default language (`en`) will be displayed
+
+### Add new strings
+
+When you are developping the application, you may encouter the need to display new text to the end user. In order to make that text translatable, you need to add the following abstraction :
+
+#### In Jinja2 template
+
+You need to use the `_` function like so :
+
+```jinja
+<h1>{{ _("my_new_title_value") }}</h1
+```
+
+In this example `my_new_title_value` is the translation key.
+
+#### In python code
+
+You need to import the lang manager in you file and use the `lang.get()` function like so :
+
+```python
+from ProdManager import lang
+
+def do_something():
+  return lang.get("my_new_text_value")
+```
+
+In this example `my_new_text_value` is the translation key.
+
+#### Translation keys
+
+When adding new text, you need to provide the human readable text of the translation key in the default language file `en` (see [Translation](#Translation))
+
+If you don't provided translation in the default language a placeholder will be displayed like `__missing_translation_<translation_key>`
+
+## Release Procedures
 
 1. Update the `CHANGELOG.md` file
 2. Merge from `develop` branch to `master`
@@ -157,3 +202,5 @@ make test
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-mr]: https://gitlab.com/prod-manager/prod-manager/-/merge_requests/new?merge_request%5Btarget_branch%5D=develop
 [gitlab-pipeline-tag]: https://gitlab.com/prod-manager/prod-manager/-/pipelines?scope=tags
+
+[translation-folder]: ProdManager/helpers/lang/translations/

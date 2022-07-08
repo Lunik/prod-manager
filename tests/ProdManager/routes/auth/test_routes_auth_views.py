@@ -29,6 +29,7 @@ class TestRoutesAuthViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/login')
       self.assertInResponse(b'<h1 id="title">Login</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_do_login_with_client(self, app):
     with app.test_client() as client:
@@ -36,27 +37,32 @@ class TestRoutesAuthViews(flask_unittest.AppTestCase):
 
       assert re.match(r"/", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/login')
       assert b"secret : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/login', data=dict(secret="invalid"))
       assert b"secret : Invalid secret" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_logout_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/logout')
       assert re.match(r"/", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/logout')
       assert re.match(r"/", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_logged_with_client(self, app):
     with app.test_client() as client:

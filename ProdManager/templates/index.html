@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
-{% set share_title = "Dashboard - Prod Manager" %}
-{% set is_home = True %}
+{% block title %}{{ _("dashboard_title") }}{% endblock %}
+{% set share_title = _("dashboard_title") %}
+{% set is_dashboard = True %}
 
 {% block content %}
-<h1 id="title">Dashboard</h1>
+<h1 id="title">{{ _("dashboard_title") }}</h1>
 
-<h2 id="monitors">Monitors :</h3> {% include "monitor/resume.html" %}
+<h2 id="monitors">{{ _("monitor_title", 2) }} :</h3> {% include "monitor/resume.html" %}
 
 {% include "incident/ongoing.html" %}
 {% include "maintenance/ongoing.html" %}

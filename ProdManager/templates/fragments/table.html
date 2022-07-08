@@ -2,9 +2,9 @@
   <tr>
     {% for type, key in resource_attributes %}
       {% if type == "template" %}
-        <th>{{ key | format_template_name }}</th>
+        <th>{{ _("table_column_" + (key | format_template_name), 2).capitalize() }}</th>
       {% else %}
-        <th>{{ key | format_column_name }}</th>
+        <th>{{ _("table_column_" + key).capitalize() }}</th>
       {% endif %}
     {% endfor %}
   </tr>
@@ -14,7 +14,7 @@
       {% set attr = resource[key] %}
       <td class="{{ type }}">
         {% if type == "enum" %}  
-          <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">{{ attr.name }}</div>
+          <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">{{ _(resource_type + "_" + key + "_" + attr.value) }}</div>
         {% elif type == "count" %}
           {{ attr.count() }}
         {% elif type == "obj" %}

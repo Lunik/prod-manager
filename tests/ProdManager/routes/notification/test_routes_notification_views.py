@@ -25,36 +25,43 @@ class TestRoutesAuthViews(flask_unittest.AppTestCase):
   def test_notification_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/notification')
-      self.assertInResponse(b'<h1 id="title">Subscribe to ProdManager notifications</h1>', rv)
+      self.assertInResponse(b'<h1 id="title">Subscribe to notifications</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_subscribe_with_client(self, app):
     with app.test_client() as client:
       rv = client.post('/notification/suscribe', data=dict(email="test@exemple.org"))
       assert b"Successfully+subscribed" in rv.data
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/notification/suscribe', data=dict(email="test@exemple"))
       assert b"email : Invalid email address" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/notification/suscribe')
       assert b"email : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_unsubscribe_with_client(self, app):
     with app.test_client() as client:
       rv = client.post('/notification/unsuscribe', data=dict(email="test@exemple.org"))
       assert b"Successfully+unsubscribed" in rv.data
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/notification/unsuscribe', data=dict(email="test@exemple"))
       assert b"email : Invalid email address" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/notification/unsuscribe')
       assert b"email : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)

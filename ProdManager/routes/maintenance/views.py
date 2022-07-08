@@ -1,6 +1,8 @@
 import json
 from flask import Blueprint, url_for, render_template, redirect, abort, current_app
 
+from ProdManager import lang
+
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -59,7 +61,7 @@ def create():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Maintenance creation failed",
+      message=lang.get("maintenance_creation_failed"),
       reasons=form.errors
     ))
 
@@ -78,7 +80,7 @@ def create():
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Maintenance creation failed",
+      message=lang.get("maintenance_creation_failed"),
       reasons=dict(maintenance=[error.message])
     ))
 
@@ -93,7 +95,7 @@ def create():
     current_app.logger.error(f"Unable to create event during Maintenance creation : {error}")
 
   try:
-    notif_title = f"[{maintenance.status.name}] {maintenance.name} - Scheduled Maintenance"
+    notif_title = f"[{maintenance.status.name}] {maintenance.name} - {lang.get('maintenance_new_notification_title')}"
     if maintenance.external_reference:
       notif_title = f"[{maintenance.external_reference}]{notif_title}"
 
@@ -118,7 +120,7 @@ def show(resource_id):
     maintenance = get_resource(Maintenance, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Maintenance show failed",
+      message=lang.get("maintenance_show_failed"),
       reasons=dict(maintenance=[error.message])
     ))
 
@@ -128,7 +130,7 @@ def show(resource_id):
 
   update_form.scope.default = maintenance.scope.id
   update_form.service.default = maintenance.service.id
-  update_form.process()  
+  update_form.process()
 
   return render_template("maintenance/single.html",
     maintenance=maintenance,
@@ -151,7 +153,7 @@ def update(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Maintenance update failed",
+      message=lang.get("maintenance_update_failed"),
       reasons=form.errors
     ))
 
@@ -184,7 +186,7 @@ def update(resource_id):
     maintenance, changed = update_resource(Maintenance, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
-      message="Maintenance update failed",
+      message=lang.get("maintenance_update_failed"),
       reasons=dict(maintenance=[error.message])
     ))
 
@@ -200,7 +202,7 @@ def update(resource_id):
       current_app.logger.error(f"Unable to create event during Maintenance update : {error}")
 
     try:
-      notif_title = f"[{maintenance.status.name}] {maintenance.name} - Updated Maintenance"
+      notif_title = f"[{maintenance.status.name}] {maintenance.name} - {lang.get('maintenance_update_notification_title')}"
       if maintenance.external_reference:
         notif_title = f"[{maintenance.external_reference}]{notif_title}"
       send_notification(
@@ -225,7 +227,7 @@ def comment(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Maintenance comment failed",
+      message=lang.get('maintenance_comment_failed'),
       reasons=form.errors
     ))
 
@@ -239,7 +241,7 @@ def comment(resource_id):
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Maintenance update failed",
+      message=lang.get('maintenance_comment_failed'),
       reasons=dict(maintenance=[error.message])
     ))
 
@@ -256,7 +258,7 @@ def delete(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Maintenance deletion failed",
+      message=lang.get('maintenance_deletion_failed'),
       reasons=form.errors
     ))
 
@@ -264,7 +266,7 @@ def delete(resource_id):
     delete_resource(Maintenance, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Maintenance deletion failed",
+      message=lang.get('maintenance_deletion_failed'),
       reasons=dict(maintenance=[error.message])
     ))
 

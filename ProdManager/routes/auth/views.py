@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 from flask import Blueprint,url_for, render_template, redirect, abort
 from flask import current_app
 from flask import g
-from flask import request
 from flask import session
 
+from ProdManager import lang
 from ProdManager.helpers.auth import logout_required
 from .forms import AuthLoginForm
 
@@ -32,14 +32,14 @@ def do_login():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Login failed",
+      message=lang.get("auth_login_failed"),
       reasons=form.errors,
     ))
 
   if form.secret.data != current_app.config['SECRET_KEY']:
     abort(400, dict(
-      message="Login failed",
-      reasons=dict(secret=["Invalid secret"]),
+      message=lang.get("auth_login_failed"),
+      reasons=dict(secret=[lang.get("auth_invalid_secret")]),
     ))
 
   session.clear()

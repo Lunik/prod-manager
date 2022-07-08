@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{% block title %}{% endblock %} - ProManager</title>
+    <title>{% block title %}{% endblock %} - ProdManager</title>
 
     <meta charset="UTF-8" />
     {% if share_title %}
-      <meta property="og:title" content="{{ share_title }}" />
+      <meta property="og:title" content="{{ share_title }} - ProdManager" />
     {% else %}
       <meta property="og:title" content="ProManager" />
     {% endif %}
@@ -36,39 +36,39 @@
       <div id="header">
         <nav id="menu">
           <ul>
-            <li id="home" class="{{ 'active' if is_home }}">
-              <a id="home" href="{{ custom_url_for('root.index')}}">Home</a>
+            <li id="dashboard" class="{{ 'active' if is_dashboard }}">
+              <a id="dashboard" href="{{ custom_url_for('root.index')}}">{{ _("dashboard_title") }}</a>
             </li>
             <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
-              <a id="scope" href="{{ custom_url_for('scope.list')}}">Scopes</a>
+              <a id="scope" href="{{ custom_url_for('scope.list')}}">{{ _("scope_title", 2) }}</a>
             </li>
             <li id="service" class="{{ 'active' if resource_type == 'service' }}">
-              <a id="service" href="{{ custom_url_for('service.list')}}">Services</a>
+              <a id="service" href="{{ custom_url_for('service.list')}}">{{ _("service_title", 2) }}</a>
             </li>
             <li id="monitor" class="{{ 'active' if resource_type == 'monitor' }}">
-              <a id="monitor" href="{{ custom_url_for('monitor.list')}}">Monitors</a>
+              <a id="monitor" href="{{ custom_url_for('monitor.list')}}">{{ _("monitor_title", 2) }}</a>
             </li>
             <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
-              <a id="incident" href="{{ custom_url_for('incident.list')}}">Incidents</a>
+              <a id="incident" href="{{ custom_url_for('incident.list')}}">{{ _("incident_title", 2) }}</a>
             </li>
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
-              <a id="maintenance" href="{{ custom_url_for('maintenance.list')}}">Maintenances</a>
+              <a id="maintenance" href="{{ custom_url_for('maintenance.list')}}">{{ _("maintenance_title", 2) }}</a>
             </li>
               <li id="subscribe" class="{{ 'active' if is_subscribe }}">
                 {% if config["MAIL_ENABLED"] %}
-                <a id="subscribe" href="{{ custom_url_for('notification.index')}}">Subscribe</a>
+                <a id="subscribe" href="{{ custom_url_for('notification.index')}}">{{ _("notification_subscribe_title") }}</a>
                 {% endif %}
               </li>
             <li id="about" class="{{ 'active' if is_about }}">
-              <a id="about" href="{{ custom_url_for('root.about')}}">About</a>
+              <a id="about" href="{{ custom_url_for('root.about')}}">{{ _("about_title") }}</a>
             </li>
             {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">
-              <a id="logout" href="{{ custom_url_for('auth.logout') }}">Logout</a>
+              <a id="logout" href="{{ custom_url_for('auth.logout') }}">{{ _("auth_logout_title") }}</a>
             </li>
             {% else %}
             <li id="login" class="{{ 'active' if is_auth }}">
-              <a id="login" href="{{ custom_url_for('auth.login') }}">Login</a>
+              <a id="login" href="{{ custom_url_for('auth.login') }}">{{ _("auth_login_title") }}</a>
             </li>
             {% endif %}
           </ul>
@@ -87,7 +87,8 @@
       </div>
       <div id="footer">
         {% block footer %}{% endblock %}
-        Powered by <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
+        {{ _("footer_powered") }}
+        <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
         <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
       </div>
     </div>

@@ -11,6 +11,8 @@ from ProdManager.models import (
   Scope, Monitor, Incident, Maintenance,
 )
 
+from ProdManager import lang
+
 from .forms import ScopeCreateForm, ScopeUpdateForm, ScopeDeleteForm
 
 bp = Blueprint("scope", __name__)
@@ -39,7 +41,7 @@ def create():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Scope creation failed",
+      message=lang.get("scope_creation_failed"),
       reasons=form.errors
     ))
 
@@ -50,7 +52,7 @@ def create():
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Scope creation failed",
+      message=lang.get("scope_creation_failed"),
       reasons=dict(scope=[error.message])
     ))
 
@@ -66,7 +68,7 @@ def show(resource_id):
     scope = get_resource(Scope, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Scope show failed",
+      message=lang.get("scope_show_failed"),
       reasons=dict(scope=[error.message])
     ))
 
@@ -122,7 +124,7 @@ def update(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Scope update failed",
+      message=lang.get("scope_update_failed"),
       reasons=form.errors
     ))
 
@@ -133,7 +135,7 @@ def update(resource_id):
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Scope update failed",
+      message=lang.get("scope_update_failed"),
       reasons=dict(scope=[error.message])
     ))
 
@@ -150,7 +152,7 @@ def delete(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Scope deletion failed",
+      message=lang.get("scope_deletion_failed"),
       reasons=form.errors
     ))
 
@@ -158,7 +160,7 @@ def delete(resource_id):
     delete_resource(Scope, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Scope deletion failed",
+      message=lang.get("scope_deletion_failed"),
       reasons=dict(scope=[error.message])
     ))
 

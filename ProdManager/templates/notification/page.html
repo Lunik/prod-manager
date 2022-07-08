@@ -1,32 +1,24 @@
 {% extends "base.html" %}
-{% block title %}Subscribe to notifications{% endblock %}
-{% set share_title = "Subscribe to notifications - Prod Manager" %}
+{% block title %}{{ _("notification_subscribe_header") }}{% endblock %}
+{% set share_title = _("notification_subscribe_header") %}
 {% set is_subscribe = True %}
 
 {% block content %}
-<h1 id="title">Subscribe to ProdManager notifications</h1>
+<h1 id="title">{{ _("notification_subscribe_header") }}</h1>
 <div id="description">
-  <p>In order to stay updated you can register your email for notification.</p>
-  <p>Notification can include :</p>
+  <p>{{ _("notification_subscribe_description") }}</p>
+  <p>{{ _("notification_include") }} :</p>
   <ul>
-    <li>
-      New scheduled <a href="{{ custom_url_for('maintenance.list') }}">Maintenance</a>
-    </li>
-    <li>
-      Updated <a href="{{ custom_url_for('maintenance.list') }}">Maintenance</a>
-    </li>
-    <li>
-      New declared <a href="{{ custom_url_for('incident.list') }}">Incident</a>
-    </li>
-    <li>
-      Updated <a href="{{ custom_url_for('incident.list') }}">Incident</a>
-    </li>
+    <li>{{ _("maintenance_new_notification_title") }}</li>
+    <li>{{ _("maintenance_update_notification_title") }}</li>
+    <li>{{ _("incident_new_notification_title") }}</li>
+    <li>{{ _("incident_update_notification_title") }}</li>
   </ul>
 </div>
-{% with form_title="Subscribe", form_id="subscribe", form_method="post", form_action=custom_url_for('notification.subscribe'), form_submit_value="Submit", form=subscribe_form %}
+{% with form_title=_("notification_subscribe_title"), form_id="subscribe", form_method="post", form_action=custom_url_for('notification.subscribe'), form_submit_value=_("notification_subscribe_submit"), form=subscribe_form %}
   {% include "fragments/form.html" %}
 {% endwith %}
-{% with form_title="Unsubscribe", form_id="unsubscribe", form_method="post", form_action=custom_url_for('notification.unsubscribe'), form_submit_value="Submit", form=unsubscribe_form %}
+{% with form_title=_("notification_unsubscribe_title"), form_id="unsubscribe", form_method="post", form_action=custom_url_for('notification.unsubscribe'), form_submit_value=_("notification_unsubscribe_submit"), form=unsubscribe_form %}
   {% include "fragments/form.html" %}
 {% endwith %}
 {% endblock %}

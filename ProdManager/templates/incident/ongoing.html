@@ -1,5 +1,5 @@
 {% if (ongoing_incidents.count()) > 0 %}
-<h2 id="ongoing_incidents">Ongoing incidents</h2>
+<h2 id="ongoing_incidents">{{ _("incident_ongoing").capitalize() }}</h2>
 {% set resource_type = "incident" %}
 {% set resource_endpoint = "incident" %}
 {% set resources = ongoing_incidents %}

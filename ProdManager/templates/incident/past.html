@@ -1,5 +1,5 @@
 {% if (past_incidents.count()) > 0 %}
-<h2 id="past_incidents">Past incidents</h2>
+<h2 id="past_incidents">{{ _("incident_past").capitalize() }}</h2>
 {% set resource_type = "incident" %}
 {% set resource_endpoint = "incident" %}
 {% set resources = past_incidents %}

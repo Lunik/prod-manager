@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(translation): Add translation support (#45)
+- feat(translation): Add `en` and `fr` to the supported translation languages (#45)
+
 ### Fixed
 
 - ci(coverag): Fix coverage report in GitLab-CI

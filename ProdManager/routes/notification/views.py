@@ -2,6 +2,8 @@
 from flask import Blueprint, render_template, abort, redirect, url_for
 from sqlalchemy.exc import NoResultFound
 
+from ProdManager import lang
+
 from ProdManager.models import Subscriber
 
 from ProdManager.helpers.resource import create_resource, list_resources, delete_resource
@@ -25,7 +27,7 @@ def subscribe():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Notification subscription failed",
+      message=lang.get("notification_subscription_failed"),
       reasons=form.errors
     ))
 
@@ -37,11 +39,14 @@ def subscribe():
     pass
   except Exception as error:
     return abort(error.code, dict(
-      message="Notification subscription failed",
+      message=lang.get("notification_subscription_failed"),
       reasons=dict(scope=[error.message])
     ))
 
-  return redirect(url_for('notification.index', info_message="Successfully subscribed"), 302)
+  return redirect(url_for(
+    'notification.index',
+    info_message=lang.get("notification_subscription_succeed")
+  ), 302)
 
 @bp.route('/unsuscribe', methods=("POST",))
 def unsubscribe():
@@ -49,7 +54,7 @@ def unsubscribe():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Notification unsubscription failed",
+      message=lang.get("notification_unsubscription_failed"),
       reasons=form.errors
     ))
 
@@ -63,7 +68,7 @@ def unsubscribe():
     subscriber = None
   except Exception as error:
     return abort(error.code, dict(
-      message="Notification subscription failed",
+      message=lang.get("notification_unsubscription_failed"),
       reasons=dict(scope=[error.message])
     ))
 
@@ -72,8 +77,11 @@ def unsubscribe():
       delete_resource(Subscriber, subscriber.id)
     except Exception as error:
       return abort(error.code, dict(
-        message="Notification unsubscription failed",
+        message=lang.get("notification_unsubscription_failed"),
         reasons=dict(scope=[error.message])
       ))
 
-  return redirect(url_for('notification.index', info_message="Successfully unsubscribed"), 302)
+  return redirect(url_for(
+    'notification.index',
+    info_message=lang.get("notification_unsubscription_succeed")
+  ), 302)

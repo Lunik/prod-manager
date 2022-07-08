@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}{{ resource_type.capitalize() }}{% endblock %}
-{% set share_title = resource_type.capitalize() + " list" %}
+{% block title %}{{ _("resource_list_" + resource_type) }}{% endblock %}
+{% set share_title = _("resource_list_" + resource_type) %}
 
 {% block content %}
-<h1>{{ resource_type.capitalize() }}s list</h1>
+<h1>{{ _("resource_list_" + resource_type) }}</h1>
 {% with resources = resources.items %}
   {% include "fragments/table.html" %}
 {% endwith %}
 {% if paginate and (paginate_obj.pages > 1) %}
   <div id="pagination">
-    <h4>Pages</h4>
+    <h4>{{ _("resource_pagination_header") }}</h4>
     {% if paginate_obj.has_prev %}
-      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; Previous</a>
+      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.prev_num, per_page=paginate_obj.per_page) }}" id="previous">&lt; {{ _("resource_pagination_previous") }}</a>
     {% endif %}
     {% for page in paginate_obj.iter_pages() %}
       {% if page %}
@@ -25,7 +25,7 @@
       {% endif %}
     {% endfor %}
     {% if paginate_obj.has_next %}
-      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.next_num, per_page=paginate_obj.per_page) }}" id="next">Next &gt;</a>
+      <a href="{{ url_for_paginated(resource_endpoint + '.list', page=paginate_obj.next_num, per_page=paginate_obj.per_page) }}" id="next">{{ _("resource_pagination_next") }} &gt;</a>
     {% endif %}
   </div>
 {% endif %}
@@ -33,7 +33,7 @@
 {% if g.logged %}
 <div id="forms">
   {% if create_form %} 
-    {% with form_title="Create new " + resource_type, form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value="Create", form=create_form %}
+    {% with form_title=_("resource_list_create_" + resource_type), form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value=_("resource_list_create_submit").capitalize(), form=create_form %}
       {% include "fragments/form.html" %}
     {% endwith %}
   {% endif %}
