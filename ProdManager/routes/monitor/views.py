@@ -94,7 +94,8 @@ def show(resource_id):
 
   update_form.scope.default = monitor.scope.id
   update_form.service.default = monitor.service.id
-  update_form.process()
+  update_form.scope.process(formdata=None)
+  update_form.service.process(formdata=None)
 
   return render_template("monitor/single.html",
     monitor=monitor,

@@ -126,7 +126,8 @@ def show(resource_id):
 
   update_form.scope.default = incident.scope.id
   update_form.service.default = incident.service.id
-  update_form.process()
+  update_form.scope.process(formdata=None)
+  update_form.service.process(formdata=None)
 
   return render_template("incident/single.html",
     incident=incident,
