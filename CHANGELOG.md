@@ -11,9 +11,9 @@
 
 - ci(coverag): Fix coverage report in GitLab-CI
 - fix(template.\*): Correct duplicated spaces (#59)
-- fix(form.Monitor): Fix selected `Scope`/`Service` in update form (#60)
-- fix(form.Incident): Fix selected `Scope`/`Service` in update form (#60)
-- fix(form.Maintenance): Fix selected `Scope`/`Service` in update form (#60)
+- fix(form.Monitor): Fix selected `Scope`/`Service` in update form (#60, #61)
+- fix(form.Incident): Fix selected `Scope`/`Service` in update form (#60, #61)
+- fix(form.Maintenance): Fix selected `Scope`/`Service` in update form (#60, #61)
 
 
 ## 0.10.0

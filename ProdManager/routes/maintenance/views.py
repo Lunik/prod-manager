@@ -130,7 +130,8 @@ def show(resource_id):
 
   update_form.scope.default = maintenance.scope.id
   update_form.service.default = maintenance.service.id
-  update_form.process()
+  update_form.scope.process(formdata=None)
+  update_form.service.process(formdata=None)
 
   return render_template("maintenance/single.html",
     maintenance=maintenance,
