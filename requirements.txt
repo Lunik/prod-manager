@@ -1,4 +1,5 @@
 python-dotenv
+pyyaml
 
 # Flask requirements
 Flask

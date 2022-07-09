@@ -1,0 +1,287 @@
+---
+
+# Dashboard
+dashboard_title: Dashboard
+
+
+# Event
+resource_event_create: &resource_event_create creation
+resource_event_update: &resource_event_update update
+resource_event_comment: &resource_event_comment comment
+resource_event_internal: &resource_event_internal internal
+
+
+# Scope
+scope_name: &scope_name scope
+scope_title: &scope_title Scope
+
+scope_creation_failed: [*scope_title, " creation failed"]
+scope_show_failed: [*scope_title, " show failed"]
+scope_update_failed: [*scope_title, " update failed"]
+scope_deletion_failed: [*scope_title, " deletion failed"]
+
+
+# Service
+service_name: &service_name service
+service_title: &service_title Service
+
+service_status_up: &service_status_up UP
+service_status_degraded: &service_status_degraded DEGRADED
+service_status_down: &service_status_down DOWN
+
+service_creation_failed: [*service_title, " creation failed"]
+service_show_failed: [*service_title, " show failed"]
+service_update_failed: [*service_title, " update failed"]
+service_deletion_failed: [*service_title, " deletion failed"]
+
+# Monitor
+monitor_name: &monitor_name monitor
+monitor_title: &monitor_title Monitor
+
+monitor_status_ok: OK
+monitor_status_warning: WARNING
+monitor_status_alert: ALERT
+
+monitor_creation_failed: [*monitor_title, " creation failed"]
+monitor_show_failed: [*monitor_title, " show failed"]
+monitor_update_failed: [*monitor_title, " update failed"]
+monitor_deletion_failed: [*monitor_title, " deletion failed"]
+
+
+# Incident
+incident_name: &incident_name incident
+incident_title: &incident_title Incident
+
+incident_ongoing: ["Ongoing ", *incident_name, "s"]
+incident_past: ["Past ", *incident_name, "s"]
+
+incident_start_impact: impact
+incident_investigation: investigating
+incident_stable: stable
+incident_resolved: resolved
+
+incident_create_event: *resource_event_create
+incident_update_event: *resource_event_update
+incident_comment_event: *resource_event_comment
+
+incident_severity_critical: CRITICAL
+incident_severity_high: HIGH
+incident_severity_moderate: MODERATE
+incident_severity_low: LOW
+incident_severity_minor: MINOR
+
+incident_status_active: ACTIVE
+incident_status_investigating: INVESTIGATING
+incident_status_stable: STABLE
+incident_status_resolved: RESOLVED
+
+incident_creation_failed: [*incident_title, " creation failed"]
+incident_new_notification_title: ["New ", *incident_name]
+incident_show_failed: [*incident_title, " show failed"]
+incident_update_failed: [*incident_title, " update failed"]
+incident_update_notification_title: ["Updated ", *incident_name]
+incident_comment_failed: [*incident_title, " comment failed"]
+incident_deletion_failed: [*incident_title, " deletion failed"]
+
+
+# Maintenance
+maintenance_name: &maintenance_name maintenance
+maintenance_title: &maintenance_title Maintenance
+
+maintenance_ongoing: ["Ongoing ", *maintenance_name, "s"]
+maintenance_scheduled: ["Scheduled ", *maintenance_name, "s"]
+maintenance_past: ["Past ", *maintenance_name, "s"]
+
+maintenance_scheduled_start: scheduled start
+maintenance_scheduled_end: scheduled end
+maintenance_start: start
+maintenance_end: end
+
+
+maintenance_create_event: *resource_event_create
+maintenance_update_event: *resource_event_update
+maintenance_comment_event: *resource_event_comment
+
+maintenance_service_status_up: *service_status_up
+maintenance_service_status_degraded: *service_status_degraded
+maintenance_service_status_down: *service_status_down
+
+maintenance_status_scheduled: SCHEDULED
+maintenance_status_in-progress: IN PROGRESS
+maintenance_status_succeed: SUCCEED
+maintenance_status_failed: FAILED
+
+maintenance_creation_failed: [*maintenance_title, " creation failed"]
+maintenance_new_notification_title: ["Schedlued ", *maintenance_name]
+maintenance_show_failed: [*maintenance_title, " show failed"]
+maintenance_update_failed: [*maintenance_title, " update failed"]
+maintenance_update_notification_title: ["Updated ", *maintenance_name]
+maintenance_comment_failed: [*maintenance_title, " comment failed"]
+maintenance_deletion_failed: [*maintenance_title, " deletion failed"]
+
+# Subscribe
+notification_title: &notification_title Notification
+notification_name: &notification_name notification
+
+notification_about: [*notification_title, " about"]
+notification_show_in_browser: Show in browser
+
+notification_subscribe_title: &notification_subscribe_title Subscribe
+notification_unsubscribe_title: &notification_unsubscribe_title Unsubscribe
+notification_subscribe_submit: *notification_subscribe_title
+notification_unsubscribe_submit: *notification_unsubscribe_title
+
+notification_subscription_failed: [*notification_title, " subscription failed"]
+notification_subscription_succeed: Successfully subscribed
+notification_unsubscription_failed: [*notification_title, " unsubscription failed"]
+notification_unsubscription_succeed: Successfully unsubscribed
+
+notification_subscribe_header: [*notification_subscribe_title, " to ", *notification_name, "s"]
+notification_subscribe_description: In order to stay updated you can register your email
+notification_include: [*notification_title, "s include"]
+
+
+# About
+about_title: &about_title About
+about_title_alt: *about_title
+
+about_content: >
+  ProdManager is a lightweight tool that allow you to display
+  your production infrastructure status to your client.
+
+about_update: Check for updates
+about_source: Source
+
+about_licence_pre: ProdManager is developped under
+about_licence: GPLv3 licence
+
+about_source_code: You can find the source code here
+about_source_code_link_text: GitLab.com/ProdManager
+
+about_bug_feature: Bug Reports / Feature Requests
+about_bug_feature_pre: >
+  If you want to report a bug or request a new feature,
+  feel free to open a new issue
+about_bug_feature_link_text: GitLab.com/ProdManager/issues
+
+
+# Auth
+auth_login_title: &auth_login_title Login
+auth_logout_title: Logout
+
+auth_login_submit: login
+auth_form_secret: &auth_form_secret secret
+
+auth_login_failed: [*auth_login_title, " failed"]
+auth_invalid_secret: ["Invalid ", *auth_form_secret]
+
+
+# Footer
+footer_powered: Powered by
+
+
+# Resource
+resource_update_submit: update
+resource_comment_submit: comment
+resource_delete_submit: delete
+
+## Scope
+resource_scope: *scope_title
+resource_back_to_list_scope: ["Back to ", *scope_name, "s list"]
+resource_update_scope: ["Update ", *scope_name]
+resource_comment_scope: ["Add a comment to the ", *scope_name]
+resource_delete_scope: ["Delete ", *scope_name]
+
+## Service
+resource_service: *service_title
+resource_back_to_list_service: ["Back to ", *service_name, "s list"]
+resource_update_service: ["Update ", *service_name]
+resource_comment_service: ["Add a comment to the ", *service_name]
+resource_delete_service: ["Delete ", *service_name]
+
+## Monitor
+resource_monitor: *monitor_title
+resource_back_to_list_monitor: ["Back to ", *monitor_name, "s list"]
+resource_update_monitor: ["Update ", *monitor_name]
+resource_comment_monitor: ["Add a comment to the ", *monitor_name]
+resource_delete_monitor: ["Delete ", *monitor_name]
+
+## Incident
+resource_incident: *incident_title
+resource_back_to_list_incident: ["Back to ", *incident_name, "s list"]
+resource_update_incident: ["Update ", *incident_name]
+resource_comment_incident: ["Add a comment to the ", *incident_name]
+resource_delete_incident: ["Delete ", *incident_name]
+
+## Maintenance
+resource_maintenance: *maintenance_title
+resource_back_to_list_maintenance: ["Back to ", *maintenance_name, "s list"]
+resource_update_maintenance: ["Update ", *maintenance_name]
+resource_comment_maintenance: ["Add a comment to the ", *maintenance_name]
+resource_delete_maintenance: ["Delete ", *maintenance_name]
+
+
+# Resource list
+resource_list_create_submit: create
+resource_pagination_header: Pages
+resource_pagination_previous: Previous
+resource_pagination_next: Next
+
+## Scope
+resource_list_scope: [*scope_title, "s list"]
+resource_list_create_scope: ["Create new ", *scope_name]
+
+## Service
+resource_list_service: [*service_title, "s list"]
+resource_list_create_service: ["Create new ", *service_name]
+
+## Monitor
+resource_list_monitor: [*monitor_title, "s list"]
+resource_list_create_monitor: ["Create new ", *monitor_name]
+
+## Incident
+resource_list_incident: [*incident_title, "s list"]
+resource_list_create_incident: ["Create new ", *incident_name]
+
+## Maintenance
+resource_list_maintenance: [*maintenance_title, "s list"]
+resource_list_create_maintenance: ["Create new ", *maintenance_name]
+
+
+# Errors
+error_title: Error
+error_400: Bad request
+error_403: Forbiden
+error_404: Not found
+error_409: Conflict
+error_500: Internal error
+
+
+# Timeline
+timeline_show_technical_events: Show technical events
+
+
+# Table
+table_column_name: name
+table_column_description: description
+table_column_scope: *scope_name
+table_column_service: *service_name
+table_column_severity: severity
+table_column_status: status
+table_column_service_status: service status
+table_column_external_reference: external reference
+table_column_start_impact_date: start impact date
+table_column_investigation_date: investigation date
+table_column_stable_date: stable date
+table_column_resolve_date: resolve date
+table_column_scheduled_start_date: scheduled start date
+table_column_scheduled_end_date: scheduled end date
+table_column_start_date: start date
+table_column_end_date: end date
+table_column_monitor: *monitor_name
+table_column_incidents: [*incident_name, "s"]
+table_column_maintenances: [*maintenance_name, "s"]
+table_column_comment: comment
+table_column_internal: internal
+table_column_external_link: external link
+table_column_mail: mail

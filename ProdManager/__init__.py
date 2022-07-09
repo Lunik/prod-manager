@@ -8,12 +8,14 @@ from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 
 from ProdManager.helpers.mail import MailWorker
+from ProdManager.helpers.lang import LangManager
 from ProdManager.helpers.config import boolean_param
 
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
 mail = MailWorker()
+lang = LangManager()
 
 def create_app():
   app = Flask(
@@ -57,6 +59,7 @@ def create_app():
     MAIL_SENDER=os.environ.get("PM_MAIL_SENDER", None),
     MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager]"),
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
+    LANG=os.environ.get("PM_LANG", "en"),
   )
 
   # ensure the instance folder exists
@@ -72,6 +75,7 @@ def create_app():
   migrate.init_app(app, db)
 
   mail.init_app(app)
+  lang.init_app(app)
 
   # apply Gunicorn logger config
   gunicorn_logger = logging.getLogger('gunicorn.error')
@@ -122,6 +126,7 @@ def create_app():
   )
   from ProdManager.filters.pagination import url_for_paginated
   from ProdManager.filters.links import custom_url_for
+  from ProdManager.filters.lang import text
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
@@ -129,6 +134,7 @@ def create_app():
   app.jinja_env.filters['format_template_name'] = format_template_name
   app.jinja_env.globals['url_for_paginated'] = url_for_paginated
   app.jinja_env.globals['custom_url_for'] = custom_url_for
+  app.jinja_env.globals['_'] = text
 
 
   return app

@@ -31,6 +31,6 @@ def test_format_timeline_date():
 
 
 def test_format_template_name():
-  assert format_template_name("monitor/tralala.html") == "Monitors"
-  assert format_template_name("monitor/trululu/tralala.html") == "Monitors"
+  assert format_template_name("monitor/tralala.html") == "monitor"
+  assert format_template_name("monitor/trululu/tralala.html") == "monitor"
   assert format_template_name("monitor/tralala.html", keep=False) == "monitor/tralala.html"

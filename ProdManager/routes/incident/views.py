@@ -2,6 +2,8 @@ import json
 
 from flask import Blueprint, url_for, render_template, redirect, abort, current_app
 
+from ProdManager import lang
+
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -57,7 +59,7 @@ def create():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Incident creation failed",
+      message=lang.get("incident_creation_failed"),
       reasons=form.errors
     ))
 
@@ -74,7 +76,7 @@ def create():
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Incident creation failed",
+      message=lang.get("incident_creation_failed"),
       reasons=dict(incident=[error.message])
     ))
 
@@ -89,7 +91,7 @@ def create():
     current_app.logger.error(f"Unable to create event during Incident creation : {error}")
 
   try:
-    notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - New Incident"
+    notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - {lang.get('incident_new_notification_title')}"
     if incident.external_reference:
       notif_title = f"[{incident.external_reference}]{notif_title}"
 
@@ -114,13 +116,18 @@ def show(resource_id):
     incident = get_resource(Incident, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Incident show failed",
+      message=lang.get("incident_show_failed"),
       reasons=dict(incident=[error.message])
     ))
 
   update_form = IncidentUpdateForm(obj=incident)
   update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
+
+  update_form.scope.default = incident.scope.id
+  update_form.service.default = incident.service.id
+  update_form.scope.process(formdata=None)
+  update_form.service.process(formdata=None)
 
   return render_template("incident/single.html",
     incident=incident,
@@ -143,7 +150,7 @@ def update(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Incident update failed",
+      message=lang.get("incident_update_failed"),
       reasons=form.errors
     ))
 
@@ -181,7 +188,7 @@ def update(resource_id):
     incident, changed = update_resource(Incident, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
-      message="Incident update failed",
+      message=lang.get("incident_update_failed"),
       reasons=dict(incident=[error.message])
     ))
 
@@ -197,7 +204,7 @@ def update(resource_id):
       current_app.logger.error(f"Unable to create event during Incident update : {error}")
 
     try:
-      notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - Updated Incident"
+      notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - {lang.get('incident_update_notification_title')}"
       if incident.external_reference:
         notif_title = f"[{incident.external_reference}]{notif_title}"
 
@@ -223,7 +230,7 @@ def comment(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Incident comment failed",
+      message=lang.get("incident_comment_failed"),
       reasons=form.errors
     ))
 
@@ -237,7 +244,7 @@ def comment(resource_id):
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Incident update failed",
+      message=lang.get("incident_comment_failed"),
       reasons=dict(incident=error.message)
     ))
 
@@ -254,7 +261,7 @@ def delete(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Incident deletion failed",
+      message=lang.get("incident_deletion_failed"),
       reasons=form.errors
     ))
 
@@ -262,7 +269,7 @@ def delete(resource_id):
     delete_resource(Incident, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Incident deletion failed",
+      message=lang.get("incident_deletion_failed"),
       reasons=dict(incident=error.message)
     ))
 

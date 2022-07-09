@@ -16,6 +16,8 @@ from ProdManager.models import (
   Monitor, MonitorStatus, Scope, Service,
 )
 
+from ProdManager import lang
+
 from .forms import MonitorCreateForm, MonitorUpdateForm, MonitorDeleteForm
 
 bp = Blueprint("monitor", __name__)
@@ -52,7 +54,7 @@ def create():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="MonitorCreateForm creation failed",
+      message=lang.get("monitor_creation_failed"),
       reasons=form.errors
     ))
 
@@ -66,7 +68,7 @@ def create():
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="MonitorCreateForm creation failed",
+      message=lang.get("monitor_creation_failed"),
       reasons=dict(monitor=[error.message])
     ))
 
@@ -82,13 +84,18 @@ def show(resource_id):
     monitor = get_resource(Monitor, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="monitor show failed",
+      message=lang.get("monitor_show_failed"),
       reasons=dict(monitor=[error.message])
     ))
 
   update_form = MonitorUpdateForm(obj=monitor)
   update_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   update_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
+
+  update_form.scope.default = monitor.scope.id
+  update_form.service.default = monitor.service.id
+  update_form.scope.process(formdata=None)
+  update_form.service.process(formdata=None)
 
   return render_template("monitor/single.html",
     monitor=monitor,
@@ -110,7 +117,7 @@ def update(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Monitor update failed",
+      message=lang.get("monitor_update_failed"),
       reasons=form.errors
     ))
 
@@ -125,7 +132,7 @@ def update(resource_id):
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Monitor update failed",
+      message=lang.get("monitor_update_failed"),
       reasons=dict(monitor=[error.message])
     ))
 
@@ -142,7 +149,7 @@ def delete(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Monitor deletion failed",
+      message=lang.get("monitor_deletion_failed"),
       reasons=form.errors
     ))
 
@@ -150,7 +157,7 @@ def delete(resource_id):
     delete_resource(Monitor, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Monitor deletion failed",
+      message=lang.get("monitor_deletion_failed"),
       reasons=dict(monitor=[error.message])
     ))
 

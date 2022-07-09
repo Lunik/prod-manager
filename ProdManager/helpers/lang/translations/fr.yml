@@ -1,0 +1,280 @@
+---
+
+# Dashboard
+dashboard_title: Tableau de bord
+
+
+# Event
+resource_event_create: &resource_event_create création
+resource_event_update: &resource_event_update mise à jour
+resource_event_comment: &resource_event_comment commentaire
+resource_event_internal: &resource_event_internal interne
+
+# Scope
+scope_name: &scope_name périmètre
+scope_title: &scope_title Périmètre
+
+scope_creation_failed: ["Création du ", *scope_name, " échouée"]
+scope_show_failed: ["Affichage du ", *scope_name, " échoué"]
+scope_update_failed: ["Mise à jour du ", *scope_name, " échouée"]
+scope_deletion_failed: ["Suppression du ", *scope_name, " échouée"]
+
+
+# Service
+service_name: &service_name service
+service_title: &service_title Service
+
+service_status_up: &service_status_up OPERATIONNEL
+service_status_degraded: &service_status_degraded DEGRADE
+service_status_down: &service_status_down INDISPONIBLE
+
+service_creation_failed: ["Création du ", *service_name, " échouée"]
+service_show_failed: ["Affichage du ", *service_name, " échoué"]
+service_update_failed: ["Mise à jour du ", *service_name, " échouée"]
+service_deletion_failed: ["Suppression du ", *service_name, " échouée"]
+
+# Monitor
+monitor_name: &monitor_name moniteur
+monitor_title: &monitor_title Moniteur
+
+monitor_status_ok: OK
+monitor_status_warning: AVERTISSEMENT
+monitor_status_alert: ALERTE
+
+monitor_creation_failed: ["Création du ", *monitor_name, " échouée"]
+monitor_show_failed: ["Affichage du ", *monitor_name, " échoué"]
+monitor_update_failed: ["Mise à jour du ", *monitor_name, " échouée"]
+monitor_deletion_failed: ["Suppression du ", *monitor_name, " échouée"]
+
+
+# Incident
+incident_name: &incident_name incident
+incident_title: &incident_title Incident
+
+incident_ongoing: [*incident_name, "s en cours"]
+incident_past: [*incident_name, "s passés"]
+
+incident_start_impact: impact
+incident_investigation: investigation en cours
+incident_stable: stable
+incident_resolved: résolu
+
+incident_create_event: *resource_event_create
+incident_update_event: *resource_event_update
+incident_comment_event: *resource_event_comment
+
+incident_severity_critical: CRITIQUE
+incident_severity_high: HAUTE
+incident_severity_moderate: MODEREE
+incident_severity_low: BASE
+incident_severity_minor: MINEUR
+
+incident_status_active: ACTIF
+incident_status_investigating: INVESTIGATION EN COURS
+incident_status_stable: STABLE
+incident_status_resolved: RESOLU
+
+incident_creation_failed: ["Création de l'", *incident_name, " échouée"]
+incident_new_notification_title: ["Nouvel ", *incident_name]
+incident_show_failed: ["Affichage de l'", *incident_name, " échoué"]
+incident_update_failed: ["Mise à jour de l'", *incident_name, " échouée"]
+incident_update_notification_title: ["Mise à jour de l'", *incident_name]
+incident_comment_failed: ["Commentaire de l'", *incident_name, " échoué"]
+incident_deletion_failed: ["Suppression de l'", *incident_name, " échouée"]
+
+
+# Maintenance
+maintenance_name: &maintenance_name maintenance
+maintenance_title: &maintenance_title Maintenance
+
+maintenance_ongoing: [*maintenance_name, "s en cours"]
+maintenance_scheduled: [*maintenance_name, "s planifiées"]
+maintenance_past: [*maintenance_name, "s passées"]
+
+maintenance_scheduled_start: début planifié
+maintenance_scheduled_end: fin planifiée
+maintenance_start: début
+maintenance_end: fin
+
+maintenance_create_event: *resource_event_create
+maintenance_update_event: *resource_event_update
+maintenance_comment_event: *resource_event_comment
+
+maintenance_service_status_up: *service_status_up
+maintenance_service_status_degraded: *service_status_degraded
+maintenance_service_status_down: *service_status_down
+
+maintenance_status_scheduled: PLANIFIEE
+maintenance_status_in-progress: EN COURS
+maintenance_status_succeed: REUSSIE
+maintenance_status_failed: ECHOUEE
+
+maintenance_creation_failed: ["Création de la ", *maintenance_name, " échouée"]
+maintenance_new_notification_title: ["Nouvel ", *maintenance_name]
+maintenance_show_failed: ["Affichage de la ", *maintenance_name, " échoué"]
+maintenance_update_failed: ["Mise à jour de la ", *maintenance_name, " échouée"]
+maintenance_update_notification_title: ["Mise à jour de la ", *maintenance_name]
+maintenance_comment_failed: ["Commentaire de la ", *maintenance_name, " échoué"]
+maintenance_deletion_failed: ["Suppression de la ", *maintenance_name, " échouée"]
+
+
+# Subscribe
+notification_title: &notification_title Notification
+notification_name: &notification_name notification
+
+notification_about: [*notification_title, " à propos de"]
+notification_show_in_browser: Afficher dans le navigateur
+
+notification_subscribe_title: &notification_subscribe_title S'abonner
+notification_unsubscribe_title: &notification_unsubscribe_title Se désabonner
+notification_subscribe_submit: *notification_subscribe_title
+notification_unsubscribe_submit: *notification_unsubscribe_title
+
+notification_subscription_failed: ["Abonnement aux ", *notification_name, "s échoué"]
+notification_subscription_succeed: Abonnement réussi
+notification_unsubscription_failed: ["Désabonnement aux ", *notification_name, "s échoué"]
+notification_unsubscription_succeed: Désabonnement réussi
+
+notification_subscribe_header: [*notification_subscribe_title, " aux ", *notification_name, "s"]
+notification_subscribe_description: Pour rester à jour vous pouvez enregistrer votre email
+notification_include: ["Les ", *notification_title, "s incluent"]
+
+# About
+about_title: &about_title A propos
+about_title_alt: [*about_title, " de"]
+
+about_content: >
+  ProdManager est un outil léger permettant d'afficher
+  l'état de votre infrastructure de production à vos client
+
+about_update: Vérifier les mises à jour
+about_source: Source
+
+about_licence_pre: ProdManager est développé sous
+about_licence: licence GPLv3
+
+about_source_code: Vous pouvez trouver le code source ici
+about_source_code_link_text: GitLab.com/ProdManager
+
+about_bug_feature: Rapports de bugs / Demandes de fonctionnalités
+about_bug_feature_pre: >
+  Si vous souhaitez signaler un bug ou demander de nouvelles fonctionnalités,
+  n'hésitez pas à ouvrir un ticket
+about_bug_feature_link_text: GitLab.com/ProdManager/tickets
+
+
+# Auth
+auth_login_title: Se connecter
+auth_logout_title: Se déconnecter
+
+auth_login_submit: connexion
+auth_form_secret: secret
+
+# Footer
+footer_powered: Propulsé par
+
+
+# Resource
+resource_update_submit: mettre à jour
+resource_comment_submit: commenter
+resource_delete_submit: supprimer
+
+## Scope
+resource_scope: *scope_title
+resource_back_to_list_scope: ["Retour à la liste de ", *scope_name, "s"]
+resource_update_scope: ["Mettre à jour le ", *scope_name]
+resource_comment_scope: ["Ajouter un commentaire sur le ", *scope_name]
+resource_delete_scope: ["Supprimer le ", *scope_name]
+
+## Service
+resource_service: *service_title
+resource_back_to_list_service: ["Retour à la liste de ", *service_name, "s"]
+resource_update_service: ["Mettre à jour le ", *service_name]
+resource_comment_service: ["Ajouter un commentaire sur le ", *service_name]
+resource_delete_service: ["Supprimer le ", *service_name]
+
+## Monitor
+resource_monitor: *monitor_title
+resource_back_to_list_monitor: ["Retour à la liste de ", *monitor_name, "s"]
+resource_update_monitor: ["Mettre à jour le ", *monitor_name]
+resource_comment_monitor: ["Ajouter un commentaire sur le ", *monitor_name]
+resource_delete_monitor: ["Supprimer le ", *monitor_name]
+
+## Incident
+resource_incident: *incident_title
+resource_back_to_list_incident: ["Retour à la liste de ", *incident_name, "s"]
+resource_update_incident: ["Mettre à jour le ", *incident_name]
+resource_comment_incident: ["Ajouter un commentaire sur le ", *incident_name]
+resource_delete_incident: ["Supprimer le ", *incident_name]
+
+## Maintenance
+resource_maintenance: *maintenance_title
+resource_back_to_list_maintenance: ["Retour à la liste de ", *maintenance_name, "s"]
+resource_update_maintenance: ["Mettre à jour le ", *maintenance_name]
+resource_comment_maintenance: ["Ajouter un commentaire sur le ", *maintenance_name]
+resource_delete_maintenance: ["Supprimer le ", *maintenance_name]
+
+
+# Resource list
+resource_list_create_submit: créer
+resource_pagination_header: Pages
+resource_pagination_previous: Précédent
+resource_pagination_next: Suivant
+
+## Scope
+resource_list_scope: ["Liste des ", *scope_name, "s"]
+resource_list_create_scope: ["Créer un nouveau ", *scope_name]
+
+## Service
+resource_list_service: ["Liste des ", *service_name, "s"]
+resource_list_create_service: ["Créer un nouveau ", *service_name]
+
+## Monitor
+resource_list_monitor: ["Liste des ", *monitor_name, "s"]
+resource_list_create_monitor: ["Créer un nouveau ", *monitor_name]
+
+## Incident
+resource_list_incident: ["Liste des ", *incident_name, "s"]
+resource_list_create_incident: ["Créer un nouvel ", *incident_name]
+
+## Maintenance
+resource_list_maintenance: ["Liste des ", *maintenance_name, "s"]
+resource_list_create_maintenance: ["Créer une nouvelle ", *maintenance_name]
+
+
+# Errors
+error_title: Erreur
+error_400: Mauvaise requête
+error_403: Refusé
+error_404: Non trouvé
+error_409: Conflit
+error_500: Erreur interne
+
+
+# Timeline
+timeline_show_technical_events: Afficher les évènements techniques
+
+# Table
+table_column_name: nom
+table_column_description: description
+table_column_scope: *scope_name
+table_column_service: *service_name
+table_column_severity: sévérité
+table_column_status: statut
+table_column_service_status: statut du service
+table_column_external_reference: référence externe
+table_column_start_impact_date: date de début d'impact
+table_column_investigation_date: date de début d'investigation
+table_column_stable_date: date stable
+table_column_resolve_date: date de résolution
+table_column_scheduled_start_date: date de début planifée
+table_column_scheduled_end_date: date de fin planifée
+table_column_start_date: date de début
+table_column_end_date: date de fin
+table_column_monitor: *monitor_name
+table_column_incidents: [*incident_name, "s"]
+table_column_maintenances: [*maintenance_name, "s"]
+table_column_comment: commentaire
+table_column_internal: interne
+table_column_external_link: lien externe
+table_column_mail: email

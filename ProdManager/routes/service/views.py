@@ -16,6 +16,8 @@ from ProdManager.models import (
   Service, Monitor, Incident, Maintenance,
 )
 
+from ProdManager import lang
+
 from .forms import ServiceCreateForm, ServiceUpdateForm, ServiceDeleteForm
 
 bp = Blueprint("service", __name__)
@@ -44,7 +46,7 @@ def create():
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Service creation failed",
+      message=lang.get("service_creation_failed"),
       reasons=form.errors
     ))
 
@@ -55,7 +57,7 @@ def create():
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Service creation failed",
+      message=lang.get("service_creation_failed"),
       reasons=dict(service=[error.message])
     ))
 
@@ -71,7 +73,7 @@ def show(resource_id):
     service = get_resource(Service, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Service show failed",
+      message=lang.get("service_show_failed"),
       reasons=dict(service=[error.message])
     ))
 
@@ -129,7 +131,7 @@ def update(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Service update failed",
+      message=lang.get("service_update_failed"),
       reasons=form.errors
     ))
 
@@ -140,7 +142,7 @@ def update(resource_id):
     ))
   except Exception as error:
     return abort(error.code, dict(
-      message="Service update failed",
+      message=lang.get("service_update_failed"),
       reasons=dict(service=[error.message])
     ))
 
@@ -157,7 +159,7 @@ def delete(resource_id):
 
   if not form.validate_on_submit():
     abort(400, dict(
-      message="Service deletion failed",
+      message=lang.get("service_deletion_failed"),
       reasons=form.errors
     ))
 
@@ -165,7 +167,7 @@ def delete(resource_id):
     delete_resource(Service, resource_id)
   except Exception as error:
     return abort(error.code, dict(
-      message="Service deletion failed",
+      message=lang.get("service_deletion_failed"),
       reasons=dict(service=[error.message])
     ))
 

@@ -3,7 +3,9 @@ FROM python:3-alpine
 WORKDIR /app
 ENV PYTHONPATH=/app
 
-RUN apk add \
+RUN apk upgrade \
+  --update --no-cache \
+  && apk add \
   --update --no-cache \
   make ca-certificates
 

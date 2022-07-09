@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 0.11.0
+
+### Added
+
+- feat(translation): Add translation support (#45)
+- feat(translation): Add `en` and `fr` to the supported translation languages (#45)
+
+### Fixed
+
+- ci(coverag): Fix coverage report in GitLab-CI
+- fix(template.\*): Correct duplicated spaces (#59)
+- fix(form.Monitor): Fix selected `Scope`/`Service` in update form (#60, #61)
+- fix(form.Incident): Fix selected `Scope`/`Service` in update form (#60, #61)
+- fix(form.Maintenance): Fix selected `Scope`/`Service` in update form (#60, #61)
+- fix(CVE): Resolve vulnerability: CVE-2022-2097 in libcrypto1.1-1.1.1o-r0 and libssl1.1-1.1.1o-r0 (#62)
+
+
 ## 0.10.0
 
 ### Added
