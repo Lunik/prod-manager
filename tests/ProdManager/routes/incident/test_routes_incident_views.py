@@ -29,6 +29,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/incident')
       self.assertInResponse(b'<h1>Incidents list</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_create_with_client(self, app):
     with app.test_client() as client:
@@ -41,6 +42,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       ))
       assert re.match(r"/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       client.post('/login', data=dict(secret="changeit"))
@@ -51,6 +53,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       ))
       assert b"scope : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_show_with_client(self, app):
     incident_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -67,10 +70,12 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       rv = client.get(rv.headers.get('Location'))
 
       self.assertInResponse(f'<h1 id="title">Incident - {incident_name}</h1>'.encode(), rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.get("/incident/-1")
 
       assert rv.status_code == 404
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_update_with_client(self, app):
     incident_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -82,8 +87,10 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
         scope="1",
         service="1",
         severity="moderate",
+        external_reference="INC0000123",
         name=incident_name
       ))
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       incident_uri = rv.headers.get('Location')
 
@@ -93,15 +100,18 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
         severity="moderate",
         status="active",
         name=incident_name_2,
+        external_reference="INC0000123",
         start_impact_date=datetime.now().strftime('%Y-%m-%dT%H:%M')
       ))
 
       assert re.match(r"/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.get(incident_uri)
 
       self.assertInResponse(f'<h1 id="title">Incident - {incident_name_2}</h1>'.encode(), rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{incident_uri}/update", data=dict(
         scope="1",
@@ -113,6 +123,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       assert b"status : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{incident_uri}/update", data=dict(
         scope="1",
@@ -126,6 +137,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       rv = client.get(incident_uri)
 
       self.assertInResponse(b'INVESTIGATING', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{incident_uri}/update", data=dict(
         scope="1",
@@ -139,6 +151,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       rv = client.get(incident_uri)
 
       self.assertInResponse(b'STABLE', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{incident_uri}/update", data=dict(
         scope="1",
@@ -152,6 +165,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       rv = client.get(incident_uri)
 
       self.assertInResponse(b'RESOLVED', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_comment_with_client(self, app):
     incident_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -174,11 +188,13 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       assert re.match(r"/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{incident_uri}/comment")
 
       assert b"comment : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.get(incident_uri)
       self.assertInResponse(b'THIS_IS_A_TEST', rv)
@@ -202,8 +218,10 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       assert re.match(r"/incident", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
 
       rv = client.post(f"/incident/-1/delete")
 
       assert rv.status_code == 404
+      self.assertNotIn(b"__missing_translation", rv.data)

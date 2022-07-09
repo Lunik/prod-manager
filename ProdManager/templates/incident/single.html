@@ -15,9 +15,9 @@
     {% set events = incident.events.filter_by(internal = False) %}
   {% endif %}
   {% for event in events %}
-    {% set title = event.type.value.capitalize() + " incident" %}
+    {% set title = _("incident_" + event.type.value + "_event").capitalize() %}
     {% if event.internal %}
-      {% set title = title + " (internal)" %}
+      {% set title = title + " (" + _("resource_event_internal") + ")" %}
     {% endif %}
     {% set __ = dots.append((event.type.value, title, event.get_content(), event.creation_date)) %}
   {% endfor %}

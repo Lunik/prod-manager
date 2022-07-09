@@ -21,8 +21,10 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/')
       self.assertInResponse(b'<h1 id="title">Dashboard</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_about_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/about')
       self.assertInResponse(b'<h1 id="title">About ProdManager</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)

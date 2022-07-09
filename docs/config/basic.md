@@ -6,6 +6,7 @@ You can configured basic parameters with thoses environment variables :
 |:---------------------|:-----|:--------------|:------------|
 | `PM_SECRET_KEY` | string  | `changeit` | Secret used to secure the app (like login) |
 | `PM_STANDALONE` | boolean | `false`    | Automatically run the database schema upgrade before starting the app |
+| `PM_LANG` | string  | `en` | Application language (See the [translation folder][translation-folder] for the full list of supported languages) |
 
 ## Database
 
@@ -20,3 +21,5 @@ For PostgreSQL = `postgresql://prodmanager:changeit@prod-manager-database.local/
 <!-- Links -->
 [sqlalchemy]: https://sqlalchemy.org
 [sqlalchemy-dialects]: https://docs.sqlalchemy.org/en/20/dialects/index.html
+
+[translation-folder]: ProdManager/helpers/lang/translations/

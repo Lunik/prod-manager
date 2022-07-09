@@ -10,8 +10,8 @@
 {% if maintenance.external_reference %}
   <div id="external_reference" class="badge external_reference">{{ maintenance.external_reference }}</div>
 {% endif %}
-<div id="status" class="badge maintenance {{ maintenance.status.value }}">{{ maintenance.status.name }}</div>
-<div id="service_status" class="badge maintenance {{ maintenance.service_status.value }}">Service/{{ maintenance.service_status.name }}</div>
+<div id="status" class="badge maintenance {{ maintenance.status.value }}">{{ _("maintenance_status_" + maintenance.status.value) }}</div>
+<div id="service_status" class="badge maintenance {{ maintenance.service_status.value }}">Service/{{ _("maintenance_service_status_" + maintenance.service_status.value) }}</div>
 {% if maintenance.description %}
 <div id="description">
   {% for line in maintenance.description.split('\n') %}
@@ -22,15 +22,15 @@
 
 {% set dots = [] %}
 {% if maintenance.scheduled_start_date %}
-    {% set __ = dots.append(("scheduled_start_date", "scheduled start", maintenance.scheduled_start_date, "🕑")) %}
+    {% set __ = dots.append(("scheduled_start_date", _("maintenance_scheduled_start"), maintenance.scheduled_start_date, "🕑")) %}
 {% endif %}
 {% if maintenance.start_date %}
-    {% set __ = dots.append(("start_date", "start", maintenance.start_date, "▶️")) %}
+    {% set __ = dots.append(("start_date", _("maintenance_start"), maintenance.start_date, "▶️")) %}
 {% endif %}
 {% if maintenance.scheduled_end_date %}
-    {% set __ = dots.append(("scheduled_end_date", "scheduled end", maintenance.scheduled_end_date, "🕙")) %}
+    {% set __ = dots.append(("scheduled_end_date", _("maintenance_scheduled_end"), maintenance.scheduled_end_date, "🕙")) %}
 {% endif %}
 {% if maintenance.end_date %}
-    {% set __ = dots.append(("end_date", "end", maintenance.end_date, ((maintenance.status.value == "succeed") | ternary("✅", "❌")))) %}
+    {% set __ = dots.append(("end_date", _("maintenance_end"), maintenance.end_date, ((maintenance.status.value == "succeed") | ternary("✅", "❌")))) %}
 {% endif %}
 {% include "fragments/timeline/horizontal.html" %}

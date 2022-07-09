@@ -29,6 +29,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/scope')
       self.assertInResponse(b'<h1>Scopes list</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_create_with_client(self, app):
     with app.test_client() as client:
@@ -38,12 +39,14 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       ))
       assert re.match(r"/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       client.post('/login', data=dict(secret="changeit"))
       rv = client.post('/scope/create')
       assert b"name : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -53,17 +56,20 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       ))
       assert re.match(r"/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post('/scope/create', data=dict(
         name=name
       ))
       assert rv.status_code == 409
+      self.assertNotIn(b"__missing_translation", rv.data)
 
     with app.test_client() as client:
       rv = client.post('/scope/create', data=dict(
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
       assert rv.status_code == 403
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_show_with_client(self, app):
     scope_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -77,10 +83,12 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       rv = client.get(rv.headers.get('Location'))
 
       self.assertInResponse(f'<h1 id="title">Scope - {scope_name}</h1>'.encode(), rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.get("/scope/-1")
 
       assert rv.status_code == 404
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_update_with_client(self, app):
     scope_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -100,15 +108,18 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       assert re.match(r"/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.get(scope_uri)
 
       self.assertInResponse(f'<h1 id="title">Scope - {scope_name_2}</h1>'.encode(), rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
 
       rv = client.post(f"{scope_uri}/update")
 
       assert b"name : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_delete_with_client(self, app):
     scope_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -125,8 +136,10 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       assert re.match(r"/scope", rv.headers.get('Location'))
       assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
 
 
       rv = client.post(f"/scope/-1/delete")
 
       assert rv.status_code == 404
+      self.assertNotIn(b"__missing_translation", rv.data)

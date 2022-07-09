@@ -14,6 +14,6 @@ def format_timeline_date(date):
 
 def format_template_name(key, keep="folder"):
   if keep == "folder":
-    return f"{key.split('/')[0]}s".capitalize()
+    return key.split('/')[0]
 
   return key

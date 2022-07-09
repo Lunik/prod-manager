@@ -1,5 +1,5 @@
 {% if (past_maintenances.count()) > 0 %}
-<h2 id="past_maintenances">Past maintenances</h2>
+<h2 id="past_maintenances">{{ _("maintenance_past").capitalize() }}</h2>
 {% set resource_type = "maintenance" %}
 {% set resource_endpoint = "maintenance" %}
 {% set resources = past_maintenances %}
