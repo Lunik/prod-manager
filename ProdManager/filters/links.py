@@ -1,4 +1,4 @@
-from flask import url_for, current_app
+from flask import url_for
 
 # Required to render full URLs in emails templates
 def custom_url_for(endpoint, *args, **kwargs):
@@ -6,6 +6,5 @@ def custom_url_for(endpoint, *args, **kwargs):
     endpoint,
     *args,
     _external=True,
-    _scheme=current_app.config["PREFERRED_URL_SCHEME"],
     **kwargs,
   )
