@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+fix(template.\*): Correct pages titles (#63)
+
 
 ## 0.11.0
 

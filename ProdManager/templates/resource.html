@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}{{ _("resource_" + resource_type) }}{% endblock %}
 
 {% set share_title = _("resource_" + resource_type) %}
 {% if resource.external_reference %}
@@ -10,6 +9,8 @@
 {% set share_title = share_title + resource.scope.name + "/" + resource.service.name + " " %}
 {% endif %}
 {% set share_title = share_title + resource.name %}
+
+{% block title %}{{ share_title }}{% endblock %}
 
 {% set share_description = resource.description %}
 
