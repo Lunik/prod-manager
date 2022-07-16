@@ -8,6 +8,7 @@
 - fix(translation.Incident): Correct missing translation in subject of notification mails (#64)
 - fix(translation.Maintenance): Correct missing translation in subject of notification mails (#64)
 - fix(Flask): Fix HTTPS behaviour when behind a reverse proxy (#67)
+- fix(helpers.resources): Fix not handled PostgreSQL errors (#66)
 
 ### Changed
 
