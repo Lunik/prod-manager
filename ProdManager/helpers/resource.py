@@ -1,19 +1,21 @@
 import functools
+from sqlite3 import IntegrityError as sqlite3IntegrityError
 
 from flask import current_app, request
 from sqlalchemy.exc import IntegrityError
 
-from sqlite3 import IntegrityError as sqlite3IntegrityError
 from psycopg2.errors import (
   UniqueViolation as pgsqlUniqueViolation,
   NotNullViolation as pgsqlNotNullViolation,
 )
 
 from ProdManager import db
-from ProdManager.helpers.response import (
+import ProdManager.helpers.notification as NotificationHelper
+from .response import (
   NotFoundError, ServerError, ConflictError,
   UndeletableRessourceError, DependencyError,
 )
+
 
 def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True):
   if orders is None:
@@ -89,6 +91,9 @@ def update_resource(resource_class, ressource_id, attributs):
     current_app.logger.error(error)
     raise error
 
+  if len(changed.keys()) > 0:
+    NotificationHelper.notify(NotificationHelper.NotificationType.UPDATE, resource_class, resource)
+
   return resource, changed
 
 
@@ -137,6 +142,8 @@ def create_resource(resource_class, attributs):
   except Exception as error:
     current_app.logger.error(error)
     raise ServerError(error) from error
+
+  NotificationHelper.notify(NotificationHelper.NotificationType.CREATE, resource_class, resource)
 
   return resource
 
