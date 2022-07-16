@@ -4,8 +4,9 @@
 
 ### Fixed
 
-fix(template.\*): Correct pages titles (#63)
-
+- fix(template.\*): Correct pages titles (#63)
+- fix(translation.Incident): Correct missing translation in subject of notification mails (#64)
+- fix(translation.Maintenance): Correct missing translation in subject of notification mails (#64)
 
 ## 0.11.0
 

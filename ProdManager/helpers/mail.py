@@ -19,7 +19,7 @@ class MailWorker():
   validate_certs = True
   use_credentials = True
   sender = None
-  mail_prefix = "[ProdManager]"
+  mail_prefix = "[ProdManager] "
   reply_to = None
 
   def init_app(self, flask_app):
@@ -82,7 +82,7 @@ class MailWorker():
 
     message = MIMEMultipart("alternative")
 
-    message["Subject"] = f"{self.mail_prefix} {subject}"
+    message["Subject"] = f"{self.mail_prefix}{subject}"
     message["From"] = self.sender
     message["Bcc"] = ",".join(to_emails)
     if self.reply_to:

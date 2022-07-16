@@ -95,7 +95,7 @@ def create():
     current_app.logger.error(f"Unable to create event during Maintenance creation : {error}")
 
   try:
-    notif_title = f"[{maintenance.status.name}] {maintenance.name} - {lang.get('maintenance_new_notification_title')}"
+    notif_title = f"[{lang.get('maintenance_status_' + maintenance.status.value)}] {maintenance.name} - {lang.get('maintenance_new_notification_title')}"
     if maintenance.external_reference:
       notif_title = f"[{maintenance.external_reference}]{notif_title}"
 
@@ -203,7 +203,7 @@ def update(resource_id):
       current_app.logger.error(f"Unable to create event during Maintenance update : {error}")
 
     try:
-      notif_title = f"[{maintenance.status.name}] {maintenance.name} - {lang.get('maintenance_update_notification_title')}"
+      notif_title = f"[{lang.get('maintenance_status_' + maintenance.status.value)}] {maintenance.name} - {lang.get('maintenance_update_notification_title')}"
       if maintenance.external_reference:
         notif_title = f"[{maintenance.external_reference}]{notif_title}"
       send_notification(
