@@ -7,6 +7,12 @@
 - fix(template.\*): Correct pages titles (#63)
 - fix(translation.Incident): Correct missing translation in subject of notification mails (#64)
 - fix(translation.Maintenance): Correct missing translation in subject of notification mails (#64)
+- fix(Flask): Fix HTTPS behaviour when behind a reverse proxy (#67)
+
+### Changed
+
+- change(Flask): `PREFERRED_URL_SCHEME` is no longer a configuration option (#67)
+
 
 ## 0.11.0
 
