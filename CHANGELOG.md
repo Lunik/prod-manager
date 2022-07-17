@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.11.1
+
+### Fixed
+
+- fix(template.\*): Correct pages titles (#63)
+- fix(translation.Incident): Correct missing translation in subject of notification mails (#64)
+- fix(translation.Maintenance): Correct missing translation in subject of notification mails (#64)
+- fix(Flask): Fix HTTPS behaviour when behind a reverse proxy (#67)
+- fix(helpers.resources): Fix not handled PostgreSQL errors (#66)
+
+### Changed
+
+- change(Flask): `PREFERRED_URL_SCHEME` is no longer a configuration option (#67)
+
+
 ## 0.11.0
 
 ### Added

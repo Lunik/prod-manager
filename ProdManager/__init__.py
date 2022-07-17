@@ -2,6 +2,7 @@ import os
 import logging
 from datetime import datetime, timedelta
 
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
@@ -45,7 +46,6 @@ def create_app():
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     SQLALCHEMY_ECHO=boolean_param(os.environ.get("PM_SQLALCHEMY_ECHO", 'False')),
     WTF_CSRF_ENABLED=True,
-    PREFERRED_URL_SCHEME=os.environ.get("PM_PREFERRED_URL_SCHEME", None),
     CUSTOM_CSS_SHEET=os.environ.get("PM_CUSTOM_CSS_SHEET", None),
     MAIL_ENABLED=boolean_param(os.environ.get("PM_MAIL_ENABLED", 'False')),
     MAIL_SERVER=os.environ.get("PM_MAIL_SERVER", None),
@@ -57,10 +57,12 @@ def create_app():
     MAIL_VALIDATE_CERTS=boolean_param(os.environ.get("PM_MAIL_VALIDATE_CERTS", 'True')),
     MAIL_USE_CREDENTIALS=boolean_param(os.environ.get("PM_MAIL_USE_CREDENTIALS", 'True')),
     MAIL_SENDER=os.environ.get("PM_MAIL_SENDER", None),
-    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager]"),
+    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager] "),
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
     LANG=os.environ.get("PM_LANG", "en"),
   )
+
+  app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
 
   # ensure the instance folder exists
   try:

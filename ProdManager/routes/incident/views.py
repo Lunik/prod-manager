@@ -91,7 +91,7 @@ def create():
     current_app.logger.error(f"Unable to create event during Incident creation : {error}")
 
   try:
-    notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - {lang.get('incident_new_notification_title')}"
+    notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_new_notification_title')}"
     if incident.external_reference:
       notif_title = f"[{incident.external_reference}]{notif_title}"
 
@@ -204,7 +204,7 @@ def update(resource_id):
       current_app.logger.error(f"Unable to create event during Incident update : {error}")
 
     try:
-      notif_title = f"[{incident.severity.name}][{incident.status.name}] {incident.name} - {lang.get('incident_update_notification_title')}"
+      notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_update_notification_title')}"
       if incident.external_reference:
         notif_title = f"[{incident.external_reference}]{notif_title}"
 

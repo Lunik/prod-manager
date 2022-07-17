@@ -2,6 +2,13 @@ import functools
 
 from flask import current_app, request
 from sqlalchemy.exc import IntegrityError
+
+from sqlite3 import IntegrityError as sqlite3IntegrityError
+from psycopg2.errors import (
+  UniqueViolation as pgsqlUniqueViolation,
+  NotNullViolation as pgsqlNotNullViolation,
+)
+
 from ProdManager import db
 from ProdManager.helpers.response import (
   NotFoundError, ServerError, ConflictError,
@@ -72,7 +79,8 @@ def update_resource(resource_class, ressource_id, attributs):
 
   except IntegrityError as error:
     db.session.rollback()
-    if "UNIQUE constraint failed" in str(error):
+    if isinstance(error.orig, pgsqlUniqueViolation) \
+      or (isinstance(error.orig, sqlite3IntegrityError) and "UNIQUE constraint failed" in str(error)):
       raise ConflictError(attributs) from error
 
     raise ServerError(error) from error
@@ -99,7 +107,8 @@ def delete_resource(resource_class, ressource_id):
     db.session.commit()
   except IntegrityError as error:
     db.session.rollback()
-    if "NOT NULL constraint failed" in str(error):
+    if isinstance(error.orig, pgsqlNotNullViolation) \
+      or (isinstance(error.orig, sqlite3IntegrityError) and "NOT NULL constraint failed" in str(error)):
       raise DependencyError("This resource is a dependency from other resources") from error
 
     raise ServerError(error) from error
@@ -119,7 +128,8 @@ def create_resource(resource_class, attributs):
 
   except IntegrityError as error:
     db.session.rollback()
-    if "UNIQUE constraint failed" in str(error):
+    if isinstance(error.orig, pgsqlUniqueViolation) \
+      or (isinstance(error.orig, sqlite3IntegrityError) and "UNIQUE constraint failed" in str(error)):
       raise ConflictError(attributs) from error
 
     raise ServerError(error) from error
