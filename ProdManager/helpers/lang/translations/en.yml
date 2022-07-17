@@ -76,7 +76,7 @@ incident_status_stable: STABLE
 incident_status_resolved: RESOLVED
 
 incident_creation_failed: [*incident_title, " creation failed"]
-incident_new_notification_title: ["New ", *incident_name]
+incident_create_notification_title: ["New ", *incident_name]
 incident_show_failed: [*incident_title, " show failed"]
 incident_update_failed: [*incident_title, " update failed"]
 incident_update_notification_title: ["Updated ", *incident_name]
@@ -112,7 +112,7 @@ maintenance_status_succeed: SUCCEED
 maintenance_status_failed: FAILED
 
 maintenance_creation_failed: [*maintenance_title, " creation failed"]
-maintenance_new_notification_title: ["Schedlued ", *maintenance_name]
+maintenance_create_notification_title: ["Schedlued ", *maintenance_name]
 maintenance_show_failed: [*maintenance_title, " show failed"]
 maintenance_update_failed: [*maintenance_title, " update failed"]
 maintenance_update_notification_title: ["Updated ", *maintenance_name]

@@ -17,7 +17,6 @@ from ProdManager.helpers.resource import (
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
-from ProdManager.helpers.notification import send_notification
 
 from ProdManager.models import (
   Incident, IncidentSeverity, IncidentStatus, Scope,
@@ -89,20 +88,6 @@ def create():
     ))
   except Exception as error:
     current_app.logger.error(f"Unable to create event during Incident creation : {error}")
-
-  try:
-    notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_new_notification_title')}"
-    if incident.external_reference:
-      notif_title = f"[{incident.external_reference}]{notif_title}"
-
-    send_notification(
-      notif_title,
-      render_template("notification/incident.html",
-        incident=incident,
-      )
-    )
-  except Exception as error:
-    current_app.logger.error(f"Unable to send notification during Incident creation : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 
@@ -202,20 +187,6 @@ def update(resource_id):
       ))
     except Exception as error:
       current_app.logger.error(f"Unable to create event during Incident update : {error}")
-
-    try:
-      notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_update_notification_title')}"
-      if incident.external_reference:
-        notif_title = f"[{incident.external_reference}]{notif_title}"
-
-      send_notification(
-        notif_title,
-        render_template("notification/incident.html",
-          incident=incident,
-        )
-      )
-    except Exception as error:
-      current_app.logger.error(f"Unable to send notification during Incident update : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 

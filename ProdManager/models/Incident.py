@@ -2,6 +2,7 @@ from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
 from ProdManager import db
+from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
 
 class IncidentSeverity(ModelEnum):
@@ -87,3 +88,12 @@ class Incident(db.Model):
       ("scope", cls.scope_id, int),
       ("service", cls.service_id, int),
     ]
+
+  @property
+  def title(self):
+    result = f"[{lang.get('incident_severity_' + self.severity.value)}][{lang.get('incident_status_' + self.status.value)}] {self.name}"
+
+    if self.external_reference:
+      result = f"[{self.external_reference}]" + result
+
+    return result
