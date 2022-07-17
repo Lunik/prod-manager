@@ -4,7 +4,7 @@
 {% set resource_endpoint = "incident" %}
 {% set resources = ongoing_incidents %}
 {% set resource_attributes = [
-  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "severity"), ("enum", "status"), ("string", "external_reference"), ("date", "start_impact_date"), ("date", "resolve_date")
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "severity"), ("enum", "status"), ("string", "external_reference"), ("date", "start_impact_date")
 ] %}
 {% include "fragments/table.html" %}
 {% endif %}

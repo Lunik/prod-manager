@@ -178,6 +178,7 @@ auth_invalid_secret: ["Invalid ", *auth_form_secret]
 
 # Footer
 footer_powered: Powered by
+footer_powered_icon: UIcons by
 
 
 # Resource

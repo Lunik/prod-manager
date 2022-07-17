@@ -2,7 +2,7 @@
   {% if count > 0 %}
   <div class="badge monitor {{ status.value }}" id="status">
     <a href="{{ custom_url_for('monitor.list', scope=(scope | default({id: None})).id, service=(service | default({id: None})).id, status=status.value) }}">
-      <span class="count">{{ count }}</span> {{ _("monitor_status_" + status.value) }}
+      {{ icon(status.value) }}<span class="count">{{ count }}</span> {{ _("monitor_status_" + status.value) }}
     </a>
   </div>
   {% endif %}

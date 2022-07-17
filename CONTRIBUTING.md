@@ -134,6 +134,46 @@ Test are made using [pytest][pytest] and [flask-unit][flask-unit] framework and 
 make test
 ```
 
+## Visual identity
+
+### Icons
+
+Icons should be downloaded only from [Flaticon UIcons library][flaticon-uicons] with the `regular` and `straight` setting in `svg` format.
+
+Icons must be placed in [ProdManager/templates/icons folder](ProdManager/templates/icons).
+
+Thoses attributes should be added to the `svg` block : 
+- `class='icon'`
+- `id=<ICON_NAME>`
+
+Any header or unecessaire block should be removed.
+
+SVG should implement the `SVG/symbol` model to use with the `SVG/use` keywork.
+
+Example :
+
+```svg
+<svg>
+  <symbol id="about" viewBox="0 0 24 24">
+    <path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/>
+    <path d="M14,19H12V12H10V10h2a2,2,0,0,1,2,2Z"/>
+    <circle cx="12" cy="6.5" r="1.5"/>
+  </symbol>
+</svg>
+```
+
+#### New icons
+
+New icons should be loaded in the icons library [ProdManager/templates/icons/all.html](ProdManager/templates/icons/all.html).
+
+#### Usage
+
+To include an icon in template, you need to use only the `icon` macro like :
+
+```jinja2
+{{ icon('dashboard') }}
+```
+
 ## Translation
 
 The application has multilang support. This means that every string printed to the final user (except log output) should sould support translation.
@@ -204,3 +244,4 @@ If you don't provided translation in the default language a placeholder will be 
 [gitlab-pipeline-tag]: https://gitlab.com/prod-manager/prod-manager/-/pipelines?scope=tags
 
 [translation-folder]: ProdManager/helpers/lang/translations/
+[flaticon]: https://www.flaticon.com/uicons

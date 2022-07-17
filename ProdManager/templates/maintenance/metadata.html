@@ -22,15 +22,15 @@
 
 {% set dots = [] %}
 {% if maintenance.scheduled_start_date %}
-    {% set __ = dots.append(("scheduled_start_date", _("maintenance_scheduled_start"), maintenance.scheduled_start_date, "🕑")) %}
+    {% set __ = dots.append(("scheduled_start_date", _("maintenance_scheduled_start"), maintenance.scheduled_start_date, "clock-start")) %}
 {% endif %}
 {% if maintenance.start_date %}
-    {% set __ = dots.append(("start_date", _("maintenance_start"), maintenance.start_date, "▶️")) %}
+    {% set __ = dots.append(("start_date", _("maintenance_start"), maintenance.start_date, "play")) %}
 {% endif %}
 {% if maintenance.scheduled_end_date %}
-    {% set __ = dots.append(("scheduled_end_date", _("maintenance_scheduled_end"), maintenance.scheduled_end_date, "🕙")) %}
+    {% set __ = dots.append(("scheduled_end_date", _("maintenance_scheduled_end"), maintenance.scheduled_end_date, "clock-end")) %}
 {% endif %}
 {% if maintenance.end_date %}
-    {% set __ = dots.append(("end_date", _("maintenance_end"), maintenance.end_date, ((maintenance.status.value == "succeed") | ternary("✅", "❌")))) %}
+    {% set __ = dots.append(("end_date", _("maintenance_end"), maintenance.end_date, ((maintenance.status.value == "succeed") | ternary("check", "alert")))) %}
 {% endif %}
 {% include "fragments/timeline/horizontal.html" %}
