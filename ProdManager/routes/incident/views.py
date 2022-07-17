@@ -1,9 +1,10 @@
 import json
 
-from flask import Blueprint, url_for, render_template, redirect, abort, current_app
+from flask import Blueprint, url_for, redirect, abort, current_app
 
 from ProdManager import lang
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -40,7 +41,7 @@ def list(filters):
   create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
-  return render_template("incident/list.html",
+  return custom_render_template("incident/list.html",
     incidents=incidents,
     create_form=create_form
   ), 200
@@ -114,7 +115,7 @@ def show(resource_id):
   update_form.scope.process(formdata=None)
   update_form.service.process(formdata=None)
 
-  return render_template("incident/single.html",
+  return custom_render_template("incident/single.html",
     incident=incident,
     update_form=update_form,
     comment_form=IncidentCommentForm(),

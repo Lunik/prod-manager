@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint,url_for, render_template, redirect, abort
+from flask import Blueprint,url_for, redirect, abort
 from flask import current_app
 from flask import g
 from flask import session
 
 from ProdManager import lang
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import logout_required
 from .forms import AuthLoginForm
 
@@ -20,7 +21,7 @@ bp = Blueprint("auth", __name__)
 def login():
   form = AuthLoginForm()
 
-  return render_template("auth/login.html",
+  return custom_render_template("auth/login.html",
     form=form
   ), 200
 

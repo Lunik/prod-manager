@@ -1,5 +1,6 @@
-from flask import Blueprint, url_for, render_template, redirect, abort
+from flask import Blueprint, url_for, redirect, abort
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource, list_resources, get_resource,
@@ -25,7 +26,7 @@ bp = Blueprint("scope", __name__)
 def list():
   scopes = list_resources(Scope)
 
-  return render_template("scope/list.html",
+  return custom_render_template("scope/list.html",
     scopes=scopes,
     create_form=ScopeCreateForm()
   ), 200
@@ -72,7 +73,7 @@ def show(resource_id):
       reasons=dict(scope=[error.message])
     ))
 
-  return render_template("scope/single.html",
+  return custom_render_template("scope/single.html",
     scope=scope,
     update_form=ScopeUpdateForm(obj=scope),
     delete_form=ScopeDeleteForm(obj=scope),

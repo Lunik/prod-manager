@@ -1,6 +1,7 @@
 
-from flask import Blueprint, url_for, render_template, redirect, abort
+from flask import Blueprint, url_for, redirect, abort
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -30,7 +31,7 @@ bp = Blueprint("service", __name__)
 def list():
   services = list_resources(Service)
 
-  return render_template("service/list.html",
+  return custom_render_template("service/list.html",
     services=services,
     create_form=ServiceCreateForm()
   ), 200
@@ -79,7 +80,7 @@ def show(resource_id):
 
   update_form = ServiceUpdateForm(obj=service)
 
-  return render_template("service/single.html",
+  return custom_render_template("service/single.html",
     service=service,
     update_form=update_form,
     delete_form=ServiceDeleteForm(obj=service),
