@@ -5,6 +5,7 @@
 ### Added
 
 - feat(template): Add template minifier/beautifier to improve performances (#70)
+- feat(UI): Improve application design by adding some icons (#68)
 
 ### Changed
 

@@ -172,6 +172,7 @@ auth_form_secret: secret
 
 # Footer
 footer_powered: Propulsé par
+footer_powered_icon: UIcons par
 
 
 # Resource
