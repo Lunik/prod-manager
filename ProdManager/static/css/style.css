@@ -299,7 +299,7 @@ div#extra_content {
 div#extra_content #monitors, div#content #monitors {
   display: inline-block;
 
-  margin: 0;
+  margin: auto 10px auto auto;
 }
 
 /**********

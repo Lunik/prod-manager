@@ -1,11 +1,12 @@
 import enum
 
-from flask import render_template, current_app
+from flask import current_app
 
 from ProdManager import mail
 from ProdManager import lang
 
 from ProdManager.models import Subscriber, Incident, Maintenance
+from ProdManager.helpers.template import custom_render_template
 import ProdManager.helpers.resource as ResourceHelpers
 
 
@@ -38,7 +39,7 @@ def notify(notif_type, resource_class, resource):
   notif_title += " - " + lang.get(f"{resource_class.__name__.lower()}_{notif_type.value}_notification_title")
 
   try:
-    send_notification(notif_title, render_template(
+    send_notification(notif_title, custom_render_template(
       f"notification/{resource_class.__name__.lower()}.html",
       resource=resource,
     ))

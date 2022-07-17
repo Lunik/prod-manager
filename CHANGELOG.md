@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(template): Add template minifier/beautifier to improve performances (#70)
+
 ### Changed
 
 - change(Notification): Refacto of send notification system
+
 
 ## 0.11.1
 
