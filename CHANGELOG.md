@@ -10,6 +10,7 @@
 ### Fixed
 
 - fix(template.auth): Use the default form fragment template for Login form (#72)
+- fix(template.notification): Add `icon` macro to the notification base template (#71)
 
 ### Changed
 
