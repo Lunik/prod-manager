@@ -6,6 +6,7 @@
 
 - feat(template): Add template minifier/beautifier to improve performances (#70)
 - feat(UI): Improve application design by adding some icons (#68)
+- feat(helpers.resource): Improve logs on resource manipulation (#69)
 
 ### Fixed
 

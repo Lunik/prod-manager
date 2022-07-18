@@ -1,4 +1,5 @@
 import functools
+import logging
 from sqlite3 import IntegrityError as sqlite3IntegrityError
 
 from flask import current_app, request
@@ -15,6 +16,8 @@ from .response import (
   NotFoundError, ServerError, ConflictError,
   UndeletableRessourceError, DependencyError,
 )
+
+logger = logging.getLogger('gunicorn.error')
 
 
 def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True):
@@ -94,6 +97,8 @@ def update_resource(resource_class, ressource_id, attributs):
   if len(changed.keys()) > 0:
     NotificationHelper.notify(NotificationHelper.NotificationType.UPDATE, resource_class, resource)
 
+  logger.info(f"Updated {resource}")
+
   return resource, changed
 
 
@@ -122,6 +127,8 @@ def delete_resource(resource_class, ressource_id):
     current_app.logger.error(error)
     raise ServerError(error) from error
 
+  logger.info(f"Deleted {resource}")
+
 
 def create_resource(resource_class, attributs):
   resource = resource_class(**attributs)
@@ -144,6 +151,8 @@ def create_resource(resource_class, attributs):
     raise ServerError(error) from error
 
   NotificationHelper.notify(NotificationHelper.NotificationType.CREATE, resource_class, resource)
+
+  logger.info(f"Created {resource}")
 
   return resource
 
