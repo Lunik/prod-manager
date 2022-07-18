@@ -1,5 +1,8 @@
+{% set form_hide = form_hide | default(true) %}
+{% if form_hide %}
 <button class="form-toogle display-toggle" id="{{ form_id }}" target="form#{{ form_id }}">{{ form_title }}</button>
-<form id="{{ form_id }}" class="hidden" method="{{ form_method }}" action="{{ form_action }}">
+{% endif %}
+<form id="{{ form_id }}" {% if form_hide %}class="hidden"{% endif %} method="{{ form_method }}" action="{{ form_action }}">
   {% for field in form %}
     {% if field.id == 'csrf_token' %}
       {{ field }}

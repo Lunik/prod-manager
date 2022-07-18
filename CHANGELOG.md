@@ -7,6 +7,10 @@
 - feat(template): Add template minifier/beautifier to improve performances (#70)
 - feat(UI): Improve application design by adding some icons (#68)
 
+### Fixed
+
+- fix(template.auth): Use the default form fragment template for Login form (#72)
+
 ### Changed
 
 - change(Notification): Refacto of send notification system
