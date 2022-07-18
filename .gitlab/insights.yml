@@ -1,0 +1,190 @@
+---
+
+issues:
+  title: Issues Dashboard
+  charts:
+    - title: Issues created per month
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        group_by: month
+        period_limit: 3
+    - title: Issues closed per month
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: closed
+        group_by: month
+        period_limit: 3
+    - title: Bugs created per month by Priority
+      type: stacked-bar
+      query:
+        issuable_type: issue
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - priority::1
+          - priority::2
+          - priority::3
+          - priority::4
+          - priority::5
+        group_by: month
+        period_limit: 3
+    - title: Bugs created per month by Severity
+      type: stacked-bar
+      query:
+        issuable_type: issue
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - severity::1
+          - severity::2
+          - severity::3
+        group_by: month
+        period_limit: 3
+
+mergeRequests:
+  title: Merge requests dashboard
+  charts:
+    - title: Merge requests merged per week
+      type: bar
+      query:
+        issuable_type: merge_request
+        issuable_state: merged
+        group_by: week
+        period_limit: 12
+    - title: Merge requests merged per month
+      type: bar
+      query:
+        issuable_type: merge_request
+        issuable_state: merged
+        group_by: month
+        period_limit: 3
+
+bugClassification:
+  title: Bug Classification
+  charts:
+    - title: Bugs by Priority
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - priority::1
+          - priority::2
+          - priority::3
+          - priority::4
+          - priority::5
+    - title: Bugs by Severity
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - severity::1
+          - severity::2
+          - severity::3
+    - title: Bugs by Resource
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - resource::home
+          - resource::incident
+          - resource::maintenance
+          - resource::monitor
+          - resource::scope
+          - resource::service
+    - title: Bugs by Scope
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        filter_labels:
+          - type::bug
+        collection_labels:
+          - scope::api
+          - scope::ci
+          - scope::database
+          - scope::documentation
+          - scope::image
+          - scope::meta
+          - scope::notification
+          - scope::performance
+          - scope::style
+          - scope::test
+          - scope::traduction
+
+issueTypes:
+  title: Issue Types Dashboard
+  charts:
+    - title: Issues by type
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        collection_labels:
+          - type::bug
+          - type::community
+          - type::feature
+          - type::security
+          - type::vulnerability
+    - title: Issues by Resource
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        collection_labels:
+          - resource::home
+          - resource::incident
+          - resource::maintenance
+          - resource::monitor
+          - resource::scope
+          - resource::service
+    - title: Issues by Scope
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: all
+        collection_labels:
+          - scope::api
+          - scope::ci
+          - scope::database
+          - scope::documentation
+          - scope::image
+          - scope::meta
+          - scope::notification
+          - scope::performance
+          - scope::style
+          - scope::test
+          - scope::traduction
+    - title: Issues opened by type per month
+      type: stacked-bar
+      query:
+        issuable_type: issue
+        issuable_state: opened
+        collection_labels:
+          - type::bug
+          - type::community
+          - type::feature
+          - type::security
+          - type::vulnerability
+        group_by: month
+        period_limit: 3
+    - title: Issues in backlog per month
+      type: bar
+      query:
+        issuable_type: issue
+        issuable_state: opened
+        filter_labels:
+          - backlog
+        group_by: month
+        period_limit: 3
