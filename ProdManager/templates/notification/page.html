@@ -15,10 +15,12 @@
     <li>{{ _("incident_update_notification_title") }}</li>
   </ul>
 </div>
-{% with form_title=_("notification_subscribe_title"), form_id="subscribe", form_method="post", form_action=custom_url_for('notification.subscribe'), form_submit_value=_("notification_subscribe_submit"), form=subscribe_form %}
-  {% include "fragments/form.html" %}
-{% endwith %}
-{% with form_title=_("notification_unsubscribe_title"), form_id="unsubscribe", form_method="post", form_action=custom_url_for('notification.unsubscribe'), form_submit_value=_("notification_unsubscribe_submit"), form=unsubscribe_form %}
-  {% include "fragments/form.html" %}
-{% endwith %}
+<div id="forms">
+  {% with form_title=_("notification_subscribe_title"), form_id="subscribe", form_method="post", form_action=custom_url_for('notification.subscribe'), form_submit_value=_("notification_subscribe_submit"), form=subscribe_form %}
+    {% include "fragments/form.html" %}
+  {% endwith %}
+  {% with form_title=_("notification_unsubscribe_title"), form_id="unsubscribe", form_method="post", form_action=custom_url_for('notification.unsubscribe'), form_submit_value=_("notification_unsubscribe_submit"), form=unsubscribe_form %}
+    {% include "fragments/form.html" %}
+  {% endwith %}
+</div>
 {% endblock %}
