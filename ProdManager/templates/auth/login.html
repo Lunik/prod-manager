@@ -5,7 +5,9 @@
 
 {% block content %}
 <h1 id="title">{{ _("auth_login_title") }}</h1>
-{% with form_title=_("auth_login_title"), form_id="login", form_method="post", form_action="#", form_submit_value=_('auth_login_submit').capitalize(), form_hide=False, form=form %}
-  {% include "fragments/form.html" %}
-{% endwith %}
+<div id="forms">
+  {% with form_title=_("auth_login_title"), form_id="login", form_method="post", form_action="#", form_submit_value=_('auth_login_submit').capitalize(), form_hide=False, form=form %}
+    {% include "fragments/form.html" %}
+  {% endwith %}
+</div>
 {% endblock %}
