@@ -6,6 +6,7 @@ from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
 
 from .Service import ServiceStatus
+from .MaintenanceEvent import MaintenanceEvent
 
 class MaintenanceStatus(ModelEnum):
   SCHEDULED = 'scheduled'
@@ -34,6 +35,8 @@ class Maintenance(db.Model):
     order_by='desc(MaintenanceEvent.creation_date)',
     cascade="all, delete",
   )
+
+  event_type = MaintenanceEvent
 
   def __repr__(self):
     return f"<Maintenance '{self.name}'>"

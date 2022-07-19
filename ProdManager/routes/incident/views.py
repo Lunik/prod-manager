@@ -1,6 +1,5 @@
-import json
 
-from flask import Blueprint, url_for, redirect, abort, current_app
+from flask import Blueprint, url_for, redirect, abort
 
 from ProdManager import lang
 
@@ -16,7 +15,6 @@ from ProdManager.helpers.resource import (
   resource_filters,
 )
 from ProdManager.helpers.date import current_date
-from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
 
 from ProdManager.models import (
@@ -79,16 +77,6 @@ def create():
       message=lang.get("incident_creation_failed"),
       reasons=dict(incident=[error.message])
     ))
-
-  try:
-    _ = create_resource(IncidentEvent, dict(
-      creation_date=current_date(rounded=False),
-      type=EventType.CREATE,
-      content=json.dumps(incident.serialize, default=json_defaults),
-      incident_id=incident.id,
-    ))
-  except Exception as error:
-    current_app.logger.error(f"Unable to create event during Incident creation : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 
@@ -177,17 +165,6 @@ def update(resource_id):
       message=lang.get("incident_update_failed"),
       reasons=dict(incident=[error.message])
     ))
-
-  if len(changed) > 0:
-    try:
-      _ = create_resource(IncidentEvent, dict(
-        creation_date=current_date(rounded=False),
-        type=EventType.UPDATE,
-        content=json.dumps(changed, default=json_defaults),
-        incident_id=incident.id,
-      ))
-    except Exception as error:
-      current_app.logger.error(f"Unable to create event during Incident update : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 

@@ -16,6 +16,7 @@
 ### Changed
 
 - change(Notification): Refacto of send notification system
+- change(Event): Refacto resourve event system (!33)
 
 
 ## 0.11.1

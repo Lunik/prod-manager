@@ -11,7 +11,9 @@ from psycopg2.errors import (
 )
 
 from ProdManager import db
+from ProdManager.models import EventType
 import ProdManager.helpers.notification as NotificationHelper
+import ProdManager.helpers.event as EventHelper
 from .response import (
   NotFoundError, ServerError, ConflictError,
   UndeletableRessourceError, DependencyError,
@@ -96,6 +98,7 @@ def update_resource(resource_class, ressource_id, attributs):
 
   if len(changed.keys()) > 0:
     NotificationHelper.notify(NotificationHelper.NotificationType.UPDATE, resource_class, resource)
+    EventHelper.create_event(EventType.UPDATE, resource_class, resource, changed)
 
   logger.info(f"Updated {resource}")
 
@@ -151,6 +154,7 @@ def create_resource(resource_class, attributs):
     raise ServerError(error) from error
 
   NotificationHelper.notify(NotificationHelper.NotificationType.CREATE, resource_class, resource)
+  EventHelper.create_event(EventType.CREATE, resource_class, resource)
 
   logger.info(f"Created {resource}")
 

@@ -110,13 +110,6 @@ if __name__ == "__main__":
 
       # INCIDENT EVENTS
       create_resource(IncidentEvent, dict(
-        creation_date=datetime.strptime("2022-06-17 19:56:59", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Database storage backend is unresponsive", "description": "Alerted by the client on timeouts during daily backup of is database through `pg_dump`\\nThe storage backend on some hypervisors doesn\'t responds", "external_reference": "INC001287", "status": "ACTIVE", "severity": "CRITICAL", "scope": "France DCX02", "service": "Databases", "creation_date": "17/06/2022 19:56", "start_impact_date": "17/06/2022 16:39", "investigation_date": null, "stable_date": null, "resolve_date": null}',
-        incident_id=1,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(IncidentEvent, dict(
         creation_date=datetime.strptime("2022-06-17 19:57:32", "%Y-%m-%d %H:%M:%S"),
         content='{"status": ["ACTIVE", "INVESTIGATING"], "investigation_date": [null, "17/06/2022 17:01"]}',
         incident_id=1,
@@ -152,31 +145,10 @@ if __name__ == "__main__":
         internal=False,
       ))
       create_resource(IncidentEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:33:47", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Unable to mount on Linux VMs", "description": "User are unable to mount block storage disk on Linux distributions", "external_reference": "INC003421", "status": "ACTIVE", "severity": "CRITICAL", "scope": "France DCX03", "service": "Block Storage", "creation_date": "24/06/2022 18:33", "start_impact_date": "24/06/2022 18:30", "investigation_date": null, "stable_date": null, "resolve_date": null}',
-        incident_id=2,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(IncidentEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:36:03", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Go function don''t compile", "description": "When user if using Go language to develop his function, the deployment fail with the following error :\\nError: Unable to compile Go application", "external_reference": "INC001167", "status": "ACTIVE", "severity": "HIGH", "scope": "Japan DC03", "service": "Serverless Function", "creation_date": "24/06/2022 18:36", "start_impact_date": "01/06/2022 11:14", "investigation_date": null, "stable_date": null, "resolve_date": null}',
-        incident_id=3,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(IncidentEvent, dict(
         creation_date=datetime.strptime("2022-06-24 18:38:04", "%Y-%m-%d %H:%M:%S"),
         content='{"status": ["ACTIVE", "RESOLVED"], "investigation_date": [null, "01/05/2022 14:37"], "stable_date": [null, "03/06/2022 09:17"], "resolve_date": [null, "06/06/2022 17:15"]}',
         incident_id=3,
         type=EventType.UPDATE,
-        internal=True,
-      ))
-      create_resource(IncidentEvent, dict(
-        creation_date=datetime.strptime("2022-06-24 18:40:39", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Public IPs are not accessible from AT&AT provider", "description": "User using AT&AT in California reporting that he is unable to access his Load Balancer IP", "external_reference": "INC000790", "status": "ACTIVE", "severity": "MODERATE", "scope": "West-US DC01", "service": "Load Balancer", "creation_date": "24/06/2022 18:40", "start_impact_date": "18/06/2022 16:36", "investigation_date": null, "stable_date": null, "resolve_date": null}',
-        incident_id=4,
-        type=EventType.CREATE,
         internal=True,
       ))
       create_resource(IncidentEvent, dict(
@@ -258,13 +230,6 @@ if __name__ == "__main__":
 
       # MAINTENANCE EVENTS
       create_resource(MaintenanceEvent, dict(
-        creation_date=datetime.strptime("2022-06-17 20:12:44", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Increase IP range avai", "description": "", "external_reference": "", "status": "SCHEDULED", "scope": "France DCX03", "service": "Load Balancer", "service_status": "UP", "creation_date": "17/06/2022 20:12", "scheduled_start_date": "17/06/2022 20:09", "scheduled_end_date": "17/06/2022 21:09", "start_date": null, "end_date": null}',
-        maintenance_id=1,
-        type=EventType.CREATE,
-        internal=True,
-      ))
-      create_resource(MaintenanceEvent, dict(
         creation_date=datetime.strptime("2022-06-17 20:14:20", "%Y-%m-%d %H:%M:%S"),
         content='{"name": ["Increase IP range avai", "Increase IP range available"], "external_reference": ["", "CHG000387"], "description": ["", "Because of the increasing number of client wanting to use the Load Balancer service in FRDCX03 we are going to increase the range by a new /24"], "scheduled_start_date": ["17/06/2022 20:09", "20/06/2022 03:00"], "scheduled_end_date": ["17/06/2022 21:09", "20/06/2022 05:00"]}',
         maintenance_id=1,
@@ -291,13 +256,6 @@ if __name__ == "__main__":
         maintenance_id=1,
         type=EventType.COMMENT,
         internal=False,
-      ))
-      create_resource(MaintenanceEvent, dict(
-        creation_date=datetime.strptime("2022-06-17 20:17:30", "%Y-%m-%d %H:%M:%S"),
-        content='{"name": "Deploy the service in the region", "description": "Deployment of the Serverless Function service in JADC01", "external_reference": "CHG000176", "status": "SCHEDULED", "scope": "Japan DC03", "service": "Serverless Function", "service_status": "DOWN", "creation_date": "17/06/2022 20:17", "scheduled_start_date": "01/06/2022 08:00", "scheduled_end_date": "01/06/2022 10:00", "start_date": null, "end_date": null}',
-        maintenance_id=2,
-        type=EventType.CREATE,
-        internal=True,
       ))
       create_resource(MaintenanceEvent, dict(
         creation_date=datetime.strptime("2022-06-17 20:18:03", "%Y-%m-%d %H:%M:%S"),

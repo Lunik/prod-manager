@@ -1,5 +1,4 @@
-import json
-from flask import Blueprint, url_for, redirect, abort, current_app
+from flask import Blueprint, url_for, redirect, abort
 
 from ProdManager import lang
 
@@ -15,7 +14,6 @@ from ProdManager.helpers.resource import (
   resource_filters,
 )
 from ProdManager.helpers.date import current_date
-from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
 
 from ProdManager.models import (
@@ -83,16 +81,6 @@ def create():
       message=lang.get("maintenance_creation_failed"),
       reasons=dict(maintenance=[error.message])
     ))
-
-  try:
-    _ = create_resource(MaintenanceEvent, dict(
-      creation_date=current_date(rounded=False),
-      type=EventType.CREATE,
-      content=json.dumps(maintenance.serialize, default=json_defaults),
-      maintenance_id=maintenance.id,
-    ))
-  except Exception as error:
-    current_app.logger.error(f"Unable to create event during Maintenance creation : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
@@ -176,17 +164,6 @@ def update(resource_id):
       message=lang.get("maintenance_update_failed"),
       reasons=dict(maintenance=[error.message])
     ))
-
-  if len(changed) > 0:
-    try:
-      _ = create_resource(MaintenanceEvent, dict(
-        creation_date=current_date(rounded=False),
-        type=EventType.UPDATE,
-        content=json.dumps(changed, default=json_defaults),
-        maintenance_id=maintenance.id,
-      ))
-    except Exception as error:
-      current_app.logger.error(f"Unable to create event during Maintenance update : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
