@@ -5,6 +5,8 @@ from ProdManager import db
 from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
 
+from .IncidentEvent import IncidentEvent
+
 class IncidentSeverity(ModelEnum):
   CRITICAL = 'critical'
   HIGH = 'high'
@@ -39,6 +41,8 @@ class Incident(db.Model):
     order_by='desc(IncidentEvent.creation_date)',
     cascade="all, delete",
   )
+
+  event_type = IncidentEvent
 
   def __repr__(self):
     return f"<Incident '{self.name}'>"
