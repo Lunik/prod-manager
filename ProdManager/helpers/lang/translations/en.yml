@@ -112,7 +112,7 @@ maintenance_status_succeed: SUCCEED
 maintenance_status_failed: FAILED
 
 maintenance_creation_failed: [*maintenance_title, " creation failed"]
-maintenance_create_notification_title: ["Schedlued ", *maintenance_name]
+maintenance_create_notification_title: ["Scheduled ", *maintenance_name]
 maintenance_show_failed: [*maintenance_title, " show failed"]
 maintenance_update_failed: [*maintenance_title, " update failed"]
 maintenance_update_notification_title: ["Updated ", *maintenance_name]
