@@ -1,5 +1,7 @@
 import os
+import sys
 import re
+import logging
 
 from datadog_api_client import Configuration, ApiClient
 from datadog_api_client.v1.api.monitors_api import MonitorsApi
@@ -14,6 +16,12 @@ from ProdManager.helpers.resource import list_resources, update_resource
 from ProdManager import create_app
 
 app = create_app()
+
+logger = logging.getLogger('Datadog')
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s'))
+logger.addHandler(handler)
+logger.setLevel("INFO")
 
 datadog_configuration = Configuration(
   api_key=dict(
@@ -35,23 +43,23 @@ if __name__ == "__main__":
     for monitor in list_resources(Monitor, paginate=False):
 
       if not monitor.external_link:
-        print(f"[INFO][{monitor.name}] Ignoring")
+        logger.info(f"[{monitor.name}] Ignoring")
         continue
 
-      print(f"[INFO][{monitor.name}] Handling monitor refresh")
+      logger.info(f"[{monitor.name}] Handling monitor refresh")
 
       matched_url = datadog_url_regex.match(monitor.external_link)
       if not matched_url:
-        print(f"[WARNING][{monitor.name}] External link is not a valid Datadog monitor URL : {monitor.external_link}")
+        logger.warning(f"[{monitor.name}] External link is not a valid Datadog monitor URL : {monitor.external_link}")
         continue
 
       monitor_id = int(datadog_url_regex.match(monitor.external_link).group(1))
-      print(f"[INFO][{monitor.name}] Found Datadog monitor ID : {monitor_id}")
+      logger.info(f"[{monitor.name}] Found Datadog monitor ID : {monitor_id}")
 
       try:
         monitor_state = api_instance.get_monitor(monitor_id)
       except NotFoundException as error:
-        print(f"[ERROR][{monitor.name}] Datadog monitor with ID {monitor_id} was not found")
+        logger.error(f"[{monitor.name}] Datadog monitor with ID {monitor_id} was not found")
         continue
 
 
@@ -59,9 +67,9 @@ if __name__ == "__main__":
       monitor_status = monitor_state.overall_state.to_str().lower()
       try:
         status = MonitorStatus(monitor_state.overall_state.to_str().lower())
-        print(f"[INFO][{monitor.name}] Datadog monitor status is : {status.name}")
+        logger.info(f"[{monitor.name}] Datadog monitor status is : {status.name}")
       except ValueError:
-        print(f"[WARNING][{monitor.name}] Datadog monitor status is not handled : {monitor_status}")
+        logger.warning(f"[{monitor.name}] Datadog monitor status is not handled : {monitor_status}")
 
 
       monitor, changed = update_resource(Monitor, monitor.id, dict(
@@ -70,4 +78,4 @@ if __name__ == "__main__":
       ))
 
       if changed:
-        print(f"[INFO][{monitor.name}] Updating monitor status succeed")
+        logger.info(f"[{monitor.name}] Updating monitor status succeed")
