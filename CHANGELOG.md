@@ -18,6 +18,7 @@
 
 - change(Notification): Refacto of send notification system (!30)
 - change(Event): Refacto resourve event system (!33)
+- change(integration.Datadog): Change the logger format (#74) (!35)
 
 
 ## 0.11.1
