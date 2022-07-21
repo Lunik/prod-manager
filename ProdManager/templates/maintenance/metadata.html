@@ -8,14 +8,22 @@
   </span>
 </div>
 {% if maintenance.external_reference %}
-  <div id="external_reference" class="badge external_reference">{{ maintenance.external_reference }}</div>
+  <div id="external_reference" class="badge external_reference">
+    {% if maintenance.external_link %}
+      <a href="{{ maintenance.external_link }}" class="external_link" target="_blank" rel="noopener">
+        {{ maintenance.external_reference }}
+      </a>
+    {% else %}
+      {{ maintenance.external_reference }}
+    {% endif %}
+  </div>
 {% endif %}
 <div id="status" class="badge maintenance {{ maintenance.status.value }}">{{ _("maintenance_status_" + maintenance.status.value) }}</div>
 <div id="service_status" class="badge maintenance {{ maintenance.service_status.value }}">Service/{{ _("maintenance_service_status_" + maintenance.service_status.value) }}</div>
 {% if maintenance.description %}
 <div id="description">
   {% for line in maintenance.description.split('\n') %}
-  <p>{{ line }}</p>
+    <p>{{ line }}</p>
   {% endfor %}
 </div>
 {% endif %}

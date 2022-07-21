@@ -67,6 +67,7 @@ def create():
       description=strip_input(form.description.data),
       severity=IncidentSeverity(form.severity.data),
       external_reference=strip_input(form.external_reference.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),
       creation_date=current_date(),
@@ -135,6 +136,7 @@ def update(resource_id):
     severity=IncidentSeverity(form.severity.data),
     status=new_incident_status,
     external_reference=strip_input(form.external_reference.data),
+    external_link=strip_input(form.external_link.data),
     scope_id=int(form.scope.data),
     service_id=int(form.service.data),
     start_impact_date=form.start_impact_date.data,
@@ -159,7 +161,7 @@ def update(resource_id):
     new_data["resolve_date"] = None
 
   try:
-    incident, changed = update_resource(Incident, resource_id, new_data)
+    incident, _ = update_resource(Incident, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message=lang.get("incident_update_failed"),

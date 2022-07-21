@@ -34,6 +34,7 @@ class Incident(db.Model):
   investigation_date = Column(DateTime(), nullable=True)
   stable_date = Column(DateTime(), nullable=True)
   resolve_date = Column(DateTime(), nullable=True)
+  external_link = Column(String(), nullable=True)
   events = relationship(
     'IncidentEvent',
     backref='incident',

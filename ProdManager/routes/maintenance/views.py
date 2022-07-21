@@ -68,6 +68,7 @@ def create():
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
       external_reference=strip_input(form.external_reference.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),
       creation_date=current_date(),
@@ -135,6 +136,7 @@ def update(resource_id):
   new_data = dict(
     name=strip_input(form.name.data),
     external_reference=strip_input(form.external_reference.data),
+    external_link=strip_input(form.external_link.data),
     description=strip_input(form.description.data),
     status=new_maintenance_status,
     scheduled_start_date=form.scheduled_start_date.data,
@@ -157,7 +159,7 @@ def update(resource_id):
     new_data["end_date"] = None
 
   try:
-    maintenance, changed = update_resource(Maintenance, resource_id, new_data)
+    maintenance, _ = update_resource(Maintenance, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message=lang.get("maintenance_update_failed"),
