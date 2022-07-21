@@ -70,7 +70,7 @@ incident_severity_low: BASE
 incident_severity_minor: MINEUR
 
 incident_status_active: ACTIF
-incident_status_investigating: INVESTIGATION EN COURS
+incident_status_investigating: INVESTIGATION
 incident_status_stable: STABLE
 incident_status_resolved: RESOLU
 
