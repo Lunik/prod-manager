@@ -83,6 +83,28 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
       assert rv.status_code == 404
       self.assertNotIn(b"__missing_translation", rv.data)
 
+  def test_calendar_with_client(self, app):
+    maintenance_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+
+    with app.test_client() as client:
+      client.post('/login', data=dict(secret="changeit"))
+      rv = client.post('/maintenance/create', data=dict(
+        scope="1",
+        service="1",
+        service_status="up",
+        scheduled_start_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        scheduled_end_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        name=maintenance_name
+      ))
+
+      rv = client.get(rv.headers.get('Location') + "/calendar")
+
+      assert rv.status_code == 200
+      assert rv.headers['Content-Type'] == "text/calendar"
+      assert rv.headers['Content-Disposition'] == f"attachment; filename*=UTF-8''{maintenance_name}.ics"
+      self.assertInResponse(b'BEGIN:VCALENDAR', rv)
+      self.assertInResponse(b'BEGIN:VEVENT', rv)
+
   def test_update_with_client(self, app):
     maintenance_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
     maintenance_name_2 = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"

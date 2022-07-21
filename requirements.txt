@@ -9,6 +9,9 @@ django-htmlmin
 Flask-WTF
 wtforms[email]
 
+# Calendar
+icalendar
+
 # ORM
 flask_sqlalchemy
 Flask-Migrate

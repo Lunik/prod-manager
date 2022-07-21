@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, abort
+from flask import Blueprint, url_for, redirect, abort, Response
 
 from ProdManager import lang
 
@@ -15,6 +15,7 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.form import strip_input
+from ProdManager.helpers.calendar import CalendarEvent
 
 from ProdManager.models import (
   Maintenance, MaintenanceStatus, Scope, Service,
@@ -223,3 +224,24 @@ def delete(resource_id):
     ))
 
   return redirect(url_for('maintenance.list'), 302)
+
+##############
+## CALENDAR ##
+##############
+
+@bp.route("/<int:resource_id>/calendar", methods=("GET",))
+def calendar(resource_id):
+  try:
+    maintenance = get_resource(Maintenance, resource_id)
+  except Exception as error:
+    return abort(error.code, dict(
+      message=lang.get("maintenance_show_failed"),
+      reasons=dict(maintenance=[error.message])
+    ))
+
+  response = Response(
+    response=CalendarEvent.from_maintenance(maintenance).render(),
+    content_type="text/calendar",
+  )
+  response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{maintenance.name}.ics"
+  return response, 200

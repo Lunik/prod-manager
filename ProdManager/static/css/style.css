@@ -112,7 +112,7 @@ div#icon-library {
   text-decoration: none;
 }
 
-.badge.external_reference { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge.external_reference, .badge.external_link, .badge.calendar { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
 
 .badge.incident#severity.critical { background-color: var(--badge-purple-color); color: var(--badge-purple-text-color); }
 .badge.incident#severity.high     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
@@ -138,9 +138,8 @@ div#icon-library {
 .badge.monitor#status.warning, .badge.monitor#status.warning .icon { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); fill: var(--badge-orange-text-color); }
 .badge.monitor#status.alert, .badge.monitor#status.alert .icon     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); fill: var(--badge-red-text-color); }
 
-.badge#external_link   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
-.badge#external_link a, .badge#external_reference a { color: var(--badge-blue-text-color); }
-.badge#external_link a:hover, .badge#external_reference a:hover { color: var(--badge-blue-text-color); }
+.badge a       { color: var(--badge-blue-text-color) !important; }
+.badge a:hover { color: var(--badge-blue-text-color) !important; }
 
 .badge.monitor .count { font-weight: bold; }
 
