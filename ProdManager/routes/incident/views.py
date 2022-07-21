@@ -1,9 +1,9 @@
-import json
 
-from flask import Blueprint, url_for, render_template, redirect, abort, current_app
+from flask import Blueprint, url_for, redirect, abort
 
 from ProdManager import lang
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -15,9 +15,7 @@ from ProdManager.helpers.resource import (
   resource_filters,
 )
 from ProdManager.helpers.date import current_date
-from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
-from ProdManager.helpers.notification import send_notification
 
 from ProdManager.models import (
   Incident, IncidentSeverity, IncidentStatus, Scope,
@@ -41,7 +39,7 @@ def list(filters):
   create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
-  return render_template("incident/list.html",
+  return custom_render_template("incident/list.html",
     incidents=incidents,
     create_form=create_form
   ), 200
@@ -69,6 +67,7 @@ def create():
       description=strip_input(form.description.data),
       severity=IncidentSeverity(form.severity.data),
       external_reference=strip_input(form.external_reference.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),
       creation_date=current_date(),
@@ -79,30 +78,6 @@ def create():
       message=lang.get("incident_creation_failed"),
       reasons=dict(incident=[error.message])
     ))
-
-  try:
-    _ = create_resource(IncidentEvent, dict(
-      creation_date=current_date(rounded=False),
-      type=EventType.CREATE,
-      content=json.dumps(incident.serialize, default=json_defaults),
-      incident_id=incident.id,
-    ))
-  except Exception as error:
-    current_app.logger.error(f"Unable to create event during Incident creation : {error}")
-
-  try:
-    notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_new_notification_title')}"
-    if incident.external_reference:
-      notif_title = f"[{incident.external_reference}]{notif_title}"
-
-    send_notification(
-      notif_title,
-      render_template("notification/incident.html",
-        incident=incident,
-      )
-    )
-  except Exception as error:
-    current_app.logger.error(f"Unable to send notification during Incident creation : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 
@@ -129,7 +104,7 @@ def show(resource_id):
   update_form.scope.process(formdata=None)
   update_form.service.process(formdata=None)
 
-  return render_template("incident/single.html",
+  return custom_render_template("incident/single.html",
     incident=incident,
     update_form=update_form,
     comment_form=IncidentCommentForm(),
@@ -161,6 +136,7 @@ def update(resource_id):
     severity=IncidentSeverity(form.severity.data),
     status=new_incident_status,
     external_reference=strip_input(form.external_reference.data),
+    external_link=strip_input(form.external_link.data),
     scope_id=int(form.scope.data),
     service_id=int(form.service.data),
     start_impact_date=form.start_impact_date.data,
@@ -185,37 +161,12 @@ def update(resource_id):
     new_data["resolve_date"] = None
 
   try:
-    incident, changed = update_resource(Incident, resource_id, new_data)
+    incident, _ = update_resource(Incident, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message=lang.get("incident_update_failed"),
       reasons=dict(incident=[error.message])
     ))
-
-  if len(changed) > 0:
-    try:
-      _ = create_resource(IncidentEvent, dict(
-        creation_date=current_date(rounded=False),
-        type=EventType.UPDATE,
-        content=json.dumps(changed, default=json_defaults),
-        incident_id=incident.id,
-      ))
-    except Exception as error:
-      current_app.logger.error(f"Unable to create event during Incident update : {error}")
-
-    try:
-      notif_title = f"[{lang.get('incident_severity_' + incident.severity.value)}][{lang.get('incident_status_' + incident.status.value)}] {incident.name} - {lang.get('incident_update_notification_title')}"
-      if incident.external_reference:
-        notif_title = f"[{incident.external_reference}]{notif_title}"
-
-      send_notification(
-        notif_title,
-        render_template("notification/incident.html",
-          incident=incident,
-        )
-      )
-    except Exception as error:
-      current_app.logger.error(f"Unable to send notification during Incident update : {error}")
 
   return redirect(url_for('incident.show', resource_id=incident.id), 302)
 

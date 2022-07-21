@@ -2,9 +2,11 @@ from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
 from ProdManager import db
+from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
 
 from .Service import ServiceStatus
+from .MaintenanceEvent import MaintenanceEvent
 
 class MaintenanceStatus(ModelEnum):
   SCHEDULED = 'scheduled'
@@ -17,7 +19,7 @@ class Maintenance(db.Model):
   name = Column(String(), nullable=False)
   description = Column(String(), nullable=True)
   external_reference = Column(String(), nullable=True)
-  status = Column(Enum(MaintenanceStatus), nullable=False)
+  status = Column(Enum(MaintenanceStatus), nullable=False, default=MaintenanceStatus.SCHEDULED)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
   service_id = Column(Integer, ForeignKey('service.id'), nullable=False)
   service_status = Column(Enum(ServiceStatus), nullable=False)
@@ -26,6 +28,7 @@ class Maintenance(db.Model):
   scheduled_end_date = Column(DateTime(), nullable=False)
   start_date = Column(DateTime(), nullable=True)
   end_date = Column(DateTime(), nullable=True)
+  external_link = Column(String(), nullable=True)
   events = relationship(
     'MaintenanceEvent',
     backref='maintenance',
@@ -33,6 +36,8 @@ class Maintenance(db.Model):
     order_by='desc(MaintenanceEvent.creation_date)',
     cascade="all, delete",
   )
+
+  event_type = MaintenanceEvent
 
   def __repr__(self):
     return f"<Maintenance '{self.name}'>"
@@ -81,3 +86,12 @@ class Maintenance(db.Model):
       ("scope", cls.scope_id, int),
       ("service", cls.service_id, int),
     ]
+
+  @property
+  def title(self):
+    result = f"[{lang.get('maintenance_status_' + self.status.value)}] {self.name}"
+
+    if self.external_reference:
+      result = f"[{self.external_reference}]" + result
+
+    return result

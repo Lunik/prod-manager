@@ -1,8 +1,8 @@
-import json
-from flask import Blueprint, url_for, render_template, redirect, abort, current_app
+from flask import Blueprint, url_for, redirect, abort, Response
 
 from ProdManager import lang
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
 from ProdManager.helpers.resource import (
   create_resource,
@@ -14,9 +14,8 @@ from ProdManager.helpers.resource import (
   resource_filters,
 )
 from ProdManager.helpers.date import current_date
-from ProdManager.helpers.json import json_defaults
 from ProdManager.helpers.form import strip_input
-from ProdManager.helpers.notification import send_notification
+from ProdManager.helpers.calendar import CalendarEvent
 
 from ProdManager.models import (
   Maintenance, MaintenanceStatus, Scope, Service,
@@ -43,7 +42,7 @@ def list(filters):
   create_form.scope.choices = list_resources_as_choices(Scope, Scope.name.asc())
   create_form.service.choices = list_resources_as_choices(Service, Service.name.asc())
 
-  return render_template("maintenance/list.html",
+  return custom_render_template("maintenance/list.html",
     maintenances=maintenances,
     create_form=create_form
   ), 200
@@ -70,43 +69,19 @@ def create():
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
       external_reference=strip_input(form.external_reference.data),
+      external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),
       creation_date=current_date(),
       scheduled_start_date=form.scheduled_start_date.data,
       scheduled_end_date=form.scheduled_end_date.data,
       service_status=ServiceStatus(form.service_status.data),
-      status=MaintenanceStatus.SCHEDULED
     ))
   except Exception as error:
     return abort(error.code, dict(
       message=lang.get("maintenance_creation_failed"),
       reasons=dict(maintenance=[error.message])
     ))
-
-  try:
-    _ = create_resource(MaintenanceEvent, dict(
-      creation_date=current_date(rounded=False),
-      type=EventType.CREATE,
-      content=json.dumps(maintenance.serialize, default=json_defaults),
-      maintenance_id=maintenance.id,
-    ))
-  except Exception as error:
-    current_app.logger.error(f"Unable to create event during Maintenance creation : {error}")
-
-  try:
-    notif_title = f"[{lang.get('maintenance_status_' + maintenance.status.value)}] {maintenance.name} - {lang.get('maintenance_new_notification_title')}"
-    if maintenance.external_reference:
-      notif_title = f"[{maintenance.external_reference}]{notif_title}"
-
-    send_notification(
-      notif_title,
-      render_template("notification/maintenance.html",
-        maintenance=maintenance,
-      )
-    )
-  except Exception as error:
-    current_app.logger.error(f"Unable to send notification during Maintenance creation : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
@@ -133,7 +108,7 @@ def show(resource_id):
   update_form.scope.process(formdata=None)
   update_form.service.process(formdata=None)
 
-  return render_template("maintenance/single.html",
+  return custom_render_template("maintenance/single.html",
     maintenance=maintenance,
     update_form=update_form,
     comment_form=MaintenanceCommentForm(),
@@ -162,6 +137,7 @@ def update(resource_id):
   new_data = dict(
     name=strip_input(form.name.data),
     external_reference=strip_input(form.external_reference.data),
+    external_link=strip_input(form.external_link.data),
     description=strip_input(form.description.data),
     status=new_maintenance_status,
     scheduled_start_date=form.scheduled_start_date.data,
@@ -184,36 +160,12 @@ def update(resource_id):
     new_data["end_date"] = None
 
   try:
-    maintenance, changed = update_resource(Maintenance, resource_id, new_data)
+    maintenance, _ = update_resource(Maintenance, resource_id, new_data)
   except Exception as error:
     return abort(error.code, dict(
       message=lang.get("maintenance_update_failed"),
       reasons=dict(maintenance=[error.message])
     ))
-
-  if len(changed) > 0:
-    try:
-      _ = create_resource(MaintenanceEvent, dict(
-        creation_date=current_date(rounded=False),
-        type=EventType.UPDATE,
-        content=json.dumps(changed, default=json_defaults),
-        maintenance_id=maintenance.id,
-      ))
-    except Exception as error:
-      current_app.logger.error(f"Unable to create event during Maintenance update : {error}")
-
-    try:
-      notif_title = f"[{lang.get('maintenance_status_' + maintenance.status.value)}] {maintenance.name} - {lang.get('maintenance_update_notification_title')}"
-      if maintenance.external_reference:
-        notif_title = f"[{maintenance.external_reference}]{notif_title}"
-      send_notification(
-        notif_title,
-        render_template("notification/maintenance.html",
-          maintenance=maintenance,
-        )
-      )
-    except Exception as error:
-      current_app.logger.error(f"Unable to send notification during Maintenance update : {error}")
 
   return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
 
@@ -272,3 +224,24 @@ def delete(resource_id):
     ))
 
   return redirect(url_for('maintenance.list'), 302)
+
+##############
+## CALENDAR ##
+##############
+
+@bp.route("/<int:resource_id>/calendar", methods=("GET",))
+def calendar(resource_id):
+  try:
+    maintenance = get_resource(Maintenance, resource_id)
+  except Exception as error:
+    return abort(error.code, dict(
+      message=lang.get("maintenance_show_failed"),
+      reasons=dict(maintenance=[error.message])
+    ))
+
+  response = Response(
+    response=CalendarEvent.from_maintenance(maintenance).render(),
+    content_type="text/calendar",
+  )
+  response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{maintenance.name}.ics"
+  return response, 200

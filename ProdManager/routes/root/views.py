@@ -1,17 +1,18 @@
 
-from flask import Blueprint, render_template
+from flask import Blueprint
 
 from ProdManager.models import (
   Incident, Maintenance, Monitor
 )
 from ProdManager.helpers.resource import list_resources
+from ProdManager.helpers.template import custom_render_template
 
 bp = Blueprint("root", __name__, url_prefix="/")
 
 
 @bp.route('/')
 def index():
-  return render_template("index.html",
+  return custom_render_template("index.html",
     ongoing_incidents=list_resources(
       Incident,
       filters=Incident.ongoing_filter(),
@@ -45,4 +46,4 @@ def index():
 
 @bp.route('/about')
 def about():
-  return render_template("about.html"), 200
+  return custom_render_template("about.html"), 200

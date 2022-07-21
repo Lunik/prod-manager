@@ -3,6 +3,8 @@
 # Dashboard
 dashboard_title: Tableau de bord
 
+add_to_calendar: Ajouter au calendrier
+
 
 # Event
 resource_event_create: &resource_event_create création
@@ -70,12 +72,12 @@ incident_severity_low: BASE
 incident_severity_minor: MINEUR
 
 incident_status_active: ACTIF
-incident_status_investigating: INVESTIGATION EN COURS
+incident_status_investigating: INVESTIGATION
 incident_status_stable: STABLE
 incident_status_resolved: RESOLU
 
 incident_creation_failed: ["Création de l'", *incident_name, " échouée"]
-incident_new_notification_title: ["Nouvel ", *incident_name]
+incident_create_notification_title: ["Nouvel ", *incident_name]
 incident_show_failed: ["Affichage de l'", *incident_name, " échoué"]
 incident_update_failed: ["Mise à jour de l'", *incident_name, " échouée"]
 incident_update_notification_title: ["Mise à jour de l'", *incident_name]
@@ -110,7 +112,7 @@ maintenance_status_succeed: REUSSIE
 maintenance_status_failed: ECHOUEE
 
 maintenance_creation_failed: ["Création de la ", *maintenance_name, " échouée"]
-maintenance_new_notification_title: ["Nouvel ", *maintenance_name]
+maintenance_create_notification_title: ["Nouvelle ", *maintenance_name]
 maintenance_show_failed: ["Affichage de la ", *maintenance_name, " échoué"]
 maintenance_update_failed: ["Mise à jour de la ", *maintenance_name, " échouée"]
 maintenance_update_notification_title: ["Mise à jour de la ", *maintenance_name]
@@ -172,6 +174,7 @@ auth_form_secret: secret
 
 # Footer
 footer_powered: Propulsé par
+footer_powered_icon: UIcons par
 
 
 # Resource

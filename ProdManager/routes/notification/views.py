@@ -1,11 +1,12 @@
 
-from flask import Blueprint, render_template, abort, redirect, url_for
+from flask import Blueprint, abort, redirect, url_for
 from sqlalchemy.exc import NoResultFound
 
 from ProdManager import lang
 
 from ProdManager.models import Subscriber
 
+from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.resource import create_resource, list_resources, delete_resource
 from ProdManager.helpers.response import ConflictError
 
@@ -16,7 +17,7 @@ bp = Blueprint("notification", __name__, url_prefix="/")
 
 @bp.route('', methods=("GET",))
 def index():
-  return render_template("notification/page.html",
+  return custom_render_template("notification/page.html",
     subscribe_form=SubscribeForm(),
     unsubscribe_form=UnSubscribeForm(),
   ), 200

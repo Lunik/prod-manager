@@ -8,7 +8,15 @@
   </span>
 </div>
 {% if incident.external_reference %}
-  <div id="external_reference" class="badge external_reference">{{ incident.external_reference }}</div>
+  <div id="external_reference" class="badge external_reference">
+    {% if incident.external_link %}
+      <a href="{{ incident.external_link }}" class="external_link" target="_blank" rel="noopener">
+        {{ incident.external_reference }}
+      </a>
+    {% else %}
+      {{ incident.external_reference }}
+    {% endif %}
+  </div>
 {% endif %}
 <div id="severity" class="badge incident {{ incident.severity.value }}">{{ _("incident_severity_" + incident.severity.value) }}</div>
 <div id="status" class="badge incident {{ incident.status.value }}">{{ _("incident_status_" + incident.status.value) }}</div>
@@ -20,14 +28,14 @@
 </div>
 {% endif %}
 
-{% set dots = [("start_impact_date", _("incident_start_impact"), incident.start_impact_date, "⚠️")] %}
+{% set dots = [("start_impact_date", _("incident_start_impact"), incident.start_impact_date, "loud-warning")] %}
 {% if incident.investigation_date %}
-  {% set __ = dots.append(("investigation_date", _("incident_investigation"), incident.investigation_date, "🔍")) %}
+  {% set __ = dots.append(("investigation_date", _("incident_investigation"), incident.investigation_date, "investigating")) %}
 {% endif %}
 {% if incident.stable_date %}
-  {% set __ = dots.append(("stable_date", _("incident_stable"), incident.stable_date, "☑️")) %}
+  {% set __ = dots.append(("stable_date", _("incident_stable"), incident.stable_date, "ok")) %}
 {% endif %}
 {% if incident.resolve_date %}
-  {% set __ = dots.append(("resolve_date", _("incident_resolved"), incident.resolve_date, "✅")) %}
+  {% set __ = dots.append(("resolve_date", _("incident_resolved"), incident.resolve_date, "check")) %}
 {% endif %}
 {% include "fragments/timeline/horizontal.html" %}

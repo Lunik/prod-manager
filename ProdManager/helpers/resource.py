@@ -1,19 +1,26 @@
 import functools
+import logging
+from sqlite3 import IntegrityError as sqlite3IntegrityError
 
 from flask import current_app, request
 from sqlalchemy.exc import IntegrityError
 
-from sqlite3 import IntegrityError as sqlite3IntegrityError
 from psycopg2.errors import (
   UniqueViolation as pgsqlUniqueViolation,
   NotNullViolation as pgsqlNotNullViolation,
 )
 
 from ProdManager import db
-from ProdManager.helpers.response import (
+from ProdManager.models import EventType
+import ProdManager.helpers.notification as NotificationHelper
+import ProdManager.helpers.event as EventHelper
+from .response import (
   NotFoundError, ServerError, ConflictError,
   UndeletableRessourceError, DependencyError,
 )
+
+logger = logging.getLogger('gunicorn.error')
+
 
 def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True):
   if orders is None:
@@ -89,6 +96,12 @@ def update_resource(resource_class, ressource_id, attributs):
     current_app.logger.error(error)
     raise error
 
+  if len(changed.keys()) > 0:
+    NotificationHelper.notify(NotificationHelper.NotificationType.UPDATE, resource_class, resource)
+    EventHelper.create_event(EventType.UPDATE, resource_class, resource, changed)
+
+  logger.info(f"Updated {resource}")
+
   return resource, changed
 
 
@@ -117,6 +130,8 @@ def delete_resource(resource_class, ressource_id):
     current_app.logger.error(error)
     raise ServerError(error) from error
 
+  logger.info(f"Deleted {resource}")
+
 
 def create_resource(resource_class, attributs):
   resource = resource_class(**attributs)
@@ -137,6 +152,11 @@ def create_resource(resource_class, attributs):
   except Exception as error:
     current_app.logger.error(error)
     raise ServerError(error) from error
+
+  NotificationHelper.notify(NotificationHelper.NotificationType.CREATE, resource_class, resource)
+  EventHelper.create_event(EventType.CREATE, resource_class, resource)
+
+  logger.info(f"Created {resource}")
 
   return resource
 

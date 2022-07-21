@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 0.12.0
+
+### Added
+
+- feat(template): Add template minifier/beautifier to improve performances (#70) (!32)
+- feat(UI): Improve application design by adding some icons (#68) (!31)
+- feat(helpers.resource): Improve logs on resource manipulation (#69)
+- ci(GitLab): Add dependencies Licence scanning (#78) (!37)
+- feat(\*.Maintenance): Maintenance now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
+- feat(\*.Incident): Incident now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
+- feat(Maintenance): Allow user to download an Icalendar file `ics` for maintenances (#81) (!39)
+
+### Fixed
+
+- fix(template.auth): Use the default form fragment template for Login form (#72)
+- fix(template.notification): Add `icon` macro to the notification base template (#71)
+- fix(template.notification): Add required spacing between toggle display buttons (#73) (!34)
+- fix(\*.Maintenance): Configure default status (`SCHEDULED`) for Maintenance (#76) (!36)
+
+### Changed
+
+- change(Notification): Refacto of send notification system (!30)
+- change(Event): Refacto resourve event system (!33)
+- change(integration.Datadog): Change the logger format (#74) (!35)
+
+
 ## 0.11.1
 
 ### Fixed
@@ -7,39 +33,39 @@
 - fix(template.\*): Correct pages titles (#63)
 - fix(translation.Incident): Correct missing translation in subject of notification mails (#64)
 - fix(translation.Maintenance): Correct missing translation in subject of notification mails (#64)
-- fix(Flask): Fix HTTPS behaviour when behind a reverse proxy (#67)
+- fix(Flask): Fix HTTPS behaviour when behind a reverse proxy (#67) (!29)
 - fix(helpers.resources): Fix not handled PostgreSQL errors (#66)
 
 ### Changed
 
-- change(Flask): `PREFERRED_URL_SCHEME` is no longer a configuration option (#67)
+- change(Flask): `PREFERRED_URL_SCHEME` is no longer a configuration option (#67) (!29)
 
 
 ## 0.11.0
 
 ### Added
 
-- feat(translation): Add translation support (#45)
-- feat(translation): Add `en` and `fr` to the supported translation languages (#45)
+- feat(translation): Add translation support (#45) (!17)
+- feat(translation): Add `en` and `fr` to the supported translation languages (#45) (!17)
 
 ### Fixed
 
 - ci(coverag): Fix coverage report in GitLab-CI
 - fix(template.\*): Correct duplicated spaces (#59)
-- fix(form.Monitor): Fix selected `Scope`/`Service` in update form (#60, #61)
-- fix(form.Incident): Fix selected `Scope`/`Service` in update form (#60, #61)
-- fix(form.Maintenance): Fix selected `Scope`/`Service` in update form (#60, #61)
-- fix(CVE): Resolve vulnerability: CVE-2022-2097 in libcrypto1.1-1.1.1o-r0 and libssl1.1-1.1.1o-r0 (#62)
+- fix(form.Monitor): Fix selected `Scope`/`Service` in update form (#60, #61) (!24, !25)
+- fix(form.Incident): Fix selected `Scope`/`Service` in update form (#60, #61) (!24, !25)
+- fix(form.Maintenance): Fix selected `Scope`/`Service` in update form (#60, #61) (!24, !25)
+- fix(CVE): Resolve vulnerability: CVE-2022-2097 in libcrypto1.1-1.1.1o-r0 and libssl1.1-1.1.1o-r0 (#62) (!28)
 
 
 ## 0.10.0
 
 ### Added
 
-- feat(error): Improve human readability on error (#46)
+- feat(error): Improve human readability on error (#46) (!20)
 - feat(docker): Optimize container image
-- feat(TU): Add unit tests
-- feat(template.index): Display monitor resume on main dashboard page (#56)
+- feat(TU): Add unit tests (!21)
+- feat(template.index): Display monitor resume on main dashboard page (#56) (!22)
 
 ### Fixed
 
@@ -49,24 +75,29 @@
 
 ### Changed
 
-- changed(ci): Remove SonarQube analysis
+- changed(ci): Remove SonarQube analysis (!21)
 
 
 ## 0.9.0
 
 ### Added
 
-- feat(\*.Notification): Add notification support for user to stay updated (#44)
-- chore(Documentation): Add application configuration documentation
-- chore(Demo): Add demo data (#21)
+- feat(\*.Notification): Add notification support for user to stay updated (#44) (!16)
+- chore(Documentation): Add application configuration documentation (!16)
+- chore(Demo): Add demo data (#21) (!14)
 
 ### Changed
 
-- change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md)
-- change(model.\*): Change models imports in packages
-- change(template.Home): Add new section containing only `SCHEDULED` Maintenances (#50)
-- change(template.Service): Add new section containing only `SCHEDULED` Maintenances (#50)
-- change(template.Scope): Add new section containing only `SCHEDULED` Maintenances (#50)
+- change(template.\*): Links are now generated with absolute URLs. Find more about [the advanced configuration](./docs/config/advanced.md) (!16)
+- change(model.\*): Change models imports in packages (!14)
+- change(template.Home): Add new section containing only `SCHEDULED` Maintenances (#50) (!19)
+- change(template.Service): Add new section containing only `SCHEDULED` Maintenances (#50) (!19)
+- change(template.Scope): Add new section containing only `SCHEDULED` Maintenances (#50) (!19)
+
+
+### Fixed
+
+- fix(mail): Correct connection to the mail server (#49) (!18)
 
 
 ## 0.8.0
@@ -74,24 +105,24 @@
 ### Added
 
 - feat(template.\*): Add [OpenGraph](https://ogp.me) metadata
-- feat(view.Incident): Allow to filter by `status`, `severity`, `scope` and `service` (#13)
-- feat(view.Maintenance): Allow to filter by `status`, `scope` and `service` (#13)
-- feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13)
-- feat(template.Scope): Make the monitors badges clikable to see related monitors (#10)
-- feat(template.Service): Make the monitors badges clikable to see related monitors (#10)
-- feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39)
+- feat(view.Incident): Allow to filter by `status`, `severity`, `scope` and `service` (#13) (!11)
+- feat(view.Maintenance): Allow to filter by `status`, `scope` and `service` (#13) (!11)
+- feat(view.Monitor): Allow to filter by `status`, `scope` and `service` (#13) (!11)
+- feat(template.Scope): Make the monitors badges clikable to see related monitors (#10) (!11)
+- feat(template.Service): Make the monitors badges clikable to see related monitors (#10) (!11)
+- feat(style.\*): Allow user to specify theire custom style sheet with `CUSTOM_CSS_SHEET` environment variable (#39) (!12)
   - The Style sheet should be placed inside the `ProdManager/static` folder
-- feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40)
-- feat(\*.MaintenanceEvent): Allow to create internal `MaintenanceEvent` only visible when logged in (#40)
+- feat(\*.IncidentEvent): Allow to create internal `IncidentEvent` only visible when logged in (#40) (!13)
+- feat(\*.MaintenanceEvent): Allow to create internal `MaintenanceEvent` only visible when logged in (#40) (!13)
 - feat(template.About): Write the about page (#42)
 - feat(template.Base): Add app logo and favicon
 
 ### Fixed
 
 - fix(template.Service): Fix Service list monitor badge links that where incorrect (#41)
-- fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43)
-- fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43)
-- fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43)
+- fix(view.Root): Fix the order of `Maintenances`/`Incidents` (#43) (!15)
+- fix(view.Scope): Fix the order of `Maintenances`/`Incidents` (#43) (!15)
+- fix(view.Service): Fix the order of `Maintenances`/`Incidents` (#43) (!15)
 
 
 ## 0.7.1
@@ -114,14 +145,14 @@
 ### Added
 
 - feat(deploy.Docker): Add `PM_STANDALONE` environment var to initiate/upgrade database on simpler deployment
-- chore(Git): Community resources and documentation (#20)
-- ci(GitLab): Add container scanning
+- chore(Git): Community resources and documentation (#20) (!8)
+- ci(GitLab): Add container scanning (!9)
 - ci(GitLab): Abort concurent jobs on the same ref (#35)
 - ci(GitLab): Add database upgrade validation tests
-- feat(deploy.Kubernetes): Add `PodAntiAffinity` and `PodAffinity` on proxy/app deployment (#29)
-- feat(deploy.Kubernetes): Add `RollingUpdate` strategy on proxy/app deployment
-- feat(deploy.Kubernetes): Add `securityContext` strategy on app deployment
-- feat(deploy.Kubernetes): Add `probes` strategy on proxy/app deployment
+- feat(deploy.Kubernetes): Add `PodAntiAffinity` and `PodAffinity` on proxy/app deployment (#29) (!10)
+- feat(deploy.Kubernetes): Add `RollingUpdate` strategy on proxy/app deployment (!10)
+- feat(deploy.Kubernetes): Add `securityContext` strategy on app deployment (!10)
+- feat(deploy.Kubernetes): Add `probes` strategy on proxy/app deployment (!10)
 - feat(style.timeline): Change color on Maintenace/Incident `Comment` (#22)
 - feat(style.timeline): Allow to show/hidden technical events (#32)
 
@@ -129,7 +160,7 @@
 
 - fix(database.sqlite): Don't update Enum type update when running `SQLite` engine
 - fix(python): Set `/app` as `PYTHONPATH` (#36)
-- fix(deploy.Kubernetes): Fix database persistence volume
+- fix(deploy.Kubernetes): Fix database persistence volume (!10)
 
 
 ## 0.6.1
@@ -150,31 +181,31 @@
 
 ### Added
 
-- ci(GitLab): Add GitLab CI pipelines
-- feat(forms.Incident): Allow to update `*_date` fields (#4)
-- feat(forms.Maintenance): Allow to update `*_date` fields (#12)
-- feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15)
-- feat(deploy.Kubernetes): Provide default PersistentVolumeClaim manifest for database storage (#16)
+- ci(GitLab): Add GitLab CI pipelines (!1)
+- feat(forms.Incident): Allow to update `*_date` fields (#4) (!4)
+- feat(forms.Maintenance): Allow to update `*_date` fields (#12) (!4)
+- feat(deploy.Kubernetes): Add HorizontalPodAutoScaller default manifests (#15) (!7)
+- feat(deploy.Kubernetes): Provide default PersistentVolumeClaim manifest for database storage (#16) (!7)
 
 ### Changed
 
-- change(deploy.Kubernetes): Use un-namespaced DNS names for service networking (#17)
-- change(deploy.\*): Update image in exaples to match new registry (#19)
-- change(deploy.\*): Update default resources requests and limits based on real world performances (#14)
+- change(deploy.Kubernetes): Use un-namespaced DNS names for service networking (#17) (!7)
+- change(deploy.\*): Update image in exaples to match new registry (#19) (!7)
+- change(deploy.\*): Update default resources requests and limits based on real world performances (#14) (!7)
 
 ### Fixed
 
-- fix(forms.Service): Remove deprecated 'status' attribute from update form (#3)
-- fix(forms.Incident): Don't overwrite `start_impact_date` on Incident creation (#5)
-- fix(forms.\*): Order Scope/Service select dropdown by ascending name
-- fix(forms.\*): Strip text inputs in forms (#7)
-- fix(style.\*): Reduce the gap between lines in descriptions (#7)
+- fix(forms.Service): Remove deprecated 'status' attribute from update form (#3) (!4)
+- fix(forms.Incident): Don't overwrite `start_impact_date` on Incident creation (#5) (!4)
+- fix(forms.\*): Order Scope/Service select dropdown by ascending name (!4)
+- fix(forms.\*): Strip text inputs in forms (#7) (!5)
+- fix(style.\*): Reduce the gap between lines in descriptions (#7) (!5)
 - fix(template.timeline): Remplace `<i>` tags by `<em>` (#6)
-- fix(\*.Maintenance): Fix maintenance display order (#8)
-- fix(\*.Incident): Fix incident display order (#8)
-- fix(\*.Service): Fix service display order (#9)
-- fix(\*.Scope): Fix scope display order (#9)
-- fix(\*.Monitor): Fix monitor display order (#9)
+- fix(\*.Maintenance): Fix maintenance display order (#8) (!6)
+- fix(\*.Incident): Fix incident display order (#8) (!6)
+- fix(\*.Service): Fix service display order (#9) (!6)
+- fix(\*.Scope): Fix scope display order (#9) (!6)
+- fix(\*.Monitor): Fix monitor display order (#9) (!6)
 - ci(GitLab): Fix builded image version on tag build
 
 
@@ -263,9 +294,9 @@
 
 ### Added
 
-- feat(template): add navbar menu (!3)
-- style(app): Base application style (!4)
-- feat(template): Improve resources list and resume display (!5)
+- feat(template): add navbar menu
+- style(app): Base application style
+- feat(template): Improve resources list and resume display
 
 ### Removed
 

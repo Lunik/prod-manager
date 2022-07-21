@@ -1,3 +1,4 @@
+{% from "icons/macros.html" import icon %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,35 +33,36 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    {% include "icons/all.html" %}
     <div id="app">
       <div id="header">
         <nav id="menu">
           <ul>
             <li id="dashboard" class="{{ 'active' if is_dashboard }}">
-              <a id="dashboard" href="{{ custom_url_for('root.index')}}">{{ _("dashboard_title") }}</a>
+              <a id="dashboard" href="{{ custom_url_for('root.index')}}">{{ icon('dashboard') }}{{ _("dashboard_title") }}</a>
             </li>
             <li id="scope" class="{{ 'active' if resource_type == 'scope' }}">
-              <a id="scope" href="{{ custom_url_for('scope.list')}}">{{ _("scope_title", 2) }}</a>
+              <a id="scope" href="{{ custom_url_for('scope.list')}}">{{ icon('scope') }}{{ _("scope_title", 2) }}</a>
             </li>
             <li id="service" class="{{ 'active' if resource_type == 'service' }}">
-              <a id="service" href="{{ custom_url_for('service.list')}}">{{ _("service_title", 2) }}</a>
+              <a id="service" href="{{ custom_url_for('service.list')}}">{{ icon('service') }}{{ _("service_title", 2) }}</a>
             </li>
             <li id="monitor" class="{{ 'active' if resource_type == 'monitor' }}">
-              <a id="monitor" href="{{ custom_url_for('monitor.list')}}">{{ _("monitor_title", 2) }}</a>
+              <a id="monitor" href="{{ custom_url_for('monitor.list')}}">{{ icon('monitor') }}{{ _("monitor_title", 2) }}</a>
             </li>
             <li id="incident" class="{{ 'active' if resource_type == 'incident' }}">
-              <a id="incident" href="{{ custom_url_for('incident.list')}}">{{ _("incident_title", 2) }}</a>
+              <a id="incident" href="{{ custom_url_for('incident.list')}}">{{ icon('incident') }}{{ _("incident_title", 2) }}</a>
             </li>
             <li id="maintenance" class="{{ 'active' if resource_type == 'maintenance' }}">
-              <a id="maintenance" href="{{ custom_url_for('maintenance.list')}}">{{ _("maintenance_title", 2) }}</a>
+              <a id="maintenance" href="{{ custom_url_for('maintenance.list')}}">{{ icon('maintenance') }}{{ _("maintenance_title", 2) }}</a>
             </li>
               <li id="subscribe" class="{{ 'active' if is_subscribe }}">
                 {% if config["MAIL_ENABLED"] %}
-                <a id="subscribe" href="{{ custom_url_for('notification.index')}}">{{ _("notification_subscribe_title") }}</a>
+                <a id="subscribe" href="{{ custom_url_for('notification.index')}}">{{ icon('notification') }}{{ _("notification_subscribe_title") }}</a>
                 {% endif %}
               </li>
             <li id="about" class="{{ 'active' if is_about }}">
-              <a id="about" href="{{ custom_url_for('root.about')}}">{{ _("about_title") }}</a>
+              <a id="about" href="{{ custom_url_for('root.about')}}">{{ icon('about') }}{{ _("about_title") }}</a>
             </li>
             {% if g.logged %}
             <li id="logout" class="{{ 'active' if is_auth }}">
@@ -87,8 +89,14 @@
       </div>
       <div id="footer">
         {% block footer %}{% endblock %}
-        {{ _("footer_powered") }}
-        <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
+        <span class="powered" id="prodmanager">
+          {{ _("footer_powered") }}
+          <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
+        </span>
+        <span class="powered" id="flaticon">
+          {{ _("footer_powered_icon") }}
+          <a href="https://www.flaticon.com/uicons">Flaticon</a>
+        </span>
         <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
       </div>
     </div>

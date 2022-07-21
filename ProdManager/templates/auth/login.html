@@ -5,11 +5,9 @@
 
 {% block content %}
 <h1 id="title">{{ _("auth_login_title") }}</h1>
-<div id="form">
-  <form id="login" method="post">
-    {{ form.csrf_token }}
-    {{ form.secret.label }} : {{ form.secret }}
-    <input type="submit" value="{{ _('auth_login_submit').capitalize() }}" />
-  </form>
+<div id="forms">
+  {% with form_title=_("auth_login_title"), form_id="login", form_method="post", form_action="#", form_submit_value=_('auth_login_submit').capitalize(), form_hide=False, form=form %}
+    {% include "fragments/form.html" %}
+  {% endwith %}
 </div>
 {% endblock %}

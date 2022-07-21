@@ -14,7 +14,7 @@ body {
 div#app {
   width: 70%;
 
-  min-width: 800px;
+  min-width: 1000px;
 
   margin: 25px auto;
 
@@ -63,6 +63,7 @@ nav#menu li a {
   text-decoration: none;
 
   color: white;
+  fill: white;
 }
 
 /******
@@ -79,6 +80,18 @@ div#header {
 
 div#content {
   padding: 10px;
+}
+
+div#icon-library {
+  display: none;
+}
+
+.icon {
+  width: 13px;
+  height: 13px;
+
+  margin: -3px 3px auto auto;
+  vertical-align: middle;
 }
 
 .badge {
@@ -99,7 +112,7 @@ div#content {
   text-decoration: none;
 }
 
-.badge.external_reference { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge.external_reference, .badge.external_link, .badge.calendar { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
 
 .badge.incident#severity.critical { background-color: var(--badge-purple-color); color: var(--badge-purple-text-color); }
 .badge.incident#severity.high     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
@@ -121,12 +134,12 @@ div#content {
 .badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
 .badge.maintenance#service_status.down, .badge.service#status.down         { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
 
-.badge.monitor#status.ok      { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
-.badge.monitor#status.warning { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
-.badge.monitor#status.alert   { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
+.badge.monitor#status.ok, .badge.monitor#status.ok .icon           { background-color: var(--badge-green-color); color: var(--badge-green-text-color); fill: var(--badge-green-text-color); }
+.badge.monitor#status.warning, .badge.monitor#status.warning .icon { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); fill: var(--badge-orange-text-color); }
+.badge.monitor#status.alert, .badge.monitor#status.alert .icon     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); fill: var(--badge-red-text-color); }
 
-.badge.monitor#external_link   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
-.badge.monitor#external_link a { color: var(--badge-blue-text-color); }
+.badge a       { color: var(--badge-blue-text-color) !important; }
+.badge a:hover { color: var(--badge-blue-text-color) !important; }
 
 .badge.monitor .count { font-weight: bold; }
 
@@ -299,7 +312,7 @@ div#extra_content {
 div#extra_content #monitors, div#content #monitors {
   display: inline-block;
 
-  margin: 0;
+  margin: auto 10px auto auto;
 }
 
 /**********
@@ -341,6 +354,13 @@ div.timeline-horizontal .dot .line .dot-icon {
   margin: auto 5px;
 
   font-style: normal;
+}
+
+div.timeline-horizontal .dot .line .dot-icon .icon {
+  width: 25px;
+  height: 25px;
+
+  margin: -3px 3px auto 3px;
 }
 
 div.timeline-horizontal .dot .line .padding-line, div.timeline-horizontal .dot .line .connect-line {
@@ -421,6 +441,15 @@ div#footer a {
 
 div#footer a:hover {
   color: red;
+}
+
+div#footer span.powered {
+  display: inline-block;
+}
+
+div#footer span.powered#flaticon {
+  font-size: 12px;
+  float: right;
 }
 
 /******
