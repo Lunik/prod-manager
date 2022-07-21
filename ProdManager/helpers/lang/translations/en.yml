@@ -3,6 +3,8 @@
 # Dashboard
 dashboard_title: Dashboard
 
+add_to_calendar: Add to calendar
+
 
 # Event
 resource_event_create: &resource_event_create creation

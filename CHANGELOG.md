@@ -10,6 +10,7 @@
 - ci(GitLab): Add dependencies Licence scanning (#78) (!37)
 - feat(\*.Maintenance): Maintenance now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
 - feat(\*.Incident): Incident now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
+- feat(Maintenance): Allow user to download an Icalendar file `ics` for maintenances (#81) (!39)
 
 ### Fixed
 
