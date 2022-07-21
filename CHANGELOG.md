@@ -7,6 +7,7 @@
 - feat(template): Add template minifier/beautifier to improve performances (#70) (!32)
 - feat(UI): Improve application design by adding some icons (#68) (!31)
 - feat(helpers.resource): Improve logs on resource manipulation (#69)
+- ci(GitLab): Add dependencies Licence scanning (#78) (!37)
 
 ### Fixed
 
