@@ -1,8 +1,11 @@
 from datetime import timedelta
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, DateTimeLocalField, BooleanField
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms import (
+  StringField, TextAreaField, SelectField,
+  DateTimeLocalField, BooleanField, URLField,
+)
+from wtforms.validators import DataRequired, Length, Optional, URL
 
 from ProdManager.helpers.date import current_date
 
@@ -37,6 +40,11 @@ class MaintenanceCreateForm(FlaskForm):
     name='external_reference',
     label=lang.get("table_column_external_reference").capitalize(),
     validators=[Optional()]
+  )
+  external_link = URLField(
+    name='external_link',
+    label=lang.get("table_column_external_link").capitalize(),
+    validators=[Optional(), URL()]
   )
   service_status = SelectField(
     name='service_status',

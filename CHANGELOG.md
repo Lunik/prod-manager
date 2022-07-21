@@ -8,6 +8,8 @@
 - feat(UI): Improve application design by adding some icons (#68) (!31)
 - feat(helpers.resource): Improve logs on resource manipulation (#69)
 - ci(GitLab): Add dependencies Licence scanning (#78) (!37)
+- feat(\*.Maintenance): Maintenance now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
+- feat(\*.Incident): Incident now support adding an `external_link` to make the `external_reference` badge cliquable (#80) (!38)
 
 ### Fixed
 

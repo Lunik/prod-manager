@@ -8,7 +8,15 @@
   </span>
 </div>
 {% if incident.external_reference %}
-  <div id="external_reference" class="badge external_reference">{{ incident.external_reference }}</div>
+  <div id="external_reference" class="badge external_reference">
+    {% if incident.external_link %}
+      <a href="{{ incident.external_link }}" class="external_link" target="_blank" rel="noopener">
+        {{ incident.external_reference }}
+      </a>
+    {% else %}
+      {{ incident.external_reference }}
+    {% endif %}
+  </div>
 {% endif %}
 <div id="severity" class="badge incident {{ incident.severity.value }}">{{ _("incident_severity_" + incident.severity.value) }}</div>
 <div id="status" class="badge incident {{ incident.status.value }}">{{ _("incident_status_" + incident.status.value) }}</div>

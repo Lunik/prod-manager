@@ -138,8 +138,9 @@ div#icon-library {
 .badge.monitor#status.warning, .badge.monitor#status.warning .icon { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); fill: var(--badge-orange-text-color); }
 .badge.monitor#status.alert, .badge.monitor#status.alert .icon     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); fill: var(--badge-red-text-color); }
 
-.badge.monitor#external_link   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
-.badge.monitor#external_link a { color: var(--badge-blue-text-color); }
+.badge#external_link   { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge#external_link a, .badge#external_reference a { color: var(--badge-blue-text-color); }
+.badge#external_link a:hover, .badge#external_reference a:hover { color: var(--badge-blue-text-color); }
 
 .badge.monitor .count { font-weight: bold; }
 

@@ -28,6 +28,7 @@ class Maintenance(db.Model):
   scheduled_end_date = Column(DateTime(), nullable=False)
   start_date = Column(DateTime(), nullable=True)
   end_date = Column(DateTime(), nullable=True)
+  external_link = Column(String(), nullable=True)
   events = relationship(
     'MaintenanceEvent',
     backref='maintenance',
