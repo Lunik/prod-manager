@@ -19,7 +19,7 @@ class Maintenance(db.Model):
   name = Column(String(), nullable=False)
   description = Column(String(), nullable=True)
   external_reference = Column(String(), nullable=True)
-  status = Column(Enum(MaintenanceStatus), nullable=False)
+  status = Column(Enum(MaintenanceStatus), nullable=False, default=MaintenanceStatus.SCHEDULED)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
   service_id = Column(Integer, ForeignKey('service.id'), nullable=False)
   service_status = Column(Enum(ServiceStatus), nullable=False)

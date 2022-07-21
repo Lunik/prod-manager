@@ -74,7 +74,6 @@ def create():
       scheduled_start_date=form.scheduled_start_date.data,
       scheduled_end_date=form.scheduled_end_date.data,
       service_status=ServiceStatus(form.service_status.data),
-      status=MaintenanceStatus.SCHEDULED
     ))
   except Exception as error:
     return abort(error.code, dict(
