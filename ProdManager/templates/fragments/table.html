@@ -13,7 +13,7 @@
     {% for type, key in resource_attributes %}
       {% set attr = resource[key] %}
       <td class="{{ type }}">
-        {% if attr %}
+        {% if attr != None and attr != "" %}
           {% if type == "enum" %}
             <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">
             {% if resource_type == "monitor" %}
