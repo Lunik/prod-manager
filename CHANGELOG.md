@@ -5,6 +5,7 @@
 ### Fixed
 
 - fix(Maintenance.calendar): Ical summary now contains the `external_reference` if defined (#82)
+- fix(template.table): Don't display column value if content is `None` are empty (#84)
 
 
 ## 0.12.0

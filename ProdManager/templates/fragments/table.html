@@ -13,40 +13,42 @@
     {% for type, key in resource_attributes %}
       {% set attr = resource[key] %}
       <td class="{{ type }}">
-        {% if type == "enum" %}
-          <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">
-          {% if resource_type == "monitor" %}
-            {{ icon(attr.value) }}
-          {% endif %}
-          {{ _(resource_type + "_" + key + "_" + attr.value) }}
-          </div>
-        {% elif type == "count" %}
-          {{ attr.count() }}
-        {% elif type == "obj" %}
-          {{ attr.name }}
-        {% elif type == "template" %}
-          {% if resource_type == "scope" %}
-            {% with scope = resource %}
+        {% if attr %}
+          {% if type == "enum" %}
+            <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">
+            {% if resource_type == "monitor" %}
+              {{ icon(attr.value) }}
+            {% endif %}
+            {{ _(resource_type + "_" + key + "_" + attr.value) }}
+            </div>
+          {% elif type == "count" %}
+            {{ attr.count() }}
+          {% elif type == "obj" %}
+            {{ attr.name }}
+          {% elif type == "template" %}
+            {% if resource_type == "scope" %}
+              {% with scope = resource %}
+                {% include key %}
+              {% endwith %}
+            {% elif resource_type == "service" %}
+              {% with service = resource %}
+                {% include key %}
+              {% endwith %}
+            {% else %}
               {% include key %}
-            {% endwith %}
-          {% elif resource_type == "service" %}
-            {% with service = resource %}
-              {% include key %}
-            {% endwith %}
+            {% endif %}
+          {% elif type == "date" %}
+            {% if attr %}
+              {{ attr | format_timeline_date }}
+            {% else %}
+              {{ attr }}
+            {% endif %}
           {% else %}
-            {% include key %}
-          {% endif %}
-        {% elif type == "date" %}
-          {% if attr %}
-            {{ attr | format_timeline_date }}
-          {% else %}
-            {{ attr }}
-          {% endif %}
-        {% else %}
-          {% if key == "external_reference" and attr != "" %}
-            <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">{{ attr }}</div>
-          {% else %}
-            {{ attr }}
+            {% if key == "external_reference" %}
+              <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">{{ attr }}</div>
+            {% else %}
+              {{ attr }}
+            {% endif %}
           {% endif %}
         {% endif %}
       </td>
