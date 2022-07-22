@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### Fixed
+
+- fix(Maintenance.calendar): Ical summary now contains the `external_reference` if defined (#82)
+- fix(template.table): Don't display column value if content is `None` are empty (#84)
+- fix(template.table): Missing cliquable link on `external_reference` badge if `external_link` is defined (#83)
+
+
 ## 0.12.0
 
 ### Added
