@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.12.1
 
 ### Fixed
 
