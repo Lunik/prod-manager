@@ -45,7 +45,15 @@
             {% endif %}
           {% else %}
             {% if key == "external_reference" %}
-              <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">{{ attr }}</div>
+              <div id="{{ key }}" class="badge {{ resource_type }} {{ key }}">
+                {% if resource.external_link %}
+                  <a href="{{ resource.external_link }}" class="external_link" onclick="event.stopPropagation();" target="_blank" rel="noopener">
+                    {{ attr }}
+                  </a>
+                {% else %}
+                  {{ attr }}
+                {% endif %}
+              </div>
             {% else %}
               {{ attr }}
             {% endif %}
