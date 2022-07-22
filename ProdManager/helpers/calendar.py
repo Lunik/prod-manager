@@ -28,6 +28,10 @@ class CalendarEvent:
 
   @classmethod
   def from_maintenance(cls, maintenance):
+    summary = maintenance.name
+    if maintenance.external_reference:
+      summary = f"[{maintenance.external_reference}] {summary}"
+
     description = f"{maintenance.scope.name}/{maintenance.service.name}"
     if maintenance.description:
       description += f"\n{maintenance.description}"
@@ -35,7 +39,7 @@ class CalendarEvent:
     return cls(
       start_date=maintenance.scheduled_start_date,
       end_date=maintenance.scheduled_end_date,
-      summary=maintenance.name,
+      summary=summary,
       location=custom_url_for("maintenance.show", resource_id=maintenance.id),
       description=description,
       categories="Maintenance",

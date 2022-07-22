@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### Fixed
+
+- fix(Maintenance.calendar): Ical summary now contains the `external_reference` if defined (#82)
+
+
 ## 0.12.0
 
 ### Added
