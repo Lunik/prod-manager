@@ -1,5 +1,5 @@
 
-from flask import Blueprint, abort, redirect, url_for
+from flask import Blueprint, abort, redirect
 from sqlalchemy.exc import NoResultFound
 
 from ProdManager import lang
@@ -9,6 +9,7 @@ from ProdManager.models import Subscriber
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.resource import create_resource, list_resources, delete_resource
 from ProdManager.helpers.response import ConflictError
+from ProdManager.helpers.links import custom_url_for
 
 from .forms import SubscribeForm, UnSubscribeForm
 
@@ -44,7 +45,7 @@ def subscribe():
       reasons=dict(scope=[error.message])
     ))
 
-  return redirect(url_for(
+  return redirect(custom_url_for(
     'notification.index',
     info_message=lang.get("notification_subscription_succeed")
   ), 302)
@@ -82,7 +83,7 @@ def unsubscribe():
         reasons=dict(scope=[error.message])
       ))
 
-  return redirect(url_for(
+  return redirect(custom_url_for(
     'notification.index',
     info_message=lang.get("notification_unsubscription_succeed")
   ), 302)

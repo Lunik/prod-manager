@@ -33,7 +33,7 @@
 {% if g.logged %}
 <div id="forms">
   {% if create_form %} 
-    {% with form_title=_("resource_list_create_" + resource_type), form_id="create-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.create'), form_submit_value=_("resource_list_create_submit").capitalize(), form=create_form %}
+    {% with form_title=_("resource_list_create_" + resource_type), form_id="create-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.create'), form_submit_value=_("resource_list_create_submit").capitalize(), form=create_form %}
       {% include "fragments/form.html" %}
     {% endwith %}
   {% endif %}

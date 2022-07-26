@@ -6,6 +6,14 @@
 
 - feat(view.auth): Allow user to stay logged for 7 days with "remember me button" (#85) (!41)
 - feat(deploy.Kubernetes): Upgrade `HorizontalPodAutoscaler` with `autoscaling/v2` API (#34) (!42)
+- feat(API): Add APIs endpoints (#57) (!40)
+
+### Changed
+
+- change(SQLAlchemy): Limit list query by is now `50` (paginated or not) (!40)
+- change(template.root): Limit Incidents/Maintenances on dashboard page is now `10` (!40)
+- change(template.root): Limit Incidents/Maintenances on Scope/Service page is now `10` (!40)
+
 
 ## 0.12.1
 

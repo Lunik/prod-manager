@@ -1,10 +1,11 @@
-from flask_wtf import FlaskForm
+
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class ServiceCreateForm(FlaskForm):
+class ServiceCreateForm(CustomForm):
   name = StringField(
     name='name',
     label=lang.get("table_column_name").capitalize(),
@@ -19,5 +20,5 @@ class ServiceCreateForm(FlaskForm):
 class ServiceUpdateForm(ServiceCreateForm):
   pass
 
-class ServiceDeleteForm(FlaskForm):
+class ServiceDeleteForm(CustomForm):
   pass

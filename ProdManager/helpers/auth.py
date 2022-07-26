@@ -1,7 +1,9 @@
 from datetime import datetime
 import functools
 
-from flask import session, redirect, url_for, g, abort
+from flask import session, request, redirect, g, abort, current_app
+
+from ProdManager.helpers.links import custom_url_for
 
 def retreiv_auth():
   logged_until = session.get("logged_until", None)
@@ -9,7 +11,12 @@ def retreiv_auth():
   if logged_until and (datetime.now() > datetime.fromtimestamp(logged_until)):
     session.clear()
 
-  g.logged = session.get("logged", None)
+  # API Authentication
+  valid_header_token = (
+    request.headers.get("APPLICATION-SECRET", None) == current_app.config['SECRET_KEY']
+  )
+
+  g.logged = (session.get("logged", None)) or valid_header_token
 
 
 def login_required(view):
@@ -31,7 +38,7 @@ def logout_required(view):
   @functools.wraps(view)
   def wrapped_view(**kwargs):
     if g.logged:
-      return redirect(url_for('root.index'))
+      return redirect(custom_url_for('root.index'))
 
     return view(**kwargs)
 

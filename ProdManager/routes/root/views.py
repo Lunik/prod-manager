@@ -18,28 +18,33 @@ def index():
       filters=Incident.ongoing_filter(),
       orders=Incident.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     past_incidents=list_resources(
       Incident,
       filters=Incident.past_filter(),
       paginate=False,
+      limit=10,
     ),
     scheduled_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.scheduled_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     ongoing_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.ongoing_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     past_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.past_filter(),
       paginate=False,
+      limit=10,
     ),
     monitors_count=Monitor.count_monitors(Monitor.query),
   ), 200

@@ -18,6 +18,19 @@ class Event:
   def __repr__(self):
     return f"<Event '{self.id}'>"
 
+  @property
+  def serialize(self):
+    return dict(
+      creation_date=self.creation_date,
+      content=self.content,
+      internal=self.internal,
+      type=self.type.value,
+    )
+
+  @property
+  def api_serialize(self):
+    return self.serialize
+
   def get_content(self):
     if self.type in [EventType.CREATE, EventType.UPDATE]:
       return json.loads(self.content)

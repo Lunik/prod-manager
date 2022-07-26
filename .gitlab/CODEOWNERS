@@ -4,6 +4,7 @@
 
 ^[Backend]
 *.py @Lunik
+/docs/api/ @Lunik
 
 ^[Frontend]
 /ProdManager/static/ @Lunik

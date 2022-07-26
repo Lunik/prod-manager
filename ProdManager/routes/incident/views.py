@@ -1,5 +1,5 @@
 
-from flask import Blueprint, url_for, redirect, abort
+from flask import Blueprint, redirect, abort
 
 from ProdManager import lang
 
@@ -16,6 +16,7 @@ from ProdManager.helpers.resource import (
 )
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.form import strip_input
+from ProdManager.helpers.links import custom_url_for
 
 from ProdManager.models import (
   Incident, IncidentSeverity, IncidentStatus, Scope,
@@ -41,8 +42,10 @@ def list(filters):
 
   return custom_render_template("incident/list.html",
     incidents=incidents,
+    json=dict(resources=incidents),
     create_form=create_form
   ), 200
+
 
 ############
 ## CREATE ##
@@ -79,7 +82,7 @@ def create():
       reasons=dict(incident=[error.message])
     ))
 
-  return redirect(url_for('incident.show', resource_id=incident.id), 302)
+  return redirect(custom_url_for('incident.show', resource_id=incident.id), 302)
 
 ##########
 ## SHOW ##
@@ -106,6 +109,7 @@ def show(resource_id):
 
   return custom_render_template("incident/single.html",
     incident=incident,
+    json=dict(resources=incident),
     update_form=update_form,
     comment_form=IncidentCommentForm(),
     delete_form=IncidentDeleteForm(obj=incident),
@@ -168,7 +172,7 @@ def update(resource_id):
       reasons=dict(incident=[error.message])
     ))
 
-  return redirect(url_for('incident.show', resource_id=incident.id), 302)
+  return redirect(custom_url_for('incident.show', resource_id=incident.id), 302)
 
 #############
 ## COMMENT ##
@@ -199,7 +203,7 @@ def comment(resource_id):
       reasons=dict(incident=error.message)
     ))
 
-  return redirect(url_for('incident.show', resource_id=resource_id), 302)
+  return redirect(custom_url_for('incident.show', resource_id=resource_id), 302)
 
 ############
 ## DELETE ##
@@ -224,4 +228,4 @@ def delete(resource_id):
       reasons=dict(incident=error.message)
     ))
 
-  return redirect(url_for('incident.list'), 302)
+  return redirect(custom_url_for('incident.list'), 302)

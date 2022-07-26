@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from flask import g
+
 from ProdManager.helpers.calendar import CalendarEvent
 from ProdManager.helpers.date import current_date
 from ProdManager.models import (
@@ -14,6 +16,7 @@ app.config['SERVER_NAME'] = "pytest"
 
 def test_calendar():
   with app.app_context():
+    g.api = False
     maintenance = Maintenance(
       id = 1,
       name = "TEST maintenance",
@@ -39,6 +42,7 @@ def test_calendar():
 
 def test_calendar():
   with app.app_context():
+    g.api = True
     maintenance = Maintenance(
       id = 1,
       name = "TEST maintenance",
