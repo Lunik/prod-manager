@@ -43,10 +43,14 @@ def do_login():
       reasons=dict(secret=[lang.get("auth_invalid_secret")]),
     ))
 
+  remember_me_days = 1
+  if form.remember_me.data:
+    remember_me_days = 7
+
   session.clear()
   session["logged"] = True
   session["logged_at"] = datetime.now().timestamp()
-  session["logged_until"] = (datetime.now() + timedelta(days=1)).timestamp()
+  session["logged_until"] = (datetime.now() + timedelta(days=remember_me_days)).timestamp()
 
   return redirect(url_for('root.index'), 302)
 

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(view.auth): Allow user to stay logged for 7 days with "remember me button" (#85) (!41)
 
 ## 0.12.1
 
