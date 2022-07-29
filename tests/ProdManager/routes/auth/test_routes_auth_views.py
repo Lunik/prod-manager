@@ -51,6 +51,13 @@ class TestRoutesAuthViews(flask_unittest.AppTestCase):
       assert rv.status_code == 400
       self.assertNotIn(b"__missing_translation", rv.data)
 
+    with app.test_client() as client:
+      rv = client.post('/login', data=dict(secret="changeit", remember_me=True))
+
+      assert re.match(r"/", rv.headers.get('Location'))
+      assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
+
   def test_logout_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/logout')
