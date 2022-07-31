@@ -13,6 +13,7 @@
 - change(SQLAlchemy): Limit list query by is now `50` (paginated or not) (!40)
 - change(template.root): Limit Incidents/Maintenances on dashboard page is now `10` (!40)
 - change(template.root): Limit Incidents/Maintenances on Scope/Service page is now `10` (!40)
+- change(CODEOWNERS): Update CodeOwners file (#86) (!43)
 
 
 ## 0.12.1
