@@ -37,7 +37,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       rv = client.post('/scope/create', data=dict(
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
-      assert re.match(r"/scope/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -54,7 +54,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       rv = client.post('/scope/create', data=dict(
         name=name
       ))
-      assert re.match(r"/scope/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -106,7 +106,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
         name=scope_name_2
       ))
 
-      assert re.match(r"/scope/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/scope/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -134,7 +134,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{scope_uri}/delete")
 
-      assert re.match(r"/scope", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/scope", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint,url_for, redirect, abort
+from flask import Blueprint, redirect, abort
 from flask import current_app
 from flask import g
 from flask import session
@@ -8,6 +8,8 @@ from flask import session
 from ProdManager import lang
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import logout_required
+from ProdManager.helpers.links import custom_url_for
+
 from .forms import AuthLoginForm
 
 bp = Blueprint("auth", __name__)
@@ -52,7 +54,7 @@ def do_login():
   session["logged_at"] = datetime.now().timestamp()
   session["logged_until"] = (datetime.now() + timedelta(days=remember_me_days)).timestamp()
 
-  return redirect(url_for('root.index'), 302)
+  return redirect(custom_url_for('root.index'), 302)
 
 ############
 ## LOGOUT ##
@@ -61,7 +63,7 @@ def do_login():
 @bp.route("/logout", methods=("GET", "POST",))
 def logout():
   session.clear()
-  return redirect(url_for('root.index'), 302)
+  return redirect(custom_url_for('root.index'), 302)
 
 ############
 ## WHOAMI ##
@@ -69,4 +71,4 @@ def logout():
 
 @bp.route("/logged", methods=("GET",))
 def whoami():
-  return str(g.logged is not None)
+  return str(g.logged is not None and g.logged)

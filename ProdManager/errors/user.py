@@ -7,19 +7,22 @@ from ProdManager.helpers.template import custom_render_template
 def page_not_found(error):
   current_app.logger.debug(error)
   return custom_render_template("error/404.html",
-    error=error
+    error=error,
+    json=dict(resources=error.description, serialize=False)
   ), 404
 
 def conflict(error):
   current_app.logger.debug(error)
   return custom_render_template("error/409.html",
-    error=error
+    error=error,
+    json=dict(resources=error.description, serialize=False)
   ), 409
 
 def forbiden(error):
   current_app.logger.debug(error)
   return custom_render_template("error/403.html",
-    error=error
+    error=error,
+    json=dict(resources=error.description, serialize=False)
   ), 403
 
 def bad_request(error):
@@ -31,5 +34,6 @@ def bad_request(error):
 
   current_app.logger.debug(error)
   return custom_render_template("error/400.html",
-    error=error
+    error=error,
+    json=dict(resources=error.description, serialize=False)
   ), 400

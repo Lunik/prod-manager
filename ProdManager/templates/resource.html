@@ -39,7 +39,7 @@
       {% endif %}
 
       {% if delete_form %}
-        {% with form_title=_("resource_delete_" + resource_type), form_id="delete-" + resource_type, form_method="post", form_action=url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value=_("resource_delete_submit").capitalize(), form=delete_form %}
+        {% with form_title=_("resource_delete_" + resource_type), form_id="delete-" + resource_type, form_method="post", form_action=custom_url_for(resource_endpoint + '.delete', resource_id=resource.id), form_submit_value=_("resource_delete_submit").capitalize(), form=delete_form %}
           {% include "fragments/form.html" %}
         {% endwith %}
       {% endif %}

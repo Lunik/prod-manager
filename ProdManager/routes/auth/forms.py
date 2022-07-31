@@ -1,10 +1,10 @@
-from flask_wtf import FlaskForm
 from wtforms import PasswordField, BooleanField
 from wtforms.validators import DataRequired
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class AuthLoginForm(FlaskForm):
+class AuthLoginForm(CustomForm):
   secret = PasswordField(
     name='secret',
     label=lang.get("auth_form_secret").capitalize(),

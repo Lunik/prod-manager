@@ -40,7 +40,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
         severity="moderate",
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
-      assert re.match(r"/incident/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -53,6 +53,15 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       ))
       assert b"scope : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+    with app.test_client() as client:
+      rv = client.post('/incident/create', data=dict(
+        service="1",
+        severity="moderate",
+        name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_show_with_client(self, app):
@@ -104,7 +113,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
         start_impact_date=datetime.now().strftime('%Y-%m-%dT%H:%M')
       ))
 
-      assert re.match(r"/incident/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -186,7 +195,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
         comment="THIS_IS_A_TEST",
       ))
 
-      assert re.match(r"/incident/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/incident/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -216,7 +225,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/delete")
 
-      assert re.match(r"/incident", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/incident", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 

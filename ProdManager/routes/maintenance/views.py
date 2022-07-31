@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, abort, Response
+from flask import Blueprint, redirect, abort, Response
 
 from ProdManager import lang
 
@@ -16,6 +16,7 @@ from ProdManager.helpers.resource import (
 from ProdManager.helpers.date import current_date
 from ProdManager.helpers.form import strip_input
 from ProdManager.helpers.calendar import CalendarEvent
+from ProdManager.helpers.links import custom_url_for
 
 from ProdManager.models import (
   Maintenance, MaintenanceStatus, Scope, Service,
@@ -44,8 +45,10 @@ def list(filters):
 
   return custom_render_template("maintenance/list.html",
     maintenances=maintenances,
+    json=dict(resources=maintenances),
     create_form=create_form
   ), 200
+
 
 ############
 ## CREATE ##
@@ -83,7 +86,7 @@ def create():
       reasons=dict(maintenance=[error.message])
     ))
 
-  return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
+  return redirect(custom_url_for('maintenance.show', resource_id=maintenance.id), 302)
 
 ##########
 ## SHOW ##
@@ -110,6 +113,7 @@ def show(resource_id):
 
   return custom_render_template("maintenance/single.html",
     maintenance=maintenance,
+    json=dict(resources=maintenance),
     update_form=update_form,
     comment_form=MaintenanceCommentForm(),
     delete_form=MaintenanceDeleteForm(obj=maintenance)
@@ -167,7 +171,7 @@ def update(resource_id):
       reasons=dict(maintenance=[error.message])
     ))
 
-  return redirect(url_for('maintenance.show', resource_id=maintenance.id), 302)
+  return redirect(custom_url_for('maintenance.show', resource_id=maintenance.id), 302)
 
 #############
 ## COMMENT ##
@@ -198,7 +202,7 @@ def comment(resource_id):
       reasons=dict(maintenance=[error.message])
     ))
 
-  return redirect(url_for('maintenance.show', resource_id=resource_id), 302)
+  return redirect(custom_url_for('maintenance.show', resource_id=resource_id), 302)
 
 ############
 ## DELETE ##
@@ -223,7 +227,7 @@ def delete(resource_id):
       reasons=dict(maintenance=[error.message])
     ))
 
-  return redirect(url_for('maintenance.list'), 302)
+  return redirect(custom_url_for('maintenance.list'), 302)
 
 ##############
 ## CALENDAR ##

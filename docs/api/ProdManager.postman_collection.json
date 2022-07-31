@@ -1,0 +1,1049 @@
+{
+	"info": {
+		"_postman_id": "644c10bc-16f7-4522-b4d8-cd541438ecc7",
+		"name": "ProdManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Scope",
+			"item": [
+				{
+					"name": "List all scopes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/scope",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"scope"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single scope",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/scope/1",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"scope",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a scope",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "myscope",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Scope create with Postman",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/scope/create",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"scope",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a scope",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "myscope",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Scope updated with Postman",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/scope/10/update",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"scope",
+								"10",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a scope",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/scope/10/delete",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"scope",
+								"10",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "List all services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/service",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single service",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/service/1",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"service",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "myservice",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Service create with Postman",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/service/create",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"service",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "myservice",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Service updated with Postman",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/service/35/update",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"service",
+								"35",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a scope",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/service/35/delete",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"service",
+								"35",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Monitor",
+			"item": [
+				{
+					"name": "List all monitors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/monitor",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"monitor"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single monitor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/monitor/1",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"monitor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a monitor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "mymonitor",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Monitor create with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/monitor/create",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"monitor",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a monitor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "mymonitor",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Monitor updated with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								},
+								{
+									"key": "status",
+									"value": "ok",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/monitor/82/update",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"monitor",
+								"82",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a monitor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/monitor/82/delete",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"monitor",
+								"82",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Incident",
+			"item": [
+				{
+					"name": "List all incidents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/incident",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"incident"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single incident",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/incident/1",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"incident",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a incident",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "myincident",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Incident create with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_reference",
+									"value": "INC00000",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								},
+								{
+									"key": "severity",
+									"value": "high",
+									"type": "default"
+								},
+								{
+									"key": "start_impact_date",
+									"value": "2022-07-31T10:55",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/incident/create",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"incident",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a incident",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "myincident",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Incident updated with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_reference",
+									"value": "INC00001",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								},
+								{
+									"key": "severity",
+									"value": "moderate",
+									"type": "default"
+								},
+								{
+									"key": "status",
+									"value": "resolved",
+									"type": "default"
+								},
+								{
+									"key": "start_impact_date",
+									"value": "2022-07-31T10:55",
+									"type": "default"
+								},
+								{
+									"key": "investigation_date",
+									"value": "2022-07-31T11:55",
+									"type": "default"
+								},
+								{
+									"key": "stable_date",
+									"value": "2022-07-31T12:55",
+									"type": "default"
+								},
+								{
+									"key": "resolve_date",
+									"value": "2022-07-31T13:55",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/incident/14/update",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"incident",
+								"14",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a incident",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/incident/14/delete",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"incident",
+								"14",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maintenance",
+			"item": [
+				{
+					"name": "List all maintenances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/maintenance",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"maintenance"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single maintenance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/maintenance/1",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"maintenance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a maintenance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "myincident",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Incident create with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_reference",
+									"value": "INC00000",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								},
+								{
+									"key": "service_status",
+									"value": "up",
+									"type": "default"
+								},
+								{
+									"key": "scheduled_start_date",
+									"value": "2022-07-31T10:55",
+									"type": "default"
+								},
+								{
+									"key": "scheduled_end_date",
+									"value": "2022-07-31T11:55",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/maintenance/create",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"maintenance",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a maintenance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "scope",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "service",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "myincident",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Incident create with Postman",
+									"type": "default"
+								},
+								{
+									"key": "external_reference",
+									"value": "INC00000",
+									"type": "default"
+								},
+								{
+									"key": "external_link",
+									"value": "https://example.org",
+									"type": "default"
+								},
+								{
+									"key": "service_status",
+									"value": "up",
+									"type": "default"
+								},
+								{
+									"key": "status",
+									"value": "succeed",
+									"type": "default"
+								},
+								{
+									"key": "scheduled_start_date",
+									"value": "2022-07-31T10:55",
+									"type": "default"
+								},
+								{
+									"key": "scheduled_end_date",
+									"value": "2022-07-31T11:55",
+									"type": "default"
+								},
+								{
+									"key": "start_date",
+									"value": "2022-07-31T10:55",
+									"type": "default"
+								},
+								{
+									"key": "end_date",
+									"value": "2022-07-31T11:55",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_endpoint}}/maintenance/16/update",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"maintenance",
+								"16",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a maintenance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "APPLICATION-SECRET",
+								"value": "{{application_secret}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_endpoint}}/maintenance/16/delete",
+							"host": [
+								"{{api_endpoint}}"
+							],
+							"path": [
+								"maintenance",
+								"16",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

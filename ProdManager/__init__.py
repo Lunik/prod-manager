@@ -46,6 +46,7 @@ def create_app():
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     SQLALCHEMY_ECHO=boolean_param(os.environ.get("PM_SQLALCHEMY_ECHO", 'False')),
     WTF_CSRF_ENABLED=True,
+    WTF_CSRF_CHECK_DEFAULT=False,
     CUSTOM_CSS_SHEET=os.environ.get("PM_CUSTOM_CSS_SHEET", None),
     MAIL_ENABLED=boolean_param(os.environ.get("PM_MAIL_ENABLED", 'False')),
     MAIL_SERVER=os.environ.get("PM_MAIL_SERVER", None),
@@ -72,6 +73,15 @@ def create_app():
 
   csrf.init_app(app)
 
+  from ProdManager.helpers.auth import retreiv_auth
+  from ProdManager.helpers.api import retreiv_api
+  from ProdManager.helpers.security import validate_csrf
+  @app.before_request
+  def pre_request():
+    retreiv_auth()
+    retreiv_api()
+    validate_csrf()
+
   # register the database commands
   db.init_app(app)
   migrate.init_app(app, db)
@@ -95,12 +105,6 @@ def create_app():
   app.register_error_handler(409, conflict)
   app.register_error_handler(500, internal_error)
 
-
-  from ProdManager.helpers.auth import retreiv_auth
-  @app.before_request
-  def load_logged():
-    retreiv_auth()
-
   from ProdManager.models import (
     Incident, IncidentEvent, Maintenance, MaintenanceEvent,
     Monitor, Subscriber, Scope, Service,
@@ -115,20 +119,25 @@ def create_app():
   app.register_blueprint(root.view, url_prefix="/")
   app.register_blueprint(auth.view, url_prefix="/")
   app.register_blueprint(scope.view, url_prefix="/scope")
+  app.register_blueprint(scope.view, url_prefix="/api/scope", name="scope_api")
   app.register_blueprint(service.view, url_prefix="/service")
+  app.register_blueprint(service.view, url_prefix="/api/service", name="service_api")
   app.register_blueprint(incident.view, url_prefix="/incident")
+  app.register_blueprint(incident.view, url_prefix="/api/incident", name="incident_api")
   app.register_blueprint(maintenance.view, url_prefix="/maintenance")
+  app.register_blueprint(maintenance.view, url_prefix="/api/maintenance", name="maintenance_api")
   app.register_blueprint(monitor.view, url_prefix="/monitor")
+  app.register_blueprint(monitor.view, url_prefix="/api/monitor", name="monitor_api")
   app.register_blueprint(health.view, url_prefix="/health")
   app.register_blueprint(notification.view, url_prefix="/notification")
 
-  from ProdManager.filters.basic import (
+  from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
     format_template_name,
   )
-  from ProdManager.filters.pagination import url_for_paginated
-  from ProdManager.filters.links import custom_url_for
-  from ProdManager.filters.lang import text
+  from ProdManager.helpers.pagination import url_for_paginated
+  from ProdManager.helpers.links import custom_url_for
+  from ProdManager.helpers.lang.tools import text
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name

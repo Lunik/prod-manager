@@ -39,7 +39,7 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
         service="1",
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
-      assert re.match(r"/monitor/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/monitor/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -51,6 +51,14 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
       ))
       assert b"scope : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+    with app.test_client() as client:
+      rv = client.post('/monitor/create', data=dict(
+        service="1",
+        name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_show_with_client(self, app):
@@ -95,7 +103,7 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
         name=monitor_name_2
       ))
 
-      assert re.match(r"/monitor/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/monitor/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -153,7 +161,7 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{monitor_uri}/delete")
 
-      assert re.match(r"/monitor", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/monitor", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 

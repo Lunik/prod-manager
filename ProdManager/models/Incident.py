@@ -1,9 +1,12 @@
 from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
+from flask import g
+
 from ProdManager import db
 from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
+from ProdManager.helpers.links import custom_url_for
 
 from .IncidentEvent import IncidentEvent
 
@@ -54,8 +57,9 @@ class Incident(db.Model):
       name=self.name,
       description=self.description,
       external_reference=self.external_reference,
-      status=self.status.name,
-      severity=self.severity.name,
+      external_link=self.external_link,
+      status=self.status.value,
+      severity=self.severity.value,
       scope=self.scope.name,
       service=self.service.name,
       creation_date=self.creation_date,
@@ -63,6 +67,23 @@ class Incident(db.Model):
       investigation_date=self.investigation_date,
       stable_date=self.stable_date,
       resolve_date=self.resolve_date,
+    )
+
+  @property
+  def api_serialize(self):
+    if g.logged:
+      events = self.events
+    else:
+      events = self.events.filter(IncidentEvent.internal is False)
+
+    return self.serialize | dict(
+      id=self.id,
+      events=[event.api_serialize for event in events],
+      links=dict(
+        self=custom_url_for('incident_api.show', resource_id=self.id),
+        scope=custom_url_for('scope_api.show', resource_id=self.scope.id),
+        service=custom_url_for('service_api.show', resource_id=self.service.id),
+      ),
     )
 
   @classmethod
@@ -88,10 +109,13 @@ class Incident(db.Model):
   @classmethod
   def filters(cls):
     return [
-      ("status", cls.status, IncidentStatus),
-      ("severity", cls.severity, IncidentSeverity),
-      ("scope", cls.scope_id, int),
-      ("service", cls.service_id, int),
+      ("status", cls.status, IncidentStatus, 'eq'),
+      ("severity", cls.severity, IncidentSeverity, 'eq'),
+      ("scope", cls.scope_id, int, 'eq'),
+      ("service", cls.service_id, int, 'eq'),
+      ("external_reference", cls.external_reference, str, 'eq'),
+      ("impact_before", cls.start_impact_date, str, 'le'),
+      ("impact_after", cls.start_impact_date, str, 'ge'),
     ]
 
   @property

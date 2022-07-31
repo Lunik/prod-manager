@@ -37,7 +37,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
       rv = client.post('/service/create', data=dict(
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
-      assert re.match(r"/service/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/service/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -83,7 +83,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
         name=service_name_2
       ))
 
-      assert re.match(r"/service/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/service/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -111,7 +111,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{service_uri}/delete")
 
-      assert re.match(r"/service", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/service", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 

@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-from flask_wtf import FlaskForm
 from wtforms import (
   StringField, TextAreaField, SelectField,
   DateTimeLocalField, BooleanField, URLField,
@@ -14,8 +13,9 @@ from ProdManager.models import (
 )
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class MaintenanceCreateForm(FlaskForm):
+class MaintenanceCreateForm(CustomForm):
   scope = SelectField(
     name='scope',
     label=lang.get("table_column_scope").capitalize(),
@@ -89,7 +89,7 @@ class MaintenanceUpdateForm(MaintenanceCreateForm):
     format='%Y-%m-%dT%H:%M',
   )
 
-class MaintenanceCommentForm(FlaskForm):
+class MaintenanceCommentForm(CustomForm):
   comment = TextAreaField(
     name='comment',
     label=lang.get("table_column_comment").capitalize(),
@@ -103,5 +103,5 @@ class MaintenanceCommentForm(FlaskForm):
 
 
 
-class MaintenanceDeleteForm(FlaskForm):
+class MaintenanceDeleteForm(CustomForm):
   pass

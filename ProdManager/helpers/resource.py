@@ -22,7 +22,7 @@ from .response import (
 logger = logging.getLogger('gunicorn.error')
 
 
-def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True):
+def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True, limit=50):
   if orders is None:
     orders = ressource_class.default_order()
 
@@ -37,10 +37,13 @@ def list_resources_from_query(ressource_class, query, orders=None, filters=None,
 
   result = query.order_by(*orders)
 
+  if not paginate and limit:
+    result = result.limit(limit)
+
   # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
   # page, per_page and max_per_page are retreived from the Flask.request object
   if paginate:
-    result = result.paginate(error_out=False)
+    result = result.paginate(error_out=False, max_per_page=limit)
 
   return result
 
@@ -167,10 +170,22 @@ def resource_filters(filter_fields):
     def wrapped_view(**kwargs):
       filters = ()
 
-      for filter_name, filter_field, filter_type in filter_fields:
+      for filter_name, filter_field, filter_type, filter_operator in filter_fields:
         filter_value = request.args.get(filter_name, type=filter_type)
         if filter_value is not None:
-          filters += (filter_field == filter_value,)
+          match filter_operator:
+            case 'gt':
+              filters += (filter_field > filter_value,)
+            case 'ge':
+              filters += (filter_field >= filter_value,)
+            case 'lt':
+              filters += (filter_field < filter_value,)
+            case 'le':
+              filters += (filter_field < filter_value,)
+            case 'ne':
+              filters += (filter_field != filter_value,)
+            case _:
+              filters += (filter_field == filter_value,)
 
       kwargs['filters'] = filters
       return view(**kwargs)

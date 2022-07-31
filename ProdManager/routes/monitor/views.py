@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, abort
+from flask import Blueprint, redirect, abort
 
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
@@ -12,6 +12,7 @@ from ProdManager.helpers.resource import (
   resource_filters,
 )
 from ProdManager.helpers.form import strip_input
+from ProdManager.helpers.links import custom_url_for
 
 from ProdManager.models import (
   Monitor, MonitorStatus, Scope, Service,
@@ -39,8 +40,10 @@ def list(filters):
 
   return custom_render_template("monitor/list.html",
     monitors=monitors,
+    json=dict(resources=monitors),
     create_form=create_form
   ), 200
+
 
 ############
 ## CREATE ##
@@ -73,7 +76,7 @@ def create():
       reasons=dict(monitor=[error.message])
     ))
 
-  return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
+  return redirect(custom_url_for('monitor.show', resource_id=monitor.id), 302)
 
 ##########
 ## SHOW ##
@@ -100,6 +103,7 @@ def show(resource_id):
 
   return custom_render_template("monitor/single.html",
     monitor=monitor,
+    json=dict(resources=monitor),
     update_form=update_form,
     delete_form=MonitorDeleteForm(obj=monitor),
   ), 200
@@ -137,7 +141,7 @@ def update(resource_id):
       reasons=dict(monitor=[error.message])
     ))
 
-  return redirect(url_for('monitor.show', resource_id=monitor.id), 302)
+  return redirect(custom_url_for('monitor.show', resource_id=monitor.id), 302)
 
 ############
 ## DELETE ##
@@ -162,4 +166,4 @@ def delete(resource_id):
       reasons=dict(monitor=[error.message])
     ))
 
-  return redirect(url_for('monitor.list'), 302)
+  return redirect(custom_url_for('monitor.list'), 302)

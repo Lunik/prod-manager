@@ -1,7 +1,7 @@
 from datetime import timezone, timedelta
 from icalendar import Calendar, Event, Alarm
 
-from ProdManager.filters.links import custom_url_for
+from ProdManager.helpers.links import custom_url_for
 
 
 class CalendarEvent:
