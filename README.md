@@ -5,8 +5,8 @@ Prod manager is a lightweight tool that allow you to display your production inf
 
 ## Live demo
 
-- [Deployment with demonstration data][demo-instance]
-- [Playground for you to test the app][playground-instance]
+- [Deployment with demonstration data][demo-instance] (secret: `changeit`)
+- [Playground for you to test the app][playground-instance] (secret: `changeit`)
 
 Thoses are temporary live demo, all data will be reset regulary. Servers are located in France, so if you live far from there, it may affect your experience. You can install it locally and try it out for the best demo experience (see [How to Deploy ?](#how-to-deploy)).
 
