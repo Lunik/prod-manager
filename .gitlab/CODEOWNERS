@@ -2,9 +2,16 @@
 # project here: https://gitlab.com/prod-manager/prod-manager/-/project_members
 # As described in https://docs.gitlab.com/ee/user/project/code_owners.html
 
+^[Owner]
+/.gitlab/ @Lunik
+/resources/ @Lunik
+/*.md @Lunik
+/LICENCE @Lunik
+
 ^[Backend]
 *.py @Lunik
 /docs/api/ @Lunik
+/requirements* @Lunik
 
 ^[Frontend]
 /ProdManager/static/ @Lunik
@@ -16,3 +23,12 @@
 
 ^[OPS]
 /deploy/ @Lunik
+/docker/ @Lunik
+/docs/config/ @Lunik
+/Makfile @Lunik
+
+^[Tester]
+/tests/ @Lunik
+/.gitlab-ci.yml @Lunik
+/.pylintrc @Lunik
+/ProdManager/demo/ @Lunik
