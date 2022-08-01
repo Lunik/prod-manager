@@ -8,6 +8,10 @@
 - feat(deploy.Kubernetes): Upgrade `HorizontalPodAutoscaler` with `autoscaling/v2` API (#34) (!42)
 - feat(API): Add APIs endpoints (#57) (!40)
 
+### Fixed
+
+- fix(translation.fr): Correct small French translation issues (#87)
+
 ### Changed
 
 - change(SQLAlchemy): Limit list query by is now `50` (paginated or not) (!40)
