@@ -21,7 +21,7 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
 - Plan `Maintenances` when enhancing your `Service`
 - Mail notifications when `CREATE` or `UPDATE` an `Incident`/`Maintenance`
 - ICalendar download for `Maintenances`
-- [Read only API](./docs/api/README.md)
+- [API endpoints](./docs/api/README.md)
 
 ## What's Next?
 
