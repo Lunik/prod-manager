@@ -39,6 +39,7 @@ stages:
   - test
   - build
   - validate
+  - deploy
 
 
 .python-tests:
@@ -165,6 +166,76 @@ database_upgrade_postgresql:
     POSTGRES_HOST_AUTH_METHOD: trust
     PM_DATABASE_URI: postgresql://prodmanager:changeit@postgres/prodmanager
 
-
 database_upgrade_sqlite:
   extends: .database_upgrade
+
+
+upload_image:
+  stage: deploy
+  image:
+    name: quay.io/skopeo/stable:latest
+    entrypoint: ["/bin/bash", "-l", "-c"]
+  only:
+    - develop
+    - tags
+  before_script:
+    - >
+      skopeo login
+      --username "$CI_REGISTRY_USER"
+      --password "$CI_REGISTRY_PASSWORD"
+      $CI_REGISTRY
+    - >
+      skopeo login
+      --username "$SCW_ACCESS_KEY"
+      --password "$SCW_SECRET_KEY"
+      $CONTAINER_REGISTRY
+    - *image-tag
+  script:
+    - >
+      skopeo copy
+      "docker://$CI_REGISTRY_IMAGE:${tag}"
+      docker://$CONTAINER_REGISTRY/prod-manager:${tag}
+
+.deploy:
+  stage: deploy
+  image:
+    name: scaleway/cli:latest
+    entrypoint: ["/bin/bash", "-l", "-c"]
+  timeout: 5 minutes
+  needs:
+    - upload_image
+  before_script:
+    - >
+      apk add
+      --update
+      jq
+  script:
+    - >
+      /scw container
+      container deploy
+      $SCW_CONTAINER_ID
+      | grep -E '^(Name|Status|RegistryImage|Region)' 
+    - |
+      while [ $(/scw container container get $SCW_CONTAINER_ID -o json | jq -r '.status') = "pending" ]; do
+        echo "Waiting for the container to deploy"
+        sleep 5
+      done
+    - test $(/scw container container get $SCW_CONTAINER_ID -o json | jq -r '.status') = "ready"
+
+deploy_develop:
+  extends: .deploy
+  environment: develop
+  only:
+    - develop
+
+deploy_demo:
+  extends: .deploy
+  environment: demo
+  only:
+    - tags
+
+deploy_sandbox:
+  extends: .deploy
+  environment: sandbox
+  only:
+    - tags

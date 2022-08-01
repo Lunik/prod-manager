@@ -7,6 +7,7 @@
 - feat(view.auth): Allow user to stay logged for 7 days with "remember me button" (#85) (!41)
 - feat(deploy.Kubernetes): Upgrade `HorizontalPodAutoscaler` with `autoscaling/v2` API (#34) (!42)
 - feat(API): Add APIs endpoints (#57) (!40)
+- ci(GitLab): Auto deploy to `develop`/`demo`/`sandbox` environment
 
 ### Fixed
 
