@@ -52,3 +52,7 @@ def index():
 @bp.route('/about')
 def about():
   return custom_render_template("about.html"), 200
+
+@bp.route('/api')
+def swagger():
+  return custom_render_template("swagger.html"), 200

@@ -4,6 +4,8 @@ ProdManager expose APIs endpoint in order to interract with its resources
 
 API endpoints are prefixed with `/api`. So if your application listen to `https://prodmanager.example.org` the API endpoint will be `https://prodmanager.example.org/api`
 
+[Swagger UI](https://swagger.io/tools/swagger-ui/) is available when accessing `/api`
+
 ## Authentication
 
 Some API requests require authentication, or only return public data when authentication isn’t provided. [Read more about authentication](./authentication.md)

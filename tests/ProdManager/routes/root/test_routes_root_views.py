@@ -17,6 +17,10 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
     with app.test_request_context('/about'):
       self.assertEqual(request.endpoint, 'root.about')
 
+  def test_api_endpoint_with_app(self, app):
+    with app.test_request_context('/api'):
+      self.assertEqual(request.endpoint, 'root.swagger')
+
   def test_index_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/')
@@ -27,4 +31,9 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/about')
       self.assertInResponse(b'<h1 id="title">About ProdManager</h1>', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+  def test_api_with_client(self, app):
+    with app.test_client() as client:
+      rv = client.get('/api')
       self.assertNotIn(b"__missing_translation", rv.data)
