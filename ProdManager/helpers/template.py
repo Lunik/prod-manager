@@ -15,7 +15,7 @@ def custom_render_template(*args, **kwargs):
 
     if isinstance(resources, Pagination):
       if serialize:
-        data = [resource.api_serialize for resource in resources.items]
+        data = dict(items=[resource.api_serialize for resource in resources.items])
       else:
         data = resources.items
 
