@@ -25,6 +25,9 @@ RUN python -m compileall ProdManager main.py
 ENV GUNICORN=/usr/local/bin/gunicorn
 ENV FLASK=/usr/local/bin/flask
 ENV SERVER=0.0.0.0
-ENV PORT=8080
+
+ARG PORT=8080
+ENV PORT=$PORT
+EXPOSE $PORT
 
 CMD ["make", "run"]

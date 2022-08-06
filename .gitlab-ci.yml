@@ -21,6 +21,8 @@ workflow:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
+  - template: DAST-API.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
@@ -136,13 +138,13 @@ image-build:
       --file="docker/Dockerfile"
       .
     - docker image push "$CI_REGISTRY_IMAGE:${tag}"
+    - docker tag "$CI_REGISTRY_IMAGE:${tag}" "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker image push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
 
 container_scanning:
   stage: validate
-  before_script:
-    - *image-tag
-    - export DOCKER_IMAGE="$CI_REGISTRY_IMAGE:${tag}"
   variables:
+    DOCKER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     GIT_STRATEGY: fetch
     DOCKERFILE_PATH: docker/Dockerfile
     CS_DISABLE_LANGUAGE_VULNERABILITY_SCAN: 'false'
@@ -180,6 +182,58 @@ openapi_specs:
       swagger-cli validate
       --debug
       ProdManager/static/meta/openapi.yaml
+
+.dast:
+  dependencies:
+    - openapi_specs
+  variables:
+    DAST_SPIDER_MINS: 5
+  services:
+    - name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+      alias: prod-manager
+      variables:
+        PM_DEMO: "true"
+
+dast:
+  stage: validate
+  extends: .dast
+  variables:
+    DAST_PATHS_FILE: url_file.txt
+    DAST_BROWSER_SCAN: "true"
+    DAST_FULL_SCAN_ENABLED: "true"
+    DAST_WEBSITE: http://prod-manager:8080
+    DAST_AUTH_URL: http://prod-manager:8080/login
+    DAST_AUTH_VERIFICATION_SELECTOR: "id:logout"
+    DAST_AUTH_REPORT: "true"
+    DAST_USERNAME: it
+    DAST_USERNAME_FIELD: secret
+    DAST_PASSWORD: change
+    DAST_PASSWORD_FIELD: secret
+  before_script:
+    - |
+      cat << EOF > $DAST_PATHS_FILE
+      /
+      /scope
+      /service
+      /monitor
+      /incident
+      /maintenance
+      /about
+      /login
+      EOF
+  artifacts:
+    paths: [gl-dast-debug-auth-report.html]
+    when: always
+
+dast_api:
+  stage: validate
+  extends: .dast
+  variables:
+    DAST_DEBUG: "true"
+    DAST_API_PROFILE: Quick
+    DAST_API_OPENAPI: ProdManager/static/meta/openapi.yaml
+    DAST_API_TARGET_URL: http://prod-manager:8080
+    DAST_API_OVERRIDES_FILE: .gitlab/ci_api_overrides.json
 
 upload_image:
   stage: deploy

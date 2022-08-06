@@ -10,6 +10,7 @@
 - ci(GitLab): Auto deploy to `develop`/`demo`/`sandbox` environment (!44)
 - feat(API): Add a full OpenAPI definition (!46)
 - feat(API): Add Swagger UI intergration (!46)
+- ci(GitLab): Add DAST tests (!45)
 
 ### Fixed
 
