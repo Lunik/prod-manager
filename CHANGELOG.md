@@ -8,6 +8,8 @@
 - feat(deploy.Kubernetes): Upgrade `HorizontalPodAutoscaler` with `autoscaling/v2` API (#34) (!42)
 - feat(API): Add APIs endpoints (#57) (!40)
 - ci(GitLab): Auto deploy to `develop`/`demo`/`sandbox` environment (!44)
+- feat(API): Add a full OpenAPI definition (!46)
+- feat(API): Add Swagger UI intergration (!46)
 
 ### Fixed
 

@@ -1,0 +1,1269 @@
+openapi: 3.0.3
+info:
+  title: ProdManager
+  version: 0.1.0
+servers:
+- url: /api
+  description: Local server
+components:
+  securitySchemes:
+    Application_Secret:
+      type: apiKey
+      in: header
+      description: The application secret
+      name: APPLICATION-SECRET
+  schemas:
+    scope:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the scope
+        name:
+          type: string
+          description: The name of the scope
+        description:
+          type: string
+          description: The description of the scope
+        monitors_count:
+          type: integer
+          description: The number of monitors related to the scope
+        incidents_count:
+          type: integer
+          description: The number of incidents related to the scope
+        maintenances_count:
+          type: integer
+          description: The number of maintenances related to the scope
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this scope
+            monitors:
+              type: string
+              description: API URL of the related monitors of this scope
+            incidents:
+              type: string
+              description: API URL of the related incidents of this scope
+            maintenances:
+              type: string
+              description: API URL of the related maintenances of this scope
+    service:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the service
+        name:
+          type: string
+          description: The name of the service
+        description:
+          type: string
+          description: The description of the service
+        monitors_count:
+          type: integer
+          description: The number of monitors related to the service
+        incidents_count:
+          type: integer
+          description: The number of incidents related to the service
+        maintenances_count:
+          type: integer
+          description: The number of maintenances related to the service
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this service
+            monitors:
+              type: string
+              description: API URL of the related monitors of this service
+            incidents:
+              type: string
+              description: API URL of the related incidents of this service
+            maintenances:
+              type: string
+              description: API URL of the related maintenances of this service
+    monitor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the monitor
+        name:
+          type: string
+          description: The name of the monitor
+        description:
+          type: string
+          description: The description of the monitor
+        external_link:
+          type: string
+          description: The external link of the monitor
+        status:
+          type: string
+          description: The status of the monitor
+          enum:
+          - ok
+          - warning
+          - alert
+        scope:
+          type: integer
+          description: The related scope ID of the monitor
+        service:
+          type: integer
+          description: The related service ID of the monitor
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this monitor
+            scope:
+              type: string
+              description: API URL of the related scope
+            service:
+              type: string
+              description: API URL of the related service
+    incident:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the incident
+        name:
+          type: string
+          description: The name of the incident
+        description:
+          type: string
+          description: The description of the incident
+        external_reference:
+          type: string
+          description: The external reference of the incident
+        external_link:
+          type: string
+          description: The external link of the incident
+        status:
+          type: string
+          description: The status of the incident
+          enum:
+          - active
+          - investigating
+          - stable
+          - resolved
+        severity:
+          type: string
+          description: The severity of the incident
+          enum:
+          - critical
+          - high
+          - moderate
+          - low
+          - minor
+        scope:
+          type: integer
+          description: The related scope ID of the monitor
+        service:
+          type: integer
+          description: The related service ID of the monitor
+        creation_date:
+          type: string
+          format: date-time
+          description: The creation date of the incident
+        start_impact_date:
+          type: string
+          format: date-time
+          description: The start impact date of the incident
+        investigation_date:
+          type: string
+          format: date-time
+          description: The investigation date of the incident
+        stable_date:
+          type: string
+          format: date-time
+          description: The stable date of the incident
+        resolve_date:
+          type: string
+          format: date-time
+          description: The resolve date of the incident
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this incident
+            scope:
+              type: string
+              description: API URL of the related scope
+            service:
+              type: string
+              description: API URL of the related service
+    maintenance:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the maintenance
+        name:
+          type: string
+          description: The name of the maintenance
+        description:
+          type: string
+          description: The description of the maintenance
+        external_reference:
+          type: string
+          description: The external reference of the maintenance
+        external_link:
+          type: string
+          description: The external link of the maintenance
+        status:
+          type: string
+          description: The status of the maintenance
+          enum:
+          - scheduled
+          - in-progress
+          - succeed
+          - failed
+        service_status:
+          type: string
+          description: The service status of the maintenance
+          enum:
+          - up
+          - degraded
+          - down
+        scope:
+          type: integer
+          description: The related scope ID of the monitor
+        service:
+          type: integer
+          description: The related service ID of the monitor
+        creation_date:
+          type: string
+          format: date-time
+          description: The creation date of the maintenance
+        scheduled_start_date:
+          type: string
+          format: date-time
+          description: The scheduled start date of the maintenance
+        scheduled_end_date:
+          type: string
+          format: date-time
+          description: The scheduled end date of the maintenance
+        start_date:
+          type: string
+          format: date-time
+          description: The start date of the maintenance
+        end_date:
+          type: string
+          format: date-time
+          description: The end date of the maintenance
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this maintenance
+            scope:
+              type: string
+              description: API URL of the related scope
+            service:
+              type: string
+              description: API URL of the related service
+            calendar:
+              type: string
+              description: API URL of the calendar file of this maintenance
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of resources by page
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+  responses:
+    error_400_response:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              reasons:
+                type: object
+                properties:
+                  '<field>':
+                    type: array
+                    items:
+                      type: string
+    error_403_response:
+      description: Forbiden
+      content:
+        text/plain:
+          schema:
+            type: string
+    error_404_response:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              reasons:
+                type: object
+                properties:
+                  '<field>':
+                    type: array
+                    items:
+                      type: string
+    error_409_response:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              reasons:
+                type: object
+                properties:
+                  '<field>':
+                    type: array
+                    items:
+                      type: string
+security:
+- Application_Secret: []
+paths:
+  /scope:
+    get:
+      tags:
+      - Scope
+      summary: List all scopes
+      description: List all scopes
+      operationId: listAllScopes
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: A list of scopes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/scope'
+  /scope/create:
+    post:
+      tags:
+      - Scope
+      summary: Create a scope
+      description: Create a scope
+      operationId: createAScope
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/scope/properties/name'
+                description:
+                  $ref: '#/components/schemas/scope/properties/description'
+      responses:
+        '200':
+          description: A scope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scope'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /scope/{resource_id}:
+    get:
+      tags:
+      - Scope
+      summary: Get single scope
+      description: Get single scope
+      operationId: getSingleScope
+      security: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      responses:
+        '200':
+          description: A scope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scope'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /scope/{resource_id}/update:
+    post:
+      tags:
+      - Scope
+      summary: Update a scope
+      description: Update a scope
+      operationId: updateAScope
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/scope/properties/name'
+                description:
+                  $ref: '#/components/schemas/scope/properties/description'
+      responses:
+        '200':
+          description: A scope
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scope'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /scope/{resource_id}/delete:
+    post:
+      tags:
+      - Scope
+      summary: Delete a scope
+      description: Delete a scope
+      operationId: deleteAScope
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      responses:
+        '200':
+          description: A list of scopes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/scope'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /service:
+    get:
+      tags:
+      - Service
+      summary: List all services
+      description: List all services
+      operationId: listAllServices
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: A list of services
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/service'
+  /service/create:
+    post:
+      tags:
+      - Service
+      summary: Create a service
+      description: Create a service
+      operationId: createAService
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/service/properties/name'
+                description:
+                  $ref: '#/components/schemas/service/properties/description'
+      responses:
+        '200':
+          description: A service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/service'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /service/{resource_id}:
+    get:
+      tags:
+      - Service
+      summary: Get single service
+      description: Get single service
+      operationId: getSingleService
+      security: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      responses:
+        '200':
+          description: A service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/service'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /service/{resource_id}/update:
+    post:
+      tags:
+      - Service
+      summary: Update a service
+      description: Update a service
+      operationId: updateAService
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/service/properties/name'
+                description:
+                  $ref: '#/components/schemas/service/properties/description'
+      responses:
+        '200':
+          description: A service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/service'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /service/{resource_id}/delete:
+    post:
+      tags:
+      - Service
+      summary: Delete a service
+      description: Delete a service
+      operationId: deleteAService
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      responses:
+        '200':
+          description: A list of services
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/service'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /monitor:
+    get:
+      tags:
+      - Monitor
+      summary: List all monitors
+      description: List all monitors
+      operationId: listAllMonitors
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: status
+        in: query
+        description: Limit by status
+        schema:
+          $ref: '#/components/schemas/monitor/properties/status'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      responses:
+        '200':
+          description: A list of monitors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/monitor'
+  /monitor/create:
+    post:
+      tags:
+      - Monitor
+      summary: Create a monitor
+      description: Create a monitor
+      operationId: createAMonitor
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/monitor/properties/name'
+                description:
+                  $ref: '#/components/schemas/monitor/properties/description'
+                external_link:
+                  $ref: '#/components/schemas/monitor/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/monitor/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/monitor/properties/service'
+                  type: string
+      responses:
+        '200':
+          description: A monitor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monitor'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /monitor/{resource_id}:
+    get:
+      tags:
+      - Monitor
+      summary: Get single monitor
+      description: Get single monitor
+      operationId: getSingleMonitor
+      security: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A monitor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monitor'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /monitor/{resource_id}/update:
+    post:
+      tags:
+      - Monitor
+      summary: Update a monitor
+      description: Update a monitor
+      operationId: updateAMonitor
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/monitor/properties/name'
+                description:
+                  $ref: '#/components/schemas/monitor/properties/description'
+                external_link:
+                  $ref: '#/components/schemas/monitor/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/monitor/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/monitor/properties/service'
+                  type: string
+                status:
+                  $ref: '#/components/schemas/monitor/properties/status'
+      responses:
+        '200':
+          description: A monitor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monitor'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /monitor/{resource_id}/delete:
+    post:
+      tags:
+      - Monitor
+      summary: Delete a monitor
+      description: Delete a monitor
+      operationId: deleteAMonitor
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A list of monitors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/monitor'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /incident:
+    get:
+      tags:
+        - Incident
+      summary: List all incidents
+      description: List all incidents
+      operationId: listAllIncidents
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: status
+        in: query
+        description: Limit by status
+        schema:
+          $ref: '#/components/schemas/incident/properties/status'
+      - name: severity
+        in: query
+        description: Limit by severity
+        schema:
+          $ref: '#/components/schemas/incident/properties/severity'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      - name: external_reference
+        in: query
+        description: Limit by external_reference
+        schema:
+          $ref: '#/components/schemas/incident/properties/external_reference'
+      - name: impact_before
+        in: query
+        description: Limit by start_impact_date prior to the date
+        schema:
+          $ref: '#/components/schemas/incident/properties/start_impact_date'
+      - name: impact_after
+        in: query
+        description: Limit by start_impact_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/incident/properties/start_impact_date'
+      responses:
+        '200':
+          description: A list of incidents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/incident'
+  /incident/create:
+    post:
+      tags:
+      - Incident
+      summary: Create a incident
+      description: Create a incident
+      operationId: createAIncident
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/incident/properties/name'
+                description:
+                  $ref: '#/components/schemas/incident/properties/description'
+                external_reference:
+                  $ref: '#/components/schemas/incident/properties/external_reference'
+                external_link:
+                  $ref: '#/components/schemas/incident/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/incident/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/incident/properties/service'
+                  type: string
+                severity:
+                  $ref: '#/components/schemas/incident/properties/severity'
+                start_impact_date:
+                  $ref: '#/components/schemas/incident/properties/start_impact_date'
+      responses:
+        '200':
+          description: A incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incident'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /incident/{resource_id}:
+    get:
+      tags:
+      - Incident
+      summary: Get single incident
+      description: Get single incident
+      operationId: getSingleIncident
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incident'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /incident/{resource_id}/update:
+    post:
+      tags:
+      - Incident
+      summary: Update a incident
+      description: Update a incident
+      operationId: updateAIncident
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/incident/properties/name'
+                description:
+                  $ref: '#/components/schemas/incident/properties/description'
+                external_reference:
+                  $ref: '#/components/schemas/incident/properties/external_reference'
+                external_link:
+                  $ref: '#/components/schemas/incident/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/incident/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/incident/properties/service'
+                  type: string
+                severity:
+                  $ref: '#/components/schemas/incident/properties/severity'
+                status:
+                  $ref: '#/components/schemas/incident/properties/status'
+                start_impact_date:
+                  $ref: '#/components/schemas/incident/properties/start_impact_date'
+                investigation_date:
+                  $ref: '#/components/schemas/incident/properties/investigation_date'
+                resolve_date:
+                  $ref: '#/components/schemas/incident/properties/resolve_date'
+                stable_date:
+                  $ref: '#/components/schemas/incident/properties/stable_date'
+      responses:
+        '200':
+          description: A incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incident'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /incident/{resource_id}/delete:
+    post:
+      tags:
+      - Incident
+      summary: Delete a incident
+      description: Delete a incident
+      operationId: deleteAIncident
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A list of incidents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/incident'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /maintenance:
+    get:
+      tags:
+      - Maintenance
+      summary: List all maintenances
+      description: List all maintenances
+      operationId: listAllMaintenances
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: status
+        in: query
+        description: Limit by status
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/status'
+      - name: service_status
+        in: query
+        description: Limit by service status
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/service_status'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          $ref: '#/components/schemas/service/properties/id'
+      - name: external_reference
+        in: query
+        description: Limit by external reference
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/external_reference'
+      - name: start_before
+        in: query
+        description: Limit by scheduled_start_date prior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+      - name: start_after
+        in: query
+        description: Limit by scheduled_start_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+      - name: end_before
+        in: query
+        description: Limit by scheduled_end_date prior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
+      - name: end_after
+        in: query
+        description: Limit by scheduled_end_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
+      responses:
+        '200':
+          description: A list of maintenances
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/maintenance'
+  /maintenance/create:
+    post:
+      tags:
+      - Maintenance
+      summary: Create a maintenance
+      description: Create a maintenance
+      operationId: createAMaintenance
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/maintenance/properties/name'
+                description:
+                  $ref: '#/components/schemas/maintenance/properties/description'
+                external_reference:
+                  $ref: '#/components/schemas/maintenance/properties/external_reference'
+                external_link:
+                  $ref: '#/components/schemas/maintenance/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/maintenance/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/maintenance/properties/service'
+                  type: string
+                scheduled_end_date:
+                  $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
+                scheduled_start_date:
+                  $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+                service_status:
+                  $ref: '#/components/schemas/maintenance/properties/service_status'
+      responses:
+        '200':
+          description: A maintenance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/maintenance'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /maintenance/{resource_id}:
+    get:
+      tags:
+      - Maintenance
+      summary: Get single maintenance
+      description: Get single maintenance
+      operationId: getSingleMaintenance
+      security: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A maintenance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/maintenance'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /maintenance/{resource_id}/update:
+    post:
+      tags:
+      - Maintenance
+      summary: Update a maintenance
+      description: Update a maintenance
+      operationId: updateAMaintenance
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/maintenance/properties/name'
+                description:
+                  $ref: '#/components/schemas/maintenance/properties/description'
+                external_reference:
+                  $ref: '#/components/schemas/maintenance/properties/external_reference'
+                external_link:
+                  $ref: '#/components/schemas/maintenance/properties/external_link'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/maintenance/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/maintenance/properties/service'
+                  type: string
+                status:
+                  $ref: '#/components/schemas/maintenance/properties/status'
+                scheduled_end_date:
+                  $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
+                scheduled_start_date:
+                  $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+                service_status:
+                  $ref: '#/components/schemas/maintenance/properties/service_status'
+                start_date:
+                  $ref: '#/components/schemas/maintenance/properties/start_date'
+                end_date:
+                  $ref: '#/components/schemas/maintenance/properties/end_date'
+      responses:
+        '200':
+          description: A maintenance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/maintenance'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /maintenance/{resource_id}/delete:
+    post:
+      tags:
+      - Maintenance
+      summary: Delete a maintenance
+      description: Delete a maintenance
+      operationId: deleteAMaintenance
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/monitor/properties/id'
+      responses:
+        '200':
+          description: A list of maintenances
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/maintenance'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+tags:
+- name: Scope
+- name: Service
+- name: Monitor
+- name: Incident
+- name: Maintenance

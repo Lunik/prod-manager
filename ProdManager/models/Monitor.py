@@ -27,6 +27,8 @@ class Monitor(db.Model):
     return dict(
       name=self.name,
       description=self.description,
+      scope=self.scope.id,
+      service=self.service.id,
       external_link=self.external_link,
       status=self.status.value,
     )

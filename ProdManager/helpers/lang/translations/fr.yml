@@ -165,6 +165,10 @@ about_bug_feature_pre: >
 about_bug_feature_link_text: GitLab.com/ProdManager/tickets
 
 
+# Swagger
+swagger_title: Spécifications des APIs
+
+
 # Auth
 auth_login_title: Se connecter
 auth_logout_title: Se déconnecter
