@@ -11,6 +11,7 @@
 - feat(API): Add a full OpenAPI definition (!46)
 - feat(API): Add Swagger UI intergration (!46)
 - ci(GitLab): Add DAST tests (!45)
+- ci(GitLab): Improve cache performances
 
 ### Fixed
 
