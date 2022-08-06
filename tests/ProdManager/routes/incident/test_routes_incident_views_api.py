@@ -8,6 +8,7 @@ import flask.globals
 from flask import request
 
 from ProdManager import create_app
+from ProdManager.helpers.pagination import PAGINATION_MAX_PAGE, PAGINATION_MAX_PER_PAGE
 
 class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
@@ -31,6 +32,15 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
       self.assertInResponse(b'[{', rv)
       self.assertInResponse(b'}]', rv)
       self.assertNotIn(b"__missing_translation", rv.data)
+
+  def test_list_with_client_2(self, app):
+    with app.test_client() as client:
+      rv = client.get('/api/incident?page=99999999999999999999')
+      assert rv.status_code == 400
+
+    with app.test_client() as client:
+      rv = client.get('/api/incident?per_page=99999999999999999999')
+      assert rv.status_code == 400
 
   def test_create_with_client(self, app):
     with app.test_client() as client:

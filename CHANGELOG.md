@@ -16,6 +16,7 @@
 ### Fixed
 
 - fix(translation.fr): Correct small French translation issues (#87)
+- fix(pagination): Fix database integer overflow with pagination (#93)
 
 ### Changed
 

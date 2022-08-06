@@ -293,3 +293,6 @@ table_column_internal: internal
 table_column_external_link: external link
 table_column_mail: mail
 table_column_remember_me: remember me
+
+# Pagination
+pagination_overflow: Pagination value overflow

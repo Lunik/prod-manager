@@ -76,11 +76,13 @@ def create_app():
   from ProdManager.helpers.auth import retreiv_auth
   from ProdManager.helpers.api import retreiv_api
   from ProdManager.helpers.security import validate_csrf
+  from ProdManager.helpers.pagination import secure_pagination
   @app.before_request
   def pre_request():
     retreiv_auth()
     retreiv_api()
     validate_csrf()
+    secure_pagination()
 
   # register the database commands
   db.init_app(app)
