@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from ProdManager.filters.basic import (
+from ProdManager.helpers.jinja2 import (
   ternary, format_column_name, format_timeline_date,
   format_template_name,
 )

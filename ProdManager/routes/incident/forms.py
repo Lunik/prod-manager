@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+
 from wtforms import (
   StringField, TextAreaField, SelectField,
   DateTimeLocalField, BooleanField, URLField,
@@ -10,8 +10,9 @@ from ProdManager.helpers.date import current_date
 from ProdManager.models import IncidentSeverity, IncidentStatus
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class IncidentCreateForm(FlaskForm):
+class IncidentCreateForm(CustomForm):
   scope = SelectField(
     name='scope',
     label=lang.get("table_column_scope").capitalize(),
@@ -84,7 +85,7 @@ class IncidentUpdateForm(IncidentCreateForm):
     format='%Y-%m-%dT%H:%M',
   )
 
-class IncidentCommentForm(FlaskForm):
+class IncidentCommentForm(CustomForm):
   comment = TextAreaField(
     name='comment',
     label=lang.get("table_column_comment").capitalize(),
@@ -96,5 +97,5 @@ class IncidentCommentForm(FlaskForm):
     validators=[]
   )
 
-class IncidentDeleteForm(FlaskForm):
+class IncidentDeleteForm(CustomForm):
   pass

@@ -1,5 +1,5 @@
 
-from flask import Blueprint, url_for, redirect, abort
+from flask import Blueprint, redirect, abort
 
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required
@@ -12,6 +12,7 @@ from ProdManager.helpers.resource import (
   list_resources_from_query,
 )
 from ProdManager.helpers.form import strip_input
+from ProdManager.helpers.links import custom_url_for
 
 from ProdManager.models import (
   Service, Monitor, Incident, Maintenance,
@@ -33,8 +34,10 @@ def list():
 
   return custom_render_template("service/list.html",
     services=services,
+    json=dict(resources=services),
     create_form=ServiceCreateForm()
   ), 200
+
 
 ############
 ## CREATE ##
@@ -62,7 +65,7 @@ def create():
       reasons=dict(service=[error.message])
     ))
 
-  return redirect(url_for('service.show', resource_id=service.id), 302)
+  return redirect(custom_url_for('service.show', resource_id=service.id), 302)
 
 ##########
 ## SHOW ##
@@ -82,6 +85,7 @@ def show(resource_id):
 
   return custom_render_template("service/single.html",
     service=service,
+    json=dict(resources=service),
     update_form=update_form,
     delete_form=ServiceDeleteForm(obj=service),
     ongoing_incidents=list_resources_from_query(
@@ -90,12 +94,14 @@ def show(resource_id):
       filters=Incident.ongoing_filter(),
       orders=Incident.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     past_incidents=list_resources_from_query(
       Incident,
       query=service.incidents,
       filters=Incident.past_filter(),
       paginate=False,
+      limit=10,
     ),
     scheduled_maintenances=list_resources_from_query(
       Maintenance,
@@ -103,6 +109,7 @@ def show(resource_id):
       filters=Maintenance.scheduled_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     ongoing_maintenances=list_resources_from_query(
       Maintenance,
@@ -110,12 +117,14 @@ def show(resource_id):
       filters=Maintenance.ongoing_filter(),
       orders=Maintenance.reverse_order(),
       paginate=False,
+      limit=10,
     ),
     past_maintenances=list_resources_from_query(
       Maintenance,
       query=service.maintenances,
       filters=Maintenance.past_filter(),
       paginate=False,
+      limit=10,
     ),
     monitors_count=Monitor.count_monitors(service.monitors),
   ), 200
@@ -147,7 +156,7 @@ def update(resource_id):
       reasons=dict(service=[error.message])
     ))
 
-  return redirect(url_for('service.show', resource_id=service.id), 302)
+  return redirect(custom_url_for('service.show', resource_id=service.id), 302)
 
 ############
 ## DELETE ##
@@ -172,4 +181,4 @@ def delete(resource_id):
       reasons=dict(service=[error.message])
     ))
 
-  return redirect(url_for('service.list'), 302)
+  return redirect(custom_url_for('service.list'), 302)

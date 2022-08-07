@@ -42,7 +42,7 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
         scheduled_end_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
-      assert re.match(r"/maintenance/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/maintenance/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -57,6 +57,17 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
       ))
       assert b"scope : This field is required" in rv.data
       assert rv.status_code == 400
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+    with app.test_client() as client:
+      rv = client.post('/maintenance/create', data=dict(
+        service="1",
+        service_status="up",
+        scheduled_start_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        scheduled_end_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_show_with_client(self, app):
@@ -105,6 +116,30 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
       self.assertInResponse(b'BEGIN:VCALENDAR', rv)
       self.assertInResponse(b'BEGIN:VEVENT', rv)
 
+  def test_calendar_with_client_2(self, app):
+    maintenance_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+
+    with app.test_client() as client:
+      client.post('/login', data=dict(secret="changeit"))
+      rv = client.post('/maintenance/create', data=dict(
+        scope="1",
+        service="1",
+        service_status="up",
+        external_reference="CHG000000",
+        scheduled_start_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        scheduled_end_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+        name=maintenance_name
+      ))
+
+      rv = client.get(rv.headers.get('Location') + "/calendar")
+
+      assert rv.status_code == 200
+      assert rv.headers['Content-Type'] == "text/calendar"
+      assert rv.headers['Content-Disposition'] == f"attachment; filename*=UTF-8''{maintenance_name}.ics"
+      self.assertInResponse(b'BEGIN:VCALENDAR', rv)
+      self.assertInResponse(b'BEGIN:VEVENT', rv)
+      self.assertInResponse(b'SUMMARY:[CHG000000]', rv)
+
   def test_update_with_client(self, app):
     maintenance_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
     maintenance_name_2 = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -134,7 +169,7 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
         name=maintenance_name_2
       ))
 
-      assert re.match(r"/maintenance/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/maintenance/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -221,7 +256,7 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
         comment="THIS_IS_A_TEST",
       ))
 
-      assert re.match(r"/maintenance/\d+", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/maintenance/\d+", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -252,7 +287,7 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{maintenance_uri}/delete")
 
-      assert re.match(r"/maintenance", rv.headers.get('Location'))
+      assert re.match(r"http://localhost/maintenance", rv.headers.get('Location'))
       assert rv.status_code == 302
       self.assertNotIn(b"__missing_translation", rv.data)
 

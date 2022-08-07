@@ -6,3 +6,7 @@
 - [Advanced configuration](./config/advanced.md)
 - [Mail notification](./config/mail-notification.md)
 - [Debug configuration](./config/debug.md)
+
+## Application APIs
+
+- [API references](./api/README.md)

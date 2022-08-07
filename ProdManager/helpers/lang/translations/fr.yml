@@ -68,7 +68,7 @@ incident_comment_event: *resource_event_comment
 incident_severity_critical: CRITIQUE
 incident_severity_high: HAUTE
 incident_severity_moderate: MODEREE
-incident_severity_low: BASE
+incident_severity_low: BASSE
 incident_severity_minor: MINEUR
 
 incident_status_active: ACTIF
@@ -165,6 +165,10 @@ about_bug_feature_pre: >
 about_bug_feature_link_text: GitLab.com/ProdManager/tickets
 
 
+# Swagger
+swagger_title: Spécifications des APIs
+
+
 # Auth
 auth_login_title: Se connecter
 auth_logout_title: Se déconnecter
@@ -205,17 +209,17 @@ resource_delete_monitor: ["Supprimer le ", *monitor_name]
 
 ## Incident
 resource_incident: *incident_title
-resource_back_to_list_incident: ["Retour à la liste de ", *incident_name, "s"]
-resource_update_incident: ["Mettre à jour le ", *incident_name]
-resource_comment_incident: ["Ajouter un commentaire sur le ", *incident_name]
-resource_delete_incident: ["Supprimer le ", *incident_name]
+resource_back_to_list_incident: ["Retour à la liste d'", *incident_name, "s"]
+resource_update_incident: ["Mettre à jour l'", *incident_name]
+resource_comment_incident: ["Ajouter un commentaire sur l'", *incident_name]
+resource_delete_incident: ["Supprimer l'", *incident_name]
 
 ## Maintenance
 resource_maintenance: *maintenance_title
 resource_back_to_list_maintenance: ["Retour à la liste de ", *maintenance_name, "s"]
-resource_update_maintenance: ["Mettre à jour le ", *maintenance_name]
-resource_comment_maintenance: ["Ajouter un commentaire sur le ", *maintenance_name]
-resource_delete_maintenance: ["Supprimer le ", *maintenance_name]
+resource_update_maintenance: ["Mettre à jour la ", *maintenance_name]
+resource_comment_maintenance: ["Ajouter un commentaire sur la ", *maintenance_name]
+resource_delete_maintenance: ["Supprimer la ", *maintenance_name]
 
 
 # Resource list
@@ -281,3 +285,7 @@ table_column_comment: commentaire
 table_column_internal: interne
 table_column_external_link: lien externe
 table_column_mail: email
+table_column_remember_me: se souvernir de moi
+
+# Pagination
+pagination_overflow: Débordement de valeur de pagination

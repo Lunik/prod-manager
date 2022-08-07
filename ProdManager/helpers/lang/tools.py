@@ -1,4 +1,3 @@
-
 from ProdManager import lang
 
 def text(message_id, count=1):

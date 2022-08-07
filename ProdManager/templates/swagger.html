@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set share_title = _("swagger_title") %}
+{% block title %}{{ share_title }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ custom_url_for('static', filename='external/css/swagger-ui.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="swagger-ui"></div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ custom_url_for('static', filename='external/js/swagger-ui-bundle.js') }}"></script>
+
+<script>
+window.onload = function() {
+  const ui = SwaggerUIBundle({
+    url: "{{ custom_url_for('static', filename='meta/openapi.yaml') }}",
+    dom_id: '#swagger-ui'
+  })
+
+  window.ui = ui
+}
+</script>
+{% endblock %}

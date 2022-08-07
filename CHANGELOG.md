@@ -1,6 +1,34 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.13.0
+
+### Added
+
+- feat(view.auth): Allow user to stay logged for 7 days with "remember me button" (#85) (!41)
+- feat(deploy.Kubernetes): Upgrade `HorizontalPodAutoscaler` with `autoscaling/v2` API (#34) (!42)
+- feat(API): Add APIs endpoints (#57) (!40)
+- ci(GitLab): Auto deploy to `develop`/`demo`/`sandbox` environment (!44)
+- feat(API): Add a full OpenAPI definition (!46)
+- feat(API): Add Swagger UI intergration (!46)
+- ci(GitLab): Add DAST tests (!45)
+- ci(GitLab): Improve cache performances
+
+### Fixed
+
+- fix(translation.fr): Correct small French translation issues (#87)
+- fix(pagination): Fix database integer overflow with pagination (#93)
+- fix(session): Fix missing `SameSite` attribute in session cookie (#89)
+- fix(headers): Fix secutiry issues by adding secutiry headers (#90, #91)
+
+### Changed
+
+- change(SQLAlchemy): Limit list query by is now `50` (paginated or not) (!40)
+- change(template.root): Limit Incidents/Maintenances on dashboard page is now `10` (!40)
+- change(template.root): Limit Incidents/Maintenances on Scope/Service page is now `10` (!40)
+- change(CODEOWNERS): Update CodeOwners file (#86) (!43)
+
+
+## 0.12.1
 
 ### Fixed
 

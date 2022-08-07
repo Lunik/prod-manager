@@ -1,10 +1,10 @@
-from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Length, Optional
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class ScopeCreateForm(FlaskForm):
+class ScopeCreateForm(CustomForm):
   name = StringField(
     name='name',
     label=lang.get("table_column_name").capitalize(),
@@ -19,5 +19,5 @@ class ScopeCreateForm(FlaskForm):
 class ScopeUpdateForm(ScopeCreateForm):
   pass
 
-class ScopeDeleteForm(FlaskForm):
+class ScopeDeleteForm(CustomForm):
   pass

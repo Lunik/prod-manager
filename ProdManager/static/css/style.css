@@ -143,7 +143,7 @@ div#icon-library {
 
 .badge.monitor .count { font-weight: bold; }
 
-.error, .info_message, .info {
+.error, .info_message {
   padding: 5px 20px;
 
   border-radius: 3px;
@@ -157,7 +157,7 @@ div#icon-library {
   color: var(--badge-red-text-color);
 }
 
-.info_message, .info {
+.info_message {
   background-color: var(--badge-green-color);
   color: var(--badge-green-text-color);
 }
@@ -481,7 +481,7 @@ form .field label, form .field input {
 }
 
 form .field label {
-  width: 100px;
+  width: 160px;
 }
 
 form .field input, form .field textarea {

@@ -167,6 +167,10 @@ about_bug_feature_pre: >
 about_bug_feature_link_text: GitLab.com/ProdManager/issues
 
 
+# Swagger
+swagger_title: APIs specs
+
+
 # Auth
 auth_login_title: &auth_login_title Login
 auth_logout_title: Logout
@@ -288,3 +292,7 @@ table_column_comment: comment
 table_column_internal: internal
 table_column_external_link: external link
 table_column_mail: mail
+table_column_remember_me: remember me
+
+# Pagination
+pagination_overflow: Pagination value overflow

@@ -219,6 +219,35 @@ When adding new text, you need to provide the human readable text of the transla
 
 If you don't provided translation in the default language a placeholder will be displayed like `__missing_translation_<translation_key>`
 
+## APIs
+
+APIs are automatically generated if a view is declared with the `/api` route prefix : See [ProdManager/__init__.py](./ProdManager/__init__.py).
+
+To ensure that routes are accessible through webUI and API, `ProdManager.helpers.template.custom_render_template` must be used with a `json` attribute like :
+
+```python
+  return custom_render_template("monitor/list.html",
+    monitors=monitors,
+    json=dict(resources=monitors),
+    create_form=create_form
+  ), 200
+```
+
+### Documentation
+
+When updating existing APIs or creating new, [API documentation](./docs/api/README.md) and [OpenAPI definition](./ProdManager/static/meta/openapi.yaml) should be update.
+
+OpenApi specification can be found [here](https://swagger.io/specification/).
+
+- Use [SwaggerEditor](https://editor.swagger.io) to update the OpenAPI file
+- Use [Swagger-CLI](https://github.com/APIDevTools/swagger-cli) to quickly validate of the OpenAPI definition
+
+OpenAPI definition version is independant of the application version. ProdManager can be in version `0.13.0` and API in version `0.2.0`.
+
+### Swagger UI
+
+Swagger UI `dist` file are copied from [Swagger UI Github repository](https://github.com/swagger-api/swagger-ui/tree/master/dist) and paster in [ProdManager static folder](./ProdManager/static/)
+
 ## Release Procedures
 
 1. Update the `CHANGELOG.md` file

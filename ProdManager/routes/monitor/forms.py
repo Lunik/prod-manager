@@ -1,12 +1,13 @@
-from flask_wtf import FlaskForm
+
 from wtforms import StringField, URLField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Optional, URL
 
 from ProdManager.models import MonitorStatus
 
 from ProdManager import lang
+from ProdManager.helpers.form import CustomForm
 
-class MonitorCreateForm(FlaskForm):
+class MonitorCreateForm(CustomForm):
   scope = SelectField(
     name='scope',
     label=lang.get("table_column_scope").capitalize(),
@@ -42,5 +43,5 @@ class MonitorUpdateForm(MonitorCreateForm):
     coerce=MonitorStatus.coerce,
   )
 
-class MonitorDeleteForm(FlaskForm):
+class MonitorDeleteForm(CustomForm):
   pass

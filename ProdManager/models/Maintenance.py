@@ -1,9 +1,12 @@
 from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 
+from flask import g
+
 from ProdManager import db
 from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
+from ProdManager.helpers.links import custom_url_for
 
 from .Service import ServiceStatus
 from .MaintenanceEvent import MaintenanceEvent
@@ -48,15 +51,34 @@ class Maintenance(db.Model):
       name=self.name,
       description=self.description,
       external_reference=self.external_reference,
-      status=self.status.name,
-      scope=self.scope.name,
-      service=self.service.name,
-      service_status=self.service_status.name,
+      external_link=self.external_link,
+      status=self.status.value,
+      scope=self.scope.id,
+      service=self.service.id,
+      service_status=self.service_status.value,
       creation_date=self.creation_date,
       scheduled_start_date=self.scheduled_start_date,
       scheduled_end_date=self.scheduled_end_date,
       start_date=self.start_date,
       end_date=self.end_date,
+    )
+
+  @property
+  def api_serialize(self):
+    if g.logged:
+      events = self.events
+    else:
+      events = self.events.filter(MaintenanceEvent.internal is False)
+
+    return self.serialize | dict(
+      id=self.id,
+      events=[event.api_serialize for event in events],
+      links=dict(
+        self=custom_url_for('maintenance_api.show', resource_id=self.id),
+        scope=custom_url_for('scope_api.show', resource_id=self.scope.id),
+        service=custom_url_for('service_api.show', resource_id=self.service.id),
+        calendar=custom_url_for('maintenance.calendar', resource_id=self.id),
+      ),
     )
 
   @classmethod
@@ -82,9 +104,15 @@ class Maintenance(db.Model):
   @classmethod
   def filters(cls):
     return [
-      ("status", cls.status, MaintenanceStatus),
-      ("scope", cls.scope_id, int),
-      ("service", cls.service_id, int),
+      ("status", cls.status, MaintenanceStatus, 'eq'),
+      ("scope", cls.scope_id, int, 'eq'),
+      ("service", cls.service_id, int, 'eq'),
+      ("service_status", cls.service_status, ServiceStatus, 'eq'),
+      ("external_reference", cls.external_reference, str, 'eq'),
+      ("start_before", cls.scheduled_start_date, str, 'le'),
+      ("start_after", cls.scheduled_start_date, str, 'ge'),
+      ("end_before", cls.scheduled_end_date, str, 'le'),
+      ("end_after", cls.scheduled_end_date, str, 'ge'),
     ]
 
   @property
