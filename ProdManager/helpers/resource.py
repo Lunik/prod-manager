@@ -18,11 +18,12 @@ from .response import (
   NotFoundError, ServerError, ConflictError,
   UndeletableRessourceError, DependencyError,
 )
+from .pagination import PAGINATION_MAX_PER_PAGE
 
 logger = logging.getLogger('gunicorn.error')
 
 
-def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True, limit=50):
+def list_resources_from_query(ressource_class, query, orders=None, filters=None, paginate=True, limit=PAGINATION_MAX_PER_PAGE):
   if orders is None:
     orders = ressource_class.default_order()
 

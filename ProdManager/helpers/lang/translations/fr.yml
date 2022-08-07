@@ -286,3 +286,6 @@ table_column_internal: interne
 table_column_external_link: lien externe
 table_column_mail: email
 table_column_remember_me: se souvernir de moi
+
+# Pagination
+pagination_overflow: Débordement de valeur de pagination
