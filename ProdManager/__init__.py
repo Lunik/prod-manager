@@ -85,6 +85,13 @@ def create_app():
     validate_csrf()
     secure_pagination()
 
+  from ProdManager.helpers.security import add_security_headers
+  @app.after_request
+  def pre_response(response):
+    response = add_security_headers(response)
+
+    return response
+
   # register the database commands
   db.init_app(app)
   migrate.init_app(app, db)
