@@ -1,9 +1,16 @@
 from datetime import datetime
 
+from flask import g
+
 from ProdManager.helpers.jinja2 import (
   ternary, format_column_name, format_timeline_date,
   format_template_name,
 )
+
+from ProdManager import create_app
+
+app = create_app()
+
 
 def test_ternary():
   assert ternary(True, "value1", "value2") == "value1"
@@ -27,7 +34,14 @@ def test_format_column_name():
 
 def test_format_timeline_date():
   date = datetime(year=2021, month=1, day=23, hour=7, minute=11, second=59)
-  assert format_timeline_date(date) == "23/01/2021 07:11"
+
+  with app.app_context():
+    g.api = False
+    assert format_timeline_date(date) == "23/01/2021 07:11"
+
+  with app.app_context():
+    g.api = True
+    assert format_timeline_date(date) == "2021-01-23T07:11"
 
 
 def test_format_template_name():
