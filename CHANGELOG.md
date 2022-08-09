@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.13.1
+
+### Fixed
+
+- fix(API): Add missing `400` error on API specs (#94) (!48)
+- ci(GitLab): Fix new image deployment in Scaleway serverless/containers
+- fix(API): Change the format of returned date to match ISO 8601 format (#97) (!50)
+
 ## 0.13.0
 
 ### Added
