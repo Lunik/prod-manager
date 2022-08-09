@@ -5,6 +5,7 @@
 ### Fixed
 
 - fix(API): Add missing `400` error on API specs (#94) (!48)
+- ci(GitLab): Fix new image deployment in Scaleway serverless/containers
 
 ## 0.13.0
 

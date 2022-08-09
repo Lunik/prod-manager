@@ -286,12 +286,18 @@ upload_image:
       apk add
       --update
       jq
+    - *image-tag
   script:
+    - >
+      /scw container
+      container update
+      $SCW_CONTAINER_ID
+      registry-image=$CONTAINER_REGISTRY/prod-manager:${tag}
     - >
       /scw container
       container deploy
       $SCW_CONTAINER_ID
-      | grep -E '^(Name|Status|RegistryImage|Region)' 
+      | grep -E '^(Name|Status|RegistryImage|Region)\s'
     - |
       while [ $(/scw container container get $SCW_CONTAINER_ID -o json | jq -r '.status') = "pending" ]; do
         echo "Waiting for the container to deploy"
