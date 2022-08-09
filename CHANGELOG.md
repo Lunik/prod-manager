@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(API): Add missing `400` error on API specs (#94) (!48)
 
 ## 0.13.0
 

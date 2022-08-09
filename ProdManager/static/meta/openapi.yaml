@@ -371,6 +371,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/scope'
+        '400':
+          $ref: '#/components/responses/error_400_response'
   /scope/create:
     post:
       tags:
@@ -514,6 +516,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/service'
+        '400':
+          $ref: '#/components/responses/error_400_response'
   /service/create:
     post:
       tags:
@@ -672,6 +676,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/monitor'
+        '400':
+          $ref: '#/components/responses/error_400_response'
   /monitor/create:
     post:
       tags:
@@ -872,6 +878,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/incident'
+        '400':
+          $ref: '#/components/responses/error_400_response'
   /incident/create:
     post:
       tags:
@@ -1099,6 +1107,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/maintenance'
+        '400':
+          $ref: '#/components/responses/error_400_response'
   /maintenance/create:
     post:
       tags:
