@@ -1,4 +1,3 @@
-from datetime import timedelta
 
 from wtforms import (
   StringField, TextAreaField, SelectField,
@@ -56,14 +55,14 @@ class MaintenanceCreateForm(CustomForm):
   scheduled_start_date = DateTimeLocalField(
     name='scheduled_start_date',
     label=lang.get("table_column_scheduled_start_date").capitalize(),
-    default=current_date(),
+    default=current_date,
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
   scheduled_end_date = DateTimeLocalField(
     name='scheduled_end_date',
     label=lang.get("table_column_scheduled_end_date").capitalize(),
-    default=current_date() + timedelta(hours=1),
+    default=current_date,
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
