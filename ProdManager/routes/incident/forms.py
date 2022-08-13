@@ -53,7 +53,7 @@ class IncidentCreateForm(CustomForm):
   start_impact_date = DateTimeLocalField(
     name='start_impact_date',
     label=lang.get("table_column_start_impact_date").capitalize(),
-    default=current_date(),
+    default=current_date,
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )

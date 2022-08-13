@@ -5,6 +5,9 @@
 ## Fixed
 
 - fix(session): Correct the session cookie lifetime (#101) (!52)
+- fix(Maintenance.form): Default date are now the current date (#98) (!51)
+- fix(Incident.form): Default date are now the current date (#98) (!51)
+
 
 ## 0.13.1
 
