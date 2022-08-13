@@ -296,3 +296,6 @@ table_column_remember_me: remember me
 
 # Pagination
 pagination_overflow: Pagination value overflow
+
+# Filter
+filter_overflow: Filter value overflow

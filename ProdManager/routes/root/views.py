@@ -13,6 +13,7 @@ bp = Blueprint("root", __name__, url_prefix="/")
 @bp.route('/')
 def index():
   return custom_render_template("index.html",
+    ongoing_incidents_filters=Incident.ongoing_filter(raw=True),
     ongoing_incidents=list_resources(
       Incident,
       filters=Incident.ongoing_filter(),
@@ -20,12 +21,8 @@ def index():
       paginate=False,
       limit=10,
     ),
-    past_incidents=list_resources(
-      Incident,
-      filters=Incident.past_filter(),
-      paginate=False,
-      limit=10,
-    ),
+    past_incidents_filters=Incident.past_filter(raw=True),
+    scheduled_maintenances_filters=Maintenance.scheduled_filter(raw=True),
     scheduled_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.scheduled_filter(),
@@ -33,6 +30,7 @@ def index():
       paginate=False,
       limit=10,
     ),
+    ongoing_maintenances_filters=Maintenance.ongoing_filter(raw=True),
     ongoing_maintenances=list_resources(
       Maintenance,
       filters=Maintenance.ongoing_filter(),
@@ -40,12 +38,7 @@ def index():
       paginate=False,
       limit=10,
     ),
-    past_maintenances=list_resources(
-      Maintenance,
-      filters=Maintenance.past_filter(),
-      paginate=False,
-      limit=10,
-    ),
+    past_maintenances_filters=Maintenance.past_filter(raw=True),
     monitors_count=Monitor.count_monitors(Monitor.query),
   ), 200
 

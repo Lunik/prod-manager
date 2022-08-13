@@ -90,30 +90,45 @@ class Maintenance(db.Model):
     return (cls.scheduled_start_date.asc(), cls.status.asc())
 
   @classmethod
-  def scheduled_filter(cls):
-    return Maintenance.status.in_([MaintenanceStatus.SCHEDULED])
+  def scheduled_filter(cls, raw=False):
+    filters = [MaintenanceStatus.SCHEDULED]
+
+    if raw:
+      return [status.value for status in filters]
+
+    return Maintenance.status.in_(filters)
 
   @classmethod
-  def ongoing_filter(cls):
-    return Maintenance.status.in_([MaintenanceStatus.IN_PROGRESS])
+  def ongoing_filter(cls, raw=False):
+    filters = [MaintenanceStatus.IN_PROGRESS]
+
+    if raw:
+      return [status.value for status in filters]
+
+    return Maintenance.status.in_(filters)
 
   @classmethod
-  def past_filter(cls):
-    return Maintenance.status.in_([MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED])
+  def past_filter(cls, raw=False):
+    filters = [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED]
+
+    if raw:
+      return [status.value for status in filters]
+
+    return Maintenance.status.in_(filters)
 
   @classmethod
   def filters(cls):
-    return [
-      ("status", cls.status, MaintenanceStatus, 'eq'),
-      ("scope", cls.scope_id, int, 'eq'),
-      ("service", cls.service_id, int, 'eq'),
-      ("service_status", cls.service_status, ServiceStatus, 'eq'),
-      ("external_reference", cls.external_reference, str, 'eq'),
-      ("start_before", cls.scheduled_start_date, str, 'le'),
-      ("start_after", cls.scheduled_start_date, str, 'ge'),
-      ("end_before", cls.scheduled_end_date, str, 'le'),
-      ("end_after", cls.scheduled_end_date, str, 'ge'),
-    ]
+    return dict(
+      status=(cls.status, MaintenanceStatus, 'eq'),
+      scope=(cls.scope_id, int, 'eq'),
+      service=(cls.service_id, int, 'eq'),
+      service_status=(cls.service_status, ServiceStatus, 'eq'),
+      external_reference=(cls.external_reference, str, 'eq'),
+      start_before=(cls.scheduled_start_date, str, 'le'),
+      start_after=(cls.scheduled_start_date, str, 'ge'),
+      end_before=(cls.scheduled_end_date, str, 'le'),
+      end_after=(cls.scheduled_end_date, str, 'ge'),
+    )
 
   @property
   def title(self):

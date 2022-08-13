@@ -50,11 +50,11 @@ class Monitor(db.Model):
 
   @classmethod
   def filters(cls):
-    return [
-      ("status", cls.status, MonitorStatus, 'eq'),
-      ("scope", cls.scope_id, int, 'eq'),
-      ("service", cls.service_id, int, 'eq'),
-    ]
+    return dict(
+      status=(cls.status, MonitorStatus, 'eq'),
+      scope=(cls.scope_id, int, 'eq'),
+      service=(cls.service_id, int, 'eq'),
+    )
 
   @classmethod
   def count_monitors_in_status(cls, query, status):

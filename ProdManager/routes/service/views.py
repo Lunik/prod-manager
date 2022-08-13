@@ -88,6 +88,7 @@ def show(resource_id):
     json=dict(resources=service),
     update_form=update_form,
     delete_form=ServiceDeleteForm(obj=service),
+    ongoing_incidents_filters=Incident.ongoing_filter(raw=True),
     ongoing_incidents=list_resources_from_query(
       Incident,
       query=service.incidents,
@@ -96,13 +97,8 @@ def show(resource_id):
       paginate=False,
       limit=10,
     ),
-    past_incidents=list_resources_from_query(
-      Incident,
-      query=service.incidents,
-      filters=Incident.past_filter(),
-      paginate=False,
-      limit=10,
-    ),
+    past_incidents_filters=Incident.past_filter(raw=True),
+    scheduled_maintenances_filters=Maintenance.scheduled_filter(raw=True),
     scheduled_maintenances=list_resources_from_query(
       Maintenance,
       query=service.maintenances,
@@ -111,6 +107,7 @@ def show(resource_id):
       paginate=False,
       limit=10,
     ),
+    ongoing_maintenances_filters=Maintenance.ongoing_filter(raw=True),
     ongoing_maintenances=list_resources_from_query(
       Maintenance,
       query=service.maintenances,
@@ -119,13 +116,7 @@ def show(resource_id):
       paginate=False,
       limit=10,
     ),
-    past_maintenances=list_resources_from_query(
-      Maintenance,
-      query=service.maintenances,
-      filters=Maintenance.past_filter(),
-      paginate=False,
-      limit=10,
-    ),
+    past_maintenances_filters=Maintenance.past_filter(raw=True),
     monitors_count=Monitor.count_monitors(service.monitors),
   ), 200
 

@@ -2,11 +2,24 @@
 
 ## [Unreleased]
 
-## Fixed
+### Added
+
+- feat(api): Allow to specify multiple occurrences of the same filter (#13) (!53)
+- feat(template.root): Add link to list of Incident/Maintenance (#11) (!53)
+- feat(template.scope): Add link to list of Incident/Maintenance (#11) (!53)
+- feat(template.service): Add link to list of Incident/Maintenance (#11) (!53)
+
+### Fixed
 
 - fix(session): Correct the session cookie lifetime (#101) (!52)
 - fix(Maintenance.form): Default date are now the current date (#98) (!51)
 - fix(Incident.form): Default date are now the current date (#98) (!51)
+
+### Changed
+
+- change(template.root): Remove list of past Incident/Maintenance (#11) (!53)
+- change(template.scope): Remove list of past Incident/Maintenance (#11) (!53)
+- change(template.service): Remove list of past Incident/Maintenance (#11) (!53)
 
 
 ## 0.13.1
