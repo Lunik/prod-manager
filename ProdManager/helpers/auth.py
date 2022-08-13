@@ -1,4 +1,3 @@
-from datetime import datetime
 import functools
 
 from flask import session, request, redirect, g, abort, current_app
@@ -6,11 +5,6 @@ from flask import session, request, redirect, g, abort, current_app
 from ProdManager.helpers.links import custom_url_for
 
 def retreiv_auth():
-  logged_until = session.get("logged_until", None)
-
-  if logged_until and (datetime.now() > datetime.fromtimestamp(logged_until)):
-    session.clear()
-
   # API Authentication
   valid_header_token = (
     request.headers.get("APPLICATION-SECRET", None) == current_app.config['SECRET_KEY']

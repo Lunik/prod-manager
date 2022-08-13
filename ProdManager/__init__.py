@@ -39,6 +39,7 @@ def create_app():
       "session_BREAKING_THE_PRODUCTION"
     ),
     SESSION_COOKIE_SAMESITE="Strict",
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7),
     # store the database in the instance folder
     SQLALCHEMY_DATABASE_URI=os.environ.get(
       "PM_DATABASE_URI",

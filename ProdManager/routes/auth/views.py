@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from flask import Blueprint, redirect, abort
 from flask import current_app
@@ -45,14 +45,11 @@ def do_login():
       reasons=dict(secret=[lang.get("auth_invalid_secret")]),
     ))
 
-  remember_me_days = 1
-  if form.remember_me.data:
-    remember_me_days = 7
-
   session.clear()
   session["logged"] = True
   session["logged_at"] = datetime.now().timestamp()
-  session["logged_until"] = (datetime.now() + timedelta(days=remember_me_days)).timestamp()
+  if form.remember_me.data:
+    session.permanent = True
 
   return redirect(custom_url_for('root.index'), 302)
 
