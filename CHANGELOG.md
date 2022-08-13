@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Fixed
+
+- fix(session): Correct the session cookie lifetime (#101) (!52)
 
 ## 0.13.1
 
