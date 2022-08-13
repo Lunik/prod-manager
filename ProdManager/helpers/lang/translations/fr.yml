@@ -289,3 +289,6 @@ table_column_remember_me: se souvernir de moi
 
 # Pagination
 pagination_overflow: Débordement de valeur de pagination
+
+# Filter
+filter_overflow: Débordement de valeur de filtre

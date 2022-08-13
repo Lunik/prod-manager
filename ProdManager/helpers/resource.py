@@ -2,7 +2,8 @@ import functools
 import logging
 from sqlite3 import IntegrityError as sqlite3IntegrityError
 
-from flask import current_app, request
+from flask import current_app, request, abort
+from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 
 from psycopg2.errors import (
@@ -10,7 +11,7 @@ from psycopg2.errors import (
   NotNullViolation as pgsqlNotNullViolation,
 )
 
-from ProdManager import db
+from ProdManager import db, lang
 from ProdManager.models import EventType
 import ProdManager.helpers.notification as NotificationHelper
 import ProdManager.helpers.event as EventHelper
@@ -171,22 +172,41 @@ def resource_filters(filter_fields):
     def wrapped_view(**kwargs):
       filters = ()
 
-      for filter_name, filter_field, filter_type, filter_operator in filter_fields:
-        filter_value = request.args.get(filter_name, type=filter_type)
-        if filter_value is not None:
+      for filter_name in request.args:
+        if filter_name not in filter_fields:
+          continue
+
+        filter_field, filter_type, filter_operator = filter_fields[filter_name]
+
+        filter_values = request.args.getlist(filter_name, type=filter_type)
+        filter_values_count = len(filter_values)
+        if filter_values_count == 0:
+          continue
+
+        if filter_values_count > PAGINATION_MAX_PER_PAGE:
+          abort(400, dict(
+            message=lang.get("filter_overflow"),
+            reasons=dict(filter_name=[f"Filter occurrence count higher than the limit {PAGINATION_MAX_PER_PAGE}"])
+          ))
+
+        current_filter = []
+
+        for filter_value in filter_values:
           match filter_operator:
             case 'gt':
-              filters += (filter_field > filter_value,)
+              current_filter.append(filter_field > filter_value)
             case 'ge':
-              filters += (filter_field >= filter_value,)
+              current_filter.append(filter_field >= filter_value)
             case 'lt':
-              filters += (filter_field < filter_value,)
+              current_filter.append(filter_field < filter_value)
             case 'le':
-              filters += (filter_field < filter_value,)
+              current_filter.append(filter_field < filter_value)
             case 'ne':
-              filters += (filter_field != filter_value,)
+              current_filter.append(filter_field != filter_value)
             case _:
-              filters += (filter_field == filter_value,)
+              current_filter.append(filter_field == filter_value)
+
+        filters += (or_(*current_filter),)
 
       kwargs['filters'] = filters
       return view(**kwargs)

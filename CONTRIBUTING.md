@@ -273,4 +273,4 @@ Swagger UI `dist` file are copied from [Swagger UI Github repository](https://gi
 [gitlab-pipeline-tag]: https://gitlab.com/prod-manager/prod-manager/-/pipelines?scope=tags
 
 [translation-folder]: ProdManager/helpers/lang/translations/
-[flaticon]: https://www.flaticon.com/uicons
+[flaticon-uicons]: https://www.flaticon.com/uicons
