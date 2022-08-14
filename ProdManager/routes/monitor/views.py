@@ -41,7 +41,8 @@ def list(filters):
   return custom_render_template("monitor/list.html",
     monitors=monitors,
     json=dict(resources=monitors),
-    create_form=create_form
+    create_form=create_form,
+    filters=Monitor.filters().keys(),
   ), 200
 
 

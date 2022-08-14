@@ -35,7 +35,7 @@ def list():
   return custom_render_template("service/list.html",
     services=services,
     json=dict(resources=services),
-    create_form=ServiceCreateForm()
+    create_form=ServiceCreateForm(),
   ), 200
 
 

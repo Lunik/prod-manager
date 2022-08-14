@@ -30,7 +30,7 @@ def list():
   return custom_render_template("scope/list.html",
     scopes=scopes,
     json=dict(resources=scopes),
-    create_form=ScopeCreateForm()
+    create_form=ScopeCreateForm(),
   ), 200
 
 

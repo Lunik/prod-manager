@@ -222,6 +222,9 @@ resource_comment_maintenance: ["Ajouter un commentaire sur la ", *maintenance_na
 resource_delete_maintenance: ["Supprimer la ", *maintenance_name]
 
 
+# Resource filters
+filters_title: Filtres
+
 # Resource list
 resource_list_create_submit: créer
 resource_pagination_header: Pages
