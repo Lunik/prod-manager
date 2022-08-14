@@ -46,7 +46,8 @@ def list(filters):
   return custom_render_template("maintenance/list.html",
     maintenances=maintenances,
     json=dict(resources=maintenances),
-    create_form=create_form
+    create_form=create_form,
+    filters=Maintenance.filters().keys(),
   ), 200
 
 

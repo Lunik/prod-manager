@@ -43,7 +43,8 @@ def list(filters):
   return custom_render_template("incident/list.html",
     incidents=incidents,
     json=dict(resources=incidents),
-    create_form=create_form
+    create_form=create_form,
+    filters=Incident.filters().keys(),
   ), 200
 
 

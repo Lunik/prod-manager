@@ -7,6 +7,10 @@ body {
   background-color: var(--base-default-background-color);
 }
 
+button {
+  cursor: pointer;
+}
+
 /*****
   APP
 ******/
@@ -244,6 +248,51 @@ table#resource-list tr.resource:hover {
 
 table#resource-list td._show {
   width: 20px;
+}
+
+/***********************
+  RESOURCE LIST FILTERS
+************************/
+
+h3#filters {
+  margin: auto 10px auto auto;
+}
+
+h3#filters, div#list_filters {
+  display: inline-block;
+}
+
+div#list_filters {
+  margin-bottom: 10px;
+}
+
+div#list_filters .filter {
+  display: inline-block;
+
+  margin: auto 5px 5px auto;
+  padding: 1px 5px;
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+
+  background-color: var(--base-main-color);
+  color: white;
+}
+
+div#list_filters button {
+  margin-left: 5px;
+  padding: 0;
+
+  background: none;
+  color: inherit;
+
+  border: none;
+  font: inherit;
+  outline: inherit;  
+}
+
+div#list_filters button:hover {
+  color: red;
 }
 
 /**********

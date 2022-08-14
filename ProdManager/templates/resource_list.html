@@ -4,6 +4,15 @@
 
 {% block content %}
 <h1>{{ _("resource_list_" + resource_type) }}</h1>
+<h3 id="filters" class="hidden">{{ _("filters_title") }} :</h3>
+<div id="list_filters">
+  <script>const VALID_FILTERS = {{ filters | list | tojson }}</script>
+  <div class="filter hidden" id="template">
+    <span class="name">@@name@@</span>:
+    <span class="value">@@value@@</span>
+    <button class="close">x</button>
+  </div>
+</div>
 {% with resources = resources.items %}
   {% include "fragments/table.html" %}
 {% endwith %}
