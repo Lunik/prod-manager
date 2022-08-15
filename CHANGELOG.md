@@ -9,6 +9,7 @@
 - feat(template.scope): Add link to list of Incident/Maintenance (#11) (!53)
 - feat(template.service): Add link to list of Incident/Maintenance (#11) (!53)
 - feat(list.template): Display current resources list filters (#13) (!55)
+- ci(GitLab): Add Browser Performance Testing (!56)
 
 ### Fixed
 
