@@ -26,6 +26,7 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/topics/caching/
@@ -307,18 +308,61 @@ upload_image:
 
 deploy_develop:
   extends: .deploy
-  environment: develop
+  environment:
+    name: develop
+    action: start
   only:
     - develop
 
 deploy_demo:
   extends: .deploy
-  environment: demo
+  environment:
+    name: demo
+    action: start
   only:
     - tags
 
 deploy_sandbox:
   extends: .deploy
-  environment: sandbox
+  environment:
+    name: sandbox
+    action: start
+  only:
+    - tags
+
+browser_performance:
+  stage: deploy
+  variables:
+    URL: $CI_ENVIRONMENT_URL
+    SITESPEED_OPTIONS: "-d 2"
+  only: []
+
+browser_performance_develop:
+  extends: browser_performance
+  needs:
+    - deploy_develop
+  environment:
+    name: develop
+    action: verify
+  only:
+    - develop
+
+browser_performance_demo:
+  extends: browser_performance
+  needs:
+    - deploy_demo
+  environment:
+    name: demo
+    action: verify
+  only:
+    - tags
+
+browser_performance_sandbox:
+  extends: browser_performance
+  needs:
+    - deploy_sandbox
+  environment:
+    name: sandbox
+    action: verify
   only:
     - tags
