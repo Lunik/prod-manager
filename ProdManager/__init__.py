@@ -68,10 +68,7 @@ def create_app():
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
 
   # ensure the instance folder exists
-  try:
-    os.makedirs(app.instance_path)
-  except OSError:
-    pass
+  os.makedirs(app.instance_path, exist_ok=True)
 
   csrf.init_app(app)
 
