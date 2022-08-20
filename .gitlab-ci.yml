@@ -196,6 +196,28 @@ openapi_specs:
       --debug
       ProdManager/static/meta/openapi.yaml
 
+container_runtime:
+  stage: validate
+  image: alpine:latest
+  services:
+    - name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+      alias: prod-manager
+      variables:
+        PM_DEMO: "true"
+  before_script:
+    - >
+      apk add
+      --update
+      curl
+  script:
+    - >
+      curl -s
+      http://prod-manager:8080/health
+    - >
+      curl -s
+      http://prod-manager:8080/
+      | (! grep -q "Internal error")
+
 .dast:
   dependencies:
     - openapi_specs

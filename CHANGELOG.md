@@ -10,6 +10,7 @@
 - feat(template.service): Add link to list of Incident/Maintenance (#11) (!53)
 - feat(list.template): Display current resources list filters (#13) (!55)
 - ci(GitLab): Add Browser Performance Testing (!56)
+- ci(GitLab): Add a validation test to check if the container work (!58)
 
 ### Fixed
 
@@ -22,6 +23,7 @@
 - change(template.root): Remove list of past Incident/Maintenance (#11) (!53)
 - change(template.scope): Remove list of past Incident/Maintenance (#11) (!53)
 - change(template.service): Remove list of past Incident/Maintenance (#11) (!53)
+- change(image): Container image now runs as non root by default (!58)
 
 
 ## 0.13.1
