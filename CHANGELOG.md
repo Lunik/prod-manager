@@ -10,7 +10,8 @@
 - feat(template.service): Add link to list of Incident/Maintenance (#11) (!53)
 - feat(list.template): Display current resources list filters (#13) (!55)
 - ci(GitLab): Add Browser Performance Testing (!56)
-- ci(GitLab): Add a validation test to check if the container work (!58)
+- ci(GitLab): Add a docker validation test to check if the container work (!58)
+- ci(GitLab): Add a kubernetes spec validation check if manifests are valid (!59)
 
 ### Fixed
 

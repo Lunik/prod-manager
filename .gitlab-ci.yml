@@ -218,6 +218,28 @@ container_runtime:
       http://prod-manager:8080/
       | (! grep -q "Internal error")
 
+kubernetes_manifests:
+  stage: validate
+  image:
+    name: garethr/kubeval:latest
+    entrypoint: ["/bin/sh", "-l", "-c"]
+  needs: []
+  parallel:
+    matrix:
+      - KUBE_VERSION: "1.23.9"
+      - KUBE_VERSION: "1.24.4"
+  variables:
+    KUBEVAL_SCHEMA_LOCATION: "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master"
+  before_script:
+    - kubeval --version
+  script:
+    - >
+      kubeval
+      --force-color
+      --strict
+      --kubernetes-version $KUBE_VERSION
+      deploy/kubernetes/*.yml
+
 .dast:
   dependencies:
     - openapi_specs
