@@ -26,6 +26,7 @@ include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
   - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/topics/caching/
@@ -195,6 +196,50 @@ openapi_specs:
       --debug
       ProdManager/static/meta/openapi.yaml
 
+container_runtime:
+  stage: validate
+  image: alpine:latest
+  services:
+    - name: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+      alias: prod-manager
+      variables:
+        PM_DEMO: "true"
+  before_script:
+    - >
+      apk add
+      --update
+      curl
+  script:
+    - >
+      curl -s
+      http://prod-manager:8080/health
+    - >
+      curl -s
+      http://prod-manager:8080/
+      | (! grep -q "Internal error")
+
+kubernetes_manifests:
+  stage: validate
+  image:
+    name: garethr/kubeval:latest
+    entrypoint: ["/bin/sh", "-l", "-c"]
+  needs: []
+  parallel:
+    matrix:
+      - KUBE_VERSION: "1.23.9"
+      - KUBE_VERSION: "1.24.4"
+  variables:
+    KUBEVAL_SCHEMA_LOCATION: "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master"
+  before_script:
+    - kubeval --version
+  script:
+    - >
+      kubeval
+      --force-color
+      --strict
+      --kubernetes-version $KUBE_VERSION
+      deploy/kubernetes/*.yml
+
 .dast:
   dependencies:
     - openapi_specs
@@ -307,18 +352,61 @@ upload_image:
 
 deploy_develop:
   extends: .deploy
-  environment: develop
+  environment:
+    name: develop
+    action: start
   only:
     - develop
 
 deploy_demo:
   extends: .deploy
-  environment: demo
+  environment:
+    name: demo
+    action: start
   only:
     - tags
 
 deploy_sandbox:
   extends: .deploy
-  environment: sandbox
+  environment:
+    name: sandbox
+    action: start
+  only:
+    - tags
+
+browser_performance:
+  stage: deploy
+  variables:
+    URL: $CI_ENVIRONMENT_URL
+    SITESPEED_OPTIONS: "-d 2"
+  only: []
+
+browser_performance_develop:
+  extends: browser_performance
+  needs:
+    - deploy_develop
+  environment:
+    name: develop
+    action: verify
+  only:
+    - develop
+
+browser_performance_demo:
+  extends: browser_performance
+  needs:
+    - deploy_demo
+  environment:
+    name: demo
+    action: verify
+  only:
+    - tags
+
+browser_performance_sandbox:
+  extends: browser_performance
+  needs:
+    - deploy_sandbox
+  environment:
+    name: sandbox
+    action: verify
   only:
     - tags

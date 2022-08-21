@@ -1,10 +1,7 @@
-{% if (past_incidents.count()) > 0 %}
-<h2 id="past_incidents">{{ _("incident_past").capitalize() }}</h2>
-{% set resource_type = "incident" %}
-{% set resource_endpoint = "incident" %}
-{% set resources = past_incidents %}
-{% set resource_attributes = [
-  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "severity"), ("enum", "status"), ("string", "external_reference"), ("date", "start_impact_date"), ("date", "resolve_date")
-] %}
-{% include "fragments/table.html" %}
-{% endif %}
+{% set scope_id = (scope | default({})).id | default(None) %}
+{% set service_id = (service | default({})).id | default(None) %}
+<h2 id="past_incidents">
+  <a href="{{ custom_url_for('incident.list', status=past_incidents_filters, scope=scope_id, service=service_id) }}">
+    {{ _("incident_past").capitalize() }} {{ icon("angle-right") }}
+  </a>
+</h2>

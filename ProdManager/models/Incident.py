@@ -95,28 +95,38 @@ class Incident(db.Model):
     return (cls.start_impact_date.asc(), cls.status.asc(), cls.severity.asc())
 
   @classmethod
-  def ongoing_filter(cls):
-    return Incident.status.in_([
+  def ongoing_filter(cls, raw=False):
+    filters = [
       IncidentStatus.ACTIVE,
       IncidentStatus.INVESTIGATING,
       IncidentStatus.STABLE,
-    ])
+    ]
+
+    if raw:
+      return [status.value for status in filters]
+
+    return Incident.status.in_(filters)
 
   @classmethod
-  def past_filter(cls):
-    return Incident.status.in_([IncidentStatus.RESOLVED])
+  def past_filter(cls, raw=False):
+    filters = [IncidentStatus.RESOLVED]
+
+    if raw:
+      return [status.value for status in filters]
+
+    return Incident.status.in_(filters)
 
   @classmethod
   def filters(cls):
-    return [
-      ("status", cls.status, IncidentStatus, 'eq'),
-      ("severity", cls.severity, IncidentSeverity, 'eq'),
-      ("scope", cls.scope_id, int, 'eq'),
-      ("service", cls.service_id, int, 'eq'),
-      ("external_reference", cls.external_reference, str, 'eq'),
-      ("impact_before", cls.start_impact_date, str, 'le'),
-      ("impact_after", cls.start_impact_date, str, 'ge'),
-    ]
+    return dict(
+      status=(cls.status, IncidentStatus, 'eq'),
+      severity=(cls.severity, IncidentSeverity, 'eq'),
+      scope=(cls.scope_id, int, 'eq'),
+      service=(cls.service_id, int, 'eq'),
+      external_reference=(cls.external_reference, str, 'eq'),
+      impact_before=(cls.start_impact_date, str, 'le'),
+      impact_after=(cls.start_impact_date, str, 'ge'),
+    )
 
   @property
   def title(self):

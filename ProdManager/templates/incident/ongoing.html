@@ -1,5 +1,11 @@
 {% if (ongoing_incidents.count()) > 0 %}
-<h2 id="ongoing_incidents">{{ _("incident_ongoing").capitalize() }}</h2>
+{% set scope_id = (scope | default({})).id | default(None) %}
+{% set service_id = (service | default({})).id | default(None) %}
+<h2 id="ongoing_incidents">
+  <a href="{{ custom_url_for('incident.list', status=ongoing_incidents_filters, scope=scope_id, service=service_id) }}">
+    {{ _("incident_ongoing").capitalize() }} {{ icon("angle-right") }}
+  </a>
+</h2>
 {% set resource_type = "incident" %}
 {% set resource_endpoint = "incident" %}
 {% set resources = ongoing_incidents %}

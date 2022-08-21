@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## 0.14.0
+
+### Added
+
+- feat(api): Allow to specify multiple occurrences of the same filter (#13) (!53)
+- feat(template.root): Add link to list of Incident/Maintenance (#11) (!53)
+- feat(template.scope): Add link to list of Incident/Maintenance (#11) (!53)
+- feat(template.service): Add link to list of Incident/Maintenance (#11) (!53)
+- feat(list.template): Display current resources list filters (#13) (!55)
+- ci(GitLab): Add Browser Performance Testing (!56)
+- ci(GitLab): Add a docker validation test to check if the container work (!58)
+- ci(GitLab): Add a kubernetes spec validation check if manifests are valid (!59)
+
+### Fixed
+
+- fix(session): Correct the session cookie lifetime (#101) (!52)
+- fix(Maintenance.form): Default date are now the current date (#98) (!51)
+- fix(Incident.form): Default date are now the current date (#98) (!51)
+
+### Changed
+
+- change(template.root): Remove list of past Incident/Maintenance (#11) (!53)
+- change(template.scope): Remove list of past Incident/Maintenance (#11) (!53)
+- change(template.service): Remove list of past Incident/Maintenance (#11) (!53)
+- change(image): Container image now runs as non root by default (!58)
+
+
 ## 0.13.1
 
 ### Fixed
@@ -7,6 +34,7 @@
 - fix(API): Add missing `400` error on API specs (#94) (!48)
 - ci(GitLab): Fix new image deployment in Scaleway serverless/containers
 - fix(API): Change the format of returned date to match ISO 8601 format (#97) (!50)
+
 
 ## 0.13.0
 

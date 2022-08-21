@@ -653,17 +653,23 @@ paths:
         in: query
         description: Limit by status
         schema:
-          $ref: '#/components/schemas/monitor/properties/status'
+          type: array
+          items:
+            $ref: '#/components/schemas/monitor/properties/status'
       - name: scope
         in: query
         description: Limit by scope ID
         schema:
-          $ref: '#/components/schemas/scope/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
       - name: service
         in: query
         description: Limit by service ID
         schema:
-          $ref: '#/components/schemas/service/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
       responses:
         '200':
           description: A list of monitors
@@ -835,27 +841,37 @@ paths:
         in: query
         description: Limit by status
         schema:
-          $ref: '#/components/schemas/incident/properties/status'
+          type: array
+          items:
+            $ref: '#/components/schemas/incident/properties/status'
       - name: severity
         in: query
         description: Limit by severity
         schema:
-          $ref: '#/components/schemas/incident/properties/severity'
+          type: array
+          items:
+            $ref: '#/components/schemas/incident/properties/severity'
       - name: scope
         in: query
         description: Limit by scope ID
         schema:
-          $ref: '#/components/schemas/scope/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
       - name: service
         in: query
         description: Limit by service ID
         schema:
-          $ref: '#/components/schemas/service/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
       - name: external_reference
         in: query
         description: Limit by external_reference
         schema:
-          $ref: '#/components/schemas/incident/properties/external_reference'
+          type: array
+          items:
+            $ref: '#/components/schemas/incident/properties/external_reference'
       - name: impact_before
         in: query
         description: Limit by start_impact_date prior to the date
@@ -1054,27 +1070,37 @@ paths:
         in: query
         description: Limit by status
         schema:
-          $ref: '#/components/schemas/maintenance/properties/status'
+          type: array
+          items:
+            $ref: '#/components/schemas/maintenance/properties/status'
       - name: service_status
         in: query
         description: Limit by service status
         schema:
-          $ref: '#/components/schemas/maintenance/properties/service_status'
+          type: array
+          items:
+            $ref: '#/components/schemas/maintenance/properties/service_status'
       - name: scope
         in: query
         description: Limit by scope ID
         schema:
-          $ref: '#/components/schemas/scope/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
       - name: service
         in: query
         description: Limit by service ID
         schema:
-          $ref: '#/components/schemas/service/properties/id'
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
       - name: external_reference
         in: query
         description: Limit by external reference
         schema:
-          $ref: '#/components/schemas/maintenance/properties/external_reference'
+          type: array
+          items:
+            $ref: '#/components/schemas/maintenance/properties/external_reference'
       - name: start_before
         in: query
         description: Limit by scheduled_start_date prior to the date

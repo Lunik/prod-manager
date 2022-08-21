@@ -1,5 +1,11 @@
 {% if (ongoing_maintenances.count()) > 0 %}
-<h2 id="ongoing_maintenances">{{ _("maintenance_ongoing").capitalize() }}</h2>
+{% set scope_id = (scope | default({})).id | default(None) %}
+{% set service_id = (service | default({})).id | default(None) %}
+<h2 id="ongoing_maintenances">
+  <a href="{{ custom_url_for('maintenance.list', status=ongoing_maintenances_filters, scope=scope_id, service=service_id) }}">
+    {{ _("maintenance_ongoing").capitalize() }} {{ icon("angle-right") }}
+  </a>
+</h2>
 {% set resource_type = "maintenance" %}
 {% set resource_endpoint = "maintenance" %}
 {% set resources = ongoing_maintenances %}

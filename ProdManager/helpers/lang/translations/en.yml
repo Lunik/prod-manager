@@ -228,6 +228,9 @@ resource_comment_maintenance: ["Add a comment to the ", *maintenance_name]
 resource_delete_maintenance: ["Delete ", *maintenance_name]
 
 
+# Resource filters
+filters_title: Filters
+
 # Resource list
 resource_list_create_submit: create
 resource_pagination_header: Pages
@@ -296,3 +299,6 @@ table_column_remember_me: remember me
 
 # Pagination
 pagination_overflow: Pagination value overflow
+
+# Filter
+filter_overflow: Filter value overflow

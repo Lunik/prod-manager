@@ -39,6 +39,7 @@ def create_app():
       "session_BREAKING_THE_PRODUCTION"
     ),
     SESSION_COOKIE_SAMESITE="Strict",
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7),
     # store the database in the instance folder
     SQLALCHEMY_DATABASE_URI=os.environ.get(
       "PM_DATABASE_URI",
@@ -67,10 +68,7 @@ def create_app():
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
 
   # ensure the instance folder exists
-  try:
-    os.makedirs(app.instance_path)
-  except OSError:
-    pass
+  os.makedirs(app.instance_path, exist_ok=True)
 
   csrf.init_app(app)
 
