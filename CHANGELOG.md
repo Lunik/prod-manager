@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
-###
+### Added
 
-- fix(translation.fr): Correct small French translation issues (#105)
+- ci(GitLab): Enable SAST-IaC integration (#104) (!61)
+
+### Fixed
+
+- fix(translation.fr): Correct small French translation issues (#105) (!60)
 
 
 ## 0.14.0
