@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+###
+
+- fix(translation.fr): Correct small French translation issues (#105)
+
 
 ## 0.14.0
 

@@ -69,7 +69,7 @@ incident_severity_critical: CRITIQUE
 incident_severity_high: HAUTE
 incident_severity_moderate: MODEREE
 incident_severity_low: BASSE
-incident_severity_minor: MINEUR
+incident_severity_minor: MINEURE
 
 incident_status_active: ACTIF
 incident_status_investigating: INVESTIGATION
