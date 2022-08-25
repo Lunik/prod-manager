@@ -5,6 +5,7 @@
 ### Added
 
 - ci(GitLab): Enable SAST-IaC integration (#104) (!61)
+- ci(GitLab): Enable Dependencies scanning integration
 
 ### Fixed
 
