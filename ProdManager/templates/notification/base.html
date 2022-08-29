@@ -3,6 +3,9 @@
 <html lang="en">
   <head>
     <title>{{ _("notification_about") }} {{ _(resource_type + "_title") }} - {{ resource.name }}</title>
+
+    <meta charset="utf-8">
+
     <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/theme.css') }}">
     <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/style.css') }}">
     {% if config['CUSTOM_CSS_SHEET'] %}
@@ -10,32 +13,32 @@
     {% endif %}
   </head>
   <body>
-
-  <div id="header">
-    <a href="{{ custom_url_for(resource_type + '.show', resource_id=resource.id) }}">
-      {{ _("notification_show_in_browser") }}
-    </a>
-  </div>
-  <div id="app">
-    <div id="content">
-      <h1 id="title">{{ _(resource_type + "_title") }} - {{ resource.name }}</h1>
-      <div id="resource_metadata">
-        {% block content %}{% endblock %}
+    {% include "icons/all.html" %}
+    <div id="app">
+      <div id="header">
+        <a href="{{ custom_url_for(resource_type + '.show', resource_id=resource.id) }}">
+          {{ _("notification_show_in_browser") }}
+        </a>
+      </div>
+      <div id="content">
+        <h1 id="title">{{ _(resource_type + "_title") }} - {{ resource.name }}</h1>
+        <div id="resource_metadata">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+      <div id="footer">
+        <div>
+          {% block footer %}{% endblock %}
+        </div>
+        <div>
+          {{ _("footer_powered") }}
+          <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
+        </div>
+        <div>
+          <a href="{{ custom_url_for('notification.index') }}">{{ _("notification_unsubscribe_title") }}</a>
+        </div>
+        <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
       </div>
     </div>
-    <div id="footer">
-      <div>
-        {% block footer %}{% endblock %}
-      </div>
-      <div>
-        {{ _("footer_powered") }}
-        <a href="https://gitlab.com/prod-manager/prod-manager">ProdManager</a>
-      </div>
-      <div>
-        <a href="{{ custom_url_for('notification.index') }}">{{ _("notification_unsubscribe_title") }}</a>
-      </div>
-      <!-- Made by <a href="https://lunik.tiwabbit.fr" id="copyright">Lunik</a>-->
-    </div>
-  </div>
   </body>
 </html>

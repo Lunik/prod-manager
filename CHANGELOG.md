@@ -10,6 +10,7 @@
 ### Fixed
 
 - fix(translation.fr): Correct small French translation issues (#105) (!60)
+- fix(template.\*): Correct template typos (#106) (!63)
 
 
 ## 0.14.0

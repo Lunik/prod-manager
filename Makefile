@@ -93,8 +93,6 @@ database-migration:
 database-upgrade:
 	${FLASK} db upgrade
 
-check: lint
-
 lint:
 	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
 
