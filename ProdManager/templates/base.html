@@ -4,20 +4,20 @@
   <head>
     <title>{% block title %}{% endblock %} - ProdManager</title>
 
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
     {% if share_title %}
-      <meta property="og:title" content="{{ share_title }} - ProdManager" />
+      <meta property="og:title" content="{{ share_title }} - ProdManager">
     {% else %}
-      <meta property="og:title" content="ProManager" />
+      <meta property="og:title" content="ProManager">
     {% endif %}
     {% if share_description %}
-      <meta property="og:description" content="{{ share_description }}" />
+      <meta property="og:description" content="{{ share_description }}">
     {% else %}
-      <meta property="og:description" content="Prod manager is a lightweight tool that allow you to display your production infrastructure status to your client." />
+      <meta property="og:description" content="Prod manager is a lightweight tool that allow you to display your production infrastructure status to your client.">
     {% endif %}
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ request.url }}" />
-    <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager.png') }}" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager.png') }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ custom_url_for('static', filename='img/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ custom_url_for('static', filename='img/favicon-32x32.png') }}">

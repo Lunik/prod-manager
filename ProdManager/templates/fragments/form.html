@@ -2,7 +2,7 @@
 {% if form_hide %}
 <button class="form-toogle display-toggle" id="{{ form_id }}" target="form#{{ form_id }}">{{ form_title }}</button>
 {% endif %}
-<form id="{{ form_id }}" {% if form_hide %}class="hidden"{% endif %} method="{{ form_method }}" action="{{ form_action }}">
+<form id="{{ form_id }}" class="{{ form_hide | ternary('hidden', '') }}" method="{{ form_method }}" action="{{ form_action }}">
   {% for field in form %}
     {% if field.id == 'csrf_token' %}
       {{ field }}
