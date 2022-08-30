@@ -47,7 +47,7 @@ I will mark your merge request in the [milestones][gitlab-milestones], if I am p
 - Duplicated merge request
 - Buggy
 - Existing logic is completely modified or deleted for no reason
-- A function that is completely out of scope
+- A function that is completely out of scope see [Project vision](./PROJECT_VISION.md)
 
 
 ### Recommended Merge Request Guideline
@@ -63,7 +63,7 @@ Before deep into coding, discussion first is preferred. Creating an empty merge 
 6. [Create a merge request][gitlab-new-mr]
 7. Write a proper description
 8. Click "Change to draft"
-9. Discussion
+9. Engage a discussion
 
 ## Project Styles
 
