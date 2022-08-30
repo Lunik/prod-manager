@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- chore(PROJECT_VISION): Define the project vision (#108) (!65)
+
 ### Changed
 
 - change(notification): Reduce the number of email send with notification (#107) (!64)
