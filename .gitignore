@@ -25,3 +25,4 @@ report.html
 
 assets
 htmlcov
+.env

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 0.14.1
+
+### Added
+
+- ci(GitLab): Enable SAST-IaC integration (#104) (!61)
+- ci(GitLab): Enable Dependencies scanning integration
+
+### Fixed
+
+- fix(translation.fr): Correct small French translation issues (#105) (!60)
+- fix(template.\*): Correct template typos (#106) (!63)
+
+
 ## 0.14.0
 
 ### Added
