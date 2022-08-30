@@ -48,6 +48,8 @@ class Incident(db.Model):
 
   event_type = IncidentEvent
 
+  notify_attributs = ['status']
+
   def __repr__(self):
     return f"<Incident '{self.name}'>"
 

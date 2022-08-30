@@ -78,6 +78,7 @@ def update_resource(resource_class, ressource_id, attributs):
     raise NotFoundError(ressource_id)
 
   changed = {}
+  should_notify = False
 
   for attribute, new_value in attributs.items():
     old_value = getattr(resource, attribute)
@@ -85,6 +86,10 @@ def update_resource(resource_class, ressource_id, attributs):
     if old_value != new_value:
       setattr(resource, attribute, new_value)
       changed[attribute] = (old_value, new_value)
+
+      if hasattr(resource_class, 'notify_attributs') \
+        and (attribute in resource_class.notify_attributs):
+        should_notify = True
 
   try:
     db.session.commit()
@@ -102,8 +107,14 @@ def update_resource(resource_class, ressource_id, attributs):
     raise error
 
   if len(changed.keys()) > 0:
-    NotificationHelper.notify(NotificationHelper.NotificationType.UPDATE, resource_class, resource)
     EventHelper.create_event(EventType.UPDATE, resource_class, resource, changed)
+
+    if should_notify:
+      NotificationHelper.notify(
+        NotificationHelper.NotificationType.UPDATE,
+        resource_class,
+        resource
+      )
 
   logger.info(f"Updated {resource}")
 
@@ -158,8 +169,13 @@ def create_resource(resource_class, attributs):
     current_app.logger.error(error)
     raise ServerError(error) from error
 
-  NotificationHelper.notify(NotificationHelper.NotificationType.CREATE, resource_class, resource)
   EventHelper.create_event(EventType.CREATE, resource_class, resource)
+
+  NotificationHelper.notify(
+    NotificationHelper.NotificationType.CREATE,
+    resource_class,
+    resource
+  )
 
   logger.info(f"Created {resource}")
 
