@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- change(notification): Reduce the number of email send with notification (#107) (!64)
+
 
 ## 0.14.1
 

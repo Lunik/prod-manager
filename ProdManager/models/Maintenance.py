@@ -42,6 +42,8 @@ class Maintenance(db.Model):
 
   event_type = MaintenanceEvent
 
+  notify_attributs = ['status']
+
   def __repr__(self):
     return f"<Maintenance '{self.name}'>"
 
