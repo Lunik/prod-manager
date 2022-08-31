@@ -67,6 +67,8 @@ def create():
     monitor = create_resource(Monitor, dict(
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
+      integration=strip_input(form.integration.data),
+      external_reference=strip_input(form.external_reference.data),
       external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),
@@ -131,6 +133,8 @@ def update(resource_id):
     monitor, _ = update_resource(Monitor, resource_id, dict(
       name=strip_input(form.name.data),
       description=strip_input(form.description.data),
+      integration=strip_input(form.integration.data),
+      external_reference=strip_input(form.external_reference.data),
       external_link=strip_input(form.external_link.data),
       scope_id=int(form.scope.data),
       service_id=int(form.service.data),

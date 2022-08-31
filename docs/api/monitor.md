@@ -12,9 +12,10 @@ GET /monitor
 
 | Attribute | Type | Required | Description |
 |:----------|:-----|:---------|:------------|
-| `status`  | string  | False | Limit by status. Value could be one of : `ok`, `warning`, `alert` |
-| `scope`   | integer | False | Limit by scope ID |
-| `service` | integer | False | Limit by service ID |
+| `status`      | string  | False | Limit by status. Value could be one of : `ok`, `warning`, `alert` |
+| `scope`       | integer | False | Limit by scope ID |
+| `service`     | integer | False | Limit by service ID |
+| `integration` | string  | False | Limit by integration |
 
 This endpoint supports [pagination](./pagination.md).
 
@@ -41,11 +42,13 @@ POST /monitor
 
 | Attribute | Type | Required | Description |
 |:----------|:-----|:---------|:------------|
-| `scope`         | integer | True  | The ID of the scope |
-| `service`       | integer | True  | The ID of the service |
-| `name`          | string  | True  | The name of the new monitor |
-| `description`   | string  | False | The description of the new monitor |
-| `external_link` | string  | False | An external link for the new monitor. Should be a valid URL |
+| `scope`              | integer | True  | The ID of the scope |
+| `service`            | integer | True  | The ID of the service |
+| `name`               | string  | True  | The name of the new monitor |
+| `description`        | string  | False | The description of the new monitor |
+| `integration`        | string  | False | An integration for the new monitor. |
+| `external_reference` | string  | False | An external reference for the new monitor. |
+| `external_link`      | string  | False | An external link for the new monitor. Should be a valid URL |
 
 ## Update a monitor
 
@@ -57,13 +60,15 @@ POST /monitor/<id>/update
 
 | Attribute | Type | Required | Description |
 |:----------|:-----|:---------|:------------|
-| `id`            | integer | True  | The ID of the monitor |
-| `scope`         | integer | True  | The ID of the scope |
-| `service`       | integer | True  | The ID of the service |
-| `name`          | string  | True  | The name of the monitor |
-| `description`   | string  | False | The description of the monitor |
-| `external_link` | string  | False | An external link for the monitor. Should be a valid URL |
-| `status`        | string  | True  | THe status of the monitor. Value could be one of : `ok`, `warning`, `alert` |
+| `id`                 | integer | True  | The ID of the monitor |
+| `scope`              | integer | True  | The ID of the scope |
+| `service`            | integer | True  | The ID of the service |
+| `name`               | string  | True  | The name of the monitor |
+| `description`        | string  | False | The description of the monitor |
+| `integration`        | string  | False | An integration for the monitor. |
+| `external_reference` | string  | False | An external reference for the monitor. |
+| `external_link`      | string  | False | An external link for the monitor. Should be a valid URL |
+| `status`             | string  | True  | THe status of the monitor. Value could be one of : `ok`, `warning`, `alert` |
 
 ## Delete a monitor
 

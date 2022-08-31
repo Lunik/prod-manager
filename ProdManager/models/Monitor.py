@@ -14,6 +14,8 @@ class Monitor(db.Model):
   id = Column(Integer, primary_key=True)
   name = Column(String(), nullable=False)
   description = Column(String(), nullable=True)
+  integration = Column(String(), nullable=True)
+  external_reference = Column(String(), nullable=True)
   external_link = Column(String(), nullable=True)
   status = Column(Enum(MonitorStatus), nullable=False, default=MonitorStatus.OK)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
@@ -29,6 +31,8 @@ class Monitor(db.Model):
       description=self.description,
       scope=self.scope.id,
       service=self.service.id,
+      integration=self.integration,
+      external_reference=self.external_reference,
       external_link=self.external_link,
       status=self.status.value,
     )
@@ -54,6 +58,7 @@ class Monitor(db.Model):
       status=(cls.status, MonitorStatus, 'eq'),
       scope=(cls.scope_id, int, 'eq'),
       service=(cls.service_id, int, 'eq'),
+      integration=(cls.integration, str, 'eq'),
     )
 
   @classmethod

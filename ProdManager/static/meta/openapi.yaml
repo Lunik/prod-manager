@@ -99,6 +99,12 @@ components:
         description:
           type: string
           description: The description of the monitor
+        integration:
+          type: string
+          description: The integration of the monitor
+        external_reference:
+          type: string
+          description: The external reference of the monitor
         external_link:
           type: string
           description: The external link of the monitor
@@ -670,6 +676,13 @@ paths:
           type: array
           items:
             $ref: '#/components/schemas/service/properties/id'
+      - name: integration
+        in: query
+        description: Limit by integration
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/monitor/properties/integration'
       responses:
         '200':
           description: A list of monitors
@@ -701,6 +714,10 @@ paths:
                   $ref: '#/components/schemas/monitor/properties/name'
                 description:
                   $ref: '#/components/schemas/monitor/properties/description'
+                integration:
+                  $ref: '#/components/schemas/monitor/properties/integration'
+                external_reference:
+                  $ref: '#/components/schemas/monitor/properties/external_reference'
                 external_link:
                   $ref: '#/components/schemas/monitor/properties/external_link'
                 scope:
@@ -770,6 +787,10 @@ paths:
                   $ref: '#/components/schemas/monitor/properties/name'
                 description:
                   $ref: '#/components/schemas/monitor/properties/description'
+                integration:
+                  $ref: '#/components/schemas/monitor/properties/integration'
+                external_reference:
+                  $ref: '#/components/schemas/monitor/properties/external_reference'
                 external_link:
                   $ref: '#/components/schemas/monitor/properties/external_link'
                 scope:

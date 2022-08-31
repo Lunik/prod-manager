@@ -27,7 +27,7 @@ class Incident(db.Model):
   id = Column(Integer, primary_key=True)
   name = Column(String(), nullable=False)
   description = Column(String(), nullable=True)
-  external_reference = Column(String(), nullable=True)
+  external_reference = Column(String(), nullable=True, index=True)
   status = Column(Enum(IncidentStatus), nullable=False, default=IncidentStatus.ACTIVE)
   severity = Column(Enum(IncidentSeverity), nullable=False)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
