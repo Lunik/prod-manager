@@ -43,7 +43,7 @@ class MaintenanceCreateForm(CustomForm):
   external_link = URLField(
     name='external_link',
     label=lang.get("table_column_external_link").capitalize(),
-    validators=[Optional(), URL()]
+    validators=[Optional(), URL(require_tld=False)]
   )
   service_status = SelectField(
     name='service_status',

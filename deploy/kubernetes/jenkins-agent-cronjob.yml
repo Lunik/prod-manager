@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: prod-manager
+    component: jenkins-agent
+  name: prod-manager-jenkins-agent
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      name: prod-manager-jenkins-agent
+    spec:
+      template:
+        metadata:
+          labels:
+            app: prod-manager
+            component: jenkins-agent
+        spec:
+          containers:
+          - command: ["python3", "ProdManager/integrations/jenkins/update_monitors.py"]
+            image: registry.gitlab.com/prod-manager/prod-manager:latest
+            imagePullPolicy: Always
+            name: jenkins-agent
+            envFrom:
+            - secretRef:
+                name: prod-manager
+            - secretRef:
+                name: prod-manager-jenkins
+            env:
+            - name: JENKINS_URL
+              value: https://jenkins.example.org
+            resources:
+              requests:
+                cpu: 50m
+                memory: 50M
+              limits:
+                cpu: 250m
+                memory: 100M
+          restartPolicy: OnFailure
+  schedule: '* * * * *'

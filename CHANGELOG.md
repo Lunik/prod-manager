@@ -5,10 +5,15 @@
 ### Added
 
 - feat(template.Monitor): Display Monitor integration (#110) (!67)
+- feat(integration.Jenkins): Add Jenkins integration for updating monitors (#116) (!68)
 
 ### Changed
 
 - change(\*.Monitor): Make monitors more generic (#110) (!67)
+
+### Fixed
+
+- fix(\*.form): Allow URL without TLD (like `http://localhost:8080/some/path`) (!68)
 
 ### Other
 
