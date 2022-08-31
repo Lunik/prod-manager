@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(integration.Datadog): Fix not updated monitors when more than 50 defined
+
 
 ## 0.14.2
 

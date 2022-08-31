@@ -40,7 +40,7 @@ if __name__ == "__main__":
     api_instance = MonitorsApi(api_client)
 
   with app.app_context():
-    for monitor in list_resources(Monitor, paginate=False):
+    for monitor in list_resources(Monitor, paginate=False, limit=0):
 
       if not monitor.external_link:
         logger.info(f"[{monitor.name}] Ignoring")
