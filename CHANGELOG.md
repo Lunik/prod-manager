@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.14.2
 
 ### Added
 
