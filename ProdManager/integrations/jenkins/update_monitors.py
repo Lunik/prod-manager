@@ -65,22 +65,22 @@ def process(integration_name, configuration):
         logger.error(f"[{monitor.name}] Jenkins job with path {job_path} is a folder")
         continue
 
+      status = monitor.status
+
       job_last_completed_build = job_state.get_last_completed_build()
       if job_last_completed_build is None:
-        logger.error(f"[{monitor.name}] Jenkins job with path {job_path} has no build")
-        continue
-
-      status = monitor.status
-      job_last_completed_build_result = job_last_completed_build.result
-      try:
-        translated_status = JENKINS_MONITOR_STATUSES[job_last_completed_build_result]
-        status = MonitorStatus(translated_status)
-        logger.info(f"[{monitor.name}] Jenkins monitor status is : {status.name}")
-      except KeyError:
-        logger.warning(
-          f"[{monitor.name}] Jenkins monitor status is not handled : {job_last_completed_build_result}"
-        )
-        continue
+        logger.warning(f"[{monitor.name}] Jenkins job with path {job_path} has no build")
+      else:
+        job_last_completed_build_result = job_last_completed_build.result
+        try:
+          translated_status = JENKINS_MONITOR_STATUSES[job_last_completed_build_result]
+          status = MonitorStatus(translated_status)
+          logger.info(f"[{monitor.name}] Jenkins monitor status is : {status.name}")
+        except KeyError:
+          logger.warning(
+            f"[{monitor.name}] Jenkins monitor status is not handled : {job_last_completed_build_result}"
+          )
+          continue
 
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=job_state.display_name,
