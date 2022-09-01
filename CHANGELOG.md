@@ -6,6 +6,7 @@
 
 - feat(template.Monitor): Display Monitor integration (#110) (!67)
 - feat(integration.Jenkins): Add Jenkins integration for updating monitors (#116) (!68)
+- feat(template.Base): Add a toggle switch to enable auto reload the page (#118) (!70)
 
 ### Changed
 

@@ -303,3 +303,6 @@ pagination_overflow: Pagination value overflow
 
 # Filter
 filter_overflow: Filter value overflow
+
+# Auto reload
+auto_reload: Auto reload
