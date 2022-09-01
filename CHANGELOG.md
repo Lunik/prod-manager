@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(template.Monitor): Display Monitor integration (#110) (!67)
+
+### Changed
+
+- change(\*.Monitor): Make monitors more generic (#110) (!67)
+
+### Other
+
+- database_migration(Monitor): All monitor having an `external_link` containing a Datadog monitor URL (`/.*datadoghq.*/`) will be updated (!67) :
+  - `external_reference` will be populated from the monitor ID contained in the `external_link`
+  - `integration` will be populated with the value `datadog`
+
 
 ## 0.14.3
 

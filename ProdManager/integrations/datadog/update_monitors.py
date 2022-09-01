@@ -1,6 +1,5 @@
 import os
 import sys
-import re
 import logging
 
 from datadog_api_client import Configuration, ApiClient
@@ -33,27 +32,26 @@ datadog_configuration = Configuration(
   ),
 )
 
-datadog_url_regex = re.compile(r".*/(\d+)$")
 
 if __name__ == "__main__":
   with ApiClient(datadog_configuration) as api_client:
     api_instance = MonitorsApi(api_client)
 
   with app.app_context():
-    for monitor in list_resources(Monitor, paginate=False, limit=0):
+    for monitor in list_resources(
+        Monitor,
+        filters=(Monitor.integration == "datadog"),
+        paginate=False,
+        limit=0
+      ):
 
-      if not monitor.external_link:
+      if not monitor.external_reference:
         logger.info(f"[{monitor.name}] Ignoring")
         continue
 
       logger.info(f"[{monitor.name}] Handling monitor refresh")
 
-      matched_url = datadog_url_regex.match(monitor.external_link)
-      if not matched_url:
-        logger.warning(f"[{monitor.name}] External link is not a valid Datadog monitor URL : {monitor.external_link}")
-        continue
-
-      monitor_id = int(datadog_url_regex.match(monitor.external_link).group(1))
+      monitor_id = int(monitor.external_reference)
       logger.info(f"[{monitor.name}] Found Datadog monitor ID : {monitor_id}")
 
       try:
@@ -71,9 +69,10 @@ if __name__ == "__main__":
       except ValueError:
         logger.warning(f"[{monitor.name}] Datadog monitor status is not handled : {monitor_status}")
 
-
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=monitor_state.name,
+        external_reference=monitor_state.id,
+        external_link=f"https://{datadog_configuration.server_variables['site']}/monitors/{monitor_state.id}",
         status=status
       ))
 

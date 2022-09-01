@@ -8,6 +8,9 @@
   </span>
 </div>
 <div id="status" class="badge monitor {{ monitor.status.value }}">{{ icon(monitor.status.value) }}{{ monitor.status.name }}</div>
+{% if monitor.integration %}
+  <div id="integration" class="badge monitor integration">{{ icon("plugin") }}{{ monitor.integration.capitalize() }}</div>
+{% endif %}
 {% if monitor.external_link %}
   <div id="external_link" class="badge monitor external_link">
     <a href="{{ monitor.external_link }}" target="_blank" rel="noopener">Go to monitor</a>

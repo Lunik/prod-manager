@@ -131,6 +131,7 @@ div#icon-library {
 }
 
 .badge.external_reference, .badge.external_link, .badge.calendar { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+.badge.integration { background-color: var(--badge-purple-color); color: var(--badge-purple-text-color); fill: var(--badge-purple-text-color);}
 
 .badge.incident#severity.critical { background-color: var(--badge-purple-color); color: var(--badge-purple-text-color); }
 .badge.incident#severity.high     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
