@@ -296,3 +296,6 @@ pagination_overflow: Débordement de valeur de pagination
 
 # Filter
 filter_overflow: Débordement de valeur de filtre
+
+# Auto reload
+auto_reload: Rechargement automatique

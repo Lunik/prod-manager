@@ -85,6 +85,9 @@
         {% if info_message %}
           {% include "fragments/info.html" %}
         {% endif %}
+
+        {% include "fragments/auto_reload.html" %}
+
         {% block content %}{% endblock %}
       </div>
       <div id="footer">

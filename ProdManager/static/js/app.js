@@ -57,8 +57,39 @@ function handle_filters() {
   }
 }
 
+AUTO_RELOAD_TIMEOUT = null
+
+function enable_disable_auto_reload(value) {
+  if (value) {
+    console.log("Enabling auto reload")
+    AUTO_RELOAD_TIMEOUT = setTimeout(() => window.location.reload(), 60000)
+  } else if (AUTO_RELOAD_TIMEOUT) {
+    console.log("Disabling auto reload")
+    clearTimeout(AUTO_RELOAD_TIMEOUT)
+  }
+}
+
+function do_auto_reload_toggle() {
+  toggle = document.querySelector(".auto_reload .switch input")
+
+  last_value = JSON.parse(localStorage.getItem('auto-reload'))
+  new_value = !last_value
+  localStorage.setItem('auto-reload', new_value)
+
+  enable_disable_auto_reload(new_value)
+}
+
+function register_auto_reload_toggles() {
+  el = document.querySelector(".auto_reload .switch input")
+  el.onclick = do_auto_reload_toggle
+
+  el.checked = JSON.parse(localStorage.getItem('auto-reload'))
+  enable_disable_auto_reload(el.checked)
+}
+
 function main() {
   register_display_toggles()
+  register_auto_reload_toggles()
 
   if (typeof VALID_FILTERS !== 'undefined') {
     handle_filters()  
