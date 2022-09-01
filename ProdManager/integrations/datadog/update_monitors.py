@@ -22,25 +22,14 @@ handler.setFormatter(logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s]
 logger.addHandler(handler)
 logger.setLevel("INFO")
 
-datadog_configuration = Configuration(
-  api_key=dict(
-    apiKeyAuth=os.environ["DD_API_KEY"],
-    appKeyAuth=os.environ["DD_APPLICATION_KEY"],
-  ),
-  server_variables=dict(
-    site=os.environ.get("DD_SITE", "datadoghq.com")
-  ),
-)
-
-
-if __name__ == "__main__":
+def process(integration_name, datadog_configuration):
   with ApiClient(datadog_configuration) as api_client:
     api_instance = MonitorsApi(api_client)
 
   with app.app_context():
     for monitor in list_resources(
         Monitor,
-        filters=(Monitor.integration == "datadog"),
+        filters=(Monitor.integration == integration_name),
         paginate=False,
         limit=0
       ):
@@ -78,3 +67,23 @@ if __name__ == "__main__":
 
       if changed:
         logger.info(f"[{monitor.name}] Updating monitor status succeed")
+
+
+if __name__ == "__main__":
+  datadog_configuration = Configuration(
+    api_key=dict(
+      apiKeyAuth=os.environ["DD_API_KEY"],
+      appKeyAuth=os.environ["DD_APPLICATION_KEY"],
+    ),
+    server_variables=dict(
+      site=os.environ.get("DD_SITE", "datadoghq.com")
+    ),
+  )
+
+  integration_name="datadog"
+  datadog_integration_suffix = os.environ.get("PM_INTEGRATION_SUFFIX")
+  if datadog_integration_suffix:
+    integration_name = f"{integration_name}_{datadog_integration_suffix}"
+
+
+  process(integration_name, datadog_configuration)

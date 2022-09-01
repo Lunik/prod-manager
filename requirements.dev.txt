@@ -7,4 +7,4 @@ pytest-xdist
 
 flask-unittest
 
-requests-mock
+responses
