@@ -117,7 +117,7 @@ def show(resource_id):
       limit=10,
     ),
     past_maintenances_filters=Maintenance.past_filter(raw=True),
-    monitors_count=Monitor.count_monitors(service.monitors),
+    monitors_count=service.monitors_count(),
   ), 200
 
 

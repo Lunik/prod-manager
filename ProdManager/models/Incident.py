@@ -7,6 +7,7 @@ from ProdManager import db
 from ProdManager import lang
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
+import ProdManager.helpers.resource as ResourceHelpers
 
 from .IncidentEvent import IncidentEvent
 
@@ -136,5 +137,15 @@ class Incident(db.Model):
 
     if self.external_reference:
       result = f"[{self.external_reference}]" + result
+
+    return result
+
+  @classmethod
+  def count_by_status(cls, query, serialize=False):
+    result = dict()
+
+    for status in IncidentStatus:
+      key = status.value if serialize else status
+      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status)
 
     return result

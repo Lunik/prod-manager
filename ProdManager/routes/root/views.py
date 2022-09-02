@@ -39,7 +39,7 @@ def index():
       limit=10,
     ),
     past_maintenances_filters=Maintenance.past_filter(raw=True),
-    monitors_count=Monitor.count_monitors(Monitor.query),
+    monitors_count=Monitor.count_by_status(Monitor.query),
   ), 200
 
 @bp.route('/about')
