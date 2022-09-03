@@ -3,6 +3,7 @@ from sqlalchemy import String, Integer, Column, ForeignKey, Enum
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
+import ProdManager.helpers.resource as ResourceHelpers
 
 class MonitorStatus(ModelEnum):
   OK = 'ok'
@@ -62,16 +63,11 @@ class Monitor(db.Model):
     )
 
   @classmethod
-  def count_monitors_in_status(cls, query, status):
-    return query.filter(
-      cls.status == status
-    ).count()
-
-  @classmethod
-  def count_monitors(cls, query):
+  def count_by_status(cls, query, serialize=False):
     result = dict()
 
     for status in MonitorStatus:
-      result[status] = cls.count_monitors_in_status(query, status)
+      key = status.value if serialize else status
+      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status)
 
     return result

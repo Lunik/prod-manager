@@ -7,10 +7,14 @@
 - feat(template.Monitor): Display Monitor integration (#110) (!67)
 - feat(integration.Jenkins): Add Jenkins integration for updating monitors (#116) (!68)
 - feat(template.Base): Add a toggle switch to enable auto reload the page (#118) (!70)
+- feat(api.Weather): Add endpoints that return an overall count of Monitors/Incidents/Maintenances grouped by status (!71)
+- feat(api): Bump API schema to `0.2.0` (!71)
 
 ### Changed
 
 - change(\*.Monitor): Make monitors more generic (#110) (!67)
+- change(api.Scope): Return the count of monitor by status (#119) (!71)
+- change(api.Service): Return the count of monitor by status (#119) (!71)
 
 ### Fixed
 

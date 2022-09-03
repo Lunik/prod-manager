@@ -110,7 +110,7 @@ def show(resource_id):
       limit=10,
     ),
     past_maintenances_filters=Maintenance.past_filter(raw=True),
-    monitors_count=Monitor.count_monitors(scope.monitors),
+    monitors_count=scope.monitors_count(),
   ), 200
 
 

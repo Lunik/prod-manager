@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.1.0
+  version: 0.2.0
 servers:
 - url: /api
   description: Local server
@@ -26,8 +26,7 @@ components:
           type: string
           description: The description of the scope
         monitors_count:
-          type: integer
-          description: The number of monitors related to the scope
+          $ref: '#/components/schemas/monitors_count'
         incidents_count:
           type: integer
           description: The number of incidents related to the scope
@@ -63,8 +62,7 @@ components:
           type: string
           description: The description of the service
         monitors_count:
-          type: integer
-          description: The number of monitors related to the service
+          $ref: '#/components/schemas/monitors_count'
         incidents_count:
           type: integer
           description: The number of incidents related to the service
@@ -134,6 +132,19 @@ components:
             service:
               type: string
               description: API URL of the related service
+    monitors_count:
+      type: object
+      description: Monitors count grouped by status
+      properties:
+        ok:
+          type: integer
+          description: The number of monitors in OK state
+        warning:
+          type: integer
+          description: The number of monitors in WARNING state
+        alert:
+          type: integer
+          description: The number of monitors in ALERT state
     incident:
       type: object
       properties:
@@ -208,6 +219,22 @@ components:
             service:
               type: string
               description: API URL of the related service
+    incidents_count:
+      type: object
+      description: Incidents count grouped by status
+      properties:
+        active:
+          type: integer
+          description: The number of incidents in ACTIVE state
+        investigating:
+          type: integer
+          description: The number of incidents in INVESTIGATING state
+        resolved:
+          type: integer
+          description: The number of incidents in RESOLVED state
+        stable:
+          type: integer
+          description: The number of incidents in STABLE state
     maintenance:
       type: object
       properties:
@@ -283,6 +310,22 @@ components:
             calendar:
               type: string
               description: API URL of the calendar file of this maintenance
+    maintenances_count:
+      type: object
+      description: Maintenances count grouped by status
+      properties:
+        failed:
+          type: integer
+          description: The number of maintenances in FAILED state
+        in-progress:
+          type: integer
+          description: The number of maintenances in IN_PROGRESS state
+        scheduled:
+          type: integer
+          description: The number of maintenances in SCHEDULED state
+        succeed:
+          type: integer
+          description: The number of maintenances in SUCCEED state
   parameters:
     per_page:
       name: per_page
@@ -1318,6 +1361,60 @@ paths:
           $ref: '#/components/responses/error_403_response'
         '404':
           $ref: '#/components/responses/error_404_response'
+  /weather/monitor:
+    get:
+      tags:
+      - Weather
+      - Monitor
+      summary: Monitors weather
+      description: Monitors count grouped by status
+      operationId: weatherMonitor
+      security: []
+      responses:
+        '200':
+          description: The monitor weather
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/monitors_count'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+  /weather/incident:
+    get:
+      tags:
+      - Weather
+      - Incident
+      summary: Incidents weather
+      description: Incidents count grouped by status
+      operationId: weatherIncident
+      security: []
+      responses:
+        '200':
+          description: The incident weather
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incidents_count'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+  /weather/maintenance:
+    get:
+      tags:
+      - Weather
+      - Maintenance
+      summary: Maintenances weather
+      description: Maintenances count grouped by status
+      operationId: weatherMaintenance
+      security: []
+      responses:
+        '200':
+          description: The maintenance weather
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/maintenances_count'
+        '400':
+          $ref: '#/components/responses/error_400_response'
 tags:
 - name: Scope
 - name: Service

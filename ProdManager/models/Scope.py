@@ -42,7 +42,7 @@ class Scope(db.Model):
       id=self.id,
       incidents_count=self.incidents.count(),
       maintenances_count=self.maintenances.count(),
-      monitors_count=self.monitors.count(),
+      monitors_count=self.monitors_count(serialize=True),
       links=dict(
         self=custom_url_for('scope_api.show', resource_id=self.id),
         incidents=custom_url_for('incident_api.list', scope=self.id),
@@ -55,6 +55,5 @@ class Scope(db.Model):
   def default_order(cls):
     return cls.name.asc()
 
-  @property
-  def monitors_count(self):
-    return Monitor.count_monitors(self.monitors)
+  def monitors_count(self, serialize=False):
+    return Monitor.count_by_status(self.monitors, serialize)
