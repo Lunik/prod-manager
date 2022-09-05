@@ -37,6 +37,13 @@ class TestRoutesWeatherViews(flask_unittest.AppTestCase):
       self.assertInResponse(b'}', rv)
       self.assertNotIn(b"__missing_translation", rv.data)
 
+  def test_monitor_with_client_2(self, app):
+    with app.test_client() as client:
+      rv = client.get('/api/weather/monitor?scope=1')
+      self.assertInResponse(b'{', rv)
+      self.assertInResponse(b'}', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
   def test_incident_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/api/weather/incident')
@@ -44,9 +51,23 @@ class TestRoutesWeatherViews(flask_unittest.AppTestCase):
       self.assertInResponse(b'}', rv)
       self.assertNotIn(b"__missing_translation", rv.data)
 
+  def test_incident_with_client_2(self, app):
+    with app.test_client() as client:
+      rv = client.get('/api/weather/incident?scope=1')
+      self.assertInResponse(b'{', rv)
+      self.assertInResponse(b'}', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
   def test_maintenance_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/api/weather/maintenance')
+      self.assertInResponse(b'{', rv)
+      self.assertInResponse(b'}', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+  def test_maintenance_with_client_2(self, app):
+    with app.test_client() as client:
+      rv = client.get('/api/weather/maintenance?scope=1')
       self.assertInResponse(b'{', rv)
       self.assertInResponse(b'}', rv)
       self.assertNotIn(b"__missing_translation", rv.data)

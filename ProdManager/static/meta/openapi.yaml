@@ -1370,6 +1370,28 @@ paths:
       description: Monitors count grouped by status
       operationId: weatherMonitor
       security: []
+      parameters:
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
+      - name: integration
+        in: query
+        description: Limit by integration
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/monitor/properties/integration'
       responses:
         '200':
           description: The monitor weather
@@ -1388,6 +1410,38 @@ paths:
       description: Incidents count grouped by status
       operationId: weatherIncident
       security: []
+      parameters:
+      - name: severity
+        in: query
+        description: Limit by severity
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/incident/properties/severity'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
+      - name: impact_before
+        in: query
+        description: Limit by start_impact_date prior to the date
+        schema:
+          $ref: '#/components/schemas/incident/properties/start_impact_date'
+      - name: impact_after
+        in: query
+        description: Limit by start_impact_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/incident/properties/start_impact_date'
       responses:
         '200':
           description: The incident weather
@@ -1406,6 +1460,48 @@ paths:
       description: Maintenances count grouped by status
       operationId: weatherMaintenance
       security: []
+      parameters:
+      - name: service_status
+        in: query
+        description: Limit by service status
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/maintenance/properties/service_status'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/service/properties/id'
+      - name: start_before
+        in: query
+        description: Limit by scheduled_start_date prior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+      - name: start_after
+        in: query
+        description: Limit by scheduled_start_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_start_date'
+      - name: end_before
+        in: query
+        description: Limit by scheduled_end_date prior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
+      - name: end_after
+        in: query
+        description: Limit by scheduled_end_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/maintenance/properties/scheduled_end_date'
       responses:
         '200':
           description: The maintenance weather

@@ -40,3 +40,9 @@ def test_count_incidents():
 
     for status in IncidentStatus:
       assert type(incident_count[status.value]) == int
+
+  with app.app_context():
+    incident_count = Incident.count_by_status(Incident.query, serialize=True, filters=(Incident.scope_id == 1,))
+
+    for status in IncidentStatus:
+      assert type(incident_count[status.value]) == int

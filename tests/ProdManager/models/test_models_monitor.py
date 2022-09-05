@@ -19,3 +19,9 @@ def test_monitor_count_by_status():
 
     for status in MonitorStatus:
       assert type(monitor_count[status.value]) == int
+
+  with app.app_context():
+    monitor_count = Monitor.count_by_status(Monitor.query, serialize=True, filters=(Monitor.scope_id == 1,))
+
+    for status in MonitorStatus:
+      assert type(monitor_count[status.value]) == int
