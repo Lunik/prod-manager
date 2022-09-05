@@ -143,11 +143,11 @@ class Maintenance(db.Model):
     return result
 
   @classmethod
-  def count_by_status(cls, query, serialize=False):
+  def count_by_status(cls, query, serialize=False, filters=()):
     result = dict()
 
     for status in MaintenanceStatus:
       key = status.value if serialize else status
-      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status)
+      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status, filters)
 
     return result
