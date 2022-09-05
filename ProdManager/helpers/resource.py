@@ -230,3 +230,8 @@ def resource_filters(filter_fields):
     return wrapped_view
 
   return decorate
+
+def count_in_status_from_query(resource_class, query, status, filters=()):
+  return query.filter(
+    resource_class.status == status, *filters
+  ).count()

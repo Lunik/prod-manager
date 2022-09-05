@@ -1,6 +1,5 @@
 import os
 import sys
-import re
 import logging
 
 from datadog_api_client import Configuration, ApiClient
@@ -23,37 +22,25 @@ handler.setFormatter(logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s]
 logger.addHandler(handler)
 logger.setLevel("INFO")
 
-datadog_configuration = Configuration(
-  api_key=dict(
-    apiKeyAuth=os.environ["DD_API_KEY"],
-    appKeyAuth=os.environ["DD_APPLICATION_KEY"],
-  ),
-  server_variables=dict(
-    site=os.environ.get("DD_SITE", "datadoghq.com")
-  ),
-)
-
-datadog_url_regex = re.compile(r".*/(\d+)$")
-
-if __name__ == "__main__":
+def process(integration_name, datadog_configuration):
   with ApiClient(datadog_configuration) as api_client:
     api_instance = MonitorsApi(api_client)
 
   with app.app_context():
-    for monitor in list_resources(Monitor, paginate=False, limit=0):
+    for monitor in list_resources(
+        Monitor,
+        filters=(Monitor.integration == integration_name),
+        paginate=False,
+        limit=0
+      ):
 
-      if not monitor.external_link:
+      if not monitor.external_reference:
         logger.info(f"[{monitor.name}] Ignoring")
         continue
 
       logger.info(f"[{monitor.name}] Handling monitor refresh")
 
-      matched_url = datadog_url_regex.match(monitor.external_link)
-      if not matched_url:
-        logger.warning(f"[{monitor.name}] External link is not a valid Datadog monitor URL : {monitor.external_link}")
-        continue
-
-      monitor_id = int(datadog_url_regex.match(monitor.external_link).group(1))
+      monitor_id = int(monitor.external_reference)
       logger.info(f"[{monitor.name}] Found Datadog monitor ID : {monitor_id}")
 
       try:
@@ -71,11 +58,32 @@ if __name__ == "__main__":
       except ValueError:
         logger.warning(f"[{monitor.name}] Datadog monitor status is not handled : {monitor_status}")
 
-
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=monitor_state.name,
+        external_reference=monitor_state.id,
+        external_link=f"https://{datadog_configuration.server_variables['site']}/monitors/{monitor_state.id}",
         status=status
       ))
 
       if changed:
         logger.info(f"[{monitor.name}] Updating monitor status succeed")
+
+
+if __name__ == "__main__":
+  datadog_configuration = Configuration(
+    api_key=dict(
+      apiKeyAuth=os.environ["DD_API_KEY"],
+      appKeyAuth=os.environ["DD_APPLICATION_KEY"],
+    ),
+    server_variables=dict(
+      site=os.environ.get("DD_SITE", "datadoghq.com")
+    ),
+  )
+
+  integration_name="datadog"
+  datadog_integration_suffix = os.environ.get("PM_INTEGRATION_SUFFIX")
+  if datadog_integration_suffix:
+    integration_name = f"{integration_name}_{datadog_integration_suffix}"
+
+
+  process(integration_name, datadog_configuration)

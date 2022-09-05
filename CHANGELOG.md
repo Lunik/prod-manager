@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## 0.15.0
+
+### Added
+
+- feat(template.Monitor): Display Monitor integration (#110) (!67)
+- feat(integration.Jenkins): Add Jenkins integration for updating monitors (#116) (!68)
+- feat(template.Base): Add a toggle switch to enable auto reload the page (#118) (!70)
+- feat(api.Weather): Add endpoints that return an overall count of Monitors/Incidents/Maintenances grouped by status (!71)
+  - feat(api.Weather): Allow to filter by resource fields (#120) (!72)
+- feat(api): Bump API schema to `0.2.0` (!71)
+
+### Changed
+
+- change(\*.Monitor): Make monitors more generic (#110) (!67)
+- change(api.Scope): Return the count of monitor by status (#119) (!71)
+- change(api.Service): Return the count of monitor by status (#119) (!71)
+
+### Fixed
+
+- fix(\*.form): Allow URL without TLD (like `http://localhost:8080/some/path`) (!68)
+
+### Other
+
+- database_migration(Monitor): All monitor having an `external_link` containing a Datadog monitor URL (`/.*datadoghq.*/`) will be updated (!67) :
+  - `external_reference` will be populated from the monitor ID contained in the `external_link`
+  - `integration` will be populated with the value `datadog`
+
+
 ## 0.14.3
 
 ### Fixed

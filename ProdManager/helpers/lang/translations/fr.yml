@@ -289,9 +289,13 @@ table_column_internal: interne
 table_column_external_link: lien externe
 table_column_mail: email
 table_column_remember_me: se souvernir de moi
+table_column_integration: intégration
 
 # Pagination
 pagination_overflow: Débordement de valeur de pagination
 
 # Filter
 filter_overflow: Débordement de valeur de filtre
+
+# Auto reload
+auto_reload: Rechargement automatique

@@ -28,10 +28,20 @@ class MonitorCreateForm(CustomForm):
     label=lang.get("table_column_description").capitalize(),
     validators=[Optional()]
   )
+  integration = StringField(
+    name='integration',
+    label=lang.get("table_column_integration").capitalize(),
+    validators=[Optional()]
+  )
+  external_reference = StringField(
+    name='external_reference',
+    label=lang.get("table_column_external_reference").capitalize(),
+    validators=[Optional()]
+  )
   external_link = URLField(
     name='external_link',
     label=lang.get("table_column_external_link").capitalize(),
-    validators=[Optional(), URL()]
+    validators=[Optional(), URL(require_tld=False)]
   )
 
 class MonitorUpdateForm(MonitorCreateForm):

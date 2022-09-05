@@ -3,6 +3,7 @@ from sqlalchemy import String, Integer, Column, ForeignKey, Enum
 from ProdManager import db
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
+import ProdManager.helpers.resource as ResourceHelpers
 
 class MonitorStatus(ModelEnum):
   OK = 'ok'
@@ -14,6 +15,8 @@ class Monitor(db.Model):
   id = Column(Integer, primary_key=True)
   name = Column(String(), nullable=False)
   description = Column(String(), nullable=True)
+  integration = Column(String(), nullable=True)
+  external_reference = Column(String(), nullable=True)
   external_link = Column(String(), nullable=True)
   status = Column(Enum(MonitorStatus), nullable=False, default=MonitorStatus.OK)
   scope_id = Column(Integer, ForeignKey('scope.id'), nullable=False)
@@ -29,6 +32,8 @@ class Monitor(db.Model):
       description=self.description,
       scope=self.scope.id,
       service=self.service.id,
+      integration=self.integration,
+      external_reference=self.external_reference,
       external_link=self.external_link,
       status=self.status.value,
     )
@@ -54,19 +59,15 @@ class Monitor(db.Model):
       status=(cls.status, MonitorStatus, 'eq'),
       scope=(cls.scope_id, int, 'eq'),
       service=(cls.service_id, int, 'eq'),
+      integration=(cls.integration, str, 'eq'),
     )
 
   @classmethod
-  def count_monitors_in_status(cls, query, status):
-    return query.filter(
-      cls.status == status
-    ).count()
-
-  @classmethod
-  def count_monitors(cls, query):
+  def count_by_status(cls, query, serialize=False, filters=()):
     result = dict()
 
     for status in MonitorStatus:
-      result[status] = cls.count_monitors_in_status(query, status)
+      key = status.value if serialize else status
+      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status, filters)
 
     return result

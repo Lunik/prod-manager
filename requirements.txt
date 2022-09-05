@@ -25,3 +25,5 @@ gunicorn
 # Integrations
 ## Datadog
 datadog-api-client
+## Jenkins
+api4jenkins

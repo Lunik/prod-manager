@@ -296,9 +296,13 @@ table_column_internal: internal
 table_column_external_link: external link
 table_column_mail: mail
 table_column_remember_me: remember me
+table_column_integration: integration
 
 # Pagination
 pagination_overflow: Pagination value overflow
 
 # Filter
 filter_overflow: Filter value overflow
+
+# Auto reload
+auto_reload: Auto reload

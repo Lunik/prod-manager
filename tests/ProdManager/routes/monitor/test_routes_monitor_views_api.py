@@ -67,7 +67,7 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
           "APPLICATION-SECRET": "changeit"
         },
         data=dict(
-          scope="1",
+          scope="2",
           service="1",
           name=monitor_name
       ))
@@ -82,12 +82,12 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
       assert rv.status_code == 404
       self.assertNotIn(b"__missing_translation", rv.data)
 
-      rv = client.get('/api/monitor?scope=1')
+      rv = client.get('/api/monitor?scope=2')
       self.assertInResponse(f'"name": "{monitor_name}"'.encode(), rv)
       self.assertInResponse(b'[{', rv)
       self.assertInResponse(b'}]', rv)
 
-      rv = client.get('/api/monitor?scope=2')
+      rv = client.get('/api/monitor?scope=1')
       self.assertNotIn(f'"name": "{monitor_name}"'.encode(), rv.data)
       self.assertInResponse(b'[{', rv)
       self.assertInResponse(b'}]', rv)

@@ -46,6 +46,20 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       client.post('/login', data=dict(secret="changeit"))
       rv = client.post('/monitor/create', data=dict(
+        scope="1",
+        service="1",
+        name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}",
+        integration="pytest",
+        external_reference="0000000000",
+        external_link="https://example.org"
+      ))
+      assert re.match(r"http://localhost/monitor/\d+", rv.headers.get('Location'))
+      assert rv.status_code == 302
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+    with app.test_client() as client:
+      client.post('/login', data=dict(secret="changeit"))
+      rv = client.post('/monitor/create', data=dict(
         service="1",
         name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
@@ -77,6 +91,22 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
       self.assertInResponse(f'<h1 id="title">Monitor - {monitor_name}</h1>'.encode(), rv)
       self.assertNotIn(b"__missing_translation", rv.data)
 
+    with app.test_client() as client:
+      client.post('/login', data=dict(secret="changeit"))
+      rv = client.post('/monitor/create', data=dict(
+        scope="1",
+        service="1",
+        name=monitor_name,
+        integration="pytest",
+        external_reference="0000000000",
+        external_link="https://example.org"
+      ))
+
+      rv = client.get(rv.headers.get('Location'))
+
+      self.assertInResponse(f'pytest'.encode(), rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
       rv = client.get("/monitor/-1")
 
       assert rv.status_code == 404
@@ -100,7 +130,9 @@ class TestRoutesMonitorViews(flask_unittest.AppTestCase):
         scope="1",
         service="1",
         status="ok",
-        name=monitor_name_2
+        name=monitor_name_2,
+        external_reference="0000000000",
+        external_link="https://example.org"
       ))
 
       assert re.match(r"http://localhost/monitor/\d+", rv.headers.get('Location'))
