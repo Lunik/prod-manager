@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(integration.datadog): User can specify `DD_MONITOR_HOSTNAME` to handle custom monitor hostname (#121) (!73)
+
 
 ## 0.15.0
 
