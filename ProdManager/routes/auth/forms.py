@@ -1,7 +1,7 @@
 from wtforms import PasswordField, BooleanField
 from wtforms.validators import DataRequired
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class AuthLoginForm(CustomForm):

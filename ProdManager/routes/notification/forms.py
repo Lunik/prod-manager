@@ -2,7 +2,7 @@
 from wtforms import EmailField
 from wtforms.validators import DataRequired, Email
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class SubscribeForm(CustomForm):

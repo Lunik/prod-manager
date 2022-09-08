@@ -99,7 +99,6 @@ def test_process(mock_instance):
   datadog_url = "https://datadoghq.eu"
 
   mock_instance.side_effect = datadog_mock
-  #HTTPResponse(body=json.dumps({"id": 10000001, "name": "01_TEST", "overall_state": "OK", "query": "no_query", "type": "synthetics alert"}).encode('utf-8'), status=200)
 
   update_monitor_process("datadog", Configuration(
     api_key=dict(
@@ -109,7 +108,7 @@ def test_process(mock_instance):
     server_variables=dict(
       site="datadoghq.eu"
     ),
-  ))
+  ), dict(monitor_hostname="datadoghq.eu"))
 
   with app.app_context():
     monitor = get_resource(Monitor, MONITORS["10000001"])
@@ -136,3 +135,25 @@ def test_process(mock_instance):
     assert monitor.name != "05_TEST"
     assert monitor.status == MonitorStatus.OK
     assert monitor.external_link is None
+
+@mock.patch('urllib3.PoolManager.request')
+def test_custom_hostname(mock_instance):
+  datadog_url = "https://datadoghq.eu"
+
+  mock_instance.side_effect = datadog_mock
+
+  update_monitor_process("datadog", Configuration(
+    api_key=dict(
+      apiKeyAuth="XXXXX-API_KEY-XXXXX",
+      appKeyAuth="XXXXX-APPLICATION_KEY-XXXXX",
+    ),
+    server_variables=dict(
+      site="datadoghq.eu"
+    ),
+  ), dict(monitor_hostname="example.org"))
+
+  with app.app_context():
+    monitor = get_resource(Monitor, MONITORS["10000001"])
+    assert monitor.name == "01_TEST"
+    assert monitor.status == MonitorStatus.OK
+    assert monitor.external_link == f"https://example.org/monitors/10000001"

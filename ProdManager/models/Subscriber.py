@@ -1,6 +1,6 @@
 from sqlalchemy import String, Integer, Column
 
-from ProdManager import db
+from ProdManager.plugins import db
 
 class Subscriber(db.Model):
   id = Column(Integer, primary_key=True)

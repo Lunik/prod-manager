@@ -12,6 +12,7 @@ This integration allow to automatically update ProdManager monitors based on the
 | `DD_API_KEY`            | API Key to access Datadog |
 | `DD_APPLICATION_KEY`    | Application Key to access Datadog |
 | `PM_INTEGRATION_SUFFIX` | The suffix of the ProdManager integration. If defined the integration will by `datadog_<PM_INTEGRATION_SUFFIX>` else its the ingration is just `datadog` |
+| `DD_MONITOR_HOSTNAME`   | Custom hostname for monitors `external_link`. Default to `DD_SITE` if not specified |
 
 ### Monitors
 

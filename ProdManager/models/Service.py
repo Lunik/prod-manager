@@ -1,7 +1,7 @@
 from sqlalchemy import String, Integer, Column
 from sqlalchemy.orm import relationship
 
-from ProdManager import db
+from ProdManager.plugins import db
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
 

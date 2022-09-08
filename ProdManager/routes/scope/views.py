@@ -13,7 +13,7 @@ from ProdManager.models import (
   Scope, Monitor, Incident, Maintenance,
 )
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from .forms import ScopeCreateForm, ScopeUpdateForm, ScopeDeleteForm
 

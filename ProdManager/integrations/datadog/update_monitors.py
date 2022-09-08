@@ -12,7 +12,7 @@ from ProdManager.models import (
 )
 
 from ProdManager.helpers.resource import list_resources, update_resource
-from ProdManager import create_app
+from ProdManager.app import create_app
 
 app = create_app()
 
@@ -22,7 +22,7 @@ handler.setFormatter(logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s]
 logger.addHandler(handler)
 logger.setLevel("INFO")
 
-def process(integration_name, datadog_configuration):
+def process(integration_name, datadog_configuration, options):
   with ApiClient(datadog_configuration) as api_client:
     api_instance = MonitorsApi(api_client)
 
@@ -61,7 +61,7 @@ def process(integration_name, datadog_configuration):
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=monitor_state.name,
         external_reference=monitor_state.id,
-        external_link=f"https://{datadog_configuration.server_variables['site']}/monitors/{monitor_state.id}",
+        external_link=f"https://{options['monitor_hostname']}/monitors/{monitor_state.id}",
         status=status
       ))
 
@@ -85,5 +85,8 @@ if __name__ == "__main__":
   if datadog_integration_suffix:
     integration_name = f"{integration_name}_{datadog_integration_suffix}"
 
+  options = dict(
+    monitor_hostname=os.environ.get("DD_MONITOR_HOSTNAME", datadog_configuration.server_variables['site'])
+  )
 
-  process(integration_name, datadog_configuration)
+  process(integration_name, datadog_configuration, options)

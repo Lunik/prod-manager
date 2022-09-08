@@ -18,7 +18,7 @@ from ProdManager.models import (
   Service, Monitor, Incident, Maintenance,
 )
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from .forms import ServiceCreateForm, ServiceUpdateForm, ServiceDeleteForm
 

@@ -1,7 +1,7 @@
 
 from flask import Blueprint, redirect, abort
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import login_required

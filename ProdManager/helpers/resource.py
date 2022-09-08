@@ -11,7 +11,7 @@ from psycopg2.errors import (
   NotNullViolation as pgsqlNotNullViolation,
 )
 
-from ProdManager import db, lang
+from ProdManager.plugins import db, lang
 from ProdManager.models import EventType
 import ProdManager.helpers.notification as NotificationHelper
 import ProdManager.helpers.event as EventHelper
@@ -230,8 +230,3 @@ def resource_filters(filter_fields):
     return wrapped_view
 
   return decorate
-
-def count_in_status_from_query(resource_class, query, status, filters=()):
-  return query.filter(
-    resource_class.status == status, *filters
-  ).count()

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.2.0
+  version: 0.2.1
 servers:
 - url: /api
   description: Local server
@@ -19,6 +19,7 @@ components:
         id:
           type: integer
           description: The internal ID of the scope
+          minimum: 1
         name:
           type: string
           description: The name of the scope
@@ -30,9 +31,11 @@ components:
         incidents_count:
           type: integer
           description: The number of incidents related to the scope
+          minimum: 0
         maintenances_count:
           type: integer
           description: The number of maintenances related to the scope
+          minimum: 0
         links:
           type: object
           description: Links to access related resources
@@ -55,6 +58,7 @@ components:
         id:
           type: integer
           description: The internal ID of the service
+          minimum: 1
         name:
           type: string
           description: The name of the service
@@ -66,9 +70,11 @@ components:
         incidents_count:
           type: integer
           description: The number of incidents related to the service
+          minimum: 0
         maintenances_count:
           type: integer
           description: The number of maintenances related to the service
+          minimum: 0
         links:
           type: object
           description: Links to access related resources
@@ -91,6 +97,7 @@ components:
         id:
           type: integer
           description: The internal ID of the monitor
+          minimum: 1
         name:
           type: string
           description: The name of the monitor
@@ -116,9 +123,11 @@ components:
         scope:
           type: integer
           description: The related scope ID of the monitor
+          minimum: 1
         service:
           type: integer
           description: The related service ID of the monitor
+          minimum: 1
         links:
           type: object
           description: Links to access related resources
@@ -139,18 +148,22 @@ components:
         ok:
           type: integer
           description: The number of monitors in OK state
+          minimum: 0
         warning:
           type: integer
           description: The number of monitors in WARNING state
+          minimum: 0
         alert:
           type: integer
           description: The number of monitors in ALERT state
+          minimum: 0
     incident:
       type: object
       properties:
         id:
           type: integer
           description: The internal ID of the incident
+          minimum: 1
         name:
           type: string
           description: The name of the incident
@@ -183,9 +196,11 @@ components:
         scope:
           type: integer
           description: The related scope ID of the monitor
+          minimum: 1
         service:
           type: integer
           description: The related service ID of the monitor
+          minimum: 1
         creation_date:
           type: string
           format: date-time
@@ -226,21 +241,26 @@ components:
         active:
           type: integer
           description: The number of incidents in ACTIVE state
+          minimum: 0
         investigating:
           type: integer
           description: The number of incidents in INVESTIGATING state
+          minimum: 0
         resolved:
           type: integer
           description: The number of incidents in RESOLVED state
+          minimum: 0
         stable:
           type: integer
           description: The number of incidents in STABLE state
+          minimum: 0
     maintenance:
       type: object
       properties:
         id:
           type: integer
           description: The internal ID of the maintenance
+          minimum: 1
         name:
           type: string
           description: The name of the maintenance
@@ -271,9 +291,11 @@ components:
         scope:
           type: integer
           description: The related scope ID of the monitor
+          minimum: 1
         service:
           type: integer
           description: The related service ID of the monitor
+          minimum: 1
         creation_date:
           type: string
           format: date-time
@@ -317,15 +339,19 @@ components:
         failed:
           type: integer
           description: The number of maintenances in FAILED state
+          minimum: 0
         in-progress:
           type: integer
           description: The number of maintenances in IN_PROGRESS state
+          minimum: 0
         scheduled:
           type: integer
           description: The number of maintenances in SCHEDULED state
+          minimum: 0
         succeed:
           type: integer
           description: The number of maintenances in SUCCEED state
+          minimum: 0
   parameters:
     per_page:
       name: per_page
@@ -333,12 +359,15 @@ components:
       description: Number of resources by page
       schema:
         type: integer
+        minimum: 1
+        maximum: 50
     page:
       name: page
       in: query
       description: Page number
       schema:
         type: integer
+        minimum: 1
   responses:
     error_400_response:
       description: Bad request
@@ -354,6 +383,7 @@ components:
                 properties:
                   '<field>':
                     type: array
+                    maxItems: 50
                     items:
                       type: string
     error_403_response:
@@ -376,6 +406,7 @@ components:
                 properties:
                   '<field>':
                     type: array
+                    maxItems: 50
                     items:
                       type: string
     error_409_response:
@@ -392,6 +423,7 @@ components:
                 properties:
                   '<field>':
                     type: array
+                    maxItems: 50
                     items:
                       type: string
 security:
@@ -418,6 +450,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/scope'
         '400':
@@ -536,6 +569,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/scope'
         '403':
@@ -563,6 +597,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/service'
         '400':
@@ -681,6 +716,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/service'
         '403':
@@ -703,6 +739,7 @@ paths:
         description: Limit by status
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/monitor/properties/status'
       - name: scope
@@ -710,6 +747,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -717,6 +755,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: integration
@@ -736,6 +775,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/monitor'
         '400':
@@ -884,6 +924,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/monitor'
         '403':
@@ -906,6 +947,7 @@ paths:
         description: Limit by status
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/incident/properties/status'
       - name: severity
@@ -913,6 +955,7 @@ paths:
         description: Limit by severity
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/incident/properties/severity'
       - name: scope
@@ -920,6 +963,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -927,6 +971,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: external_reference
@@ -934,6 +979,7 @@ paths:
         description: Limit by external_reference
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/incident/properties/external_reference'
       - name: impact_before
@@ -956,6 +1002,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/incident'
         '400':
@@ -1113,6 +1160,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/incident'
         '403':
@@ -1135,6 +1183,7 @@ paths:
         description: Limit by status
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/maintenance/properties/status'
       - name: service_status
@@ -1142,6 +1191,7 @@ paths:
         description: Limit by service status
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/maintenance/properties/service_status'
       - name: scope
@@ -1149,6 +1199,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -1156,6 +1207,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: external_reference
@@ -1163,6 +1215,7 @@ paths:
         description: Limit by external reference
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/maintenance/properties/external_reference'
       - name: start_before
@@ -1195,6 +1248,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/maintenance'
         '400':
@@ -1355,6 +1409,7 @@ paths:
                 properties:
                   items:
                     type: array
+                    maxItems: 50
                     items:
                       $ref: '#/components/schemas/maintenance'
         '403':
@@ -1376,6 +1431,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -1383,6 +1439,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: integration
@@ -1390,6 +1447,7 @@ paths:
         description: Limit by integration
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/monitor/properties/integration'
       responses:
@@ -1416,6 +1474,7 @@ paths:
         description: Limit by severity
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/incident/properties/severity'
       - name: scope
@@ -1423,6 +1482,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -1430,6 +1490,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: impact_before
@@ -1466,6 +1527,7 @@ paths:
         description: Limit by service status
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/maintenance/properties/service_status'
       - name: scope
@@ -1473,6 +1535,7 @@ paths:
         description: Limit by scope ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/scope/properties/id'
       - name: service
@@ -1480,6 +1543,7 @@ paths:
         description: Limit by service ID
         schema:
           type: array
+          maxItems: 50
           items:
             $ref: '#/components/schemas/service/properties/id'
       - name: start_before
