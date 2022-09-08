@@ -7,7 +7,7 @@
 
 ### Added
 
-- feat(api): Bump API schema to `0.2.1` (!71)
+- feat(api): Bump API schema to `0.2.1` (!62)
 
 ### Fixed
 
