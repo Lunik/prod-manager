@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, Optional, URL
 
 from ProdManager.models import MonitorStatus
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class MonitorCreateForm(CustomForm):

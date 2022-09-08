@@ -2,8 +2,7 @@ import enum
 
 from flask import current_app
 
-from ProdManager import mail
-from ProdManager import lang
+from ProdManager.plugins import mail, lang
 
 from ProdManager.models import Subscriber, Incident, Maintenance
 from ProdManager.helpers.template import custom_render_template
@@ -33,6 +32,9 @@ def notify(notif_type, resource_class, resource):
     raise Exception("notif_type is not of type : NotificationType")
 
   if resource_class not in NOTIFICATION_SUPPORTED_RESOURCES:
+    current_app.logger.debug(
+      f"Ignore sending notification because {resource_class} is not in {NOTIFICATION_SUPPORTED_RESOURCES}"
+    )
     return
 
   notif_title = resource.title

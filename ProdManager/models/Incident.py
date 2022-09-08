@@ -3,11 +3,9 @@ from sqlalchemy.orm import relationship
 
 from flask import g
 
-from ProdManager import db
-from ProdManager import lang
+from ProdManager.plugins import db, lang
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
-import ProdManager.helpers.resource as ResourceHelpers
 
 from .IncidentEvent import IncidentEvent
 
@@ -146,6 +144,8 @@ class Incident(db.Model):
 
     for status in IncidentStatus:
       key = status.value if serialize else status
-      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status, filters)
+      result[key] = query.filter(
+        cls.status == status, *filters
+      ).count()
 
     return result

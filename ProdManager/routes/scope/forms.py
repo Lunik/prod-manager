@@ -1,7 +1,7 @@
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired, Length, Optional
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class ScopeCreateForm(CustomForm):
