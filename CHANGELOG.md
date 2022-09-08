@@ -2,11 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(api): Bump API schema to `0.2.1` (!71)
+
 ### Fixed
 
 - fix(integration.datadog): User can specify `DD_MONITOR_HOSTNAME` to handle custom monitor hostname (#121) (!73)
 - fix(helpers.notification): Mail was never sent since the version `v0.15.0` (#122) (!74)
 - fix(python): Enhance project structure to reduce Python cyclic imports (!74)
+- fix(api): Correct small vulnerability issues (!62)
 
 
 ## 0.15.0
