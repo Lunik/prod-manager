@@ -5,6 +5,8 @@
 ### Fixed
 
 - fix(integration.datadog): User can specify `DD_MONITOR_HOSTNAME` to handle custom monitor hostname (#121) (!73)
+- fix(helpers.notification): Mail was never sent since the version `v0.15.0` (#122) (!74)
+- fix(python): Enhance project structure to reduce Python cyclic imports (!74)
 
 
 ## 0.15.0

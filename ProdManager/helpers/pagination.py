@@ -1,6 +1,6 @@
 from flask import request, abort
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from .links import custom_url_for
 

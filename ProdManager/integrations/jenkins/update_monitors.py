@@ -12,7 +12,7 @@ from ProdManager.models import (
 )
 
 from ProdManager.helpers.resource import list_resources, update_resource
-from ProdManager import create_app
+from ProdManager.app import create_app
 
 app = create_app()
 

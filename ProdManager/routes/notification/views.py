@@ -2,7 +2,7 @@
 from flask import Blueprint, abort, redirect
 from sqlalchemy.exc import NoResultFound
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from ProdManager.models import Subscriber
 

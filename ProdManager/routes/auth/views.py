@@ -5,7 +5,7 @@ from flask import current_app
 from flask import g
 from flask import session
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.auth import logout_required
 from ProdManager.helpers.links import custom_url_for

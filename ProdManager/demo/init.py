@@ -2,15 +2,20 @@ import random
 from datetime import datetime
 
 from sqlalchemy.orm import Session
+from flask import g
 
-from ProdManager import create_app, db
+from ProdManager.plugins import db
+from ProdManager.app import create_app
 from ProdManager.helpers.resource import create_resource
 from ProdManager.models import *
 
 app = create_app()
+app.config["SERVER_NAME"] = "demo.local"
 
 if __name__ == "__main__":
   with app.app_context():
+    g.api = False
+
     with db.engine.connect() as connection:
 
       # SCOPES

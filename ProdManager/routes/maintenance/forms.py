@@ -11,7 +11,7 @@ from ProdManager.models import (
   MaintenanceStatus, ServiceStatus,
 )
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class MaintenanceCreateForm(CustomForm):

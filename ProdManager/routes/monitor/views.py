@@ -18,7 +18,7 @@ from ProdManager.models import (
   Monitor, MonitorStatus, Scope, Service,
 )
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 
 from .forms import MonitorCreateForm, MonitorUpdateForm, MonitorDeleteForm
 

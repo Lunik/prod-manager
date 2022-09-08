@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, Column, ForeignKey
 
-from ProdManager import db
+from ProdManager.plugins import db
 from .Event import Event
 
 class IncidentEvent(Event, db.Model):

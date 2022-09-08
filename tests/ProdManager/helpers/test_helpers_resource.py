@@ -10,7 +10,6 @@ from ProdManager.helpers.resource import (
   list_resources_as_choices, get_resource,
   update_resource, delete_resource,
   create_resource, resource_filters,
-  count_in_status_from_query,
 )
 
 from ProdManager.helpers.response import ( 
@@ -119,9 +118,3 @@ def test_delete_resource():
 
     with pytest.raises(DependencyError):
       delete_resource(Scope, scope_resource.id)
-
-def test_count_in_status_from_query():
-  with app.app_context():
-    assert type(count_in_status_from_query(Monitor, Monitor.query, MonitorStatus.OK)) == int
-    assert type(count_in_status_from_query(Maintenance, Maintenance.query, MaintenanceStatus.SCHEDULED)) == int
-    assert type(count_in_status_from_query(Incident, Incident.query, IncidentStatus.ACTIVE)) == int

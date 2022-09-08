@@ -9,7 +9,7 @@ from ProdManager.helpers.date import current_date
 
 from ProdManager.models import IncidentSeverity, IncidentStatus
 
-from ProdManager import lang
+from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
 
 class IncidentCreateForm(CustomForm):

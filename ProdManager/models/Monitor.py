@@ -1,9 +1,8 @@
 from sqlalchemy import String, Integer, Column, ForeignKey, Enum
 
-from ProdManager import db
+from ProdManager.plugins import db
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
-import ProdManager.helpers.resource as ResourceHelpers
 
 class MonitorStatus(ModelEnum):
   OK = 'ok'
@@ -68,6 +67,8 @@ class Monitor(db.Model):
 
     for status in MonitorStatus:
       key = status.value if serialize else status
-      result[key] = ResourceHelpers.count_in_status_from_query(cls, query, status, filters)
+      result[key] = query.filter(
+        cls.status == status, *filters
+      ).count()
 
     return result
