@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(ci): Check deploy manifest against Kubernetes 1.25.0 (#128) (!78)
+
 ### Fixed
 
 - fix(deploy.kubernetes): Add security context feature on containers (#125, #126) (!76)
