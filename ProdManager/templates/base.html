@@ -82,11 +82,11 @@
           {% set info_message=dict(message=info_query) %}
         {% endif %}
         
+        {% include "fragments/auto_reload.html" %}
+
         {% if info_message %}
           {% include "fragments/info.html" %}
         {% endif %}
-
-        {% include "fragments/auto_reload.html" %}
 
         {% block content %}{% endblock %}
       </div>
