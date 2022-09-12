@@ -27,3 +27,5 @@ gunicorn
 datadog-api-client
 ## Jenkins
 api4jenkins
+## DNS
+dnspython
