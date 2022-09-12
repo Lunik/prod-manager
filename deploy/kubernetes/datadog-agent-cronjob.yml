@@ -24,6 +24,11 @@ spec:
             image: registry.gitlab.com/prod-manager/prod-manager:latest
             imagePullPolicy: Always
             name: datadog-agent
+            securityContext:
+              allowPrivilegeEscalation: False
+              capabilities:
+                drop:
+                - NET_RAW
             envFrom:
             - secretRef:
                 name: prod-manager

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(deploy.kubernetes): Add security context feature on containers (#125, #126) (!76)
+
 
 ## 0.15.1
 
