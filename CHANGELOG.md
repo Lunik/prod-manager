@@ -13,7 +13,7 @@
 
 - fix(deploy.kubernetes): Add security context feature on containers (#125, #126) (!76)
 - fix(template.base): Prevent "auto reload" toggle switch to overlap info/error messages (#127) (!77)
-- fix(translation.fr): small correction in French translation
+- fix(translation.fr): small correction in French translation (!75) (Thanks @JoaquimMachado)
 
 
 ## 0.15.1
