@@ -230,6 +230,7 @@ kubernetes_manifests:
     matrix:
       - KUBE_VERSION: "1.23.9"
       - KUBE_VERSION: "1.24.4"
+      - KUBE_VERSION: "1.25.0"
   variables:
     KUBEVAL_SCHEMA_LOCATION: "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master"
   before_script:

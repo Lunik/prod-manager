@@ -27,6 +27,11 @@ spec:
       - image: registry.gitlab.com/prod-manager/prod-manager:latest
         imagePullPolicy: Always
         name: static
+        securityContext:
+          allowPrivilegeEscalation: False
+          capabilities:
+            drop:
+            - NET_RAW
         command: ["cp", "-rv", "ProdManager/static", "/static"]
         resources:
           requests:
@@ -41,6 +46,11 @@ spec:
       containers:
       - image: nginx:latest
         name: proxy
+        securityContext:
+          allowPrivilegeEscalation: False
+          capabilities:
+            drop:
+            - NET_RAW
         ports:
         - name: http
           containerPort: 80

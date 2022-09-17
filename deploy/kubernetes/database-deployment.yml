@@ -23,6 +23,11 @@ spec:
       containers:
       - image: postgres
         name: database
+        securityContext:
+          allowPrivilegeEscalation: False
+          capabilities:
+            drop:
+            - NET_RAW
         ports:
         - name: postgres
           containerPort: 5432

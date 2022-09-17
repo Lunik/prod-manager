@@ -1,10 +1,23 @@
 # CHANGELOG
 
+## 0.15.2
+
+### Added
+
+- feat(ci): Check deploy manifest against Kubernetes 1.25.0 (#128) (!78)
+
+### Fixed
+
+- fix(deploy.kubernetes): Add security context feature on containers (#125, #126) (!76)
+- fix(template.base): Prevent "auto reload" toggle switch to overlap info/error messages (#127) (!77)
+- fix(translation.fr): small correction in French translation
+
+
 ## 0.15.1
 
 ### Added
 
-- feat(api): Bump API schema to `0.2.1` (!71)
+- feat(api): Bump API schema to `0.2.1` (!62)
 
 ### Fixed
 
