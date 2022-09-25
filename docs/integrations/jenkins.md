@@ -19,6 +19,16 @@ ProdManager monitors should be created with :
 - `integration` field populated with the value `jenkins` (or `jenkins_<PM_INTEGRATION_SUFFIX>`)
 - `external_link` field with the "Full project name" of a Jenkins job
 
+### Status convertion table
+
+| Jenkins status | ProdManager status |
+|:---------------|:-------------------|
+| `SUCCESS`  | `OK` |
+| `UNSTABLE` | `WARNING` |
+| `FAILURE`  | `ALERT` |
+
+Any other status will result in `ALERT` status in ProdManager.
+
 ## Usage
 
 Run the command : 

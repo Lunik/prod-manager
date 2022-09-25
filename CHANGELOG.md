@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(integration.DNS): Add DNS integration for updating monitors (#124) (!79)
+
 
 ## 0.15.2
 

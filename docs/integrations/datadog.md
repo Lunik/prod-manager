@@ -20,6 +20,16 @@ ProdManager monitors should be created with :
 - `integration` field populated with the value `datadog` (or `datadog_<PM_INTEGRATION_SUFFIX>`)
 - `external_link` field with the "ID" of a Datadog monitor
 
+### Status convertion table
+
+| Datadog status | ProdManager status |
+|:---------------|:-------------------|
+| `OK`      | `OK` |
+| `WARNING` | `WARNING` |
+| `ALERT`   | `ALERT` |
+
+Any other status will result in `ALERT` status in ProdManager.
+
 ## Usage
 
 Run the command : 
