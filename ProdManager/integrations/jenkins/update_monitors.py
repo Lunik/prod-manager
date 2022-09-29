@@ -34,7 +34,7 @@ def process(integration_name, configuration):
   api_instance = Jenkins(**configuration)
 
   try:
-    logger.info(f"Jenkins version : {api_instance.version}")
+    logger.info("Jenkins version : %s", api_instance.version)
   except AuthenticationError as error:
     logger.error(error)
     sys.exit(1)
@@ -48,37 +48,39 @@ def process(integration_name, configuration):
       ):
 
       if not monitor.external_reference:
-        logger.info(f"[{monitor.name}] Ignoring")
+        logger.info("[%s] Ignoring", monitor.name)
         continue
 
-      logger.info(f"[{monitor.name}] Handling monitor refresh")
+      logger.info("[%s] Handling monitor refresh", monitor.name)
 
       job_path = monitor.external_reference
-      logger.info(f"[{monitor.name}] Found monitor with Jenkins job path : {job_path}")
+      logger.info("[%s] Found monitor with Jenkins job path : %s", monitor.name, job_path)
 
       job_state = api_instance.get_job(job_path)
       if job_state is None:
-        logger.error(f"[{monitor.name}] Jenkins job with path {job_path} was not found")
+        logger.error("[%s] Jenkins job with path %s was not found", monitor.name, job_path)
         continue
 
       if isinstance(job_state, Folder):
-        logger.error(f"[{monitor.name}] Jenkins job with path {job_path} is a folder")
+        logger.error("[%s] Jenkins job with path %s is a folder", monitor.name, job_path)
         continue
 
       status = monitor.status
 
       job_last_completed_build = job_state.get_last_completed_build()
       if job_last_completed_build is None:
-        logger.warning(f"[{monitor.name}] Jenkins job with path {job_path} has no build")
+        logger.warning("[%s] Jenkins job with path %s has no build", monitor.name, job_path)
       else:
         job_last_completed_build_result = job_last_completed_build.result
         try:
           translated_status = JENKINS_MONITOR_STATUSES[job_last_completed_build_result]
           status = MonitorStatus(translated_status)
-          logger.info(f"[{monitor.name}] Jenkins monitor status is : {status.name}")
+          logger.info("[%s] Jenkins monitor status is : %s", monitor.name, status.name)
         except KeyError:
           logger.warning(
-            f"[{monitor.name}] Jenkins monitor status is not handled : {job_last_completed_build_result}"
+            "[%s] Jenkins monitor status is not handled : %s",
+            monitor.name,
+            job_last_completed_build_result,
           )
           continue
 
@@ -90,7 +92,7 @@ def process(integration_name, configuration):
       ))
 
       if changed:
-        logger.info(f"[{monitor.name}] Updating monitor status succeed")
+        logger.info("[%s] Updating monitor status succeed", monitor.name)
 
 
 if __name__ == "__main__":
