@@ -335,6 +335,8 @@ upload_image:
       --update
       jq
     - *image-tag
+    - mkdir -p $HOME/.config/scw
+    - touch $HOME/.config/scw/config.yaml
   script:
     - >
       /scw container
