@@ -343,6 +343,7 @@ upload_image:
       container update
       $SCW_CONTAINER_ID
       registry-image=$CONTAINER_REGISTRY/prod-manager:${tag}
+      | grep -E '^(Name|Status|RegistryImage|Region)\s'
     - >
       /scw container
       container deploy
