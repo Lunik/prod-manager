@@ -7,6 +7,10 @@
 - feat(integration.DNS): Add DNS integration for updating monitors (#124) (!79)
 - feat(integration.HTTP): Add HTTP integration for updating monitors (#123) (!80)
 
+### Fixed
+
+- fix(lint): Improve performance by not evaluating maybe not logged string (#130) (!81)
+
 
 ## 0.15.2
 

@@ -23,7 +23,7 @@ logger.setLevel("INFO")
 DNS_MONITOR_STATUSES = ["alert", "ok"]
 
 def query(qname, resolver, rdtype="A"):
-  logger.info(f"Searching for {qname} IN {rdtype}")
+  logger.info("Searching for %s IN %s", qname, rdtype)
   result = []
 
   try:
@@ -61,13 +61,13 @@ def process(integration_name, configuration):
       ):
 
       if not monitor.external_reference:
-        logger.info(f"[{monitor.name}] Ignoring")
+        logger.info("[%s] Ignoring", monitor.name)
         continue
 
-      logger.info(f"[{monitor.name}] Handling monitor refresh")
+      logger.info("[%s] Handling monitor refresh", monitor.name)
 
       dns_name = monitor.external_reference
-      logger.info(f"[{monitor.name}] Found monitor with DNS record : {dns_name}")
+      logger.info("[%s] Found monitor with DNS record : %s", monitor.name, dns_name)
 
       try:
         dns_state = query(dns_name, resolver)
@@ -81,10 +81,12 @@ def process(integration_name, configuration):
       try:
         translated_status = DNS_MONITOR_STATUSES[int(dns_found_result)]
         status = MonitorStatus(translated_status)
-        logger.info(f"[{monitor.name}] DNS monitor status is : {status.name}")
+        logger.info("[%s] DNS monitor status is : %s", monitor.name, status.name)
       except KeyError:
         logger.warning(
-          f"[{monitor.name}] DNS monitor status is not handled : {translated_status}"
+          "[%s] DNS monitor status is not handled : %s",
+          monitor.name,
+          translated_status
         )
         continue
 
@@ -96,7 +98,7 @@ def process(integration_name, configuration):
       ))
 
       if changed:
-        logger.info(f"[{monitor.name}] Updating monitor status succeed")
+        logger.info("[%s] Updating monitor status succeed", monitor.name)
 
 
 if __name__ == "__main__":

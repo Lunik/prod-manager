@@ -38,13 +38,13 @@ def process(integration_name, configuration):
       ):
 
       if not monitor.external_link:
-        logger.info(f"[{monitor.name}] Ignoring")
+        logger.info("[%s] Ignoring", monitor.name)
         continue
 
-      logger.info(f"[{monitor.name}] Handling monitor refresh")
+      logger.info("[%s] Handling monitor refresh", monitor.name)
 
       http_url = monitor.external_link
-      logger.info(f"[{monitor.name}] Found monitor with HTTP link : {http_url}")
+      logger.info("[%s] Found monitor with HTTP link : %s", monitor.name, http_url)
 
       http_state = None
       try:
@@ -57,7 +57,7 @@ def process(integration_name, configuration):
         translated_status = "ok"
 
       status = MonitorStatus(translated_status)
-      logger.info(f"[{monitor.name}] HTTP monitor status is : {status.name}")
+      logger.info("[%s] HTTP monitor status is : %s", monitor.name, status.name)
 
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=re.sub(r'^(\[https?\]\s?)?', '[HTTP] ', monitor.name, flags=re.IGNORECASE),
@@ -66,7 +66,7 @@ def process(integration_name, configuration):
       ))
 
       if changed:
-        logger.info(f"[{monitor.name}] Updating monitor status succeed")
+        logger.info("[%s] Updating monitor status succeed", monitor.name)
 
 
 if __name__ == "__main__":

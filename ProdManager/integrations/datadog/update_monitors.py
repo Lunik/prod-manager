@@ -35,18 +35,18 @@ def process(integration_name, datadog_configuration, options):
       ):
 
       if not monitor.external_reference:
-        logger.info(f"[{monitor.name}] Ignoring")
+        logger.info("[%s] Ignoring", monitor.name)
         continue
 
-      logger.info(f"[{monitor.name}] Handling monitor refresh")
+      logger.info("[%s] Handling monitor refresh", monitor.name)
 
       monitor_id = int(monitor.external_reference)
-      logger.info(f"[{monitor.name}] Found Datadog monitor ID : {monitor_id}")
+      logger.info("[%s] Found Datadog monitor ID : %s", monitor.name, monitor_id)
 
       try:
         monitor_state = api_instance.get_monitor(monitor_id)
       except NotFoundException as error:
-        logger.error(f"[{monitor.name}] Datadog monitor with ID {monitor_id} was not found")
+        logger.error("[%s] Datadog monitor with ID %s was not found", monitor.name, monitor_id)
         continue
 
 
@@ -54,9 +54,11 @@ def process(integration_name, datadog_configuration, options):
       monitor_status = monitor_state.overall_state.to_str().lower()
       try:
         status = MonitorStatus(monitor_state.overall_state.to_str().lower())
-        logger.info(f"[{monitor.name}] Datadog monitor status is : {status.name}")
+        logger.info("[%s] Datadog monitor status is : %s", monitor.name, status.name)
       except ValueError:
-        logger.warning(f"[{monitor.name}] Datadog monitor status is not handled : {monitor_status}")
+        logger.warning(
+          "[%s] Datadog monitor status is not handled : %s", monitor.name, monitor_status
+        )
 
       monitor, changed = update_resource(Monitor, monitor.id, dict(
         name=monitor_state.name,
@@ -66,7 +68,7 @@ def process(integration_name, datadog_configuration, options):
       ))
 
       if changed:
-        logger.info(f"[{monitor.name}] Updating monitor status succeed")
+        logger.info("[%s] Updating monitor status succeed", monitor.name)
 
 
 if __name__ == "__main__":
@@ -86,7 +88,10 @@ if __name__ == "__main__":
     integration_name = f"{integration_name}_{datadog_integration_suffix}"
 
   options = dict(
-    monitor_hostname=os.environ.get("DD_MONITOR_HOSTNAME", datadog_configuration.server_variables['site'])
+    monitor_hostname=os.environ.get(
+      "DD_MONITOR_HOSTNAME",
+      datadog_configuration.server_variables['site'],
+    )
   )
 
   process(integration_name, datadog_configuration, options)
