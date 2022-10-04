@@ -6,6 +6,7 @@
 
 - feat(integration.DNS): Add DNS integration for updating monitors (#124) (!79)
 - feat(integration.HTTP): Add HTTP integration for updating monitors (#123) (!80)
+- feat(dev): Add profiling feature for development (!82)
 
 ### Fixed
 

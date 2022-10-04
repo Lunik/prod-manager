@@ -26,3 +26,5 @@ report.html
 assets
 htmlcov
 .env
+
+debug
