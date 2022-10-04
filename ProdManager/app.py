@@ -55,9 +55,15 @@ def create_app():
     MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager] "),
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
     LANG=os.environ.get("PM_LANG", "en"),
+    DEBUG=boolean_param(os.environ.get("PM_DEBUG", 'False')),
   )
 
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
+  if boolean_param(os.environ.get("PM_PROFILING", 'False')):
+    from werkzeug.middleware.profiler import ProfilerMiddleware
+
+    os.makedirs('debug', exist_ok=True)
+    app.wsgi_app = ProfilerMiddleware(app.wsgi_app, sort_by=['cumtime'], profile_dir='debug')
 
   # ensure the instance folder exists
   os.makedirs(app.instance_path, exist_ok=True)
