@@ -46,6 +46,6 @@ def custom_render_template(*args, **kwargs):
       )
   else:
     rendered_html = render_template(*args, **kwargs)
-    response = html_minify(rendered_html, ignore_comments=False)
+    response = html_minify(rendered_html, ignore_comments=False, parser="lxml")
 
   return response

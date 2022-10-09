@@ -4,6 +4,7 @@ pyyaml
 # Flask requirements
 Flask
 django-htmlmin
+lxml
 
 # Forms
 Flask-WTF
