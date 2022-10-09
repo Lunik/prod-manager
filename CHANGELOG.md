@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 0.16.0
+
+### Added
+
+- feat(integration.DNS): Add DNS integration for updating monitors (#124) (!79)
+- feat(integration.HTTP): Add HTTP integration for updating monitors (#123) (!80)
+- feat(dev): Add profiling feature for development (!82)
+- feat(template.\*): Improve template beautifier by 10% (!83)
+
+### Fixed
+
+- fix(lint): Improve performance by not evaluating maybe not logged string (#130) (!81)
+
+
 ## 0.15.2
 
 ### Added
@@ -10,7 +24,7 @@
 
 - fix(deploy.kubernetes): Add security context feature on containers (#125, #126) (!76)
 - fix(template.base): Prevent "auto reload" toggle switch to overlap info/error messages (#127) (!77)
-- fix(translation.fr): small correction in French translation
+- fix(translation.fr): small correction in French translation (!75) (Thanks @JoaquimMachado)
 
 
 ## 0.15.1

@@ -116,7 +116,7 @@ def update_resource(resource_class, ressource_id, attributs):
         resource
       )
 
-  logger.info(f"Updated {resource}")
+  logger.info("Updated %s", resource)
 
   return resource, changed
 
@@ -146,7 +146,7 @@ def delete_resource(resource_class, ressource_id):
     current_app.logger.error(error)
     raise ServerError(error) from error
 
-  logger.info(f"Deleted {resource}")
+  logger.info("Deleted %s", resource)
 
 
 def create_resource(resource_class, attributs):
@@ -177,7 +177,7 @@ def create_resource(resource_class, attributs):
     resource
   )
 
-  logger.info(f"Created {resource}")
+  logger.info("Created %s", resource)
 
   return resource
 

@@ -335,12 +335,15 @@ upload_image:
       --update
       jq
     - *image-tag
+    - mkdir -p $HOME/.config/scw
+    - touch $HOME/.config/scw/config.yaml
   script:
     - >
       /scw container
       container update
       $SCW_CONTAINER_ID
       registry-image=$CONTAINER_REGISTRY/prod-manager:${tag}
+      | grep -E '^(Name|Status|RegistryImage|Region)\s'
     - >
       /scw container
       container deploy

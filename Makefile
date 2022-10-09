@@ -7,6 +7,7 @@ GUNICORN ?= venv/bin/gunicorn
 PYLINT   ?= venv/bin/pylint
 PYTEST   ?= venv/bin/pytest
 COVERAGE ?= venv/bin/coverage
+SNAKEVIZ ?= venv/bin/snakeviz
 
 VENV             ?= venv
 REQUIREMENTS      = requirements.txt
@@ -58,7 +59,7 @@ env:
 
 
 run-dev:
-	${GUNICORN} ${GUNICORN_OPTS} --reload --log-level="debug" "main:app"
+	PM_DEBUG=True ${GUNICORN} ${GUNICORN_OPTS} --reload --log-level="debug" "main:app"
 
 
 run-kube: build-docker
@@ -111,3 +112,6 @@ show-tests:
 
 show-coverage:
 	open htmlcov/index.html
+
+show-profiling:
+	$(SNAKEVIZ) debug

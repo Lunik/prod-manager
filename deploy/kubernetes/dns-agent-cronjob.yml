@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: prod-manager
+    component: dns-agent
+  name: prod-manager-dns-agent
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      name: prod-manager-dns-agent
+    spec:
+      template:
+        metadata:
+          labels:
+            app: prod-manager
+            component: dns-agent
+        spec:
+          containers:
+          - command: ["python3", "ProdManager/integrations/dns/update_monitors.py"]
+            image: registry.gitlab.com/prod-manager/prod-manager:latest
+            imagePullPolicy: Always
+            name: dns-agent
+            securityContext:
+              allowPrivilegeEscalation: False
+              capabilities:
+                drop:
+                - NET_RAW
+            envFrom:
+            - secretRef:
+                name: prod-manager
+            resources:
+              requests:
+                cpu: 50m
+                memory: 50M
+              limits:
+                cpu: 250m
+                memory: 100M
+          restartPolicy: OnFailure
+  schedule: '* * * * *'

@@ -256,6 +256,21 @@ Swagger UI `dist` file are copied from [Swagger UI Github repository](https://gi
 5. Wait for [CI/CD pipeline][gitlab-pipeline-tag] to succeed
 6. Create a Release from the GitLab UI containing the content of the `CHANGELOG.md` file
 
+## Performance review
+
+To make sure that the feature/bugfix you are working on has good performance, you can use the profiling features.
+
+First, start the application with profiling enabled : 
+```bash
+PM_PROFILING=True make run-dev
+```
+
+Then use [snakeviz][snakeviz] to review the data :
+```bash
+make show-profiling
+```
+
+
 <!-- Links -->
 
 [flask]: https://flask.palletsprojects.com
@@ -267,6 +282,7 @@ Swagger UI `dist` file are copied from [Swagger UI Github repository](https://gi
 [gunicorn]: https://gunicorn.org
 [pytest]: https://pytest.org
 [flask-unit]: https://github.com/TotallyNotChase/flask-unittest
+[snakeviz]: https://jiffyclub.github.io/snakeviz/
 
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-mr]: https://gitlab.com/prod-manager/prod-manager/-/merge_requests/new?merge_request%5Btarget_branch%5D=develop

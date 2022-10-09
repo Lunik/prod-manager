@@ -4,6 +4,7 @@ pyyaml
 # Flask requirements
 Flask
 django-htmlmin
+lxml
 
 # Forms
 Flask-WTF
@@ -27,3 +28,5 @@ gunicorn
 datadog-api-client
 ## Jenkins
 api4jenkins
+## DNS
+dnspython
