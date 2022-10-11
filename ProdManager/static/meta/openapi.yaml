@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.2.1
+  version: 0.2.2
 servers:
 - url: /api
   description: Local server
@@ -195,11 +195,11 @@ components:
           - minor
         scope:
           type: integer
-          description: The related scope ID of the monitor
+          description: The related scope ID of the incident
           minimum: 1
         service:
           type: integer
-          description: The related service ID of the monitor
+          description: The related service ID of the incident
           minimum: 1
         creation_date:
           type: string
@@ -290,11 +290,11 @@ components:
           - down
         scope:
           type: integer
-          description: The related scope ID of the monitor
+          description: The related scope ID of the maintenance
           minimum: 1
         service:
           type: integer
-          description: The related service ID of the monitor
+          description: The related service ID of the maintenance
           minimum: 1
         creation_date:
           type: string
