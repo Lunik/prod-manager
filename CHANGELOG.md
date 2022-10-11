@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(api): Correct small typos (#131) (!84)
+
 
 ## 0.16.0
 
