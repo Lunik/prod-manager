@@ -5,6 +5,7 @@
 ### Fixed
 
 - fix(api): Correct small typos (#131) (!84)
+- fix(api): Remove inconsistencies between dates format (#132) (!85)
 
 
 ## 0.16.0

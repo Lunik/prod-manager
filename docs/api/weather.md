@@ -45,7 +45,7 @@ GET /weather/maintenance
 | `scope`              | integer | False | Limit by scope ID |
 | `service`            | integer | False | Limit by service ID |
 | `service_status`     | string  | False | Limit by service status. Value could be one of : `up`, `degraded`, `down` |
-| `start_before`       | string  | False | Limit by scheduled start date before specified time. Format : `YYYY-MM-DDTHH:MM:SSZ` |
-| `start_after`        | string  | False | Limit by scheduled start date after specified time. Format : `YYYY-MM-DDTHH:MM:SSZ` |
-| `end_before`         | string  | False | Limit by scheduled end date before specified time. Format : `YYYY-MM-DDTHH:MM:SSZ` |
-| `end_after`          | string  | False | Limit by scheduled end date after specified time. Format : `YYYY-MM-DDTHH:MM:SSZ` |
+| `start_before`       | string  | False | Limit by scheduled start date before specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `start_after`        | string  | False | Limit by scheduled start date after specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `end_before`         | string  | False | Limit by scheduled end date before specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `end_after`          | string  | False | Limit by scheduled end date after specified time. Format : `YYYY-MM-DDTHH:MM` |
