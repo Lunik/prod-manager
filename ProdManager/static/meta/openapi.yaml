@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.2.1
+  version: 0.2.2
 servers:
 - url: /api
   description: Local server
@@ -195,31 +195,31 @@ components:
           - minor
         scope:
           type: integer
-          description: The related scope ID of the monitor
+          description: The related scope ID of the incident
           minimum: 1
         service:
           type: integer
-          description: The related service ID of the monitor
+          description: The related service ID of the incident
           minimum: 1
         creation_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The creation date of the incident
         start_impact_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The start impact date of the incident
         investigation_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The investigation date of the incident
         stable_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The stable date of the incident
         resolve_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The resolve date of the incident
         links:
           type: object
@@ -290,31 +290,31 @@ components:
           - down
         scope:
           type: integer
-          description: The related scope ID of the monitor
+          description: The related scope ID of the maintenance
           minimum: 1
         service:
           type: integer
-          description: The related service ID of the monitor
+          description: The related service ID of the maintenance
           minimum: 1
         creation_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The creation date of the maintenance
         scheduled_start_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The scheduled start date of the maintenance
         scheduled_end_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The scheduled end date of the maintenance
         start_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The start date of the maintenance
         end_date:
           type: string
-          format: date-time
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The end date of the maintenance
         links:
           type: object
