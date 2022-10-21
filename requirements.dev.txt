@@ -4,6 +4,7 @@ pytest
 pytest-cov
 pytest-html
 pytest-xdist
+pytest-helpers-namespace
 
 flask-unittest
 

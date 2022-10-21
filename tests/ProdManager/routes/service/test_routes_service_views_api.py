@@ -2,6 +2,7 @@ import random
 import string
 import re
 from datetime import datetime
+import pytest
 
 import flask_unittest
 import flask.globals
@@ -15,8 +16,12 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
   def create_app(self):
     app = create_app()
     app.config['WTF_CSRF_ENABLED'] = False
-    return app
 
+    with app.test_client() as client:
+      app.token = pytest.helpers.generate_token(client, ["service_api"])
+      app.ro_token = pytest.helpers.generate_token(client, [])
+
+    return app
 
   def test_list_endpoint_with_app(self, app):
     with app.test_request_context('/api/service'):
@@ -62,7 +67,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/service/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=service_name
@@ -82,7 +87,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/service/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -94,8 +99,8 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/service/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
       assert b'"name": ["This field is required."]' in rv.data
       assert rv.status_code == 400
@@ -108,6 +113,17 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
       assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
+    with app.test_client() as client:
+      rv = client.post('/api/service/create',
+        headers={
+          "Authorization": f"Bearer {app.ro_token}"
+        },
+        data=dict(
+          name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert b'"token": ["Token doesn\'t have enought permissions.' in rv.data
+      assert rv.status_code == 403
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_update_with_client(self, app):
     service_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -116,7 +132,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/service/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
         name=service_name
@@ -126,7 +142,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{service_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=service_name_2
@@ -143,8 +159,8 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{service_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert b'"name": ["This field is required."]' in rv.data
@@ -157,7 +173,7 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/service/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=service_name
@@ -167,8 +183,8 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{service_uri}/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert re.match(r"http://localhost/api/service", rv.headers.get('Location'))
@@ -178,8 +194,8 @@ class TestRoutesServiceViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"/api/service/-1/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert rv.status_code == 404

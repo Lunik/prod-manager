@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(auth): Allow user to generate token for API usage (#135) (!87)
+
+### BREAKING CHANGE
+
+- breakingchange(api): `APPLICATION-SECRET` cannot be used anymore for API queries (#135) (!87)
+  - See [Authentication documentation](./docs/api/authentication.md) to learn about the new authentication system
+
 
 ## 0.16.1
 
