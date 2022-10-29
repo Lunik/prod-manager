@@ -32,17 +32,15 @@ components:
           type: string
           pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
           description: The date when the token validity expire (UTC)
-        permissions:
-          type: array
-          description: The list of permissions delegated to the token
-          items:
-            type: string
-            enum:
-            - scope_api
-            - service_api
-            - incident_api
-            - maintenance_api
-            - monitor_api
+        permission:
+          type: string
+          description: Permissions delegated to the token
+          enum:
+          - scope_api
+          - service_api
+          - incident_api
+          - maintenance_api
+          - monitor_api
     token_playload:
       type: object
       properties:
@@ -535,8 +533,8 @@ paths:
                   $ref: '#/components/schemas/token/properties/not_before_date'
                 expiration_date:
                   $ref: '#/components/schemas/token/properties/expiration_date'
-                permissions:
-                  $ref: '#/components/schemas/token/properties/permissions'
+                permission:
+                  $ref: '#/components/schemas/token/properties/permission'
       responses:
         '200':
           description: A token

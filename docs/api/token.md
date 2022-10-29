@@ -17,7 +17,7 @@ POST /token/create
 | `description`     | string | True  | The description of the new token |
 | `not_before_date` | string | False | The date when the token validity start (UTC). Format : `YYYY-MM-DDTHH:MM` |
 | `expiration_date` | string | False | The date when the token validity expire (UTC). Format : `YYYY-MM-DDTHH:MM` |
-| `permissions`     | string | False | List of permissions delegated to the token |
+| `permission`      | string | False | Permission delegated to the token |
 
 Example :
 
@@ -29,8 +29,8 @@ curl -X 'POST' \
   -F 'secret=changeit' \
   -F 'name=api-documentation' \
   -F 'description=Token for documentation example' \
-  -F 'permissions=scope_api' \
-  -F 'permissions=service_api'
+  -F 'permission=scope_api' \
+  -F 'permission=service_api'
 ```
 
 ## Get token metadata
