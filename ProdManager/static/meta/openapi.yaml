@@ -1,18 +1,83 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.2.2
+  version: 0.3.0
 servers:
 - url: /api
   description: Local server
 components:
   securitySchemes:
-    Application_Secret:
-      type: apiKey
-      in: header
-      description: The application secret
-      name: APPLICATION-SECRET
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+    token:
+      type: object
+      properties:
+        secret:
+          type: string
+          description: The application secret
+        name:
+          type: string
+          description: The name of the token
+        description:
+          type: string
+          description: The description of the token
+        not_before_date:
+          type: string
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
+          description: The date when the token validity start (UTC)
+        expiration_date:
+          type: string
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
+          description: The date when the token validity expire (UTC)
+        permissions:
+          type: array
+          description: The list of permissions delegated to the token
+          items:
+            type: string
+            enum:
+            - scope_api
+            - service_api
+            - incident_api
+            - maintenance_api
+            - monitor_api
+    token_playload:
+      type: object
+      properties:
+        playload:
+          type: object
+          properties:
+            version:
+              type: number
+              description: Version of the token
+            aud:
+              type: string
+              description: Name of the token
+            sub:
+              type: string
+              description: Description of the token
+            exp:
+              type: integer
+              description: Expiration date of the token (epoch time)
+            iat:
+              type: integer
+              description: Date of the token generation (epoch time)
+            iss:
+              type: string
+              description: Issuer of the token
+            jti:
+              type: string
+              description: UUID of the token
+            nbf:
+              type: integer
+              description: Validity start date of the token (epoch time)
+            permissions:
+              type: array
+              description: The list of permissions delegated to the token
+              items:
+                type: string
     scope:
       type: object
       properties:
@@ -386,6 +451,23 @@ components:
                     maxItems: 50
                     items:
                       type: string
+    error_401_response:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              reasons:
+                type: object
+                properties:
+                  '<field>':
+                    type: array
+                    maxItems: 50
+                    items:
+                      type: string
     error_403_response:
       description: Forbiden
       content:
@@ -429,6 +511,57 @@ components:
 security:
 - Application_Secret: []
 paths:
+  /token/create:
+    post:
+      tags:
+      - Token
+      summary: Create a Token
+      description: Create a Token
+      operationId: createAToken
+      security: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                secret:
+                  $ref: '#/components/schemas/token/properties/secret'
+                name:
+                  $ref: '#/components/schemas/token/properties/name'
+                description:
+                  $ref: '#/components/schemas/token/properties/description'
+                not_before_date:
+                  $ref: '#/components/schemas/token/properties/not_before_date'
+                expiration_date:
+                  $ref: '#/components/schemas/token/properties/expiration_date'
+                permissions:
+                  $ref: '#/components/schemas/token/properties/permissions'
+      responses:
+        '200':
+          description: A token
+          content:
+            text/plain: {}
+        '400':
+          $ref: '#/components/responses/error_400_response'
+  /token/whoami:
+    get:
+      tags:
+      - Token
+      summary: Get token playload
+      description: Get playload of the current used token
+      operationId: getTokenPlayload
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The token playload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token_playload'
+        '401':
+          $ref: '#/components/responses/error_401_response'
   /scope:
     get:
       tags:
@@ -462,6 +595,8 @@ paths:
       summary: Create a scope
       description: Create a scope
       operationId: createAScope
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -515,6 +650,8 @@ paths:
       summary: Update a scope
       description: Update a scope
       operationId: updateAScope
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -553,6 +690,8 @@ paths:
       summary: Delete a scope
       description: Delete a scope
       operationId: deleteAScope
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -609,6 +748,8 @@ paths:
       summary: Create a service
       description: Create a service
       operationId: createAService
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -662,6 +803,8 @@ paths:
       summary: Update a service
       description: Update a service
       operationId: updateAService
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -700,6 +843,8 @@ paths:
       summary: Delete a service
       description: Delete a service
       operationId: deleteAService
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -787,6 +932,8 @@ paths:
       summary: Create a monitor
       description: Create a monitor
       operationId: createAMonitor
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -854,6 +1001,8 @@ paths:
       summary: Update a monitor
       description: Update a monitor
       operationId: updateAMonitor
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -908,6 +1057,8 @@ paths:
       summary: Delete a monitor
       description: Delete a monitor
       operationId: deleteAMonitor
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -1014,6 +1165,8 @@ paths:
       summary: Create a incident
       description: Create a incident
       operationId: createAIncident
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -1060,6 +1213,7 @@ paths:
       summary: Get single incident
       description: Get single incident
       operationId: getSingleIncident
+      security: []
       parameters:
       - name: resource_id
         required: true
@@ -1082,6 +1236,8 @@ paths:
       summary: Update a incident
       description: Update a incident
       operationId: updateAIncident
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -1144,6 +1300,8 @@ paths:
       summary: Delete a incident
       description: Delete a incident
       operationId: deleteAIncident
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -1260,6 +1418,8 @@ paths:
       summary: Create a maintenance
       description: Create a maintenance
       operationId: createAMaintenance
+      security:
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -1331,6 +1491,8 @@ paths:
       summary: Update a maintenance
       description: Update a maintenance
       operationId: updateAMaintenance
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true
@@ -1393,6 +1555,8 @@ paths:
       summary: Delete a maintenance
       description: Delete a maintenance
       operationId: deleteAMaintenance
+      security:
+        - bearerAuth: []
       parameters:
       - name: resource_id
         required: true

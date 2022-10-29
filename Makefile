@@ -22,7 +22,8 @@ WORKERS   ?= 2
 THREADS   ?= 2
 
 FLASK_OPTS = --host="${SERVER}" --port="${PORT}"
-GUNICORN_OPTS = --bind="${SERVER}:${PORT}" --workers=${WORKERS} --threads=${THREADS}
+ACCESSLOG_FORMAT = %(h)s %(l)s %({x-username}o)s %(t)s "%(r)s" %(s)s %(b)s "%(a)s"
+GUNICORN_OPTS = --access-logfile '-' --access-logformat '${ACCESSLOG_FORMAT}' --bind="${SERVER}:${PORT}" --workers=${WORKERS} --threads=${THREADS}
 
 DOCKER_COMPOSE_OPTS = --project-directory="deploy/compose" --project-name="${APP_NAME}"
 KUBECTL_OPTS = --filename="deploy/kubernetes"

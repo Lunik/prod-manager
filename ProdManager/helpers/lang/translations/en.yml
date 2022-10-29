@@ -261,6 +261,7 @@ resource_list_create_maintenance: ["Create new ", *maintenance_name]
 # Errors
 error_title: Error
 error_400: Bad request
+error_401: Unauthorized
 error_403: Forbiden
 error_404: Not found
 error_409: Conflict
@@ -297,6 +298,9 @@ table_column_external_link: external link
 table_column_mail: mail
 table_column_remember_me: remember me
 table_column_integration: integration
+table_column_secret: secret
+table_column_not_before_date: not before date
+table_column_expiration_date: expiration date
 
 # Pagination
 pagination_overflow: Pagination value overflow
@@ -306,3 +310,14 @@ filter_overflow: Filter value overflow
 
 # Auto reload
 auto_reload: Auto reload
+
+# Token
+
+token_validation_failed: Token validation failed
+token_creation_failed: Token creation failed
+application_secret_invalid: Application secret invalid
+token_not_enought_permissions: "Token doesn't have enought permissions. expected : "
+token_invalid_format: "Token has not the right format or type. expected : "
+token_expired_version: "Token version is expired. expected : "
+
+api_permission_denied: API permission denied

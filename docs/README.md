@@ -6,6 +6,7 @@
 - [Advanced configuration](./config/advanced.md)
 - [Mail notification](./config/mail-notification.md)
 - [Debug configuration](./config/debug.md)
+- [API configuration](./config/api.md)
 
 ## Application APIs
 

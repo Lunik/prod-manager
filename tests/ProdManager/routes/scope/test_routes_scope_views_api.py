@@ -2,6 +2,7 @@ import random
 import string
 import re
 from datetime import datetime
+import pytest
 
 import flask_unittest
 import flask.globals
@@ -15,8 +16,12 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
   def create_app(self):
     app = create_app()
     app.config['WTF_CSRF_ENABLED'] = False
-    return app
 
+    with app.test_client() as client:
+      app.token = pytest.helpers.generate_token(client, ["scope_api"])
+      app.ro_token = pytest.helpers.generate_token(client, [])
+
+    return app
 
   def test_list_endpoint_with_app(self, app):
     with app.test_request_context('/api/scope'):
@@ -62,7 +67,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=scope_name
@@ -82,7 +87,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -94,8 +99,8 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
       assert b'"name": ["This field is required."]' in rv.data
       assert rv.status_code == 400
@@ -105,7 +110,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=name
@@ -116,7 +121,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=name
@@ -132,6 +137,17 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
       assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
+    with app.test_client() as client:
+      rv = client.post('/api/scope/create',
+        headers={
+          "Authorization": f"Bearer {app.ro_token}"
+        },
+        data=dict(
+          name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert b'"token": ["Token doesn\'t have enought permissions.' in rv.data
+      assert rv.status_code == 403
+      self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_update_with_client(self, app):
     scope_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
@@ -140,7 +156,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=scope_name
@@ -158,7 +174,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{scope_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=scope_name_2
@@ -175,8 +191,8 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{scope_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert b'"name": ["This field is required."]' in rv.data
@@ -189,7 +205,7 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/scope/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           name=scope_name
@@ -204,8 +220,8 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{scope_uri}/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert re.match(r"http://localhost/api/scope", rv.headers.get('Location'))
@@ -215,8 +231,8 @@ class TestRoutesScopeViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"/api/scope/-1/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert rv.status_code == 404
