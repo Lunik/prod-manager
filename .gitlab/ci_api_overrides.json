@@ -1,6 +1,6 @@
 {
   "headers": {
-    "APPLICATION-SECRET": "changeit"
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9kTWFuYWdlciIsImF1ZCI6ImNoYW5nZWl0Y2hhbmdlaXQiLCJzdWIiOiJjaGFuZ2VpdGNoYW5nZWl0IiwibmJmIjoxNjY3MDUzNTU1LCJleHAiOjE5MjQ5OTE5NDAsImlhdCI6MTY2NzA1MzYwOSwianRpIjoiM2FkNTk5MzUtM2M0Ny00MzRlLWI2OWMtZDc2YWMxZGJlMmU4IiwidmVyc2lvbiI6MSwicGVybWlzc2lvbnMiOlsiaW5jaWRlbnRfYXBpIiwic2NvcGVfYXBpIiwiaW5jaWRlbnRfYXBpIiwibWFpbnRlbmFuY2VfYXBpIiwibW9uaXRvcl9hcGkiXX0.7WUTEjvwRH7Ee0seKmbbd8kTu8GMAoRmZbVVeV3pFgA"
   },
   "query": {
     "page": 1,
