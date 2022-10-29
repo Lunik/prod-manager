@@ -17,7 +17,7 @@ bp = Blueprint("token", __name__)
 @bp.route("/create", methods=("POST",))
 def create():
   form=TokenCreateForm()
-  form.permissions.choices = list(filter(lambda bp: '_api' in bp, current_app.blueprints.keys()))
+  form.permission.choices = list(filter(lambda bp: '_api' in bp, current_app.blueprints.keys()))
 
   if not form.validate_on_submit():
     abort(400, dict(
@@ -37,7 +37,7 @@ def create():
       description=strip_input(form.description.data),
       not_before_date=form.not_before_date.data,
       expiration_date=form.expiration_date.data,
-      permissions=form.permissions.data,
+      permissions=form.permission.data,
     )
   except Exception as error:
     return abort(500, dict(

@@ -9,7 +9,7 @@ def generate_token(client, permissions=[]):
       secret="changeit",
       name="pytest-unittest",
       description="Token only used for unittests",
-      permissions=permissions,
+      permission=permissions,
   ))
 
   return rv.data.decode('utf-8').replace('"', '')

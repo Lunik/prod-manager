@@ -36,8 +36,8 @@ class TokenCreateForm(CustomForm):
     validators=[DataRequired()],
     format='%Y-%m-%dT%H:%M',
   )
-  permissions = SelectMultipleField(
-    name='permissions',
+  permission = SelectMultipleField(
+    name='permission',
     label=lang.get("table_column_permissions").capitalize(),
     default=[],
     validators=[],
