@@ -5,6 +5,7 @@
 ### Added
 
 - feat(auth): Allow user to generate token for API usage (#135) (!87)
+- feat(maintenace.\*): Add the `CANCELED` status for maintenances (#138) (!91)
 
 ### BREAKING CHANGE
 

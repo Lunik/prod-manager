@@ -148,6 +148,7 @@ div#icon-library {
 .badge.maintenance#status.in-progress { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
 .badge.maintenance#status.succeed     { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
 .badge.maintenance#status.failed      { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
+.badge.maintenance#status.canceled    { background-color: var(--badge-dark-color); color: var(--badge-dark-text-color); }
 
 .badge.maintenance#service_status.up, .badge.service#status.up             { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
 .badge.maintenance#service_status.degraded, .badge.service#status.degraded { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
