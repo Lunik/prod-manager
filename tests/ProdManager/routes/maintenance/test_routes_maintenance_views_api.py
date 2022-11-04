@@ -330,6 +330,25 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
       self.assertInResponse(b'failed', rv)
       self.assertNotIn(b"__missing_translation", rv.data)
 
+      rv = client.post(f"{maintenance_uri}/update",
+        headers={
+          "Authorization": f"Bearer {app.token}"
+        },
+        data=dict(
+          scope="1",
+          service="1",
+          service_status="up",
+          status="canceled",
+          scheduled_start_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+          scheduled_end_date=datetime.now().strftime('%Y-%m-%dT%H:%M'),
+          name=maintenance_name_2
+      ))
+
+      rv = client.get(maintenance_uri)
+
+      self.assertInResponse(b'canceled', rv)
+      self.assertNotIn(b"__missing_translation", rv.data)
+
   def test_comment_with_client(self, app):
     maintenance_name = f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
 

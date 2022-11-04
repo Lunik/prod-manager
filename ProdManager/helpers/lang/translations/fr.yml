@@ -97,6 +97,7 @@ maintenance_scheduled_start: début planifié
 maintenance_scheduled_end: fin planifiée
 maintenance_start: début
 maintenance_end: fin
+maintenance_canceled: annulée
 
 maintenance_create_event: *resource_event_create
 maintenance_update_event: *resource_event_update
@@ -110,6 +111,7 @@ maintenance_status_scheduled: PLANIFIEE
 maintenance_status_in-progress: EN COURS
 maintenance_status_succeed: REUSSIE
 maintenance_status_failed: ECHOUEE
+maintenance_status_canceled: ANNULEE
 
 maintenance_creation_failed: ["Création de la ", *maintenance_name, " échouée"]
 maintenance_create_notification_title: ["Nouvelle ", *maintenance_name]

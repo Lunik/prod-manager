@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from ProdManager.helpers.date import beautifull_date
 
@@ -10,7 +11,7 @@ def format_column_name(key):
   return regex.sub('', key).replace('_', ' ').capitalize()
 
 def format_timeline_date(date):
-  return beautifull_date(date)
+  return beautifull_date(date) if isinstance(date, datetime) else ''
 
 def format_template_name(key, keep="folder"):
   if keep == "folder":

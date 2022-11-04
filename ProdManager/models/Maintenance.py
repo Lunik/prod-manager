@@ -15,6 +15,7 @@ class MaintenanceStatus(ModelEnum):
   IN_PROGRESS = 'in-progress'
   SUCCEED = 'succeed'
   FAILED = 'failed'
+  CANCELED = 'canceled'
 
 class Maintenance(db.Model):
   id = Column(Integer, primary_key=True)

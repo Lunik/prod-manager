@@ -98,6 +98,7 @@ maintenance_scheduled_start: scheduled start
 maintenance_scheduled_end: scheduled end
 maintenance_start: start
 maintenance_end: end
+maintenance_canceled: canceled
 
 
 maintenance_create_event: *resource_event_create
@@ -112,6 +113,7 @@ maintenance_status_scheduled: SCHEDULED
 maintenance_status_in-progress: IN PROGRESS
 maintenance_status_succeed: SUCCEED
 maintenance_status_failed: FAILED
+maintenance_status_canceled: CANCELED
 
 maintenance_creation_failed: [*maintenance_title, " creation failed"]
 maintenance_create_notification_title: ["Scheduled ", *maintenance_name]

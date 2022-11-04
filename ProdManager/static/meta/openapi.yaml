@@ -344,6 +344,7 @@ components:
           - in-progress
           - succeed
           - failed
+          - canceled
         service_status:
           type: string
           description: The service status of the maintenance
