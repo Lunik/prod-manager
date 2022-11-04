@@ -11,6 +11,10 @@
 - breakingchange(api): `APPLICATION-SECRET` cannot be used anymore for API queries (#135) (!87)
   - See [Authentication documentation](./docs/api/authentication.md) to learn about the new authentication system
 
+### Fixed
+
+- fix(style): Cut too long resource name even if unbreakable in tables (#139) (!90)
+
 
 ## 0.16.1
 

@@ -12,7 +12,7 @@
   <tr class="resource" id="resource-{{ resource.id }}" onclick="document.location = '{{ custom_url_for(resource_endpoint + '.show', resource_id=resource.id) }}';">
     {% for type, key in resource_attributes %}
       {% set attr = resource[key] %}
-      <td class="{{ type }}">
+      <td class="{{ type }}" id="{{ key }}">
         {% if attr != None and attr != "" %}
           {% if type == "enum" %}
             <div id="{{ key }}" class="badge {{ resource_type }} {{ attr.value }}">
