@@ -252,6 +252,10 @@ table#resource-list td._show {
   width: 20px;
 }
 
+table td#name {
+  word-break: break-all;
+}
+
 /***********************
   RESOURCE LIST FILTERS
 ************************/
