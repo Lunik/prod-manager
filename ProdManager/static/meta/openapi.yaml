@@ -416,6 +416,10 @@ components:
           type: integer
           description: The number of maintenances in SUCCEED state
           minimum: 0
+        canceled:
+          type: integer
+          description: The number of maintenances in CANCELED state
+          minimum: 0
   parameters:
     per_page:
       name: per_page
