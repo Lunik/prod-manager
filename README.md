@@ -22,7 +22,7 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
 - Mail notifications when `CREATE` or `UPDATE` an `Incident`/`Maintenance`
 - ICalendar download for `Maintenances`
 - [API endpoints](https://prod-manager.tiwabbit.fr/api/)
-- [API Python library](https://prod-manager-api.tiwabbit.fr/api/)
+- [API Python library](https://prod-manager-api.tiwabbit.fr/)
 
 ## What's Next?
 
