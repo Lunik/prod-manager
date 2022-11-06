@@ -50,6 +50,7 @@ The result tht looks something like :
 ```
 
 In this example, there are `4` available links :
+
 - `incidents` : The URL to retriev incidents related to this scope
 - `maintenances` : The URL to retriev maintenances related to this scope
 - `monitors` : The URL to retriev monitors related to this scope

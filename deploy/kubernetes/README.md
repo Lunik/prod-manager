@@ -31,7 +31,7 @@ kubectl port-forward \
   service/prod-manager-proxy 8080:80
 ```
 
-Then access to http://localhost:8080
+Then access to <http://localhost:8080>
 
 
 ## Customisation

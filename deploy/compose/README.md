@@ -18,7 +18,7 @@ docker compose \
   --detach
 ```
 
-Then access to http://localhost:8080
+Then access to <http://localhost:8080>
 
 
 ## Customisation

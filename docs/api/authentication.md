@@ -3,6 +3,7 @@
 Most API requests require authentication, or only return public data when authentication isn’t provided. When authentication is not required, the documentation for each endpoint specifies this. For example, the `/incident/:id` endpoint does not require authentication.
 
 There are several ways you can authenticate with the GitLab API:
+
 - [API Token](#api-token)
 - [Session cookie](#session-secret)
 

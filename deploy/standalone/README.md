@@ -20,7 +20,7 @@ docker run \
   registry.gitlab.com/prod-manager/prod-manager:latest
 ```
 
-Then access to http://localhost:8080
+Then access to <http://localhost:8080>
 
 <!-- Links -->
 

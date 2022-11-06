@@ -6,6 +6,7 @@
 
 - feat(auth): Allow user to generate token for API usage (#135) (!87)
 - feat(maintenace.\*): Add the `CANCELED` status for maintenances (#138) (!91)
+- doc: Add GitLab pages site to host application documentation (!92)
 
 ### BREAKING CHANGE
 

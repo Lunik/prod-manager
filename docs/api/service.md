@@ -10,9 +10,6 @@ Get a list of all visible services. When accessed without authentication, only p
 GET /service
 ```
 
-| Attribute | Type | Required | Description |
-|:----------|:-----|:---------|:------------|
-
 This endpoint supports [pagination](./pagination.md).
 
 ## Get single service

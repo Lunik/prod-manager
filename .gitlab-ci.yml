@@ -152,6 +152,23 @@ image-build:
     - docker tag "$CI_REGISTRY_IMAGE:${tag}" "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     - docker image push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
 
+build_doc:
+  stage: build
+  extends: .python-tests
+  needs: []
+  script:
+    - apk add -u git
+    - cp README.md docs/
+    - cp CHANGELOG.md docs/
+    - cp CONTRIBUTING.md docs/
+    - cp PROJECT_VISION.md docs/
+    - cp -r deploy/ docs/deploy/
+    - cp -r resources/ docs/resources/
+    - mkdocs build --verbose 
+  artifacts:
+    paths:
+      - site/
+
 container_scanning:
   stage: validate
   variables:
@@ -416,3 +433,20 @@ browser_performance_sandbox:
     action: verify
   only:
     - tags
+
+pages:
+  stage: deploy
+  image: busybox
+  dependencies:
+    - build_doc
+  environment:
+    name: doc
+    action: start
+    url: https://prod-manager.tiwabbit.fr
+  only:
+    - tags
+  script:
+    - mv site/ public/
+  artifacts:
+    paths:
+      - public/
