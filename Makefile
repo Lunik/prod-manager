@@ -8,6 +8,7 @@ PYLINT   ?= venv/bin/pylint
 PYTEST   ?= venv/bin/pytest
 COVERAGE ?= venv/bin/coverage
 SNAKEVIZ ?= venv/bin/snakeviz
+MKDOCS   ?= venv/bin/mkdocs
 
 VENV             ?= venv
 REQUIREMENTS      = requirements.txt
@@ -115,4 +116,10 @@ show-coverage:
 	open htmlcov/index.html
 
 show-profiling:
-	$(SNAKEVIZ) debug
+	${SNAKEVIZ} debug
+
+doc-dev:
+	${MKDOCS} serve
+
+build-doc:
+	${MKDOCS} build

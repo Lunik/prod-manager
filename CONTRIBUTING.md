@@ -1,4 +1,4 @@
-# Project Info
+# Contributing
 
 The project was created with [Flask][flask] and [SQLAlchemy][sqlalchemy]. All sources are located inside the `ProdManager` folder.
 
@@ -35,13 +35,16 @@ Also, please don't rush or ask for ETA, because I have to understand the merge r
 I will mark your merge request in the [milestones][gitlab-milestones], if I am plan to review and merge it.
 
 ✅ Accept:
+
 - Bug/Security fix
 
 ⚠️ Discussion required
+
 - New features
 - Large merge requests
 
 ❌ Won't Merge
+
 - Do not pass auto test
 - Any breaking changes
 - Duplicated merge request
@@ -115,7 +118,8 @@ It binds to `0.0.0.0:8080` by default.
 
 It is mainly a [Flask][flask] app served by [Gunicorn][gunicorn].
 
-[Flask][flask] is used for: 
+[Flask][flask] is used for :
+
 - entry point such as redirecting to pages or the dashboards
 - serving the frontend built files (index.html, .js and .css etc.)
 - serving internal APIs
@@ -142,7 +146,8 @@ Icons should be downloaded only from [Flaticon UIcons library][flaticon-uicons] 
 
 Icons must be placed in [ProdManager/templates/icons folder](ProdManager/templates/icons).
 
-Thoses attributes should be added to the `svg` block : 
+Thoses attributes should be added to the `svg` block :
+
 - `class='icon'`
 - `id=<ICON_NAME>`
 
@@ -270,6 +275,11 @@ Then use [snakeviz][snakeviz] to review the data :
 make show-profiling
 ```
 
+## Documentation
+
+Documentation is build with [MkDocs][mkdocs] and [MkDocs material][mkdocs-material]. Documentations files are stored in the [docs](./docs) folder. Some other files are injected at build like : `README.md`, `CHANGELOG.md`, ... (see [gitlab-ci file](.gitlab-ci.yml) for more information)
+
+Test in 
 
 <!-- Links -->
 
@@ -283,6 +293,8 @@ make show-profiling
 [pytest]: https://pytest.org
 [flask-unit]: https://github.com/TotallyNotChase/flask-unittest
 [snakeviz]: https://jiffyclub.github.io/snakeviz/
+[mkdocs]: https://www.mkdocs.org
+[mkdocs-material]: https://squidfunk.github.io/mkdocs-material
 
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-mr]: https://gitlab.com/prod-manager/prod-manager/-/merge_requests/new?merge_request%5Btarget_branch%5D=develop

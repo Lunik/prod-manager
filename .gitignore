@@ -23,8 +23,15 @@ report.html
 
 .DS_Store
 
-assets
+/assets
 htmlcov
 .env
 
 debug
+
+docs/README.md
+docs/CHANGELOG.md
+docs/PROJECT_VISION.md
+docs/CONTRIBUTING.md
+docs/deploy/
+docs/resources/
