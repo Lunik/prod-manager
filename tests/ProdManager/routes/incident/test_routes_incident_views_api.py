@@ -2,6 +2,7 @@ import random
 import string
 import re
 from datetime import datetime
+import pytest
 
 import flask_unittest
 import flask.globals
@@ -15,8 +16,12 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
   def create_app(self):
     app = create_app()
     app.config['WTF_CSRF_ENABLED'] = False
-    return app
 
+    with app.test_client() as client:
+      app.token = pytest.helpers.generate_token(client, ["incident_api"])
+      app.ro_token = pytest.helpers.generate_token(client, [])
+
+    return app
 
   def test_list_endpoint_with_app(self, app):
     with app.test_request_context('/api/incident'):
@@ -46,7 +51,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -61,7 +66,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           service="1",
@@ -75,10 +80,26 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         data=dict(
+          scope="1",
           service="1",
           severity="moderate",
           name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
       ))
+      assert rv.status_code == 403
+      self.assertNotIn(b"__missing_translation", rv.data)
+
+    with app.test_client() as client:
+      rv = client.post('/api/incident/create',
+        headers={
+          "Authorization": f"Bearer {app.ro_token}"
+        },
+        data=dict(
+          scope="1",
+          service="1",
+          severity="moderate",
+          name=f"TEST-{''.join(random.choice(string.ascii_lowercase) for i in range(10))}"
+      ))
+      assert b'"token": ["Token doesn\'t have enought permissions.' in rv.data
       assert rv.status_code == 403
       self.assertNotIn(b"__missing_translation", rv.data)
 
@@ -105,7 +126,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -146,7 +167,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -175,7 +196,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -198,7 +219,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -214,7 +235,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -232,7 +253,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -250,7 +271,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/update",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -272,7 +293,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -286,7 +307,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/comment",
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           comment="THIS_IS_A_TEST",
@@ -298,15 +319,15 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.get(incident_uri,
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
       self.assertInResponse(b'THIS_IS_A_TEST', rv)
 
       rv = client.post(f"{incident_uri}/comment",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert b'"comment": ["This field is required."]' in rv.data
@@ -324,7 +345,7 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.post('/api/incident/create',
         headers={
-          "APPLICATION-SECRET": "changeit"
+          "Authorization": f"Bearer {app.token}"
         },
         data=dict(
           scope="1",
@@ -343,8 +364,8 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"{incident_uri}/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert re.match(r"http://localhost/api/incident", rv.headers.get('Location'))
@@ -354,8 +375,8 @@ class TestRoutesIncidentViews(flask_unittest.AppTestCase):
 
       rv = client.post(f"/api/incident/-1/delete",
         headers={
-          "APPLICATION-SECRET": "changeit"
-        }
+          "Authorization": f"Bearer {app.token}"
+        },
       )
 
       assert rv.status_code == 404

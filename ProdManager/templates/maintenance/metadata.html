@@ -44,4 +44,7 @@
 {% if maintenance.end_date %}
     {% set __ = dots.append(("end_date", _("maintenance_end"), maintenance.end_date, ((maintenance.status.value == "succeed") | ternary("check", "alert")))) %}
 {% endif %}
+{% if maintenance.status.value == "canceled" %}
+    {% set __ = dots.append(("canceled", _("maintenance_canceled"), None, "alert")) %}
+{% endif %}
 {% include "fragments/timeline/horizontal.html" %}

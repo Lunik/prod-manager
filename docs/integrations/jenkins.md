@@ -16,6 +16,7 @@ This integration allow to automatically update ProdManager monitors based on the
 ### Monitors
 
 ProdManager monitors should be created with :
+
 - `integration` field populated with the value `jenkins` (or `jenkins_<PM_INTEGRATION_SUFFIX>`)
 - `external_link` field with the "Full project name" of a Jenkins job
 

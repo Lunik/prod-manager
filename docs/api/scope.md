@@ -10,9 +10,6 @@ Get a list of all visible scopes. When accessed without authentication, only pub
 GET /scope
 ```
 
-| Attribute | Type | Required | Description |
-|:----------|:-----|:---------|:------------|
-
 This endpoint supports [pagination](./pagination.md).
 
 ## Get single scope

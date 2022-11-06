@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 0.17.0
+
+### Added
+
+- feat(auth): Allow user to generate token for API usage (#135) (!87)
+- feat(maintenace.\*): Add the `CANCELED` status for maintenances (#138) (!91)
+- doc: Add GitLab pages site to host application documentation (!92)
+
+### BREAKING CHANGE
+
+- breakingchange(api): `APPLICATION-SECRET` cannot be used anymore for API queries (#135) (!87)
+  - See [Authentication documentation](./docs/api/authentication.md) to learn about the new authentication system
+
+### Fixed
+
+- fix(style): Cut too long resource name even if unbreakable in tables (#139) (!90)
+
+
 ## 0.16.1
 
 ### Fixed

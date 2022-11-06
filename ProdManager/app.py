@@ -1,9 +1,9 @@
 import os
 import logging
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask import Flask, session, g
+from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from .plugins import (
@@ -56,6 +56,8 @@ def create_app():
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
     LANG=os.environ.get("PM_LANG", "en"),
     DEBUG=boolean_param(os.environ.get("PM_DEBUG", 'False')),
+    JWT_ALGORITHM=os.environ.get("PM_JWT_ALGORITHM", "HS256"),
+    JWT_ISSUER=os.environ.get("PM_JWT_ISSUER", "ProdManager"),
   )
 
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
@@ -76,8 +78,8 @@ def create_app():
   from ProdManager.helpers.pagination import secure_pagination
   @app.before_request
   def pre_request():
-    retreiv_auth()
     retreiv_api()
+    retreiv_auth()
     validate_csrf()
     secure_pagination()
 
@@ -102,10 +104,11 @@ def create_app():
 
   from ProdManager.errors import (
     page_not_found, conflict, forbiden,
-    internal_error, bad_request,
+    internal_error, bad_request, unauthorized
   )
 
   app.register_error_handler(400, bad_request)
+  app.register_error_handler(401, unauthorized)
   app.register_error_handler(403, forbiden)
   app.register_error_handler(404, page_not_found)
   app.register_error_handler(409, conflict)
@@ -120,11 +123,12 @@ def create_app():
   from ProdManager.routes import (
     root, auth, scope, service, incident,
     maintenance, monitor, health, notification,
-    weather,
+    weather, token
   )
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
   app.register_blueprint(auth.view, url_prefix="/")
+  app.register_blueprint(token.view, url_prefix="/api/token", name="token_api")
   app.register_blueprint(scope.view, url_prefix="/scope")
   app.register_blueprint(scope.view, url_prefix="/api/scope", name="scope_api")
   app.register_blueprint(service.view, url_prefix="/service")

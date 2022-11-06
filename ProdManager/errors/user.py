@@ -37,3 +37,10 @@ def bad_request(error):
     error=error,
     json=dict(resources=error.description, serialize=False)
   ), 400
+
+def unauthorized(error):
+  current_app.logger.debug(error)
+  return custom_render_template("error/401.html",
+    error=error,
+    json=dict(resources=error.description, serialize=False)
+  ), 401

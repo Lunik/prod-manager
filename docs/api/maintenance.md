@@ -74,7 +74,7 @@ POST /maintenance/<id>/update
 | `external_reference`   | string  | False | An external reference for the maintenance |
 | `external_link`        | string  | False | An external link for the maintenance. Should be a valid URL |
 | `service_status`       | string  | True  | The service status of the maintenance. Value could be one of : `up`, `degraded`, `down` |
-| `status`               | string  | True  | The status of the maintenance. Value could be one of : `scheduled`, `in-progress`, `succeed`, `failed` |
+| `status`               | string  | True  | The status of the maintenance. Value could be one of : `scheduled`, `in-progress`, `succeed`, `failed`, `canceled` |
 | `scheduled_start_date` | string  | True  | The scheduled start date of the maintenance. Format : `YYYY-MM-DDTHH:MM`. |
 | `scheduled_end_date`   | string  | True  | The scheduled end date of the maintenance. Format : `YYYY-MM-DDTHH:MM`. |
 | `start_date` | string  | True  | The start date of the maintenance. Format : `YYYY-MM-DDTHH:MM`. |

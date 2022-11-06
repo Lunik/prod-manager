@@ -16,12 +16,13 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
 - Create `Services` to match your production environment
 - Define `Monitor` to display your `Scopes`/`Services` status
   - Install custom integration to fetch and update status from external sources
-    - Currently supported : [Datadog][datadog]
+    - Currently supported : [Datadog][datadog], [Jenkins][jenkins], DNS, HTTP
 - Track `Incident` status and resolution
 - Plan `Maintenances` when enhancing your `Service`
 - Mail notifications when `CREATE` or `UPDATE` an `Incident`/`Maintenance`
 - ICalendar download for `Maintenances`
-- [API endpoints](./docs/api/README.md)
+- [API endpoints](https://prod-manager.tiwabbit.fr/api/)
+- [API Python library](https://prod-manager-api.tiwabbit.fr/)
 
 ## What's Next?
 
@@ -67,6 +68,7 @@ If you want to modify Prod Manager, [thoses guidelines may be useful for you][co
 [datadog]: https://datadoghq.com
 [scaleway]: https://scaleway.com
 [gitlab]: https://gitlab.com
+[jenkins]: https://jenkins.io
 
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-issue]: https://gitlab.com/prod-manager/prod-manager/-/issues/new
@@ -76,4 +78,4 @@ If you want to modify Prod Manager, [thoses guidelines may be useful for you][co
 [deploy-kubernetes]: deploy/kubernetes/README.md
 
 [contributing-manifest]: CONTRIBUTING.md
-[application-documentation]: docs/README.md
+[application-documentation]: https://prod-manager.tiwabbit.fr/

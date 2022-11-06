@@ -97,6 +97,7 @@ maintenance_scheduled_start: début planifié
 maintenance_scheduled_end: fin planifiée
 maintenance_start: début
 maintenance_end: fin
+maintenance_canceled: annulée
 
 maintenance_create_event: *resource_event_create
 maintenance_update_event: *resource_event_update
@@ -110,6 +111,7 @@ maintenance_status_scheduled: PLANIFIEE
 maintenance_status_in-progress: EN COURS
 maintenance_status_succeed: REUSSIE
 maintenance_status_failed: ECHOUEE
+maintenance_status_canceled: ANNULEE
 
 maintenance_creation_failed: ["Création de la ", *maintenance_name, " échouée"]
 maintenance_create_notification_title: ["Nouvelle ", *maintenance_name]
@@ -255,7 +257,8 @@ resource_list_create_maintenance: ["Créer une nouvelle ", *maintenance_name]
 # Errors
 error_title: Erreur
 error_400: Mauvaise requête
-error_403: Refusé
+error_401: Non autorisé
+error_403: Interdit
 error_404: Non trouvé
 error_409: Conflit
 error_500: Erreur interne
@@ -290,6 +293,9 @@ table_column_external_link: lien externe
 table_column_mail: email
 table_column_remember_me: se souvenir de moi
 table_column_integration: intégration
+table_column_secret: secret
+table_column_not_before_date: date de début de validité
+table_column_expiration_date: date d'expiration
 
 # Pagination
 pagination_overflow: Débordement de valeur de pagination
@@ -299,3 +305,14 @@ filter_overflow: Débordement de valeur de filtre
 
 # Auto reload
 auto_reload: Rechargement automatique
+
+# Token
+
+token_validation_failed: Validation du token échouée
+token_creation_failed: Création du token échouée
+application_secret_invalid: Application secret invalide
+token_not_enought_permissions: "Le token n'a pas assez de permissions. attendu : "
+token_invalid_format: "Le token n'a pas le bon format ou type. attendu : "
+token_expired_version: "La version du token ext expirée. attendu : "
+
+api_permission_denied: Autorisation API refusée

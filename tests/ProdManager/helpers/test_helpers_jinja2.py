@@ -43,6 +43,10 @@ def test_format_timeline_date():
     g.api = True
     assert format_timeline_date(date) == "2021-01-23T07:11"
 
+  with app.app_context():
+    g.api = False
+    assert format_timeline_date(None) == ""
+
 
 def test_format_template_name():
   assert format_template_name("monitor/tralala.html") == "monitor"
