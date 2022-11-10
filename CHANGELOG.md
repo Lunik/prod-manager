@@ -9,6 +9,7 @@
 ### Fixed
 
 - doc: Fix HTTP method for `/token/whoami` API endpoint (#140) (!93)
+- fix(translation.\*): Add missing translation string for "Got to monitor" button (#142) (!95)
 
 
 ## 0.17.0

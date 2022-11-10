@@ -13,7 +13,7 @@
 {% endif %}
 {% if monitor.external_link %}
   <div id="external_link" class="badge monitor external_link">
-    <a href="{{ monitor.external_link }}" target="_blank" rel="noopener">Go to monitor</a>
+    <a href="{{ monitor.external_link }}" target="_blank" rel="noopener">{{ _("resource_goto_monitor") }}</a>
   </div>
 {% endif %}
 {% if monitor.description %}
