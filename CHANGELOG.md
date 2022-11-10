@@ -5,6 +5,7 @@
 ### Added
 
 - doc: Add more information about API token playload metadata (#141) (!94)
+- doc: Add links to Issues/MergeRequests in GitLab page CHANGELOG (#144) (!96)
 
 ### Fixed
 

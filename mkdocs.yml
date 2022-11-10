@@ -38,6 +38,8 @@ extra:
 copyright: Copyright &copy; 2022 Guillaume MARTINEZ (@Lunik)
 
 plugins:
+  - gitlab_links:
+      gitlab_url: https://gitlab.com/prod-manager/prod-manager
   - search
   - git-revision-date-localized:
       enable_creation_date: true
