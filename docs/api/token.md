@@ -41,5 +41,5 @@ Get token metadata
 Headers:
   Authorization: Bearer <TOKEN>
 
-POST /token/whoami
+GET /token/whoami
 ```
