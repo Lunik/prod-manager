@@ -214,6 +214,7 @@ resource_back_to_list_monitor: ["Back to ", *monitor_name, "s list"]
 resource_update_monitor: ["Update ", *monitor_name]
 resource_comment_monitor: ["Add a comment to the ", *monitor_name]
 resource_delete_monitor: ["Delete ", *monitor_name]
+resource_goto_monitor: ["Go to ", *monitor_name]
 
 ## Incident
 resource_incident: *incident_title
