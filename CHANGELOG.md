@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- doc: Add more information about API token playload metadata (#141) (!94)
+
 ### Fixed
 
 - doc: Fix HTTP method for `/token/whoami` API endpoint (#140) (!93)
