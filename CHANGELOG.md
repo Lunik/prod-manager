@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 0.17.1
+
+### Added
+
+- doc: Add more information about API token playload metadata (#141) (!94)
+- doc: Add links to Issues/MergeRequests in GitLab page CHANGELOG (#144) (!96)
+
+### Fixed
+
+- doc: Fix HTTP method for `/token/whoami` API endpoint (#140) (!93)
+- fix(translation.\*): Add missing translation string for "Got to monitor" button (#142) (!95)
+- doc: Use Linux links for external docs files
+
+
 ## 0.17.0
 
 ### Added

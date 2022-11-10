@@ -208,6 +208,7 @@ resource_back_to_list_monitor: ["Retour à la liste de ", *monitor_name, "s"]
 resource_update_monitor: ["Mettre à jour le ", *monitor_name]
 resource_comment_monitor: ["Ajouter un commentaire sur le ", *monitor_name]
 resource_delete_monitor: ["Supprimer le ", *monitor_name]
+resource_goto_monitor: ["Voir le ", *monitor_name]
 
 ## Incident
 resource_incident: *incident_title

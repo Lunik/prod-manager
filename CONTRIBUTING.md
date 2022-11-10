@@ -277,7 +277,7 @@ make show-profiling
 
 ## Documentation
 
-Documentation is build with [MkDocs][mkdocs] and [MkDocs material][mkdocs-material]. Documentations files are stored in the [docs](./docs) folder. Some other files are injected at build like : `README.md`, `CHANGELOG.md`, ... (see [gitlab-ci file](.gitlab-ci.yml) for more information)
+Documentation is build with [MkDocs][mkdocs] and [MkDocs material][mkdocs-material]. Documentations files are stored in the [docs](./docs) folder. Some other files are links to files outside of the `docs` folder : `README.md`, `CHANGELOG.md`, ...
 
 Test in 
 

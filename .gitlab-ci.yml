@@ -158,12 +158,6 @@ build_doc:
   needs: []
   script:
     - apk add -u git
-    - cp README.md docs/
-    - cp CHANGELOG.md docs/
-    - cp CONTRIBUTING.md docs/
-    - cp PROJECT_VISION.md docs/
-    - cp -r deploy/ docs/deploy/
-    - cp -r resources/ docs/resources/
     - mkdocs build --verbose 
   artifacts:
     paths:

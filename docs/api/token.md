@@ -41,5 +41,19 @@ Get token metadata
 Headers:
   Authorization: Bearer <TOKEN>
 
-POST /token/whoami
+GET /token/whoami
 ```
+
+Most of the returned field are from the [JSON Web Token RFC](https://www.rfc-editor.org/rfc/rfc7519#section-4.1). The remaining fields are related to ProdManager.
+
+| Metadata field name | Type | Description |
+|:--------------------|:-----|:-------------|
+| `aud`         | string         | Name of the token |
+| `sub`         | string         | Description of the token |
+| `exp`         | integer        | Expiration date of the token (epoch time) |
+| `iat`         | integer        | Date of the token generation (epoch time) |
+| `iss`         | string         | Issuer of the token |
+| `jti`         | string         | UUID of the token |
+| `nbf`         | integer        | Validity start date of the token (epoch time) |
+| `version`     | integer        | Version of the token |
+| `permissions` | array(integer) | The list of permissions delegated to the token |
