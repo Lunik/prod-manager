@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- doc: Fix HTTP method for `/token/whoami` API endpoint (#140) (!93)
+
 
 ## 0.17.0
 
