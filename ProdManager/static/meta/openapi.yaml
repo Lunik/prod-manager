@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: ProdManager
-  version: 0.3.0
+  version: 0.3.1
 servers:
 - url: /api
   description: Local server
@@ -48,7 +48,7 @@ components:
           type: object
           properties:
             version:
-              type: number
+              type: integer
               description: Version of the token
             aud:
               type: string
