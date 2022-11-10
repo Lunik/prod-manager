@@ -279,7 +279,11 @@ make show-profiling
 
 Documentation is build with [MkDocs][mkdocs] and [MkDocs material][mkdocs-material]. Documentations files are stored in the [docs](./docs) folder. Some other files are links to files outside of the `docs` folder : `README.md`, `CHANGELOG.md`, ...
 
-Test in 
+Test in local :
+
+```bash
+make doc-dev
+```
 
 <!-- Links -->
 

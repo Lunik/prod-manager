@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- doc: Missing local documentation tests in `CONTRIBUTING.md` (!97)
+
 
 ## 0.17.1
 
