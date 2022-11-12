@@ -16,6 +16,7 @@
 ### Added
 
 - ci(kubeval): Update Kubernetes API versions checks
+- feat(API): Add rate limiting on API endpoints (#136) (!98)
 
 ### Fixed
 

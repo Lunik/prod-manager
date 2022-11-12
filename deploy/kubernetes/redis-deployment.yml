@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prod-manager
+    component: redis
+  name: prod-manager-redis
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prod-manager
+      component: redis
+  template:
+    metadata:
+      labels:
+        app: prod-manager
+        component: redis
+    spec:
+      containers:
+      - image: redis
+        name: redis
+        securityContext:
+          allowPrivilegeEscalation: False
+          capabilities:
+            drop:
+            - NET_RAW
+        ports:
+        - name: redis
+          containerPort: 6379
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50M
+          limits:
+            cpu: 500m
+            memory: 200M
+        volumeMounts:
+        - name: data
+          mountPath: /data
+          subPath: redis
+        - name: tz-config
+          mountPath: /etc/localtime
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: prod-manager-redis
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Paris
+            type: File

@@ -10,6 +10,7 @@ The project was created with [Flask][flask] and [SQLAlchemy][sqlalchemy]. All so
 - [SQLite][sqlite]
 - [PostgreSQL][postgresql]
 - [WTForms][wtforms]
+- [Redis][redis]
 
 ## Directories
 
@@ -137,6 +138,21 @@ Test are made using [pytest][pytest] and [flask-unit][flask-unit] framework and 
 ```bash
 make test
 ```
+
+### API rate limit Tests
+
+A [Redis][redis] instance is required for API rate limit tests. If not found, tests are skipped.
+
+If you have Docker on your local computer :
+```bash
+docker container run \
+  --publish 6379:6379 \
+  --detach \
+  --name prod-manager-redis \
+  redis:latest
+```
+
+Also the Redis connection string used during tests can be overwritten with : `TEST_REDIS_HOSTNAME` and `TEST_REDIS_PORT` 
 
 ## Visual identity
 
@@ -299,6 +315,7 @@ make doc-dev
 [snakeviz]: https://jiffyclub.github.io/snakeviz/
 [mkdocs]: https://www.mkdocs.org
 [mkdocs-material]: https://squidfunk.github.io/mkdocs-material
+[redis]: https://redis.io
 
 [gitlab-milestones]: https://gitlab.com/prod-manager/prod-manager/-/milestones
 [gitlab-new-mr]: https://gitlab.com/prod-manager/prod-manager/-/merge_requests/new?merge_request%5Btarget_branch%5D=develop
