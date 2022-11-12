@@ -42,7 +42,7 @@ def list_resources_from_query(ressource_class, query, orders=None, filters=None,
   if not paginate and limit:
     result = result.limit(limit)
 
-  # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
+  # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.query.Query.paginate
   # page, per_page and max_per_page are retreived from the Flask.request object
   if paginate:
     result = result.paginate(error_out=False, max_per_page=limit)

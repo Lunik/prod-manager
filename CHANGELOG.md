@@ -5,6 +5,7 @@
 ### Fixed
 
 - doc: Missing local documentation tests in `CONTRIBUTING.md` (!97)
+- fix(flask_sqlalchemy): Correct deprecation warning in SQLAlchemy imports (!99)
 
 
 ## 0.17.1

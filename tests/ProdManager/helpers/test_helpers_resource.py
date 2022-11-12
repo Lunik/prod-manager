@@ -3,7 +3,8 @@ import pytest
 import random
 import string
 
-from flask_sqlalchemy import Pagination, BaseQuery
+from flask_sqlalchemy.pagination import Pagination
+from flask_sqlalchemy.query import Query
 
 from ProdManager.helpers.resource import (
   list_resources_from_query, list_resources,
@@ -39,7 +40,7 @@ def test_list_resources():
     resources = list_resources(Scope, paginate=False)
 
     assert resources.count() > 0
-    assert isinstance(resources, BaseQuery)
+    assert isinstance(resources, Query)
     assert isinstance(resources.first(), Scope)
 
 def test_list_resources_as_choices():

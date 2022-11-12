@@ -1,7 +1,7 @@
 import json
 
 from flask import render_template, Response, g
-from flask_sqlalchemy import Pagination
+from flask_sqlalchemy.pagination import Pagination
 from htmlmin.minify import html_minify
 
 from ProdManager.helpers.json import json_defaults
