@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- ci(kubeval): Update Kubernetes API versions checks
+
 ### Fixed
 
 - doc: Missing local documentation tests in `CONTRIBUTING.md` (!97)
