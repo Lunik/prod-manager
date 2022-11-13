@@ -44,6 +44,7 @@ def notify(notif_type, resource_class, resource):
     send_notification(notif_title, custom_render_template(
       f"notification/{resource_class.__name__.lower()}.html",
       resource=resource,
+      minify=False,
     ))
   except Exception as error:
     current_app.logger.error(f"Unable to send notification during {resource_class.__name__} {notif_type.value} : {error}")
