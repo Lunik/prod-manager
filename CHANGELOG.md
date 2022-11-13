@@ -10,6 +10,7 @@
 
 - doc: Missing local documentation tests in `CONTRIBUTING.md` (!97)
 - fix(flask_sqlalchemy): Correct deprecation warning in SQLAlchemy imports (!99)
+- doc(mail): Fix mail authentication environment variable configuration (!101)
 
 
 ## 0.17.1
