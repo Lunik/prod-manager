@@ -280,7 +280,3 @@ if __name__ == "__main__":
         type=EventType.COMMENT,
         internal=False,
       ))
-
-      # SUBSCRIBERS
-      create_resource(Subscriber, dict(email="demo@demo.local"))
-      create_resource(Subscriber, dict(email="demo2@demo.local"))
