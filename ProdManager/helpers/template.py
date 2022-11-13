@@ -1,12 +1,12 @@
 import json
 
 from flask import render_template, Response, g
-from flask_sqlalchemy import Pagination
+from flask_sqlalchemy.pagination import Pagination
 from htmlmin.minify import html_minify
 
 from ProdManager.helpers.json import json_defaults
 
-def custom_render_template(*args, **kwargs):
+def custom_render_template(*args, minify=True, **kwargs):
   response = None
 
   if 'json' in kwargs and g.api:
@@ -46,6 +46,9 @@ def custom_render_template(*args, **kwargs):
       )
   else:
     rendered_html = render_template(*args, **kwargs)
-    response = html_minify(rendered_html, ignore_comments=False, parser="lxml")
+    if minify:
+      response = html_minify(rendered_html, ignore_comments=False, parser="lxml")
+    else:
+      response = rendered_html
 
   return response

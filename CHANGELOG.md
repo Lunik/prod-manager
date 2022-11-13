@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.17.2
+
+### Added
+
+- ci(kubeval): Update Kubernetes API versions checks
+
+### Fixed
+
+- doc: Missing local documentation tests in `CONTRIBUTING.md` (!97)
+- fix(flask_sqlalchemy): Correct deprecation warning in SQLAlchemy imports (!99)
+- doc(mail): Fix mail authentication environment variable configuration (!101)
+- fix(notification): Unminify mail template to prevent STMP `Line too long` error (#146) (!102)
+- fix(demo): Remove dummy subcribers emails from demo-data (#147) (!103)
+
+
 ## 0.17.1
 
 ### Added
