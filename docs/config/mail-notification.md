@@ -11,7 +11,7 @@ To enable thoses functionnalities a list of environment variables should be conf
 | `PM_MAIL_PORT`            | integer | `587`           | Mail server listen port |
 | `PM_MAIL_USERNAME`        | string  | `None`          | Username used to connect to the mail server |
 | `PM_MAIL_PASSWORD`        | string  | `None`          | Password used to connect to the mail server |
-| `PM_MAIL_USE_CREDENTIALS` | boolean | `true`          | Enable authentication to the mail server. If set to `true`, `MAIL_USERNAME` and `MAIL_PASSWORD` must be provided |
+| `PM_MAIL_USE_CREDENTIALS` | boolean | `true`          | Enable authentication to the mail server. If set to `true`, `PM_MAIL_USERNAME` and `PM_MAIL_PASSWORD` must be provided |
 | `PM_MAIL_USE_TLS`         | boolean | `true`          | Use TLS (with `starttls`) for communications with the mail server. Cannot be set if `MAIL_USE_SSL` is set |
 | `PM_MAIL_USE_SSL`         | boolean | `false`         | **DEPRECATED**. Use SSL for communications with the mail server. Cannot be set if `MAIL_USE_TLS` is set |
 | `PM_MAIL_VALIDATE_CERTS`  | boolean | `true`          | Validate the TLS/SSL certificate of the mail server for communications |
