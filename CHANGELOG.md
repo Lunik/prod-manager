@@ -5,6 +5,7 @@
 ### Fix
 
 - fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)
+- fix(deploy.compose): Use recommended `max_attempts: 5` value in container `restart_policy` (#149) (!105)
 
 
 ## 0.17.2
