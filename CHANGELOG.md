@@ -8,6 +8,7 @@
 - fix(deploy.compose): Use recommended `max_attempts: 5` value in container `restart_policy` (#149) (!105)
 - fix(deploy.compose): Add default `deploy.resources` for database service (#150) (!106)
 - fix(deploy.compose): Port mismatch in Docker compose deploy examples (#151) (!107)
+- fix(image): Add missing build dependencies for `lxml` and `psycopg2` lib (#152) (!108)
 
 
 ## 0.17.2

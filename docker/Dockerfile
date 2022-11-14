@@ -41,6 +41,7 @@ RUN apk upgrade \
 COPY Makefile ./
 RUN --mount=type=bind,source=requirements.txt,target=requirements.txt \
   apk add --update --no-cache --virtual .build build-base \
+    libxml2-dev libxslt-dev postgresql-dev \
   && make install-docker \
   && apk del .build
 
