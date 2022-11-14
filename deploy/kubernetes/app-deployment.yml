@@ -90,6 +90,7 @@ spec:
         volumeMounts:
         - name: tz-config
           mountPath: /etc/localtime
+          readOnly: true
       volumes:
         - name: tz-config
           hostPath:

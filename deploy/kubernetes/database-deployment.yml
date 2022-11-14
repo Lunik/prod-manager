@@ -47,6 +47,7 @@ spec:
           subPath: postgres
         - name: tz-config
           mountPath: /etc/localtime
+          readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
