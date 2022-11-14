@@ -32,6 +32,13 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 5
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
+        reservations:
+          cpus: '0.05'
+          memory: 50M
     environment:
       POSTGRES_PASSWORD: changeit
       POSTGRES_USER: prodmanager
