@@ -88,6 +88,7 @@ spec:
           readOnly: true
         - name: tz-config
           mountPath: /etc/localtime
+          readOnly: true
       volumes:
         - name: nginx-config
           configMap:

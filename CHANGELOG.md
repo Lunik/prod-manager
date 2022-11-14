@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fix
+
+- fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)
+
 
 ## 0.17.2
 
