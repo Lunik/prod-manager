@@ -21,7 +21,7 @@ services:
       PM_DATABASE_URI: postgresql://prodmanager:changeit@database/prodmanager
       PM_STANDALONE: 'true'
     ports:
-      - 80:8080
+      - 8080:8080
     networks: 
       - prod-manager
 
