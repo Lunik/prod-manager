@@ -111,7 +111,11 @@ class Maintenance(db.Model):
 
   @classmethod
   def past_filter(cls, raw=False):
-    filters = [MaintenanceStatus.SUCCEED, MaintenanceStatus.FAILED]
+    filters = [
+      MaintenanceStatus.SUCCEED,
+      MaintenanceStatus.FAILED,
+      MaintenanceStatus.CANCELED
+    ]
 
     if raw:
       return [status.value for status in filters]
