@@ -263,6 +263,7 @@ error_403: Interdit
 error_404: Non trouvé
 error_409: Conflit
 error_500: Erreur interne
+error_429: Trop de requêtes
 
 
 # Timeline
@@ -317,3 +318,4 @@ token_invalid_format: "Le token n'a pas le bon format ou type. attendu : "
 token_expired_version: "La version du token ext expirée. attendu : "
 
 api_permission_denied: Autorisation API refusée
+api_ratelimit_reached: La limite de débit de l'API a été atteinte

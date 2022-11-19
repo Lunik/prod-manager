@@ -26,6 +26,9 @@ gunicorn
 # Token requirements
 pyjwt
 
+# API rate limiting requirements
+flask-redis
+
 # Integrations
 ## Datadog
 datadog-api-client
