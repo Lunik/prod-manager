@@ -5,7 +5,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Length, Optional, URL
 
-from ProdManager.helpers.date import current_date
+from ProdManager.helpers.date import current_date, DATETIME_FORMAT
 
 from ProdManager.models import IncidentSeverity, IncidentStatus
 
@@ -55,7 +55,7 @@ class IncidentCreateForm(CustomForm):
     label=lang.get("table_column_start_impact_date").capitalize(),
     default=current_date,
     validators=[DataRequired()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
 
 class IncidentUpdateForm(IncidentCreateForm):
@@ -70,19 +70,19 @@ class IncidentUpdateForm(IncidentCreateForm):
     name='investigation_date',
     label=lang.get("table_column_investigation_date").capitalize(),
     validators=[Optional()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   stable_date = DateTimeLocalField(
     name='stable_date',
     label=lang.get("table_column_stable_date").capitalize(),
     validators=[Optional()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   resolve_date = DateTimeLocalField(
     name='resolve_date',
     label=lang.get("table_column_resolve_date").capitalize(),
     validators=[Optional()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
 
 class IncidentCommentForm(CustomForm):

@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Length
 
 from ProdManager.plugins import lang
 from ProdManager.helpers.form import CustomForm
+from ProdManager.helpers.date import DATETIME_FORMAT
 
 class TokenCreateForm(CustomForm):
   secret = PasswordField(
@@ -27,14 +28,14 @@ class TokenCreateForm(CustomForm):
     label=lang.get("table_column_not_before_date").capitalize(),
     default=datetime.utcnow(),
     validators=[DataRequired()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   expiration_date = DateTimeLocalField(
     name='expiration_date',
     label=lang.get("table_column_expiration_date").capitalize(),
     default=datetime.utcnow() + timedelta(hours=1),
     validators=[DataRequired()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   permission = SelectMultipleField(
     name='permission',
