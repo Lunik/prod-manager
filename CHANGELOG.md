@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- feat(API): Add rate limiting on API endpoints (#136) (!98)
+
 ### Fix
 
 - fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)
@@ -17,7 +21,6 @@
 ### Added
 
 - ci(kubeval): Update Kubernetes API versions checks
-- feat(API): Add rate limiting on API endpoints (#136) (!98)
 
 ### Fixed
 
