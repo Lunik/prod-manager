@@ -14,6 +14,7 @@
 - fix(deploy.compose): Port mismatch in Docker compose deploy examples (#151) (!107)
 - fix(image): Add missing build dependencies for `lxml` and `psycopg2` lib (#152) (!108)
 - fix(maintenance): Update the `past_maintenance` filter to handle `CANCELED` status (#153) (!111)
+- fix(date): Unify date format (!113)
 
 
 ## 0.17.2

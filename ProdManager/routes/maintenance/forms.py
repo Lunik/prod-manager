@@ -5,7 +5,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Length, Optional, URL
 
-from ProdManager.helpers.date import current_date
+from ProdManager.helpers.date import current_date, DATETIME_FORMAT
 
 from ProdManager.models import (
   MaintenanceStatus, ServiceStatus,
@@ -57,14 +57,14 @@ class MaintenanceCreateForm(CustomForm):
     label=lang.get("table_column_scheduled_start_date").capitalize(),
     default=current_date,
     validators=[DataRequired()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   scheduled_end_date = DateTimeLocalField(
     name='scheduled_end_date',
     label=lang.get("table_column_scheduled_end_date").capitalize(),
     default=current_date,
     validators=[DataRequired()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
 
 class MaintenanceUpdateForm(MaintenanceCreateForm):
@@ -79,13 +79,13 @@ class MaintenanceUpdateForm(MaintenanceCreateForm):
     name='start_date',
     label=lang.get("table_column_start_date").capitalize(),
     validators=[Optional()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
   end_date = DateTimeLocalField(
     name='end_date',
     label=lang.get("table_column_end_date").capitalize(),
     validators=[Optional()],
-    format='%Y-%m-%dT%H:%M',
+    format=DATETIME_FORMAT,
   )
 
 class MaintenanceCommentForm(CustomForm):
