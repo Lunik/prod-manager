@@ -636,3 +636,16 @@ input:checked + .slider:before {
 .auto_reload .title {
   margin-right: 5px;
 }
+
+.resource_view {
+  float: right;
+
+  color: var(--base-ternary-background-color);
+  fill: var(--base-ternary-background-color);
+
+  font-weight: bold;
+}
+
+.resource_view .icon {
+  margin-right: 5px;
+}
