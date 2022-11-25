@@ -20,4 +20,7 @@
   {% include "icons/warning.svg" %}
   {% include "icons/angle-right.svg" %}
   {% include "icons/plugin.svg" %}
+  {% if config['STATS_ENABLED'] %}
+    {% include "icons/eye.svg" %}
+  {% endif %}
 </div>

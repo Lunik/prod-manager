@@ -66,6 +66,7 @@ def create_app():
       "PM_REDIS_URI",
       "redis://localhost",
     ),
+    STATS_ENABLED=boolean_param(os.environ.get("PM_STATS_ENABLED", 'False'))
   )
 
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=int(os.environ.get("PM_PROXY_CHAIN_COUNT", 1)), x_proto=1)
@@ -165,6 +166,7 @@ def create_app():
   from ProdManager.helpers.pagination import url_for_paginated
   from ProdManager.helpers.links import custom_url_for
   from ProdManager.helpers.lang.tools import text
+  from ProdManager.helpers.stats import get_resource_view
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
@@ -174,6 +176,7 @@ def create_app():
   app.jinja_env.globals['custom_url_for'] = custom_url_for
   app.jinja_env.globals['_'] = text
   app.jinja_env.globals['is_it_winter'] = is_it_winter
+  app.jinja_env.globals['get_resource_view'] = get_resource_view
 
 
   return app

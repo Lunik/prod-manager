@@ -1,6 +1,6 @@
 # API rate limit configuration
 
-You can configured API rate limit parameters with thoses environment variables :
+You can configure API rate limit parameters with thoses environment variables :
 
 | Environment variable | Type | Default value | Description |
 |:---------------------|:-----|:--------------|:------------|

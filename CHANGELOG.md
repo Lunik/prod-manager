@@ -6,6 +6,7 @@
 
 - feat(API): Add rate limiting on API endpoints (#136) (!98)
 - feat(deploy.kubernetes): Add health probes for Redis deployment (#154) (!114)
+- feat(stats): Add page view statistics (!115)
 
 ### Fix
 

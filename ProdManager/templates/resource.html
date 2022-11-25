@@ -17,6 +17,9 @@
 {% block content %}
   <a href="{{ custom_url_for(resource_endpoint + '.list') }}" id="back">&lt;&lt; {{ _("resource_back_to_list_" + resource_type) }}</a>
   <h1 id="title">{{ _("resource_" + resource_type) }} - {{ resource.name }}</h1>
+  {% if config['STATS_ENABLED'] %}
+    {% include "fragments/stats/resource_view.html" %}
+  {% endif %}
   <div id="resource_metadata">
     {% block resource_metadata %}{% endblock %}
   </div>
