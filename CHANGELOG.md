@@ -8,6 +8,10 @@
 - feat(deploy.kubernetes): Add health probes for Redis deployment (#154) (!114)
 - feat(stats): Add page view statistics (!115)
 
+### Changed
+
+- change(Resources.count): Optimize `count_by_status` query for resources (!116)
+
 ### Fix
 
 - fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)

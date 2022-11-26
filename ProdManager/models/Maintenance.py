@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum
+from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum, func
 from sqlalchemy.orm import relationship
 
 from flask import g
@@ -146,13 +146,16 @@ class Maintenance(db.Model):
     return result
 
   @classmethod
-  def count_by_status(cls, query, serialize=False, filters=()):
-    result = dict()
+  def count_by_status(cls, serialize=False, filters=()):
+    result = {status.value if serialize else status: 0 for status in MaintenanceStatus}
 
-    for status in MaintenanceStatus:
+    query_result = db.session.query(
+      Maintenance.status,
+      func.count(Maintenance.id)
+    ).filter(*filters).group_by(Maintenance.status).all()
+
+    for status, value in query_result:
       key = status.value if serialize else status
-      result[key] = query.filter(
-        cls.status == status, *filters
-      ).count()
+      result[key] = value
 
     return result

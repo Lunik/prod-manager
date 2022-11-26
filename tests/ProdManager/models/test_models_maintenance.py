@@ -27,19 +27,19 @@ def test_maintenance_title():
 
 def test_count_maintenances():
   with app.app_context():
-    maintenance_count = Maintenance.count_by_status(Maintenance.query)
+    maintenance_count = Maintenance.count_by_status()
 
     for status in MaintenanceStatus:
       assert type(maintenance_count[status]) == int
 
   with app.app_context():
-    maintenance_count = Maintenance.count_by_status(Maintenance.query, serialize=True)
+    maintenance_count = Maintenance.count_by_status(serialize=True)
 
     for status in MaintenanceStatus:
       assert type(maintenance_count[status.value]) == int
 
   with app.app_context():
-    maintenance_count = Maintenance.count_by_status(Maintenance.query, serialize=True, filters=(Maintenance.scope_id == 1,))
+    maintenance_count = Maintenance.count_by_status(serialize=True, filters=(Maintenance.scope_id == 1,))
 
     for status in MaintenanceStatus:
       assert type(maintenance_count[status.value]) == int

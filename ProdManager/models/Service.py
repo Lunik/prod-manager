@@ -62,4 +62,4 @@ class Service(db.Model):
     return cls.name.asc()
 
   def monitors_count(self, serialize=False):
-    return Monitor.count_by_status(self.monitors, serialize)
+    return Monitor.count_by_status(serialize, (Monitor.service_id == self.id,))
