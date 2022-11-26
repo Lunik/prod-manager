@@ -15,7 +15,7 @@ bp = Blueprint("weather", __name__)
 @bp.route("/monitor", methods=("GET",))
 @resource_filters(Monitor.filters())
 def monitor(filters):
-  monitors = Monitor.count_by_status(Monitor.query, serialize=True, filters=filters)
+  monitors = Monitor.count_by_status(serialize=True, filters=filters)
 
   return custom_render_template(None,
     json=dict(resources=monitors, serialize=False),
@@ -24,7 +24,7 @@ def monitor(filters):
 @bp.route("/maintenance", methods=("GET",))
 @resource_filters(Maintenance.filters())
 def maintenance(filters):
-  maintenances = Maintenance.count_by_status(Maintenance.query, serialize=True, filters=filters)
+  maintenances = Maintenance.count_by_status(serialize=True, filters=filters)
 
   return custom_render_template(None,
     json=dict(resources=maintenances, serialize=False),
@@ -33,7 +33,7 @@ def maintenance(filters):
 @bp.route("/incident", methods=("GET",))
 @resource_filters(Incident.filters())
 def incident(filters):
-  incidents = Incident.count_by_status(Incident.query, serialize=True, filters=filters)
+  incidents = Incident.count_by_status(serialize=True, filters=filters)
 
   return custom_render_template(None,
     json=dict(resources=incidents, serialize=False),

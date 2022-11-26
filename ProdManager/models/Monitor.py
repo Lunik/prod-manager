@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Column, ForeignKey, Enum
+from sqlalchemy import String, Integer, Column, ForeignKey, Enum, func
 
 from ProdManager.plugins import db
 from ProdManager.helpers.model import ModelEnum
@@ -62,13 +62,16 @@ class Monitor(db.Model):
     )
 
   @classmethod
-  def count_by_status(cls, query, serialize=False, filters=()):
-    result = dict()
+  def count_by_status(cls, serialize=False, filters=()):
+    result = {status.value if serialize else status: 0 for status in MonitorStatus}
 
-    for status in MonitorStatus:
+    query_result = db.session.query(
+      Monitor.status,
+      func.count(Monitor.id)
+    ).filter(*filters).group_by(Monitor.status).all()
+
+    for status, value in query_result:
       key = status.value if serialize else status
-      result[key] = query.filter(
-        cls.status == status, *filters
-      ).count()
+      result[key] = value
 
     return result
