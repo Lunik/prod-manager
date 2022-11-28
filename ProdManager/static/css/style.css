@@ -640,6 +640,8 @@ input:checked + .slider:before {
 .resource_view {
   float: right;
 
+  margin-top: -50px;
+
   color: var(--base-ternary-background-color);
   fill: var(--base-ternary-background-color);
 
