@@ -7,7 +7,7 @@ from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from .plugins import (
-  db, migrate, csrf, mail, lang
+  db, migrate, csrf, mail, lang, redis_client
 )
 
 def create_app():
@@ -58,9 +58,18 @@ def create_app():
     DEBUG=boolean_param(os.environ.get("PM_DEBUG", 'False')),
     JWT_ALGORITHM=os.environ.get("PM_JWT_ALGORITHM", "HS256"),
     JWT_ISSUER=os.environ.get("PM_JWT_ISSUER", "ProdManager"),
+    API_RATELIMIT_ENABLED=boolean_param(os.environ.get("PM_API_RATELIMIT_ENABLED", 'False')),
+    API_RATELIMIT_DEFAULT=int(os.environ.get("PM_API_RATELIMIT_DEFAULT", 60)),
+    API_RATELIMIT_LOGGED=int(os.environ.get("PM_API_RATELIMIT_LOGGED", 1500)),
+    API_RATELIMIT_PERIOD_HOURS=int(os.environ.get("PM_API_RATELIMIT_PERIOD_HOURS", 1)),
+    REDIS_URL=os.environ.get(
+      "PM_REDIS_URI",
+      "redis://localhost",
+    ),
+    STATS_ENABLED=boolean_param(os.environ.get("PM_STATS_ENABLED", 'False'))
   )
 
-  app.wsgi_app = ProxyFix(app.wsgi_app, x_for=0, x_proto=1)
+  app.wsgi_app = ProxyFix(app.wsgi_app, x_for=int(os.environ.get("PM_PROXY_CHAIN_COUNT", 1)), x_proto=1)
   if boolean_param(os.environ.get("PM_PROFILING", 'False')):
     from werkzeug.middleware.profiler import ProfilerMiddleware
 
@@ -73,26 +82,31 @@ def create_app():
   csrf.init_app(app)
 
   from ProdManager.helpers.auth import retreiv_auth
-  from ProdManager.helpers.api import retreiv_api
+  from ProdManager.helpers.api import retreiv_api, validate_ratelimit_api
   from ProdManager.helpers.security import validate_csrf
   from ProdManager.helpers.pagination import secure_pagination
   @app.before_request
   def pre_request():
     retreiv_api()
     retreiv_auth()
+    validate_ratelimit_api()
     validate_csrf()
     secure_pagination()
 
   from ProdManager.helpers.security import add_security_headers
+  from ProdManager.helpers.api import add_ratelimit_api_headers
   @app.after_request
   def pre_response(response):
     response = add_security_headers(response)
+    response = add_ratelimit_api_headers(response)
 
     return response
 
   # register the database commands
   db.init_app(app)
   migrate.init_app(app, db)
+
+  redis_client.init_app(app)
 
   mail.init_app(app)
   lang.init_app(app)
@@ -104,7 +118,8 @@ def create_app():
 
   from ProdManager.errors import (
     page_not_found, conflict, forbiden,
-    internal_error, bad_request, unauthorized
+    internal_error, bad_request, unauthorized,
+    too_many_requests
   )
 
   app.register_error_handler(400, bad_request)
@@ -112,6 +127,7 @@ def create_app():
   app.register_error_handler(403, forbiden)
   app.register_error_handler(404, page_not_found)
   app.register_error_handler(409, conflict)
+  app.register_error_handler(429, too_many_requests)
   app.register_error_handler(500, internal_error)
 
   from ProdManager.models import (
@@ -145,11 +161,12 @@ def create_app():
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
-    format_template_name,
+    format_template_name, is_it_winter
   )
   from ProdManager.helpers.pagination import url_for_paginated
   from ProdManager.helpers.links import custom_url_for
   from ProdManager.helpers.lang.tools import text
+  from ProdManager.helpers.stats import get_resource_view
 
   app.jinja_env.filters['ternary'] = ternary
   app.jinja_env.filters['format_column_name'] = format_column_name
@@ -158,6 +175,8 @@ def create_app():
   app.jinja_env.globals['url_for_paginated'] = url_for_paginated
   app.jinja_env.globals['custom_url_for'] = custom_url_for
   app.jinja_env.globals['_'] = text
+  app.jinja_env.globals['is_it_winter'] = is_it_winter
+  app.jinja_env.globals['get_resource_view'] = get_resource_view
 
 
   return app

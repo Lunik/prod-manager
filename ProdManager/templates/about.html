@@ -9,7 +9,11 @@
 <h1 id="title">{{ _("about_title_alt") }} ProdManager</h1>
 <div id="about">
   <div id="logo" class="about-section">
+    {% if is_it_winter() %}
+    <img alt="Prod Manager logo" src="{{ custom_url_for('static', filename='img/prod-manager-winter.svg') }}" />
+    {% else %}
     <img alt="Prod Manager logo" src="{{ custom_url_for('static', filename='img/prod-manager.svg') }}" />
+    {% endif %}
   </div>
 
   <div id="init" class="about-section">

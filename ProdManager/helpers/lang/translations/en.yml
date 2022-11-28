@@ -269,6 +269,7 @@ error_403: Forbiden
 error_404: Not found
 error_409: Conflict
 error_500: Internal error
+error_429: Too many requests
 
 
 # Timeline
@@ -324,3 +325,4 @@ token_invalid_format: "Token has not the right format or type. expected : "
 token_expired_version: "Token version is expired. expected : "
 
 api_permission_denied: API permission denied
+api_ratelimit_reached: API rate limit has been reached

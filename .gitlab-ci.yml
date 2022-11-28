@@ -71,6 +71,11 @@ test:
   rules:
     - if: ! $CI_COMMIT_REF_PROTECTED
       allow_failure: true
+  services:
+    - redis:latest
+  variables:
+    TEST_REDIS_HOSTNAME: redis
+    TEST_REDIS_PORT: 6379
   script:
     - flask db upgrade
     - >

@@ -44,3 +44,10 @@ def unauthorized(error):
     error=error,
     json=dict(resources=error.description, serialize=False)
   ), 401
+
+def too_many_requests(error):
+  current_app.logger.debug(error)
+  return custom_render_template("error/429.html",
+    error=error,
+    json=dict(resources=error.description, serialize=False)
+  ), 429

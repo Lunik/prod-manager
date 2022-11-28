@@ -30,19 +30,19 @@ def test_incident_title():
 
 def test_count_incidents():
   with app.app_context():
-    incident_count = Incident.count_by_status(Incident.query)
+    incident_count = Incident.count_by_status()
 
     for status in IncidentStatus:
       assert type(incident_count[status]) == int
 
   with app.app_context():
-    incident_count = Incident.count_by_status(Incident.query, serialize=True)
+    incident_count = Incident.count_by_status(serialize=True)
 
     for status in IncidentStatus:
       assert type(incident_count[status.value]) == int
 
   with app.app_context():
-    incident_count = Incident.count_by_status(Incident.query, serialize=True, filters=(Incident.scope_id == 1,))
+    incident_count = Incident.count_by_status(serialize=True, filters=(Incident.scope_id == 1,))
 
     for status in IncidentStatus:
       assert type(incident_count[status.value]) == int

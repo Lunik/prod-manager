@@ -58,6 +58,8 @@ spec:
         env:
         - name: PORT
           value: "8080"
+        - name: PM_API_RATELIMIT_ENABLED
+          value: "true"
         ports:
         - name: http
           containerPort: 8080
@@ -90,6 +92,7 @@ spec:
         volumeMounts:
         - name: tz-config
           mountPath: /etc/localtime
+          readOnly: true
       volumes:
         - name: tz-config
           hostPath:

@@ -27,7 +27,7 @@ div#app {
 
   background-color: var(--base-primary-background-color);
   color: var(--text-color);
-  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.5);
 }
 
 .hidden {
@@ -634,5 +634,20 @@ input:checked + .slider:before {
 }
 
 .auto_reload .title {
+  margin-right: 5px;
+}
+
+.resource_view {
+  float: right;
+
+  margin-top: -50px;
+
+  color: var(--base-ternary-background-color);
+  fill: var(--base-ternary-background-color);
+
+  font-weight: bold;
+}
+
+.resource_view .icon {
   margin-right: 5px;
 }

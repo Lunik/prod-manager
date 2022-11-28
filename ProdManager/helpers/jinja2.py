@@ -18,3 +18,9 @@ def format_template_name(key, keep="folder"):
     return key.split('/')[0]
 
   return key
+
+winter_dates = (datetime(datetime.now().year, 12, 1), datetime(datetime.now().year + 1, 1, 31))
+
+def is_it_winter():
+  now = datetime.utcnow()
+  return now >= winter_dates[0] and now <= winter_dates[1]

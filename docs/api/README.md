@@ -55,3 +55,7 @@ In this example, there are `4` available links :
 - `maintenances` : The URL to retriev maintenances related to this scope
 - `monitors` : The URL to retriev monitors related to this scope
 - `self` : The current URL of the scope resource
+
+## Rate limiting
+
+API endpoint are secured with rate limit (if enabled by the administrator). [Read more about rate limit](./rate_limit.md)

@@ -4,8 +4,8 @@ kind: Deployment
 metadata:
   labels:
     app: prod-manager
-    component: database
-  name: prod-manager-database
+    component: redis
+  name: prod-manager-redis
 spec:
   replicas: 1
   strategy:
@@ -13,27 +13,24 @@ spec:
   selector:
     matchLabels:
       app: prod-manager
-      component: database
+      component: redis
   template:
     metadata:
       labels:
         app: prod-manager
-        component: database
+        component: redis
     spec:
       containers:
-      - image: postgres
-        name: database
+      - image: redis
+        name: redis
         securityContext:
           allowPrivilegeEscalation: False
           capabilities:
             drop:
             - NET_RAW
         ports:
-        - name: postgres
-          containerPort: 5432
-        envFrom:
-        - secretRef:
-            name: prod-manager-database
+        - name: redis
+          containerPort: 6379
         resources:
           requests:
             cpu: 50m
@@ -41,17 +38,26 @@ spec:
           limits:
             cpu: 500m
             memory: 200M
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          periodSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: redis
+          periodSeconds: 5
         volumeMounts:
         - name: data
-          mountPath: /var/lib/postgresql/data
-          subPath: postgres
+          mountPath: /data
+          subPath: redis
         - name: tz-config
           mountPath: /etc/localtime
-          readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: prod-manager-database
+            claimName: prod-manager-redis
         - name: tz-config
           hostPath:
             path: /usr/share/zoneinfo/Europe/Paris

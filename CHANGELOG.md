@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 0.18.0
+
+### Added
+
+- feat(API): Add rate limiting on API endpoints (#136) (!98)
+- feat(deploy.kubernetes): Add health probes for Redis deployment (#154) (!114)
+- feat(stats): Add page view statistics (!115)
+
+### Changed
+
+- change(Resources.count): Optimize `count_by_status` query for resources (!116)
+
+### Fix
+
+- fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)
+- fix(deploy.compose): Use recommended `max_attempts: 5` value in container `restart_policy` (#149) (!105)
+- fix(deploy.compose): Add default `deploy.resources` for database service (#150) (!106)
+- fix(deploy.compose): Port mismatch in Docker compose deploy examples (#151) (!107)
+- fix(image): Add missing build dependencies for `lxml` and `psycopg2` lib (#152) (!108)
+- fix(maintenance): Update the `past_maintenance` filter to handle `CANCELED` status (#153) (!111)
+- fix(date): Unify date format (!113)
+
+
 ## 0.17.2
 
 ### Added
