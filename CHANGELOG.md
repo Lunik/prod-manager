@@ -10,6 +10,7 @@
 ## Changed
 
 - changed(footer): Change the link to ProdManger in the footer (!119)
+- ci(tests.kubernetes): Update Kubernetes manifests check (!121)
 
 
 ## 0.18.0
