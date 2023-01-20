@@ -34,7 +34,7 @@ class CalendarEvent:
 
     description = f"{maintenance.scope.name}/{maintenance.service.name}"
     if maintenance.description:
-      description += f"\n{maintenance.description}"
+      description += f"\n{maintenance.description}\n"
 
     return cls(
       start_date=maintenance.scheduled_start_date,
