@@ -6,6 +6,10 @@
 
 - fix(calendar): Add final new line at the end of event description (#162) (!118)
 
+## Changed
+
+- changed(footer): Change the link to ProdManger in the footer (!119)
+
 
 ## 0.18.0
 
