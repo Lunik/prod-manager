@@ -511,8 +511,6 @@ components:
                     maxItems: 50
                     items:
                       type: string
-security:
-- Application_Secret: []
 paths:
   /token/create:
     post:
