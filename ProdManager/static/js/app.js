@@ -59,10 +59,19 @@ function handle_filters() {
 
 AUTO_RELOAD_TIMEOUT = null
 
+function reload_app() {
+  if (navigator.onLine) {
+    window.location.reload()
+  } else {
+    console.log("Skip reload because network is not available")
+    enable_disable_auto_reload(true)
+  }
+}
+
 function enable_disable_auto_reload(value) {
   if (value) {
     console.log("Enabling auto reload")
-    AUTO_RELOAD_TIMEOUT = setTimeout(() => window.location.reload(), 60000)
+    AUTO_RELOAD_TIMEOUT = setTimeout(() => reload_app(), 60000)
   } else if (AUTO_RELOAD_TIMEOUT) {
     console.log("Disabling auto reload")
     clearTimeout(AUTO_RELOAD_TIMEOUT)
