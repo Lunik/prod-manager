@@ -6,6 +6,7 @@
 
 - fix(calendar): Add final new line at the end of event description (#162) (!118)
 - fix(meta): Prevent robot indexation (#163) (!120)
+- fix(api): Cleanup OpenAPI security (!122)
 
 ## Changed
 
