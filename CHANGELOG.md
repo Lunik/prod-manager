@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 0.18.1
+
+## Added
+
+- chore(gitlab): Add new MR template for releases
+
+## Fixed
+
+- fix(calendar): Add final new line at the end of event description (#162) (!118)
+- fix(meta): Prevent robot indexation (#163) (!120)
+- fix(api): Cleanup OpenAPI security (!122)
+- fix(js): Don't autoreload the app if the network is no available (!123)
+
+## Changed
+
+- changed(footer): Change the link to ProdManger in the footer (!119)
+- ci(tests.kubernetes): Update Kubernetes manifests check (!121)
+
+
 ## 0.18.0
 
 ### Added
@@ -12,7 +31,7 @@
 
 - change(Resources.count): Optimize `count_by_status` query for resources (!116)
 
-### Fix
+### Fixed
 
 - fix(deploy.kubernetes): Force `readOnly` permissions on timezone mounted file (#148) (!104)
 - fix(deploy.compose): Use recommended `max_attempts: 5` value in container `restart_policy` (#149) (!105)

@@ -1,5 +1,5 @@
 
-from flask import Blueprint
+from flask import Blueprint, current_app
 
 from ProdManager.models import (
   Incident, Maintenance, Monitor
@@ -49,3 +49,7 @@ def about():
 @bp.route('/api')
 def swagger():
   return custom_render_template("swagger.html"), 200
+
+@bp.route('/robots.txt')
+def robots():
+  return current_app.send_static_file('robots.txt')

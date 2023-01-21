@@ -21,11 +21,16 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
     with app.test_request_context('/api'):
       self.assertEqual(request.endpoint, 'root.swagger')
 
+  def test_robot_endpoint_with_app(self, app):
+    with app.test_request_context('/robots.txt'):
+      self.assertEqual(request.endpoint, 'root.robots')
+
   def test_index_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/')
       self.assertInResponse(b'<h1 id="title">Dashboard</h1>', rv)
       self.assertNotIn(b"__missing_translation", rv.data)
+      self.assertInResponse(b'<meta content="noindex, nofollow" name="robots"/>', rv)
 
   def test_about_with_client(self, app):
     with app.test_client() as client:
@@ -37,3 +42,8 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
     with app.test_client() as client:
       rv = client.get('/api')
       self.assertNotIn(b"__missing_translation", rv.data)
+
+  def test_robot_with_client(self, app):
+    with app.test_client() as client:
+      rv = client.get('/robots.txt')
+      self.assertInResponse(b'Disallow', rv)
