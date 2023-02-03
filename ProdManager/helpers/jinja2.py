@@ -1,7 +1,11 @@
 import re
+import logging
 from datetime import datetime
+from flask import current_app
 
 from ProdManager.helpers.date import beautifull_date
+
+logger = logging.getLogger('gunicorn.error')
 
 def ternary(expr, value_a, value_b):
   return value_a if expr else value_b
@@ -24,3 +28,14 @@ winter_dates = (datetime(datetime.now().year, 12, 1), datetime(datetime.now().ye
 def is_it_winter():
   now = datetime.utcnow()
   return now >= winter_dates[0] and now <= winter_dates[1]
+
+def include_file(name):
+  content = b""
+
+  try:
+    with current_app.open_resource(name) as file:
+      content = file.read()
+  except Exception as error:
+    logger.error(error)
+
+  return content.decode('UTF-8')

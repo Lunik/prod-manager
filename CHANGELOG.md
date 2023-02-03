@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Fixed
+
+- fix(mail): Simplify CSS in mail notification (#166) (!126)
+
 
 ## 0.18.1
 

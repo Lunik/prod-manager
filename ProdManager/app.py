@@ -161,7 +161,7 @@ def create_app():
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
-    format_template_name, is_it_winter
+    format_template_name, is_it_winter, include_file
   )
   from ProdManager.helpers.pagination import url_for_paginated
   from ProdManager.helpers.links import custom_url_for
@@ -177,6 +177,7 @@ def create_app():
   app.jinja_env.globals['_'] = text
   app.jinja_env.globals['is_it_winter'] = is_it_winter
   app.jinja_env.globals['get_resource_view'] = get_resource_view
+  app.jinja_env.globals['include_file'] = include_file
 
 
   return app
