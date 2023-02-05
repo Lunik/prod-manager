@@ -25,6 +25,11 @@ class Scope(db.Model):
     backref='scope',
     lazy='dynamic',
   )
+  announcements = relationship(
+    'Announcement',
+    backref='scope',
+    lazy='dynamic',
+  )
 
   def __repr__(self):
     return f"<Scope '{self.name}'>"

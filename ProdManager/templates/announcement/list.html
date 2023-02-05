@@ -1,0 +1,7 @@
+{% extends "resource_list.html" %}
+{% set resource_type = "announcement" %}
+{% set resource_endpoint = "announcement" %}
+{% set resources = announcements %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "level"), ("date", "start_date"), ("date", "end_date")
+] %}

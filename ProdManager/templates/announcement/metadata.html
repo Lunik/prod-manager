@@ -1,0 +1,24 @@
+<div id="target">
+  <span id="scope">
+    <a href="{{ custom_url_for('scope.show', resource_id=announcement.scope.id) }}">{{ announcement.scope.name }}</a>
+  </span>
+  /
+  <span id="service">
+    <a href="{{ custom_url_for('service.show', resource_id=announcement.service.id) }}">{{ announcement.service.name }}</a>
+  </span>
+</div>
+<div id="level" class="badge announcement {{ announcement.level.value }}">{{ _("announcement_level_" + announcement.level.value) }}</div>
+{% if announcement.description %}
+<div id="description">
+  {{ announcement.description | markdown }}
+</div>
+{% endif %}
+
+{% set dots = [] %}
+{% if announcement.start_date %}
+    {% set __ = dots.append(("start_date", _("announcement_start"), announcement.start_date, "announcement")) %}
+{% endif %}
+{% if announcement.end_date %}
+    {% set __ = dots.append(("end_date", _("announcement_end"), announcement.end_date, "bell-ring")) %}
+{% endif %}
+{% include "fragments/timeline/horizontal.html" %}

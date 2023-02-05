@@ -1,0 +1,8 @@
+{% extends "resource.html" %}
+{% set resource_type = "announcement" %}
+{% set resource_endpoint = "announcement" %}
+{% set resource = announcement %}
+
+{% block resource_metadata %}
+  {% include "announcement/metadata.html" %}
+{% endblock %}

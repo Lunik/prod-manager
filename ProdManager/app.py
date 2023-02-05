@@ -133,14 +133,14 @@ def create_app():
 
   from ProdManager.models import (
     Incident, IncidentEvent, Maintenance, MaintenanceEvent,
-    Monitor, Subscriber, Scope, Service,
+    Monitor, Subscriber, Scope, Service, Announcement
   )
 
 
   from ProdManager.routes import (
     root, auth, scope, service, incident,
     maintenance, monitor, health, notification,
-    weather, token
+    weather, token, announcement
   )
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
@@ -159,6 +159,8 @@ def create_app():
   app.register_blueprint(health.view, url_prefix="/health")
   app.register_blueprint(notification.view, url_prefix="/notification")
   app.register_blueprint(weather.view, url_prefix="/api/weather", name="weather_api")
+  app.register_blueprint(announcement.view, url_prefix="/announcement")
+  app.register_blueprint(announcement.view, url_prefix="/api/announcement", name="announcement_api")
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,

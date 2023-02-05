@@ -31,6 +31,11 @@ class Service(db.Model):
     backref='service',
     lazy='dynamic',
   )
+  announcements = relationship(
+    'Announcement',
+    backref='service',
+    lazy='dynamic',
+  )
 
   def __repr__(self):
     return f"<Service '{self.name}'>"

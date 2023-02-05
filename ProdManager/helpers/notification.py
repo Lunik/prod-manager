@@ -4,13 +4,13 @@ from flask import current_app
 
 from ProdManager.plugins import mail, lang
 
-from ProdManager.models import Subscriber, Incident, Maintenance
+from ProdManager.models import Subscriber, Incident, Maintenance, Announcement
 from ProdManager.helpers.template import custom_render_template
 import ProdManager.helpers.resource as ResourceHelpers
 
 
 NOTIFICATION_SUPPORTED_RESOURCES = [
-  Incident, Maintenance,
+  Incident, Maintenance, Announcement
 ]
 
 

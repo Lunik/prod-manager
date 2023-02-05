@@ -16,7 +16,7 @@ button {
 ******/
 
 div#app {
-  width: 70%;
+  width: 80%;
 
   min-width: 1000px;
 
@@ -54,7 +54,7 @@ nav#menu ul li:nth-last-child(3) {
 }
 
 nav#menu li {
-  padding: 10px;
+  padding: 10px 10px 10px 5px;
 
   list-style-type: none;
 }
@@ -108,7 +108,7 @@ div#icon-library {
   width: 13px;
   height: 13px;
 
-  margin: -3px 3px auto auto;
+  margin: -3px 5px auto auto;
   vertical-align: middle;
 }
 
@@ -157,6 +157,10 @@ div#icon-library {
 .badge.monitor#status.ok, .badge.monitor#status.ok .icon           { background-color: var(--badge-green-color); color: var(--badge-green-text-color); fill: var(--badge-green-text-color); }
 .badge.monitor#status.warning, .badge.monitor#status.warning .icon { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); fill: var(--badge-orange-text-color); }
 .badge.monitor#status.alert, .badge.monitor#status.alert .icon     { background-color: var(--badge-red-color); color: var(--badge-red-text-color); fill: var(--badge-red-text-color); }
+
+.badge.announcement#level.high   { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
+.badge.announcement#level.medium { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
+.badge.announcement#level.low    { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
 
 .badge a       { color: var(--badge-blue-text-color) !important; }
 .badge a:hover { color: var(--badge-blue-text-color) !important; }
