@@ -33,7 +33,8 @@ class MaintenanceCreateForm(CustomForm):
   description = TextAreaField(
     name='description',
     label=lang.get("table_column_description").capitalize(),
-    validators=[Optional()]
+    validators=[Optional()],
+    render_kw=dict(placeholder=lang.get("placeholder_input_description").capitalize())
   )
   external_reference= StringField(
     name='external_reference',
@@ -92,7 +93,8 @@ class MaintenanceCommentForm(CustomForm):
   comment = TextAreaField(
     name='comment',
     label=lang.get("table_column_comment").capitalize(),
-    validators=[DataRequired()]
+    validators=[DataRequired()],
+    render_kw=dict(placeholder=lang.get("placeholder_input_comment").capitalize())
   )
   internal = BooleanField(
     name='internal',
