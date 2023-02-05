@@ -14,6 +14,7 @@
 - fix(mail): Remove default trailing space in mail object prefix (!128)
 - fix(docs): Missing Maintenance status in API documentation (!129)
 - fix(database): Fix SQLAlchemy deprecation warnings (#167) (!132)
+- fix(ci): Fix DAST_API in CI (!133)
 
 
 ## 0.18.1
