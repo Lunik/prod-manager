@@ -591,7 +591,7 @@ paths:
       security: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -611,7 +611,9 @@ paths:
         '200':
           description: A token
           content:
-            text/plain: {}
+            text/plain:
+              schema:
+                type: string
         '400':
           $ref: '#/components/responses/error_400_response'
   /token/whoami:
@@ -669,7 +671,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -730,7 +732,7 @@ paths:
           $ref: '#/components/schemas/scope/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -822,7 +824,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -883,7 +885,7 @@ paths:
           $ref: '#/components/schemas/service/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1006,7 +1008,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1081,7 +1083,7 @@ paths:
           $ref: '#/components/schemas/monitor/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1239,7 +1241,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1316,7 +1318,7 @@ paths:
           $ref: '#/components/schemas/incident/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1492,7 +1494,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1571,7 +1573,7 @@ paths:
           $ref: '#/components/schemas/maintenance/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1661,7 +1663,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1736,7 +1738,7 @@ paths:
           $ref: '#/components/schemas/announcement/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:

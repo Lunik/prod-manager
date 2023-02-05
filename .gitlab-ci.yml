@@ -293,6 +293,7 @@ dast:
       /monitor
       /incident
       /maintenance
+      /announcement
       /about
       /login
       EOF
