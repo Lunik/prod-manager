@@ -1,0 +1,16 @@
+{% if (ongoing_announcements.count()) > 0 %}
+{% set scope_id = (scope | default({})).id | default(None) %}
+{% set service_id = (service | default({})).id | default(None) %}
+<h2 id="ongoing_announcements">
+  <a href="{{ custom_url_for('announcement.list', scope=scope_id, service=service_id, **ongoing_announcements_filters) }}">
+    {{ _("announcement_ongoing").capitalize() }} {{ icon("angle-right") }}
+  </a>
+</h2>
+{% set resource_type = "announcement" %}
+{% set resource_endpoint = "announcement" %}
+{% set resources = ongoing_announcements %}
+{% set resource_attributes = [
+  ("string", "name"), ("obj", "scope"), ("obj", "service"), ("enum", "level"), ("date", "start_date"), ("date", "end_date")
+] %}
+{% include "fragments/table.html" %}
+{% endif %}

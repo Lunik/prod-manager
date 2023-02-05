@@ -7,7 +7,7 @@ from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from .plugins import (
-  db, migrate, csrf, mail, lang, redis_client
+  db, migrate, csrf, mail, lang, redis_client, markdown
 )
 
 def create_app():
@@ -52,7 +52,7 @@ def create_app():
     MAIL_VALIDATE_CERTS=boolean_param(os.environ.get("PM_MAIL_VALIDATE_CERTS", 'True')),
     MAIL_USE_CREDENTIALS=boolean_param(os.environ.get("PM_MAIL_USE_CREDENTIALS", 'True')),
     MAIL_SENDER=os.environ.get("PM_MAIL_SENDER", None),
-    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager] "),
+    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager]"),
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
     LANG=os.environ.get("PM_LANG", "en"),
     DEBUG=boolean_param(os.environ.get("PM_DEBUG", 'False')),
@@ -110,6 +110,7 @@ def create_app():
 
   mail.init_app(app)
   lang.init_app(app)
+  markdown.init_app(app)
 
   # apply Gunicorn logger config
   gunicorn_logger = logging.getLogger('gunicorn.error')
@@ -132,14 +133,14 @@ def create_app():
 
   from ProdManager.models import (
     Incident, IncidentEvent, Maintenance, MaintenanceEvent,
-    Monitor, Subscriber, Scope, Service,
+    Monitor, Subscriber, Scope, Service, Announcement
   )
 
 
   from ProdManager.routes import (
     root, auth, scope, service, incident,
     maintenance, monitor, health, notification,
-    weather, token
+    weather, token, announcement
   )
   # apply the blueprints to the app
   app.register_blueprint(root.view, url_prefix="/")
@@ -158,10 +159,12 @@ def create_app():
   app.register_blueprint(health.view, url_prefix="/health")
   app.register_blueprint(notification.view, url_prefix="/notification")
   app.register_blueprint(weather.view, url_prefix="/api/weather", name="weather_api")
+  app.register_blueprint(announcement.view, url_prefix="/announcement")
+  app.register_blueprint(announcement.view, url_prefix="/api/announcement", name="announcement_api")
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
-    format_template_name, is_it_winter
+    format_template_name, is_it_winter, include_file
   )
   from ProdManager.helpers.pagination import url_for_paginated
   from ProdManager.helpers.links import custom_url_for
@@ -177,6 +180,7 @@ def create_app():
   app.jinja_env.globals['_'] = text
   app.jinja_env.globals['is_it_winter'] = is_it_winter
   app.jinja_env.globals['get_resource_view'] = get_resource_view
+  app.jinja_env.globals['include_file'] = include_file
 
 
   return app

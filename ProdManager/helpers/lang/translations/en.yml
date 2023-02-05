@@ -123,6 +123,27 @@ maintenance_update_notification_title: ["Updated ", *maintenance_name]
 maintenance_comment_failed: [*maintenance_title, " comment failed"]
 maintenance_deletion_failed: [*maintenance_title, " deletion failed"]
 
+# Announcement
+announcement_name: &announcement_name announcement
+announcement_title: &announcement_title Announcement
+
+announcement_ongoing: ["Ongoing ", *announcement_name, "s"]
+
+announcement_start: from
+announcement_end: until
+
+announcement_level_high: HIGH
+announcement_level_medium: MEDIUM
+announcement_level_low: LOW
+
+announcement_creation_failed: [*announcement_title, " creation failed"]
+announcement_create_notification_title: ["New ", *announcement_name]
+announcement_show_failed: [*announcement_title, " show failed"]
+announcement_update_failed: [*announcement_title, " update failed"]
+announcement_update_notification_title: ["Updated ", *announcement_name]
+announcement_comment_failed: [*announcement_title, " comment failed"]
+announcement_deletion_failed: [*announcement_title, " deletion failed"]
+
 # Subscribe
 notification_title: &notification_title Notification
 notification_name: &notification_name notification
@@ -230,6 +251,13 @@ resource_update_maintenance: ["Update ", *maintenance_name]
 resource_comment_maintenance: ["Add a comment to the ", *maintenance_name]
 resource_delete_maintenance: ["Delete ", *maintenance_name]
 
+## Announcement
+resource_announcement: *announcement_title
+resource_back_to_list_announcement: ["Back to ", *announcement_name, "s list"]
+resource_update_announcement: ["Update ", *announcement_name]
+resource_comment_announcement: ["Add a comment to the ", *announcement_name]
+resource_delete_announcement: ["Delete ", *announcement_name]
+
 
 # Resource filters
 filters_title: Filters
@@ -260,6 +288,10 @@ resource_list_create_incident: ["Create new ", *incident_name]
 resource_list_maintenance: [*maintenance_title, "s list"]
 resource_list_create_maintenance: ["Create new ", *maintenance_name]
 
+## Announcement
+resource_list_announcement: [*announcement_title, "s list"]
+resource_list_create_announcement: ["Create new ", *announcement_name]
+
 
 # Errors
 error_title: Error
@@ -283,6 +315,7 @@ table_column_scope: *scope_name
 table_column_service: *service_name
 table_column_severity: severity
 table_column_status: status
+table_column_level: level
 table_column_service_status: service status
 table_column_external_reference: external reference
 table_column_start_impact_date: start impact date
@@ -305,6 +338,10 @@ table_column_integration: integration
 table_column_secret: secret
 table_column_not_before_date: not before date
 table_column_expiration_date: expiration date
+
+# Inputs
+placeholder_input_description: Description content support Markdown syntaxe
+placeholder_input_comment: Comment content support Markdown syntaxe
 
 # Pagination
 pagination_overflow: Pagination value overflow

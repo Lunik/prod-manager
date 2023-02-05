@@ -49,3 +49,21 @@ GET /weather/maintenance
 | `start_after`        | string  | False | Limit by scheduled start date after specified time. Format : `YYYY-MM-DDTHH:MM` |
 | `end_before`         | string  | False | Limit by scheduled end date before specified time. Format : `YYYY-MM-DDTHH:MM` |
 | `end_after`          | string  | False | Limit by scheduled end date after specified time. Format : `YYYY-MM-DDTHH:MM` |
+
+## Count all announcements
+
+Get a count of all visible announcements grouped by status. When accessed without authentication, only public resources are returned.
+
+```
+GET /weather/announcement
+```
+
+| Attribute | Type | Required | Description |
+|:----------|:-----|:---------|:------------|
+| `scope`        | integer | False | Limit by scope ID |
+| `service`      | integer | False | Limit by service ID |
+| `level`        | string  | False | Limit by level. Value could be one of : `high`, `medium`, `low` |
+| `start_before` | string  | False | Limit by start date before specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `start_after`  | string  | False | Limit by start date after specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `end_before`   | string  | False | Limit by end date before specified time. Format : `YYYY-MM-DDTHH:MM` |
+| `end_after`    | string  | False | Limit by end date after specified time. Format : `YYYY-MM-DDTHH:MM` |

@@ -6,10 +6,16 @@
 
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/theme.css') }}">
-    <link rel="stylesheet" href="{{ custom_url_for('static', filename='css/style.css') }}">
+    <style id="theme">
+      {{ include_file("static/css/theme.css") }}
+    </style>
+    <style id="style">
+      {{ include_file("static/css/style-mail.css") }}
+    </style>
     {% if config['CUSTOM_CSS_SHEET'] %}
-      <link rel="stylesheet" href="{{ custom_url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
+    <style id="custom">
+      {{ include_file(config['CUSTOM_CSS_SHEET']) }}
+    </style>
     {% endif %}
   </head>
   <body>

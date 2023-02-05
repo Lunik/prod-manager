@@ -22,9 +22,7 @@
 <div id="status" class="badge incident {{ incident.status.value }}">{{ _("incident_status_" + incident.status.value) }}</div>
 {% if incident.description %}
 <div id="description">
-  {% for line in incident.description.split('\n') %}
-  <p>{{ line }}</p>
-  {% endfor %}
+  {{ incident.description | markdown }}
 </div>
 {% endif %}
 

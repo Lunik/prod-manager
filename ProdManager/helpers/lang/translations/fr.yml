@@ -121,6 +121,25 @@ maintenance_update_notification_title: ["Mise à jour de la ", *maintenance_name
 maintenance_comment_failed: ["Commentaire de la ", *maintenance_name, " échoué"]
 maintenance_deletion_failed: ["Suppression de la ", *maintenance_name, " échouée"]
 
+# Announcement
+announcement_name: &announcement_name annonce
+announcement_title: &announcement_title Annonce
+
+announcement_ongoing: [*announcement_name, "s en cours"]
+
+announcement_start: depuis
+announcement_end: jusqu'a
+
+announcement_level_high: HAUT
+announcement_level_medium: MOYEN
+announcement_level_low: BAS
+
+announcement_creation_failed: ["Création de l'", *announcement_name, " échouée"]
+announcement_create_notification_title: ["Nouvel ", *announcement_name]
+announcement_show_failed: ["Affichage de l'", *announcement_name, " échoué"]
+announcement_update_failed: ["Mise à jour de l'", *announcement_name, " échouée"]
+announcement_update_notification_title: ["Mise à jour de l'", *announcement_name]
+announcement_deletion_failed: ["Suppression de l'", *announcement_name, " échouée"]
 
 # Subscribe
 notification_title: &notification_title Notification
@@ -224,6 +243,11 @@ resource_update_maintenance: ["Mettre à jour la ", *maintenance_name]
 resource_comment_maintenance: ["Ajouter un commentaire sur la ", *maintenance_name]
 resource_delete_maintenance: ["Supprimer la ", *maintenance_name]
 
+## Announcement
+resource_announcement: *announcement_title
+resource_back_to_list_announcement: ["Retour à la liste d'", *announcement_name, "s"]
+resource_update_announcement: ["Mettre à jour l'", *announcement_name]
+resource_delete_announcement: ["Supprimer l'", *announcement_name]
 
 # Resource filters
 filters_title: Filtres
@@ -254,6 +278,10 @@ resource_list_create_incident: ["Créer un nouvel ", *incident_name]
 resource_list_maintenance: ["Liste des ", *maintenance_name, "s"]
 resource_list_create_maintenance: ["Créer une nouvelle ", *maintenance_name]
 
+## Announcement
+resource_list_announcement: ["Liste des ", *announcement_name, "s"]
+resource_list_create_announcement: ["Créer un nouvel ", *announcement_name]
+
 
 # Errors
 error_title: Erreur
@@ -276,6 +304,7 @@ table_column_scope: *scope_name
 table_column_service: *service_name
 table_column_severity: sévérité
 table_column_status: statut
+table_column_level: niveau
 table_column_service_status: statut du service
 table_column_external_reference: référence externe
 table_column_start_impact_date: date de début d'impact
@@ -298,6 +327,10 @@ table_column_integration: intégration
 table_column_secret: secret
 table_column_not_before_date: date de début de validité
 table_column_expiration_date: date d'expiration
+
+# Inputs
+placeholder_input_description: Le contenu de la description supporte la syntaxe Markdown
+placeholder_input_comment: Le contenu du commentaire supporte la syntaxe Markdown
 
 # Pagination
 pagination_overflow: Débordement de valeur de pagination

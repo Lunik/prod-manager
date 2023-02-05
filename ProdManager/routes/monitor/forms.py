@@ -26,7 +26,8 @@ class MonitorCreateForm(CustomForm):
   description = TextAreaField(
     name='description',
     label=lang.get("table_column_description").capitalize(),
-    validators=[Optional()]
+    validators=[Optional()],
+    render_kw=dict(placeholder=lang.get("placeholder_input_description").capitalize())
   )
   integration = StringField(
     name='integration',

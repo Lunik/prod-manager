@@ -1,0 +1,27 @@
+div#resource_metadata #target {
+  display: inline-block;
+
+  margin-right: 10px;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.badge {
+  display: inline-block;
+
+  padding: 5px;
+  margin-right: 5px;
+
+  letter-spacing: 0.5px;
+}
+
+div.timeline-horizontal p {
+  display: inline-block;
+}
+
+div.timeline-horizontal p:first-of-type {
+  width: 100px;
+
+  margin-left: 10px;
+}

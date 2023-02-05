@@ -195,6 +195,18 @@ To include an icon in template, you need to use only the `icon` macro like :
 {{ icon('dashboard') }}
 ```
 
+### Code snippet in resource description
+
+In resource description, the user can put code using "fenced-code" that will by formated and colored :
+- [Fenced-code extention](https://python-markdown.github.io/extensions/fenced_code_blocks/)
+- [Code highligh extention](https://python-markdown.github.io/extensions/code_hilite/)
+
+Code highlinting theme is generated with [pygmentize](https://pygments.org) with the following command :
+```bash
+pygmentize -S default -f html -a .codehilite > ProdManager/static/css/codehilite.css
+```
+The `default` theme is used, but other can be found in [Pygments the style section](https://pygments.org/styles/)
+
 ## Translation
 
 The application has multilang support. This means that every string printed to the final user (except log output) should sould support translation.

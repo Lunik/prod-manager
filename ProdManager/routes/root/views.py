@@ -2,7 +2,7 @@
 from flask import Blueprint, current_app
 
 from ProdManager.models import (
-  Incident, Maintenance, Monitor
+  Incident, Maintenance, Monitor, Announcement
 )
 from ProdManager.helpers.resource import list_resources
 from ProdManager.helpers.template import custom_render_template
@@ -40,6 +40,14 @@ def index():
     ),
     past_maintenances_filters=Maintenance.past_filter(raw=True),
     monitors_count=Monitor.count_by_status(),
+    ongoing_announcements_filters=Announcement.ongoing_filter(raw=True),
+    ongoing_announcements=list_resources(
+      Announcement,
+      filters=Announcement.ongoing_filter(),
+      orders=Announcement.reverse_order(),
+      paginate=False,
+      limit=10,
+    ),
   ), 200
 
 @bp.route('/about')

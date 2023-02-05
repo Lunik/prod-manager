@@ -1,0 +1,7 @@
+{% extends "notification/base.html" %}
+{% set resource_type = "announcement" %}
+{% set announcement = resource %}
+
+{% block content %}
+{% include "announcement/metadata.html" %}
+{% endblock %}

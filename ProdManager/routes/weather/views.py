@@ -3,7 +3,7 @@ from flask import Blueprint
 from ProdManager.helpers.template import custom_render_template
 from ProdManager.helpers.resource import resource_filters
 from ProdManager.models import (
-  Monitor, Maintenance, Incident
+  Monitor, Maintenance, Incident, Announcement
 )
 
 bp = Blueprint("weather", __name__)
@@ -37,4 +37,13 @@ def incident(filters):
 
   return custom_render_template(None,
     json=dict(resources=incidents, serialize=False),
+  )
+
+@bp.route("/announcement", methods=("GET",))
+@resource_filters(Announcement.filters())
+def announcement(filters):
+  announcements = Announcement.count_by_level(serialize=True, filters=filters)
+
+  return custom_render_template(None,
+    json=dict(resources=announcements, serialize=False),
   )

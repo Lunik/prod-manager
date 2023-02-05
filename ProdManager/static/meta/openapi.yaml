@@ -420,6 +420,75 @@ components:
           type: integer
           description: The number of maintenances in CANCELED state
           minimum: 0
+    announcement:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The internal ID of the announcement
+          minimum: 1
+        name:
+          type: string
+          description: The name of the announcement
+        description:
+          type: string
+          description: The description of the announcement
+        level:
+          type: string
+          description: The level of the announcement
+          enum:
+          - high
+          - medium
+          - low
+        scope:
+          type: integer
+          description: The related scope ID of the announcement
+          minimum: 1
+        service:
+          type: integer
+          description: The related service ID of the announcement
+          minimum: 1
+        creation_date:
+          type: string
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
+          description: The creation date of the announcement
+        start_date:
+          type: string
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
+          description: The start date of the announcement
+        end_date:
+          type: string
+          pattern: ^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])T([0-1]\d|2[0-3]):[0-5]\d$
+          description: The end date of the announcement
+        links:
+          type: object
+          description: Links to access related resources
+          properties:
+            self:
+              type: string
+              description: API URL of this announcement
+            scope:
+              type: string
+              description: API URL of the related scope
+            service:
+              type: string
+              description: API URL of the related service
+    announcements_count:
+      type: object
+      description: Announcements count grouped by status
+      properties:
+        high:
+          type: integer
+          description: The number of announcements with HIGH level
+          minimum: 0
+        medium:
+          type: integer
+          description: The number of announcements with MEDIUM level
+          minimum: 0
+        low:
+          type: integer
+          description: The number of announcements with LOW level
+          minimum: 0
   parameters:
     per_page:
       name: per_page
@@ -522,7 +591,7 @@ paths:
       security: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -542,7 +611,9 @@ paths:
         '200':
           description: A token
           content:
-            text/plain: {}
+            text/plain:
+              schema:
+                type: string
         '400':
           $ref: '#/components/responses/error_400_response'
   /token/whoami:
@@ -600,7 +671,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -661,7 +732,7 @@ paths:
           $ref: '#/components/schemas/scope/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -753,7 +824,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -814,7 +885,7 @@ paths:
           $ref: '#/components/schemas/service/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -937,7 +1008,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1012,7 +1083,7 @@ paths:
           $ref: '#/components/schemas/monitor/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1170,7 +1241,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1220,7 +1291,7 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/incident/properties/id'
       responses:
         '200':
           description: A incident
@@ -1244,10 +1315,10 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/incident/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1308,7 +1379,7 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/incident/properties/id'
       responses:
         '200':
           description: A list of incidents
@@ -1423,7 +1494,7 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1475,7 +1546,7 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/maintenance/properties/id'
       responses:
         '200':
           description: A maintenance
@@ -1499,10 +1570,10 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/maintenance/properties/id'
       requestBody:
         content:
-          multipart/form-data:
+          application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
@@ -1563,7 +1634,7 @@ paths:
         required: true
         in: path
         schema:
-          $ref: '#/components/schemas/monitor/properties/id'
+          $ref: '#/components/schemas/maintenance/properties/id'
       responses:
         '200':
           description: A list of maintenances
@@ -1577,6 +1648,161 @@ paths:
                     maxItems: 50
                     items:
                       $ref: '#/components/schemas/maintenance'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /announcement/create:
+    post:
+      tags:
+      - Announcement
+      summary: Create an announcement
+      description: Create an announcement
+      operationId: createAnAnnouncement
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/announcement/properties/name'
+                description:
+                  $ref: '#/components/schemas/announcement/properties/description'
+                level:
+                  $ref: '#/components/schemas/announcement/properties/level'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/announcement/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/announcement/properties/service'
+                  type: string
+                start_date:
+                  $ref: '#/components/schemas/announcement/properties/start_date'
+                end_date:
+                  $ref: '#/components/schemas/announcement/properties/end_date'
+      responses:
+        '200':
+          description: A announcement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/announcement'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /announcement/{resource_id}:
+    get:
+      tags:
+      - Announcement
+      summary: Get single announcement
+      description: Get single announcement
+      operationId: getSingleAnnouncement
+      security: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/announcement/properties/id'
+      responses:
+        '200':
+          description: An announcement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/announcement'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+  /announcement/{resource_id}/update:
+    post:
+      tags:
+      - Announcement
+      summary: Update an announcement
+      description: Update an announcement
+      operationId: updateAnAnnouncement
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/announcement/properties/id'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/announcement/properties/name'
+                description:
+                  $ref: '#/components/schemas/announcement/properties/description'
+                level:
+                  $ref: '#/components/schemas/announcement/properties/level'
+                scope:
+                  allOf:
+                  - $ref: '#/components/schemas/announcement/properties/scope'
+                  type: string
+                service:
+                  allOf:
+                  - $ref: '#/components/schemas/announcement/properties/service'
+                  type: string
+                start_date:
+                  $ref: '#/components/schemas/announcement/properties/start_date'
+                end_date:
+                  $ref: '#/components/schemas/announcement/properties/end_date'
+      responses:
+        '200':
+          description: An announcement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/announcement'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+        '403':
+          $ref: '#/components/responses/error_403_response'
+        '404':
+          $ref: '#/components/responses/error_404_response'
+        '409':
+          $ref: '#/components/responses/error_409_response'
+  /announcement/{resource_id}/delete:
+    post:
+      tags:
+      - Announcement
+      summary: Delete an announcement
+      description: Delete an announcement
+      operationId: deleteAnAnnouncement
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: resource_id
+        required: true
+        in: path
+        schema:
+          $ref: '#/components/schemas/announcement/properties/id'
+      responses:
+        '200':
+          description: A list of announcements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    maxItems: 50
+                    items:
+                      $ref: '#/components/schemas/announcement'
         '403':
           $ref: '#/components/responses/error_403_response'
         '404':
@@ -1738,6 +1964,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/maintenances_count'
+        '400':
+          $ref: '#/components/responses/error_400_response'
+  /weather/announcement:
+    get:
+      tags:
+      - Weather
+      - Announcement
+      summary: Announcements weather
+      description: Announcements count grouped by level
+      operationId: weatherAnnouncement
+      security: []
+      parameters:
+      - name: level
+        in: query
+        description: Limit by level
+        schema:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/announcement/properties/level'
+      - name: scope
+        in: query
+        description: Limit by scope ID
+        schema:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/scope/properties/id'
+      - name: service
+        in: query
+        description: Limit by service ID
+        schema:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/service/properties/id'
+      - name: start_before
+        in: query
+        description: Limit by start_date prior to the date
+        schema:
+          $ref: '#/components/schemas/announcement/properties/start_date'
+      - name: start_after
+        in: query
+        description: Limit by start_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/announcement/properties/start_date'
+      - name: end_before
+        in: query
+        description: Limit by end_date prior to the date
+        schema:
+          $ref: '#/components/schemas/announcement/properties/end_date'
+      - name: end_after
+        in: query
+        description: Limit by end_date posterior to the date
+        schema:
+          $ref: '#/components/schemas/announcement/properties/end_date'
+      responses:
+        '200':
+          description: The announcement weather
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/announcements_count'
         '400':
           $ref: '#/components/responses/error_400_response'
 tags:
