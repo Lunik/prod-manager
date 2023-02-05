@@ -10,10 +10,15 @@ def strip_input(content):
     raise Exception(f"Type not handled : {content.__class__.__name__}")
 
   result = []
+  previous_line = None
   for line in content.split('\n'):
-    line = line.strip()
-    if line != "":
+    line = line.rstrip()
+
+    # Remove useless 2 or more new line in chain
+    if line or previous_line != "":
       result.append(line)
+
+    previous_line = line
 
   return '\n'.join(result)
 

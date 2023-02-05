@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Added
+
+- feat(markdown): Add support for Markdown syntaxe in resources description (!130)
+
 ## Fixed
 
 - fix(mail): Simplify CSS in mail notification (#166) (!126)

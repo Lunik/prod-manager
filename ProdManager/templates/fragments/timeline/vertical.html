@@ -16,9 +16,7 @@
               {% endif %}
             {% endfor %}
           {% else %}
-            {% for line in dot_content.split('\n') %}
-              <p class="line">{{ line }}</p>
-            {% endfor %}
+            {{ dot_content | markdown }}
           {% endif %}
         </div>
       </div>
