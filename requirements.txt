@@ -6,6 +6,10 @@ Flask
 django-htmlmin
 lxml
 
+# Markdown support
+Markdown
+pygments
+
 # Forms
 Flask-WTF
 wtforms[email]

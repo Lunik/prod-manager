@@ -25,9 +25,7 @@
 </div>
 {% if maintenance.description %}
 <div id="description">
-  {% for line in maintenance.description.split('\n') %}
-    <p>{{ line }}</p>
-  {% endfor %}
+  {{ maintenance.description | markdown }}
 </div>
 {% endif %}
 

@@ -7,7 +7,7 @@ from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from .plugins import (
-  db, migrate, csrf, mail, lang, redis_client
+  db, migrate, csrf, mail, lang, redis_client, markdown
 )
 
 def create_app():
@@ -110,6 +110,7 @@ def create_app():
 
   mail.init_app(app)
   lang.init_app(app)
+  markdown.init_app(app)
 
   # apply Gunicorn logger config
   gunicorn_logger = logging.getLogger('gunicorn.error')

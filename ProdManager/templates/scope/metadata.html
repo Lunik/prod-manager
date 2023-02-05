@@ -1,7 +1,5 @@
 {% if scope.description %}
 <div id="description">
-  {% for line in scope.description.split('\n') %}
-  <p>{{ line }}</p>
-  {% endfor %}
+  {{ scope.description | markdown }}
 </div>
 {% endif %}
