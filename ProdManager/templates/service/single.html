@@ -10,6 +10,7 @@
 {% block resource_extra_content %}
   <h3 id="monitors">{{ _("monitor_title", 2) }} :</h3> {% include "monitor/resume.html" %}
 
+  {% include "announcement/ongoing.html" %}
   {% include "incident/ongoing.html" %}
   {% include "maintenance/ongoing.html" %}
 

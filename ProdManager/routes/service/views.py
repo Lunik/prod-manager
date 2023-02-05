@@ -15,7 +15,7 @@ from ProdManager.helpers.form import strip_input
 from ProdManager.helpers.links import custom_url_for
 
 from ProdManager.models import (
-  Service, Monitor, Incident, Maintenance,
+  Service, Monitor, Incident, Maintenance, Announcement
 )
 
 from ProdManager.plugins import lang
@@ -118,6 +118,15 @@ def show(resource_id):
     ),
     past_maintenances_filters=Maintenance.past_filter(raw=True),
     monitors_count=service.monitors_count(),
+    ongoing_announcements_filters=Announcement.ongoing_filter(raw=True),
+    ongoing_announcements=list_resources_from_query(
+      Announcement,
+      query=service.announcements,
+      filters=Announcement.ongoing_filter(),
+      orders=Announcement.reverse_order(),
+      paginate=False,
+      limit=10,
+    ),
   ), 200
 
 

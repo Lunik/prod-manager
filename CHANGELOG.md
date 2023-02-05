@@ -4,6 +4,7 @@
 
 ## Added
 
+- feat(announcement): Add support for Announcements (#165) (!127)
 - feat(markdown): Add support for Markdown syntaxe in resources description (!130)
 - feat(forms.\*): Add placeholder in forms textarea inputs (!131)
 

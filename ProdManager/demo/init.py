@@ -1,7 +1,6 @@
 import random
 from datetime import datetime
 
-from sqlalchemy.orm import Session
 from flask import g
 
 from ProdManager.plugins import db
@@ -280,4 +279,26 @@ if __name__ == "__main__":
         maintenance_id=2,
         type=EventType.COMMENT,
         internal=False,
+      ))
+
+      # ANNOUNCEMENTS
+      create_resource(Announcement, dict(
+        name="Object storage backend migration",
+        description="We are planning to migrate the actual backend for the object storage service.\nExpect some degraded performance during the comming days",
+        level=AnnouncementLevel.MEDIUM,
+        scope_id=2,
+        service_id=3,
+        creation_date=datetime.strptime("2023-02-05T10:22", DATETIME_FORMAT),
+        start_date=datetime.strptime("2023-02-06T08:00", DATETIME_FORMAT),
+        end_date=datetime.strptime("2023-02-12T22:00", DATETIME_FORMAT),
+      ))
+      create_resource(Announcement, dict(
+        name="End of support of Python 2.9 in Serveless functions",
+        description="Python 2.9 option will soon be unavailable to select when creating new serveless functions.\nThis change take effect on 01/03/2023 at 00:00. [More informations](https://peps.python.org/pep-0373/#references)",
+        level=AnnouncementLevel.HIGH,
+        scope_id=1,
+        service_id=7,
+        creation_date=datetime.strptime("2023-02-05T10:22", DATETIME_FORMAT),
+        start_date=datetime.strptime("2023-01-15T08:00", DATETIME_FORMAT),
+        end_date=datetime.strptime("2023-03-15T22:00", DATETIME_FORMAT),
       ))
