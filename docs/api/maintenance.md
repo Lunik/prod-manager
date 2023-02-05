@@ -12,7 +12,7 @@ GET /maintenance
 
 | Attribute | Type | Required | Description |
 |:----------|:-----|:---------|:------------|
-| `status`             | string  | False | Limit by status. Value could be one of : `scheduled`, `in-progress`, `succeed`, `failed` |
+| `status`             | string  | False | Limit by status. Value could be one of : `scheduled`, `in-progress`, `succeed`, `failed`, `canceled` |
 | `scope`              | integer | False | Limit by scope ID |
 | `service`            | integer | False | Limit by service ID |
 | `service_status`     | string  | False | Limit by service status. Value could be one of : `up`, `degraded`, `down` |
