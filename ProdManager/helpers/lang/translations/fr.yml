@@ -299,6 +299,10 @@ table_column_secret: secret
 table_column_not_before_date: date de début de validité
 table_column_expiration_date: date d'expiration
 
+# Inputs
+placeholder_input_description: Le contenu de la description supporte la syntaxe Markdown
+placeholder_input_comment: Le contenu du commentaire supporte la syntaxe Markdown
+
 # Pagination
 pagination_overflow: Débordement de valeur de pagination
 

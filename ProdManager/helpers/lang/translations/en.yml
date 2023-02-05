@@ -306,6 +306,10 @@ table_column_secret: secret
 table_column_not_before_date: not before date
 table_column_expiration_date: expiration date
 
+# Inputs
+placeholder_input_description: Description content support Markdown syntaxe
+placeholder_input_comment: Comment content support Markdown syntaxe
+
 # Pagination
 pagination_overflow: Pagination value overflow
 
