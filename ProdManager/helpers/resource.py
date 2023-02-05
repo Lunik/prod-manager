@@ -63,7 +63,7 @@ def list_resources_as_choices(ressource_class, order=None):
   ]
 
 def get_resource(resource_class, ressource_id):
-  resource = resource_class.query.get(ressource_id)
+  resource = db.session.get(resource_class, ressource_id)
 
   if resource is None:
     raise NotFoundError(ressource_id)
@@ -72,7 +72,7 @@ def get_resource(resource_class, ressource_id):
 
 
 def update_resource(resource_class, ressource_id, attributs):
-  resource = resource_class.query.get(ressource_id)
+  resource = db.session.get(resource_class, ressource_id)
 
   if resource is None:
     raise NotFoundError(ressource_id)
@@ -122,7 +122,7 @@ def update_resource(resource_class, ressource_id, attributs):
 
 
 def delete_resource(resource_class, ressource_id):
-  resource = resource_class.query.get(ressource_id)
+  resource = db.session.get(resource_class, ressource_id)
 
   if resource is None:
     raise NotFoundError(ressource_id)
