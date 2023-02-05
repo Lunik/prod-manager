@@ -5,6 +5,7 @@
 ## Fixed
 
 - fix(mail): Simplify CSS in mail notification (#166) (!126)
+- fix(mail): Remove default trailing space in mail object prefix (!128)
 
 
 ## 0.18.1

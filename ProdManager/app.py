@@ -52,7 +52,7 @@ def create_app():
     MAIL_VALIDATE_CERTS=boolean_param(os.environ.get("PM_MAIL_VALIDATE_CERTS", 'True')),
     MAIL_USE_CREDENTIALS=boolean_param(os.environ.get("PM_MAIL_USE_CREDENTIALS", 'True')),
     MAIL_SENDER=os.environ.get("PM_MAIL_SENDER", None),
-    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager] "),
+    MAIL_PREFIX=os.environ.get("PM_MAIL_PREFIX", "[ProdManager]"),
     MAIL_REPLY_TO=os.environ.get("PM_MAIL_REPLY_TO", None),
     LANG=os.environ.get("PM_LANG", "en"),
     DEBUG=boolean_param(os.environ.get("PM_DEBUG", 'False')),
