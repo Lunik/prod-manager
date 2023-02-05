@@ -13,6 +13,7 @@
 - fix(mail): Simplify CSS in mail notification (#166) (!126)
 - fix(mail): Remove default trailing space in mail object prefix (!128)
 - fix(docs): Missing Maintenance status in API documentation (!129)
+- fix(database): Fix SQLAlchemy deprecation warnings (#167) (!132)
 
 
 ## 0.18.1

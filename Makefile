@@ -48,10 +48,7 @@ help:
 	@echo '                                                                          '
 
 install: env
-	${VENV_PY} -m pip install -r "${REQUIREMENTS}"
-
-install-dev: env
-	${VENV_PY} -m pip install -r "${REQUIREMENTS_DEV}"
+	${VENV_PY} -m pip install --upgrade -r "${REQUIREMENTS}" -r "${REQUIREMENTS_DEV}"
 
 install-docker:
 	${PY} -m pip install --no-cache-dir --compile -r "${REQUIREMENTS}"
