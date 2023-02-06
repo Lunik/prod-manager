@@ -6,6 +6,7 @@ from flask_redis import FlaskRedis
 from ProdManager.helpers.mail import MailWorker
 from ProdManager.helpers.lang import LangManager
 from ProdManager.helpers.markdown import Markdown
+from ProdManager.helpers.openid import OpenID
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -22,3 +23,4 @@ markdown = Markdown(
     'markdown.extensions.codehilite'
   ]
 )
+oidc = OpenID()

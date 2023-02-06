@@ -5,6 +5,7 @@
 ## Added
 
 - feat(style): Add resources icons in list headers (#168) (!135)
+- feat(auth): Add support for SSO authentication (#161) (!136)
 
 
 ## 0.19.0

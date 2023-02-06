@@ -546,6 +546,7 @@ div#forms .form-toogle {
 
 form {
   padding: 0 25px;
+  margin: 5px auto;
 }
 
 form .field {

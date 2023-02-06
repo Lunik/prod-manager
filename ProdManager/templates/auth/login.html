@@ -9,5 +9,10 @@
   {% with form_title=_("auth_login_title"), form_id="login", form_method="post", form_action="#", form_submit_value=_('auth_login_submit').capitalize(), form_hide=False, form=form %}
     {% include "fragments/form.html" %}
   {% endwith %}
+  {% if config.get('OPENID_ENABLED') %}
+    {% with form_title=_("openid_login_title"), form_id="openid", form_method="get", form_action=custom_url_for('openid.login'), form_submit_value=_("openid_login_title"), form_hide=False, form=[] %}
+      {% include "fragments/form.html" %}
+    {% endwith %}
+  {% endif %}
 </div>
 {% endblock %}

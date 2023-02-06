@@ -10,6 +10,9 @@ lxml
 Markdown
 pygments
 
+# OpenID Connect
+requests
+
 # Forms
 Flask-WTF
 wtforms[email]

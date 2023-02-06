@@ -266,6 +266,10 @@ To ensure that routes are accessible through webUI and API, `ProdManager.helpers
   ), 200
 ```
 
+## OpenID Connect authentication
+
+[OpenID developer documentation](https://developers.google.com/identity/openid-connect/openid-connect)
+
 ### Documentation
 
 When updating existing APIs or creating new, [API documentation](./docs/api/README.md) and [OpenAPI definition](./ProdManager/static/meta/openapi.yaml) should be update.

@@ -7,7 +7,7 @@ from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from .plugins import (
-  db, migrate, csrf, mail, lang, redis_client, markdown
+  db, migrate, csrf, mail, lang, redis_client, markdown, oidc
 )
 
 def create_app():
@@ -66,7 +66,14 @@ def create_app():
       "PM_REDIS_URI",
       "redis://localhost",
     ),
-    STATS_ENABLED=boolean_param(os.environ.get("PM_STATS_ENABLED", 'False'))
+    STATS_ENABLED=boolean_param(os.environ.get("PM_STATS_ENABLED", 'False')),
+    OPENID_ENABLED=boolean_param(os.environ.get("PM_OPENID_ENABLED", 'False')),
+    OPENID_DISCOVER_URL=os.environ.get("PM_OPENID_DISCOVER_URL", None),
+    OPENID_CLIENT_ID=os.environ.get("PM_OPENID_CLIENT_ID", None),
+    OPENID_CLIENT_SECRET=os.environ.get("PM_OPENID_CLIENT_SECRET", None),
+    OPENID_CLIENT_SCOPES=os.environ.get("PM_OPENID_CLIENT_SCOPES", "openid email profile"),
+    OPENID_ROLES_ATTRIBUTE=os.environ.get("PM_OPENID_ROLES_ATTRIBUTE", "roles"),
+    OPENID_ALLOWED_ROLE=os.environ.get("PM_OPENID_ALLOWED_ROLE", "admin"),
   )
 
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=int(os.environ.get("PM_PROXY_CHAIN_COUNT", 1)), x_proto=1)
@@ -161,6 +168,11 @@ def create_app():
   app.register_blueprint(weather.view, url_prefix="/api/weather", name="weather_api")
   app.register_blueprint(announcement.view, url_prefix="/announcement")
   app.register_blueprint(announcement.view, url_prefix="/api/announcement", name="announcement_api")
+
+  if app.config.get('OPENID_ENABLED'):
+    oidc.init_app(app)
+    from ProdManager.routes import openid
+    app.register_blueprint(openid.view, url_prefix="/openid")
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
