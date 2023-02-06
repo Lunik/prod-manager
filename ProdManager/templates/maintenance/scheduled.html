@@ -3,7 +3,7 @@
 {% set service_id = (service | default({})).id | default(None) %}
 <h2 id="scheduled_maintenances">
   <a href="{{ custom_url_for('maintenance.list', status=scheduled_maintenances_filters, scope=scope_id, service=service_id) }}">
-    {{ _("maintenance_scheduled").capitalize() }} {{ icon("angle-right") }}
+    {{ icon('maintenance') }}{{ _("maintenance_scheduled").capitalize() }} {{ icon("angle-right") }}
   </a>
 </h2>
 {% set resource_type = "maintenance" %}
