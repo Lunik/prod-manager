@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Added
+
+- feat(style): Add resources icons in list headers (#168) (!135)
+
 
 ## 0.19.0
 

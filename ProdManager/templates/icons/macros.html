@@ -1,5 +1,5 @@
 {% macro icon(name) %}
-<svg class="icon">
+<svg class="icon {{ name }}">
   <use href="#{{ name }}"/>
 </svg>
 {% endmacro %}
