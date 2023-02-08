@@ -1,0 +1,64 @@
+import os
+import hashlib
+from urllib.parse import urljoin
+
+import responses
+from flask import g
+
+from ProdManager.helpers.openid import OpenID
+from ProdManager import create_app
+
+app = create_app()
+
+def setup_function():
+  app.config['OPENID_ENABLED'] = True
+  app.config['OPENID_DISCOVER_URL'] = "http://sso.example.local/realms/master/"
+  app.config['OPENID_CLIENT_ID'] = "pytest"
+  app.config['OPENID_CLIENT_SECRET'] = "super_secret"
+  app.config["SERVER_NAME"] = "demo.local"
+
+  from ProdManager.routes import openid
+  app.register_blueprint(openid.view, url_prefix="/openid")
+
+@responses.activate
+def test_openid():
+  responses.get(
+    urljoin(app.config['OPENID_DISCOVER_URL'], ".well-known/openid-configuration"),
+    json=dict(
+      authorization_endpoint=urljoin(app.config['OPENID_DISCOVER_URL'], "protocol/openid-connect/auth"),
+      token_endpoint=urljoin(app.config['OPENID_DISCOVER_URL'], "protocol/openid-connect/token")
+    )
+  )
+  id_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU4MTE0MzEsImlhdCI6MTY3NTgxMTM3MSwiYXV0aF90aW1lIjoxNjc1ODExMzcxLCJqdGkiOiI0NGIzZDhhZS02NGQ4LTQ1MDQtOTI0NS0wOGYwMjdmZmRlZjEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvcmVhbG1zL21hc3RlciIsImF1ZCI6InN0YXR1cyIsInN1YiI6IjY1YjI0ZmE4LWMxZDktNGViNS1hNTlhLWZlODU2ZDZkOTVhZSIsInR5cCI6IklEIiwiYXpwIjoic3RhdHVzIiwic2Vzc2lvbl9zdGF0ZSI6IjhlMTBmN2U5LTExZjAtNDY0Ni05ZjNlLWQ3NTllYTM4MzllYSIsImF0X2hhc2giOiJHWTFQV0xabFdycElHZWRxRXZxQ0tnIiwic2lkIjoiOGUxMGY3ZTktMTFmMC00NjQ2LTlmM2UtZDc1OWVhMzgzOWVhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiVG90byBFbEZsYW50byIsInJvbGVzIjpbImFkbWluIl0sInByZWZlcnJlZF91c2VybmFtZSI6InRvdG8iLCJnaXZlbl9uYW1lIjoiVG90byIsImZhbWlseV9uYW1lIjoiRWxGbGFudG8iLCJlbWFpbCI6InRvdG9AZXhhbXBsZS5sb2NhbCJ9.AXbDA3SN0wOPvNnW0avkOs4DNBYizEKXMxst23yvW28'
+  responses.post(
+    urljoin(app.config['OPENID_DISCOVER_URL'], "protocol/openid-connect/token"),
+    json=dict(
+      id_token=id_token
+    )
+  )
+
+  openid = OpenID()
+
+  openid.init_app(app)
+
+  assert openid.metadata != dict()
+
+  with app.app_context():
+    g.api = False
+
+    state = hashlib.sha256(os.urandom(1024)).hexdigest()
+
+    authn_url = openid.get_authn_url(state=state)
+
+    assert authn_url == urljoin(app.config['OPENID_DISCOVER_URL'], f"protocol/openid-connect/auth?client_id=pytest&redirect_uri=http%3A%2F%2Fdemo.local%2Fopenid%2Fcallback&state={state}&response_type=code&scope=openid+email+profile")
+
+    token = openid.get_token("thecode")
+    token_id = token.get('id_token')
+    assert token_id == id_token
+    token_id = openid.decode_token(token_id)
+    assert openid.is_token_allowed(token_id)
+
+    assert not openid.is_token_allowed(openid.decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU4MTE0MzEsImlhdCI6MTY3NTgxMTM3MSwiYXV0aF90aW1lIjoxNjc1ODExMzcxLCJqdGkiOiI0NGIzZDhhZS02NGQ4LTQ1MDQtOTI0NS0wOGYwMjdmZmRlZjEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvcmVhbG1zL21hc3RlciIsImF1ZCI6InN0YXR1cyIsInN1YiI6IjY1YjI0ZmE4LWMxZDktNGViNS1hNTlhLWZlODU2ZDZkOTVhZSIsInR5cCI6IklEIiwiYXpwIjoic3RhdHVzIiwic2Vzc2lvbl9zdGF0ZSI6IjhlMTBmN2U5LTExZjAtNDY0Ni05ZjNlLWQ3NTllYTM4MzllYSIsImF0X2hhc2giOiJHWTFQV0xabFdycElHZWRxRXZxQ0tnIiwic2lkIjoiOGUxMGY3ZTktMTFmMC00NjQ2LTlmM2UtZDc1OWVhMzgzOWVhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiVG90byBFbEZsYW50byIsInJvbGVzIjpbImRldmVsb3BlciJdLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0b3RvIiwiZ2l2ZW5fbmFtZSI6IlRvdG8iLCJmYW1pbHlfbmFtZSI6IkVsRmxhbnRvIiwiZW1haWwiOiJ0b3RvQGV4YW1wbGUubG9jYWwifQ.8DZXSkIW214dj0w3tZJlCTpWQFsBkuqu4Db-mCjs2G8'))
+    assert not openid.is_token_allowed(openid.decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU4MTE0MzEsImlhdCI6MTY3NTgxMTM3MSwiYXV0aF90aW1lIjoxNjc1ODExMzcxLCJqdGkiOiI0NGIzZDhhZS02NGQ4LTQ1MDQtOTI0NS0wOGYwMjdmZmRlZjEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvcmVhbG1zL21hc3RlciIsImF1ZCI6InN0YXR1cyIsInN1YiI6IjY1YjI0ZmE4LWMxZDktNGViNS1hNTlhLWZlODU2ZDZkOTVhZSIsInR5cCI6IklEIiwiYXpwIjoic3RhdHVzIiwic2Vzc2lvbl9zdGF0ZSI6IjhlMTBmN2U5LTExZjAtNDY0Ni05ZjNlLWQ3NTllYTM4MzllYSIsImF0X2hhc2giOiJHWTFQV0xabFdycElHZWRxRXZxQ0tnIiwic2lkIjoiOGUxMGY3ZTktMTFmMC00NjQ2LTlmM2UtZDc1OWVhMzgzOWVhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiVG90byBFbEZsYW50byIsInByZWZlcnJlZF91c2VybmFtZSI6InRvdG8iLCJnaXZlbl9uYW1lIjoiVG90byIsImZhbWlseV9uYW1lIjoiRWxGbGFudG8iLCJlbWFpbCI6InRvdG9AZXhhbXBsZS5sb2NhbCJ9.8hU2DMckXfYtJy59_P5wAq-5WjZ3vuC5c6D8iHdPB9c'))
+    assert openid.is_token_allowed(openid.decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU4MTE0MzEsImlhdCI6MTY3NTgxMTM3MSwiYXV0aF90aW1lIjoxNjc1ODExMzcxLCJqdGkiOiI0NGIzZDhhZS02NGQ4LTQ1MDQtOTI0NS0wOGYwMjdmZmRlZjEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvcmVhbG1zL21hc3RlciIsImF1ZCI6InN0YXR1cyIsInN1YiI6IjY1YjI0ZmE4LWMxZDktNGViNS1hNTlhLWZlODU2ZDZkOTVhZSIsInR5cCI6IklEIiwiYXpwIjoic3RhdHVzIiwic2Vzc2lvbl9zdGF0ZSI6IjhlMTBmN2U5LTExZjAtNDY0Ni05ZjNlLWQ3NTllYTM4MzllYSIsImF0X2hhc2giOiJHWTFQV0xabFdycElHZWRxRXZxQ0tnIiwic2lkIjoiOGUxMGY3ZTktMTFmMC00NjQ2LTlmM2UtZDc1OWVhMzgzOWVhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiVG90byBFbEZsYW50byIsInJvbGVzIjoiYWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0b3RvIiwiZ2l2ZW5fbmFtZSI6IlRvdG8iLCJmYW1pbHlfbmFtZSI6IkVsRmxhbnRvIiwiZW1haWwiOiJ0b3RvQGV4YW1wbGUubG9jYWwifQ.Ki4gMRyGMmwZxd_qwPwgqBuLeTWAPYJH7gNfyt2gQ3g'))
+    assert openid.is_token_allowed(openid.decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU4MTE0MzEsImlhdCI6MTY3NTgxMTM3MSwiYXV0aF90aW1lIjoxNjc1ODExMzcxLCJqdGkiOiI0NGIzZDhhZS02NGQ4LTQ1MDQtOTI0NS0wOGYwMjdmZmRlZjEiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvcmVhbG1zL21hc3RlciIsImF1ZCI6InN0YXR1cyIsInN1YiI6IjY1YjI0ZmE4LWMxZDktNGViNS1hNTlhLWZlODU2ZDZkOTVhZSIsInR5cCI6IklEIiwiYXpwIjoic3RhdHVzIiwic2Vzc2lvbl9zdGF0ZSI6IjhlMTBmN2U5LTExZjAtNDY0Ni05ZjNlLWQ3NTllYTM4MzllYSIsImF0X2hhc2giOiJHWTFQV0xabFdycElHZWRxRXZxQ0tnIiwic2lkIjoiOGUxMGY3ZTktMTFmMC00NjQ2LTlmM2UtZDc1OWVhMzgzOWVhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiVG90byBFbEZsYW50byIsInJvbGVzIjoiYWRtaW4jI2RldmVsb3BlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRvdG8iLCJnaXZlbl9uYW1lIjoiVG90byIsImZhbWlseV9uYW1lIjoiRWxGbGFudG8iLCJlbWFpbCI6InRvdG9AZXhhbXBsZS5sb2NhbCJ9.1kbjfBnX2qrvnH6WVxJBzIeiv4q4KOEtUN1iCSBm80g'))
