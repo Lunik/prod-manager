@@ -7,6 +7,10 @@
 - feat(style): Add resources icons in list headers (#168) (!135)
 - feat(auth): Add support for SSO authentication (#161) (!136)
 
+## Fixed
+
+- fix: Typo issues in README.md (#171) (!137)
+
 
 ## 0.19.0
 
