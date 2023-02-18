@@ -14,12 +14,13 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
 
 - Use `Scopes` to split your environment into smaller chunks
 - Create `Services` to match your production environment
-- Define `Monitor` to display your `Scopes`/`Services` status
+- Define `Monitors` to display your `Scopes`/`Services` status
   - Install custom integration to fetch and update status from external sources
     - Currently supported : [Datadog][datadog], [Jenkins][jenkins], DNS, HTTP
-- Track `Incident` status and resolution
-- Plan `Maintenances` when enhancing your `Service`
-- Mail notifications when `CREATE` or `UPDATE` an `Incident`/`Maintenance`
+- Track `Incidents` status and resolution
+- Plan `Maintenances` when enhancing your `Services`
+- Show `Announcements` to your community
+- Mail notifications when `CREATE` or `UPDATE` an `Incidents`/`Maintenances`
 - ICalendar download for `Maintenances`
 - [API endpoints](https://prod-manager.tiwabbit.fr/api/)
 - [API Python library](https://prod-manager-api.tiwabbit.fr/)
