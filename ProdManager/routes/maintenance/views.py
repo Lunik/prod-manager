@@ -246,7 +246,7 @@ def calendar(resource_id):
 
   response = Response(
     response=CalendarEvent.from_maintenance(maintenance).render(),
-    content_type="text/calendar",
+    content_type="application/ics",
   )
-  response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{maintenance.name}.ics"
+  response.headers["Content-Disposition"] = f"attachment; filename={maintenance.name}.ics"
   return response, 200

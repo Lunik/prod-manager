@@ -6,6 +6,11 @@
 
 - feat(style): Add resources icons in list headers (#168) (!135)
 - feat(auth): Add support for SSO authentication (#161) (!136)
+- feat(notify/maintenance): Add `.ics` calendar file on Maintenance notification email (#170) (!138)
+
+## Changed
+
+- change(maintenance): Update the content-type of the calendar file for `application/ics` (!138)
 
 ## Fixed
 
