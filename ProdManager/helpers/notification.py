@@ -19,11 +19,12 @@ class NotificationType(enum.Enum):
   UPDATE = "update"
 
 
-def send_notification(title, content):
+def send_notification(title, content, attachments=[]):
   return mail.send_mail(
-    [subscriber.email for subscriber in ResourceHelpers.list_resources(Subscriber, paginate=False)],
-    title,
-    content,
+    to_emails=[subscriber.email for subscriber in ResourceHelpers.list_resources(Subscriber, paginate=False)],
+    subject=title,
+    body=content,
+    attachments=attachments,
   )
 
 
@@ -33,7 +34,9 @@ def notify(notif_type, resource_class, resource):
 
   if resource_class not in NOTIFICATION_SUPPORTED_RESOURCES:
     current_app.logger.debug(
-      f"Ignore sending notification because {resource_class} is not in {NOTIFICATION_SUPPORTED_RESOURCES}"
+      "Ignore sending notification because %s is not in %s",
+      resource_class,
+      NOTIFICATION_SUPPORTED_RESOURCES,
     )
     return
 
@@ -41,10 +44,19 @@ def notify(notif_type, resource_class, resource):
   notif_title += " - " + lang.get(f"{resource_class.__name__.lower()}_{notif_type.value}_notification_title")
 
   try:
-    send_notification(notif_title, custom_render_template(
-      f"notification/{resource_class.__name__.lower()}.html",
-      resource=resource,
-      minify=False,
-    ))
+    send_notification(
+      title=notif_title,
+      content=custom_render_template(
+        f"notification/{resource_class.__name__.lower()}.html",
+        resource=resource,
+        minify=False,
+      ),
+      attachments=resource.notify_attachments(),
+    )
   except Exception as error:
-    current_app.logger.error(f"Unable to send notification during {resource_class.__name__} {notif_type.value} : {error}")
+    current_app.logger.error(
+      "Unable to send notification during %s %s : %s",
+      resource_class.__name__,
+      notif_type.value,
+      error,
+    )

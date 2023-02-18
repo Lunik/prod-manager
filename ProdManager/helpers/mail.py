@@ -73,14 +73,14 @@ class MailWorker():
     connection.close()
 
 
-  def send_mail(self, to_emails, subject, body):
+  def send_mail(self, to_emails, subject, body, attachments=[]):
     if not self.enabled:
       return None
 
     if len(to_emails) == 0:
       return None
 
-    message = MIMEMultipart("alternative")
+    message = MIMEMultipart()
 
     message["Subject"] = f"{self.mail_prefix}{subject}"
     message["From"] = self.sender
@@ -89,6 +89,18 @@ class MailWorker():
       message["Reply-To"] = self.reply_to
 
     message.attach(MIMEText(body, "html"))
+
+    for attachment in attachments:
+      try:
+        part = attachment['mime'](attachment['content'], attachment['subtype'])
+        part.add_header('Content-Disposition', 'attachment', filename=attachment['filename'])
+        message.attach(part)
+      except Exception as error:
+        self.logger.error(
+          "Unable to attach '%s' to mail : %s",
+          attachment['filename'],
+          error,
+        )
 
     worker = Thread(target=self.send_async_email, args=[self, message])
     worker.start()

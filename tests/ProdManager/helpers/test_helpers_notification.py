@@ -8,6 +8,7 @@ from ProdManager.models import (
 from ProdManager.helpers.notification import (
   send_notification, notify, NotificationType
 )
+from ProdManager.helpers.date import current_date
 from ProdManager import create_app
 
 app = create_app()
@@ -23,7 +24,9 @@ def test_notify(mock_instance):
       service=Service(id=1, name="svc01"),
       name="maint01",
       status=MaintenanceStatus.FAILED,
-      service_status=ServiceStatus.UP
+      service_status=ServiceStatus.UP,
+      scheduled_start_date=current_date(),
+      scheduled_end_date=current_date(),
     ))
 
     mock_instance.assert_called_once()

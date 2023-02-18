@@ -191,8 +191,8 @@ class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
       rv = client.get(rv.headers.get('Location') + "/calendar")
 
       assert rv.status_code == 200
-      assert rv.headers['Content-Type'] == "text/calendar"
-      assert rv.headers['Content-Disposition'] == f"attachment; filename*=UTF-8''{maintenance_name}.ics"
+      assert rv.headers['Content-Type'] == "application/ics"
+      assert rv.headers['Content-Disposition'] == f"attachment; filename={maintenance_name}.ics"
       self.assertInResponse(b'BEGIN:VCALENDAR', rv)
       self.assertInResponse(b'BEGIN:VEVENT', rv)
 
