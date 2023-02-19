@@ -2,6 +2,6 @@
 {% set service_id = (service | default({})).id | default(None) %}
 <h2 id="past_incidents">
   <a href="{{ custom_url_for('incident.list', status=past_incidents_filters, scope=scope_id, service=service_id) }}">
-    {{ _("incident_past").capitalize() }} {{ icon("angle-right") }}
+    {{ icon('incident') }}{{ _("incident_past").capitalize() }} {{ icon("angle-right") }}
   </a>
 </h2>

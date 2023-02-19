@@ -99,3 +99,6 @@ class Announcement(db.Model):
       result[key] = value
 
     return result
+
+  def notify_attachments(self):
+    return []

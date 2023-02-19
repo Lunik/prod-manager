@@ -45,6 +45,8 @@ def do_login():
       reasons=dict(secret=[lang.get("auth_invalid_secret")]),
     ))
 
+  current_app.logger.info("Login succeed with application secret")
+
   session.clear()
   session["logged"] = True
   session["logged_at"] = datetime.now().timestamp()

@@ -352,3 +352,11 @@ token_expired_version: "La version du token ext expirée. attendu : "
 
 api_permission_denied: Autorisation API refusée
 api_ratelimit_reached: La limite de débit de l'API a été atteinte
+
+# OpenID
+openid_login_title: Authentitication avec OpenID
+openid_callback_failed: Callback OpendID échoué
+openid_invalid_state: State OpendID invalide
+openid_invalid_code: Code OpendID invalide
+openid_auth_failed: Authentification OpendID échouée
+openid_not_enough_permissions: Permissions insufisantes pour l'authentification avec OpenID

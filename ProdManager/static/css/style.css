@@ -97,6 +97,13 @@ div#content h2 a:hover {
 }
 
 div#content h2 .icon {
+  margin: -6px 5px auto 5px;
+
+  width: 20px;
+  height: 20px;
+}
+
+div#content h2 .icon.angle-right {
   margin: auto 5px;
 }
 
@@ -539,6 +546,7 @@ div#forms .form-toogle {
 
 form {
   padding: 0 25px;
+  margin: 5px auto;
 }
 
 form .field {

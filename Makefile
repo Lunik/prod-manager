@@ -94,7 +94,7 @@ database-upgrade:
 	${FLASK} db upgrade
 
 lint:
-	${PYLINT} ${PACKAGE_NAME}/* | tee pylint-report.txt
+	${PYLINT} -v -j0 ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test: local-database-cleanup demo-data-dev
 	${VENV_PY} -m pytest -vv -n 4 --cov=${PACKAGE_NAME} --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/ \

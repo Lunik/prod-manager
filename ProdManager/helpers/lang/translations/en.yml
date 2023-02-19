@@ -363,3 +363,11 @@ token_expired_version: "Token version is expired. expected : "
 
 api_permission_denied: API permission denied
 api_ratelimit_reached: API rate limit has been reached
+
+# OpenID
+openid_login_title: OpenID authentication
+openid_callback_failed: OpendID callback failed
+openid_invalid_state: OpendID invalid state
+openid_invalid_code: OpendID invalid code
+openid_auth_failed: OpendID authentication failed
+openid_not_enough_permissions: Not enough permissions for OpenID login

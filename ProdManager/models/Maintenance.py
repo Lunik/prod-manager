@@ -1,3 +1,5 @@
+from email.mime.application import MIMEApplication
+
 from sqlalchemy import String, Integer, Column, ForeignKey, DateTime, Enum, func
 from sqlalchemy.orm import relationship
 
@@ -6,6 +8,7 @@ from flask import g
 from ProdManager.plugins import db, lang
 from ProdManager.helpers.model import ModelEnum
 from ProdManager.helpers.links import custom_url_for
+from ProdManager.helpers.calendar import CalendarEvent
 
 from .Service import ServiceStatus
 from .MaintenanceEvent import MaintenanceEvent
@@ -159,3 +162,13 @@ class Maintenance(db.Model):
       result[key] = value
 
     return result
+
+  def notify_attachments(self):
+    return [
+      dict(
+        filename=f"{self.name}.ics",
+        mime=MIMEApplication,
+        subtype="ics",
+        content=CalendarEvent.from_maintenance(self).render(),
+      )
+    ]
