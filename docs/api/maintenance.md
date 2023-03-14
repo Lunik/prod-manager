@@ -41,7 +41,7 @@ GET /maintenance/<id>
 Create an maintenance. [Authentication](./authentication.md) is required.
 
 ```
-POST /maintenance
+POST /maintenance/create
 ```
 
 | Attribute | Type | Required | Description |

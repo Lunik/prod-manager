@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Fixed
+
+- doc(API): Correct documented endpoint for creating resources (#176) (!139)
+
 
 ## 0.20.0
 
