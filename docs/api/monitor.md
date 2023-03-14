@@ -37,7 +37,7 @@ GET /monitor/<id>
 Create an monitor. [Authentication](./authentication.md) is required.
 
 ```
-POST /monitor
+POST /monitor/create
 ```
 
 | Attribute | Type | Required | Description |

@@ -39,7 +39,7 @@ GET /incident/<id>
 Create an incident. [Authentication](./authentication.md) is required.
 
 ```
-POST /incident
+POST /incident/create
 ```
 
 | Attribute | Type | Required | Description |

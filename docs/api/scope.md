@@ -30,7 +30,7 @@ GET /scope/<id>
 Create an scope. [Authentication](./authentication.md) is required.
 
 ```
-POST /scope
+POST /scope/create
 ```
 
 | Attribute | Type | Required | Description |
