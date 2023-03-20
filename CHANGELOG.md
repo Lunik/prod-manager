@@ -5,7 +5,7 @@
 ## Fixed
 
 - doc(API): Correct documented endpoint for creating resources (#176) (!139)
-
+- fix(openapi): Add missing `announcement_api` permission on token creation schema (#177) (!140)
 
 ## 0.20.0
 
