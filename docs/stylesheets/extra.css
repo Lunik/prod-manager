@@ -1,0 +1,4 @@
+
+table td > code {
+  word-break: keep-all !important;
+}

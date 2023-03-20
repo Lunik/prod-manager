@@ -6,6 +6,8 @@
 
 - doc(API): Correct documented endpoint for creating resources (#176) (!139)
 - fix(openapi): Add missing `announcement_api` permission on token creation schema (#177) (!140)
+- fix(style): Prevent word break on `<code>` content in tables (#174) (!141)
+
 
 ## 0.20.0
 
