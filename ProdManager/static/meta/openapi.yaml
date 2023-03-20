@@ -41,6 +41,7 @@ components:
           - incident_api
           - maintenance_api
           - monitor_api
+          - announcement_api
     token_playload:
       type: object
       properties:
