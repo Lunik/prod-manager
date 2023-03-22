@@ -174,7 +174,7 @@ about_content: >
   ProdManager is a lightweight tool that allow you to display
   your production infrastructure status to your client.
 
-about_update: Check for updates
+about_update: Check latest releases
 about_source: Source
 
 about_licence_pre: ProdManager is developped under
@@ -371,3 +371,7 @@ openid_invalid_state: OpendID invalid state
 openid_invalid_code: OpendID invalid code
 openid_auth_failed: OpendID authentication failed
 openid_not_enough_permissions: Not enough permissions for OpenID login
+
+# Version
+version_up_to_date: Up to date
+version_update_available: Update available

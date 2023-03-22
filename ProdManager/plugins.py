@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from flask_redis import FlaskRedis
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from ProdManager.helpers.mail import MailWorker
 from ProdManager.helpers.lang import LangManager
@@ -24,3 +25,4 @@ markdown = Markdown(
   ]
 )
 oidc = OpenID()
+scheduler = BackgroundScheduler()

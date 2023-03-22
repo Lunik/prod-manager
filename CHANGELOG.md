@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## Added
+
+- feat(version): Make the application self aware of its version (#173) (!142)
+  - Display the current version of the application in the About page
+  - New endpoint to query the application version `/health/version`
+  - Automatically search for new version and display the current status in About page
+- ci(version): Verify that the version has been updated in tag pipeline (#173) (!142)
+
 ## Fixed
 
 - doc(API): Correct documented endpoint for creating resources (#176) (!139)

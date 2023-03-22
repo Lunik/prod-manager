@@ -6,9 +6,16 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
+from ProdManager.helpers.version import AppVersion
 from .plugins import (
-  db, migrate, csrf, mail, lang, redis_client, markdown, oidc
+  db, migrate, csrf, mail, lang, redis_client, markdown, oidc,
+  scheduler
 )
+
+__version__ = "v0.21.0"
+GIT_PROJECT_URL = "https://gitlab.com/prod-manager/prod-manager"
+GIT_PROJECT_ID = 36953895
+LATEST_VERSION_URL = f"https://gitlab.com/api/v4/projects/{GIT_PROJECT_ID}/releases/permalink/latest"
 
 def create_app():
   app = Flask(
@@ -74,6 +81,17 @@ def create_app():
     OPENID_CLIENT_SCOPES=os.environ.get("PM_OPENID_CLIENT_SCOPES", "openid email profile"),
     OPENID_ROLES_ATTRIBUTE=os.environ.get("PM_OPENID_ROLES_ATTRIBUTE", "roles"),
     OPENID_ALLOWED_ROLE=os.environ.get("PM_OPENID_ALLOWED_ROLE", "admin"),
+    DISABLE_VERSION_CHECK=boolean_param(os.environ.get("PM_DISABLE_VERSION_CHECK", 'False')),
+  )
+
+  app.scheduler = scheduler
+  if not app.scheduler.running:
+    app.scheduler.start()
+
+  app.version = AppVersion(
+    __version__,
+    LATEST_VERSION_URL,
+    disable_check=app.config['DISABLE_VERSION_CHECK']
   )
 
   app.wsgi_app = ProxyFix(app.wsgi_app, x_for=int(os.environ.get("PM_PROXY_CHAIN_COUNT", 1)), x_proto=1)
@@ -193,6 +211,8 @@ def create_app():
   app.jinja_env.globals['is_it_winter'] = is_it_winter
   app.jinja_env.globals['get_resource_view'] = get_resource_view
   app.jinja_env.globals['include_file'] = include_file
+  app.jinja_env.globals['git_project_url'] = GIT_PROJECT_URL
+  app.jinja_env.globals['app_version'] = app.version
 
 
   return app
