@@ -2,7 +2,7 @@
 {% set scope_id = (scope | default({})).id | default(None) %}
 {% set service_id = (service | default({})).id | default(None) %}
   {% if count > 0 %}
-  <div class="badge monitor {{ status.value }}" id="status">
+  <div class="badge monitor resume {{ status.value }}" id="status">
     <a href="{{ custom_url_for('monitor.list', scope=scope_id, service=service_id, status=status.value) }}">
       {{ icon(status.value) }}<span class="count">{{ count }}</span> {{ _("monitor_status_" + status.value) }}
     </a>

@@ -167,6 +167,18 @@ build_doc:
     paths:
       - site/
 
+version_check:
+  stage: validate
+  extends: .python-tests
+  stage: validate
+  cache:
+    <<: *python_cache
+  needs: []
+  script:
+    - PYTHONPATH=. python3 tests/version.py
+  only:
+    - tags
+
 container_scanning:
   stage: validate
   variables:

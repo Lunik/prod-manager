@@ -43,3 +43,6 @@ datadog-api-client
 api4jenkins
 ## DNS
 dnspython
+
+# Background jobs
+apscheduler

@@ -3,10 +3,8 @@
 {% block title %}{{ share_title }}{% endblock %}
 {% set is_about = True %}
 
-{% set git_project_url = "https://gitlab.com/prod-manager/prod-manager" %}
-
 {% block content %}
-<h1 id="title">{{ _("about_title_alt") }} ProdManager</h1>
+<h1 id="title">{{ _("about_title_alt") }} ProdManager - v{{ app_version.current }} {% include 'fragments/version.html' %}</h1>
 <div id="about">
   <div id="logo" class="about-section">
     {% if is_it_winter() %}

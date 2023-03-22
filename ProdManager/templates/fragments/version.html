@@ -1,0 +1,10 @@
+
+{% if app_version.latest %}
+ <div id="version" class="badge version {{ 'latest' if app_version.is_latest() else '' }}">
+    {% if app_version.is_latest() %}
+      {{ _("version_up_to_date") }}
+    {% else %}
+      <a href="{{ app_version.release_url }}" target="_blank" rel="noopener">{{ _("version_update_available") }} : v{{ app_version.latest }}</a>
+    {% endif %}
+  </div>
+{% endif %}
