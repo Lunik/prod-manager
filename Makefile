@@ -82,10 +82,10 @@ run: $(if $(PM_STANDALONE), database-upgrade) $(if $(PM_DEMO), demo-data)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
 
 demo-data-dev: database-upgrade
-	PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
+	FLASK_RUN_FROM_CLI=True PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
 
 demo-data: database-upgrade
-	PYTHONPATH=. python3 ProdManager/demo/init.py
+	FLASK_RUN_FROM_CLI=True PYTHONPATH=. python3 ProdManager/demo/init.py
 
 database-migration:
 	${FLASK} db migrate -m "<EDIT COMMIT MESSAGE>"
@@ -97,7 +97,7 @@ lint:
 	${PYLINT} -v -j0 ${PACKAGE_NAME}/* | tee pylint-report.txt
 
 test: local-database-cleanup demo-data-dev
-	${VENV_PY} -m pytest -vv -n 4 --cov=${PACKAGE_NAME} --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/ \
+	FLASK_RUN_FROM_CLI=True ${VENV_PY} -m pytest -vv -n 4 --cov=${PACKAGE_NAME} --junitxml=result.xml --html=report.html tests/${PACKAGE_NAME}/ \
 	&& ${COVERAGE} xml \
 	&& ${COVERAGE} html
 
