@@ -7,6 +7,7 @@ from flask import Flask
 
 from ProdManager.helpers.config import boolean_param
 from ProdManager.helpers.version import AppVersion
+from ProdManager.helpers.hello import Hello
 from .plugins import (
   db, migrate, csrf, mail, lang, redis_client, markdown, oidc,
   scheduler
@@ -82,6 +83,7 @@ def create_app():
     OPENID_ROLES_ATTRIBUTE=os.environ.get("PM_OPENID_ROLES_ATTRIBUTE", "roles"),
     OPENID_ALLOWED_ROLE=os.environ.get("PM_OPENID_ALLOWED_ROLE", "admin"),
     DISABLE_VERSION_CHECK=boolean_param(os.environ.get("PM_DISABLE_VERSION_CHECK", 'False')),
+    DISABLE_HELLO=boolean_param(os.environ.get("PM_DISABLE_HELLO", 'False')),
   )
 
   app.scheduler = scheduler
@@ -158,7 +160,7 @@ def create_app():
 
   from ProdManager.models import (
     Incident, IncidentEvent, Maintenance, MaintenanceEvent,
-    Monitor, Subscriber, Scope, Service, Announcement
+    Monitor, Subscriber, Scope, Service, Announcement, AppConfig
   )
 
 
@@ -214,5 +216,6 @@ def create_app():
   app.jinja_env.globals['git_project_url'] = GIT_PROJECT_URL
   app.jinja_env.globals['app_version'] = app.version
 
+  app.hello = Hello(app)
 
   return app

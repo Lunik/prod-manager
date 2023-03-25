@@ -1,3 +1,4 @@
+import os
 import logging
 from datetime import datetime, timedelta
 from pkg_resources import parse_version
@@ -18,6 +19,9 @@ class AppVersion:
 
     self.current = parse_version(current)
     self.latest_version_url = latest_version_url
+
+    if os.environ.get("FLASK_RUN_FROM_CLI"):
+      return
 
     if disable_check:
       self.logger.info("Automatic version check has been disabled")

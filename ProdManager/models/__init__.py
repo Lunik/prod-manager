@@ -1,4 +1,5 @@
 
+from .AppConfig import AppConfig
 from .Event import Event, EventType
 from .Incident import Incident, IncidentSeverity, IncidentStatus
 from .IncidentEvent import IncidentEvent
