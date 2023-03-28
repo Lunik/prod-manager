@@ -127,8 +127,8 @@ announcement_title: &announcement_title Annonce
 
 announcement_ongoing: [*announcement_name, "s en cours"]
 
-announcement_start: depuis
-announcement_end: jusqu'a
+announcement_start: depuis le
+announcement_end: jusqu'au
 
 announcement_level_high: HAUT
 announcement_level_medium: MOYEN
