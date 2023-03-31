@@ -30,7 +30,7 @@ GET /service/<id>
 Create an service. [Authentication](./authentication.md) is required.
 
 ```
-POST /service
+POST /service/create
 ```
 
 | Attribute | Type | Required | Description |

@@ -121,6 +121,7 @@ div#icon-library {
 
 .badge {
   display: inline-block;
+  vertical-align: middle;
 
   padding: 5px;
   margin-right: 5px;
@@ -130,6 +131,7 @@ div#icon-library {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 
   letter-spacing: 0.5px;
+  font-size: 16px;
 }
 
 .badge a {
@@ -168,6 +170,16 @@ div#icon-library {
 .badge.announcement#level.high   { background-color: var(--badge-red-color); color: var(--badge-red-text-color); }
 .badge.announcement#level.medium { background-color: var(--badge-yellow-color); color: var(--badge-yellow-text-color); }
 .badge.announcement#level.low    { background-color: var(--badge-blue-color); color: var(--badge-blue-text-color); }
+
+.badge.version.latest { background-color: var(--badge-green-color); color: var(--badge-green-text-color); }
+.badge.version { background-color: var(--badge-orange-color); color: var(--badge-orange-text-color); }
+h1 .badge.version {
+  margin-left: 10px;
+  margin-top: -5px;
+}
+.badge.monitor.resume, #resource_metadata .badge {
+  margin-top: -5px;
+}
 
 .badge a       { color: var(--badge-blue-text-color) !important; }
 .badge a:hover { color: var(--badge-blue-text-color) !important; }

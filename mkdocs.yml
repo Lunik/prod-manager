@@ -29,6 +29,9 @@ theme:
   features:
     - search.highlight
 
+extra_css:
+  - stylesheets/extra.css
+
 extra:
   social:
     - icon: fontawesome/brands/gitlab 
@@ -47,6 +50,7 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - tables
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.highlight:

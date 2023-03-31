@@ -39,7 +39,7 @@ GET /announcement/<id>
 Create an announcement. [Authentication](./authentication.md) is required.
 
 ```
-POST /announcement
+POST /announcement/create
 ```
 
 | Attribute | Type | Required | Description |

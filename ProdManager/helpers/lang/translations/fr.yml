@@ -127,8 +127,8 @@ announcement_title: &announcement_title Annonce
 
 announcement_ongoing: [*announcement_name, "s en cours"]
 
-announcement_start: depuis
-announcement_end: jusqu'a
+announcement_start: depuis le
+announcement_end: jusqu'au
 
 announcement_level_high: HAUT
 announcement_level_medium: MOYEN
@@ -170,7 +170,7 @@ about_content: >
   ProdManager est un outil léger permettant d'afficher
   l'état de votre infrastructure de production à vos client
 
-about_update: Vérifier les mises à jour
+about_update: Vérifier les releases
 about_source: Source
 
 about_licence_pre: ProdManager est développé sous
@@ -360,3 +360,7 @@ openid_invalid_state: State OpendID invalide
 openid_invalid_code: Code OpendID invalide
 openid_auth_failed: Authentification OpendID échouée
 openid_not_enough_permissions: Permissions insufisantes pour l'authentification avec OpenID
+
+# Version
+version_up_to_date: À jour
+version_update_available: Mise à jour disponible

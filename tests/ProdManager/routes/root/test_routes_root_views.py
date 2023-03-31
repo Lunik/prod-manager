@@ -2,7 +2,7 @@ import flask_unittest
 import flask.globals
 from flask import request
 
-from ProdManager import create_app
+from ProdManager import create_app, __version__
 
 class TestRoutesRootViews(flask_unittest.AppTestCase):
 
@@ -35,7 +35,7 @@ class TestRoutesRootViews(flask_unittest.AppTestCase):
   def test_about_with_client(self, app):
     with app.test_client() as client:
       rv = client.get('/about')
-      self.assertInResponse(b'<h1 id="title">About ProdManager</h1>', rv)
+      self.assertInResponse(f'<h1 id="title">About ProdManager - {__version__}</h1>'.encode('utf-8'), rv)
       self.assertNotIn(b"__missing_translation", rv.data)
 
   def test_api_with_client(self, app):
