@@ -10,6 +10,7 @@ _Copy the full changelog here_
 - [ ] The [CHANGELOG][changelog] file is up to date
   - [ ] `[Unreleased]` have been replaced with the release version
 - [ ] The [CODEOWNERS][codeowners] file is up to date
+- [ ] The application version in `ProdManager.app.__version__` is up to date
 
 <!-- Links -->
 
