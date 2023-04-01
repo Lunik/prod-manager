@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## [Unreleased]
+## 0.21.1
+
+## Fixed
+
+- fix(hello): Add missing features `stats` and `openid` (!145)
 
 
 ## 0.21.0

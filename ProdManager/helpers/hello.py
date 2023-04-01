@@ -12,7 +12,7 @@ from ProdManager.models import (
 
 class Hello:
   logger = logging.getLogger('gunicorn.error')
-  endpoint = "https://hello.prod-manager.tiwabbit.fr"
+  endpoint = "https://hello.prod-manager.tiwabbit.fr?version=v2"
 
   def __init__(self, app, refresh_interval_days=7, next_run_time_delta_seconds=30):
     if os.environ.get("FLASK_RUN_FROM_CLI"):
@@ -54,7 +54,9 @@ class Hello:
         features=dict(
           mail=app.config["MAIL_ENABLED"],
           api_rate_limit=app.config["API_RATELIMIT_ENABLED"],
-          version_check=not app.config["DISABLE_VERSION_CHECK"]
+          version_check=not app.config["DISABLE_VERSION_CHECK"],
+          stats=app.config["STATS_ENABLED"],
+          openid=app.config["OPENID_ENABLED"]
         ),
         integrations=dict(
           datadog=Monitor.query.filter(Monitor.integration.startswith("datadog")).count(),
