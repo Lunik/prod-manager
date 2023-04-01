@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Fixed
+
+- fix(doc): Configure `site_url` to fix `sitemap.xml` generation
+
 
 ## 0.21.1
 
