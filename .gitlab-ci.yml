@@ -237,6 +237,7 @@ container_runtime:
       alias: prod-manager
       variables:
         PM_DEMO: "true"
+        PM_DISABLE_HELLO: "true"
   before_script:
     - >
       apk add
@@ -284,6 +285,7 @@ kubernetes_manifests:
       alias: prod-manager
       variables:
         PM_DEMO: "true"
+        PM_DISABLE_HELLO: "true"
 
 dast:
   stage: validate
