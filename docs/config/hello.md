@@ -14,3 +14,49 @@ You can configured hello behaviour with thoses environment variables :
 |:---------------------|:-----|:--------------|:------------|
 | `PM_DISABLE_HELLO` | boolean | `False` | Disable Hello. Disabling this feature allow to prevent public communication with upstream Hello api |
 | `PM_HELLO_ENDPOINT` | string | `https://hello.prod-manager.tiwabbit.fr` | Overwrite Hello endpoint. **For developpement purpose only** |
+
+## Playload
+
+Here is the schema of the sent playload :
+
+```json
+{
+  "type" : "object",
+  "properties" : {
+    "uuid" : {"type" : "string"},
+    "version" : {"type" : "string"},
+    "lang" : {"type" : "string"},
+    "counts": {
+      "type" : "object",
+      "properties": {
+        "services": {"type" : "number"},
+        "scopes": {"type" : "number"},
+        "incidents": {"type" : "number"},
+        "maintenances": {"type" : "number"},
+        "announcements": {"type" : "number"},
+        "monitors": {"type" : "number"},
+        "subscribers": {"type" : "number"}
+      }
+    },
+    "features": {
+      "type" : "object",
+      "properties": {
+        "mail": {"type" : "boolean"},
+        "api_rate_limit": {"type" : "boolean"},
+        "version_check": {"type" : "boolean"},
+        "stats": {"type" : "boolean"},
+        "openid": {"type" : "boolean"}
+      }
+    },
+    "integrations": {
+      "type" : "object",
+      "properties": {
+        "datadog": {"type" : "number"},
+        "dns": {"type" : "number"},
+        "http": {"type" : "number"},
+        "jenkins": {"type" : "number"}
+      }
+    }
+  }
+}
+```
