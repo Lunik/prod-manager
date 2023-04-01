@@ -25,6 +25,16 @@
 - fix(translation.fr): Update date translation in announcement (#179) (!143)
 
 
+## 0.20.1
+
+## Fixed
+
+- cve(CVE-2022-1304): e2fsprogs: out-of-bounds read/write via crafted filesystem
+- cve(CVE-2023-0464): openssl: Denial of service by excessive resource usage in verifying X509 policy
+- cve(CVE-2023-28858, CVE-2023-28859): redis: Async command information disclosure
+- cve(other): CVE-2023-0465, CVE-2023-0466
+
+
 ## 0.20.0
 
 ## Added
