@@ -9,7 +9,7 @@ from ProdManager.helpers.resource import create_resource, get_resource
 from ProdManager.models import Monitor, MonitorStatus
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 MONITORS = dict()
 

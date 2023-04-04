@@ -5,7 +5,7 @@ from ProdManager.models.Maintenance import (
   MaintenanceStatus, Maintenance,
 )
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def test_maintenance_title():
   maintenance = Maintenance(

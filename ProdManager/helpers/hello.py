@@ -75,13 +75,13 @@ class Hello:
     except Exception as error:
       hello.logger.debug("Failed to generate Hello playload")
       hello.logger.debug(error)
-      return
+      return None
 
     try:
       response = requests.post(hello.endpoint, json=playload, timeout=300)
     except Exception as error:
       hello.logger.debug("Failed to send Hello playload")
       hello.logger.debug(error)
-      return
+      return None
 
     return response

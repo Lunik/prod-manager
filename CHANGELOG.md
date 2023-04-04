@@ -5,6 +5,7 @@
 ## Fixed
 
 - fix(doc): Configure `site_url` to fix `sitemap.xml` generation
+- fix(scheduler): Disable scheduled tasks in integrations and tests (!149)
 
 
 ## 0.21.1

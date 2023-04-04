@@ -11,7 +11,7 @@ from ProdManager.helpers.json import (
 
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 
 class _TestObj:

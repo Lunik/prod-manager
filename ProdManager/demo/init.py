@@ -9,7 +9,7 @@ from ProdManager.helpers.resource import create_resource
 from ProdManager.helpers.date import DATETIME_FORMAT
 from ProdManager.models import *
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 app.config["SERVER_NAME"] = "demo.local"
 
 if __name__ == "__main__":

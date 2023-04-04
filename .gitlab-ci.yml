@@ -75,7 +75,6 @@ test:
   variables:
     TEST_REDIS_HOSTNAME: redis
     TEST_REDIS_PORT: 6379
-    FLASK_RUN_FROM_CLI: "True"
   script:
     - flask db upgrade
     - >
@@ -208,12 +207,9 @@ database_upgrade_postgresql:
     POSTGRES_PASSWORD: changeit
     POSTGRES_HOST_AUTH_METHOD: trust
     PM_DATABASE_URI: postgresql://prodmanager:changeit@postgres/prodmanager
-    FLASK_RUN_FROM_CLI: "True"
 
 database_upgrade_sqlite:
   extends: .database_upgrade
-  variables:
-    FLASK_RUN_FROM_CLI: "True"
 
 openapi_specs:
   stage: validate

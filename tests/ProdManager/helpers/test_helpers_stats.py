@@ -10,7 +10,7 @@ from ProdManager.plugins import redis_client
 from ProdManager.helpers.stats import get_resource_view
 
 def test_resource_view_stat_disabled():
-  app = create_app()
+  app = create_app(scheduled_jobs=False)
   app.config['STATS_ENABLED'] = False
 
   with app.app_context():
@@ -23,7 +23,7 @@ TEST_REDIS_PORT = int(os.environ.get('TEST_REDIS_PORT', 6379))
 class TestStatsResourceViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['STATS_ENABLED'] = True
 
@@ -61,7 +61,7 @@ class TestStatsResourceViews(flask_unittest.AppTestCase):
 class TestStatsResourceViewsRedisKO(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['STATS_ENABLED'] = True
 
