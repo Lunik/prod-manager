@@ -7,7 +7,7 @@ from ProdManager import create_app, __version__
 class TestRoutesRootViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    return create_app()
+    return create_app(scheduled_jobs=False)
 
   def test_index_endpoint_with_app(self, app):
     with app.test_request_context('/'):

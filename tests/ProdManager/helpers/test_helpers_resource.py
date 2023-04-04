@@ -27,7 +27,7 @@ from ProdManager.models import (
   Maintenance, MaintenanceStatus,
 )
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def test_list_resources():
   with app.app_context():

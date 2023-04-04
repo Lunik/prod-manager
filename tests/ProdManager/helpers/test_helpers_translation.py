@@ -3,7 +3,7 @@ from ProdManager.helpers.lang import LangManager
 from ProdManager import create_app
 
 def test_lang_manager():
-  app = create_app()
+  app = create_app(scheduled_jobs=False)
 
   lang = LangManager()
 
@@ -13,7 +13,7 @@ def test_lang_manager():
   assert lang.get("undefined_text") == "__missing_translation_undefined_text"
 
 def test_lang_manager_2():
-  app = create_app()
+  app = create_app(scheduled_jobs=False)
 
   app.config["LANG"] = "fr"
 
@@ -24,7 +24,7 @@ def test_lang_manager_2():
   assert lang.get("dashboard_title") == "Tableau de bord"
 
 def test_lang_manager_3():
-  app = create_app()
+  app = create_app(scheduled_jobs=False)
 
   app.config["LANG"] = "xxxx"
 
