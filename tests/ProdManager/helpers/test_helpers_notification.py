@@ -11,7 +11,7 @@ from ProdManager.helpers.notification import (
 from ProdManager.helpers.date import current_date
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 app.config["SERVER_NAME"] = "ti.example.org"
 
 @mock.patch('ProdManager.helpers.notification.send_notification')

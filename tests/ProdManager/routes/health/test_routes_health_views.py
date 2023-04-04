@@ -13,7 +13,7 @@ from ProdManager import create_app, __version__
 class TestRoutesHealthViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     return app
 

@@ -9,7 +9,7 @@ from ProdManager.helpers.date import (
 
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 
 def test_current_date():

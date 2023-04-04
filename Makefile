@@ -82,10 +82,10 @@ run: $(if $(PM_STANDALONE), database-upgrade) $(if $(PM_DEMO), demo-data)
 	${GUNICORN} ${GUNICORN_OPTS} "main:app"
 
 demo-data-dev: database-upgrade
-	FLASK_RUN_FROM_CLI=True PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
+	PYTHONPATH=. $(VENV_PY) ProdManager/demo/init.py
 
 demo-data: database-upgrade
-	FLASK_RUN_FROM_CLI=True PYTHONPATH=. python3 ProdManager/demo/init.py
+	PYTHONPATH=. python3 ProdManager/demo/init.py
 
 database-migration:
 	${FLASK} db migrate -m "<EDIT COMMIT MESSAGE>"

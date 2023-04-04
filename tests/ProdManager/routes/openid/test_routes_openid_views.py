@@ -16,7 +16,7 @@ class TestRoutesAuthViews(flask_unittest.AppTestCase):
 
   @responses.activate
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['OPENID_ENABLED'] = True
     app.config['OPENID_DISCOVER_URL'] = "http://sso.example.local/realms/master/"

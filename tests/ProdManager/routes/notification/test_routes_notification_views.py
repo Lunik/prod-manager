@@ -12,7 +12,7 @@ from ProdManager import create_app
 class TestRoutesAuthViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['MAIL_ENABLED'] = True
     return app

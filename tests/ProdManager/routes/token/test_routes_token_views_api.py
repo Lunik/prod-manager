@@ -15,7 +15,7 @@ from ProdManager.helpers.auth import verify_jwt
 class TestRoutesTokenViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
 
     with app.test_client() as client:
