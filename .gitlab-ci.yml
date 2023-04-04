@@ -257,8 +257,8 @@ kubernetes_manifests:
   parallel:
     matrix:
       - KUBE_VERSION: "1.24.9"
-      - KUBE_VERSION: "1.25.6"
-      - KUBE_VERSION: "1.26.1"
+      - KUBE_VERSION: "1.25.8"
+      - KUBE_VERSION: "1.26.3"
   variables:
     KUBEVAL_SCHEMA_LOCATION: "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master"
   before_script:
