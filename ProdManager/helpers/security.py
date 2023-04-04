@@ -10,7 +10,7 @@ def retreiv_username():
   if g.logged:
     if g.jwt:
       return g.jwt['aud']
-    
+
     return 'admin'
 
   return None

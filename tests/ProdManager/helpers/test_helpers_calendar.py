@@ -11,7 +11,7 @@ from ProdManager.models import (
 )
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 app.config['SERVER_NAME'] = "pytest"
 
 def test_calendar():

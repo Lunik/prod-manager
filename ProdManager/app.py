@@ -13,12 +13,12 @@ from .plugins import (
   scheduler
 )
 
-__version__ = "v0.21.1"
+__version__ = "v0.21.2"
 GIT_PROJECT_URL = "https://gitlab.com/prod-manager/prod-manager"
 GIT_PROJECT_ID = 36953895
 LATEST_VERSION_URL = f"https://gitlab.com/api/v4/projects/{GIT_PROJECT_ID}/releases/permalink/latest"
 
-def create_app():
+def create_app(scheduled_jobs=True):
   app = Flask(
     __name__,
     instance_relative_config=True,
@@ -87,7 +87,7 @@ def create_app():
   )
 
   app.scheduler = scheduler
-  if not app.scheduler.running:
+  if scheduled_jobs and not app.scheduler.running:
     app.scheduler.start()
 
   app.version = AppVersion(

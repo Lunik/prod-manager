@@ -1,12 +1,11 @@
 
 from ProdManager import create_app
-
 from ProdManager.models.Incident import (
   IncidentSeverity, IncidentStatus,
   Incident,
 )
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def test_incident_title():
   incident = Incident(

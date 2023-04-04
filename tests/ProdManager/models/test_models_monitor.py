@@ -5,7 +5,7 @@ from ProdManager.models.Monitor import (
   MonitorStatus, Monitor,
 )
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def test_monitor_count_by_status():
   with app.app_context():

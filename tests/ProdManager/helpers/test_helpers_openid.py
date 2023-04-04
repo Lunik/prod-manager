@@ -8,7 +8,7 @@ from flask import g
 from ProdManager.helpers.openid import OpenID
 from ProdManager import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def setup_function():
   app.config['OPENID_ENABLED'] = True

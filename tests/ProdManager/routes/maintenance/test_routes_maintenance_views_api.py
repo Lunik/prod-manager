@@ -14,7 +14,7 @@ from ProdManager.helpers.pagination import PAGINATION_MAX_PAGE, PAGINATION_MAX_P
 class TestRoutesMaintenanceViews(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
 
     with app.test_client() as client:

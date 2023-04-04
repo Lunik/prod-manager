@@ -1,5 +1,6 @@
 venv/
 
+site/
 instance/
 
 __pycache__/

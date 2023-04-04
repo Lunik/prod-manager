@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.21.2
+
+## Fixed
+
+- fix(doc): Configure `site_url` to fix `sitemap.xml` generation
+- fix(scheduler): Disable scheduled tasks in integrations and tests (!149)
+- ci: Update Kubernetes versions checks (!150)
+
+
 ## 0.21.1
 
 ## Fixed

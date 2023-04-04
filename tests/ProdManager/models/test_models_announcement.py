@@ -5,7 +5,7 @@ from ProdManager.models.Announcement import (
   AnnouncementLevel, Announcement,
 )
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 def test_announcement_title():
   announcement = Announcement(

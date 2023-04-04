@@ -15,7 +15,7 @@ from ProdManager.helpers.config import boolean_param
 from ProdManager.helpers.resource import list_resources, update_resource
 from ProdManager.app import create_app
 
-app = create_app()
+app = create_app(scheduled_jobs=False)
 
 logger = logging.getLogger('HTTP')
 handler = logging.StreamHandler(sys.stdout)

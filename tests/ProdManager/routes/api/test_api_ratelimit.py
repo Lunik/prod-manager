@@ -19,7 +19,7 @@ from ProdManager.plugins import redis_client
 class TestAPIRateLimitNoRedis(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['API_RATELIMIT_ENABLED'] = True
 
@@ -59,7 +59,7 @@ TEST_REDIS_PORT = int(os.environ.get('TEST_REDIS_PORT', 6379))
 class TestAPIRateLimitWithRedis(flask_unittest.AppTestCase):
 
   def create_app(self):
-    app = create_app()
+    app = create_app(scheduled_jobs=False)
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['API_RATELIMIT_ENABLED'] = True
     app.config['API_RATELIMIT_DEFAULT'] = 5
