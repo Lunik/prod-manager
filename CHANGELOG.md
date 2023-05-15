@@ -10,6 +10,10 @@
 | CVE-2023-1255    | MEDIUM   | libssl3    |
 | CVE-2023-30861   | HIGH     | Flask      |
 
+### Fixed
+
+- ci: Update Container scanning variables
+
 
 ## 0.21.2
 
