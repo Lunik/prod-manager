@@ -1,8 +1,23 @@
 # CHANGELOG
 
+## 0.21.3
+
+### Security Fix
+
+| Vulnerability ID | Severity | Package    |
+|:-----------------|:---------|:-----------|
+| CVE-2023-1255    | MEDIUM   | libcrypto3 |
+| CVE-2023-1255    | MEDIUM   | libssl3    |
+| CVE-2023-30861   | HIGH     | Flask      |
+
+### Fixed
+
+- ci: Update Container scanning variables
+
+
 ## 0.21.2
 
-## Fixed
+### Fixed
 
 - fix(doc): Configure `site_url` to fix `sitemap.xml` generation
 - fix(scheduler): Disable scheduled tasks in integrations and tests (!149)
@@ -11,14 +26,14 @@
 
 ## 0.21.1
 
-## Fixed
+### Fixed
 
 - fix(hello): Add missing features `stats` and `openid` (!145)
 
 
 ## 0.21.0
 
-## Added
+### Added
 
 - feat(version): Make the application self aware of its version (#173) (!142)
   - Display the current version of the application in the About page
@@ -26,7 +41,7 @@
   - Automatically search for new version and display the current status in About page
 - ci(version): Verify that the version has been updated in tag pipeline (#173) (!142)
 
-## Fixed
+### Fixed
 
 - doc(API): Correct documented endpoint for creating resources (#176) (!139)
 - fix(openapi): Add missing `announcement_api` permission on token creation schema (#177) (!140)
@@ -36,7 +51,7 @@
 
 ## 0.20.1
 
-## Fixed
+### Fixed
 
 - cve(CVE-2022-1304): e2fsprogs: out-of-bounds read/write via crafted filesystem
 - cve(CVE-2023-0464): openssl: Denial of service by excessive resource usage in verifying X509 policy
@@ -46,30 +61,30 @@
 
 ## 0.20.0
 
-## Added
+### Added
 
 - feat(style): Add resources icons in list headers (#168) (!135)
 - feat(auth): Add support for SSO authentication (#161) (!136)
 - feat(notify/maintenance): Add `.ics` calendar file on Maintenance notification email (#170) (!138)
 
-## Changed
+### Changed
 
 - change(maintenance): Update the content-type of the calendar file for `application/ics` (!138)
 
-## Fixed
+### Fixed
 
 - fix: Typo issues in README.md (#171) (!137)
 
 
 ## 0.19.0
 
-## Added
+### Added
 
 - feat(announcement): Add support for Announcements (#165) (!127)
 - feat(markdown): Add support for Markdown syntaxe in resources description (!130)
 - feat(forms.\*): Add placeholder in forms textarea inputs (!131)
 
-## Fixed
+### Fixed
 
 - fix(mail): Simplify CSS in mail notification (#166) (!126)
 - fix(mail): Remove default trailing space in mail object prefix (!128)
@@ -80,18 +95,18 @@
 
 ## 0.18.1
 
-## Added
+### Added
 
 - chore(gitlab): Add new MR template for releases
 
-## Fixed
+### Fixed
 
 - fix(calendar): Add final new line at the end of event description (#162) (!118)
 - fix(meta): Prevent robot indexation (#163) (!120)
 - fix(api): Cleanup OpenAPI security (!122)
 - fix(js): Don't autoreload the app if the network is no available (!123)
 
-## Changed
+### Changed
 
 - changed(footer): Change the link to ProdManger in the footer (!119)
 - ci(tests.kubernetes): Update Kubernetes manifests check (!121)
