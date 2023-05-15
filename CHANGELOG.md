@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 0.21.3
+
+### Security Fix
+
+| Vulnerability ID | Severity | Package    |
+|:-----------------|:---------|:-----------|
+| CVE-2023-1255    | MEDIUM   | libcrypto3 |
+| CVE-2023-1255    | MEDIUM   | libssl3    |
+| CVE-2023-30861   | HIGH     | Flask      |
+
+
 ## 0.21.2
 
 ## Fixed
