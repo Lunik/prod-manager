@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.22.0
+
+### Added
+
+- doc: Add documentation on where to find security related informations (#181) (!152)
+
+
 ## 0.21.3
 
 ### Security Fix
