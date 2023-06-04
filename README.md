@@ -25,6 +25,11 @@ Thoses are temporary live demo, all data will be reset regulary. Servers are loc
 - [API endpoints](https://prod-manager.tiwabbit.fr/api/)
 - [API Python library](https://prod-manager-api.tiwabbit.fr/)
 
+## Security
+
+You can find security related informations about ProdManager on [the security webpage][application-security] :
+- [`latest` image Trivy report](https://security.prod-manager.tiwabbit.fr/reports/latest/)
+
 ## What's Next?
 
 Please check [future Milestones][gitlab-milestones]
@@ -80,3 +85,4 @@ If you want to modify Prod Manager, [thoses guidelines may be useful for you][co
 
 [contributing-manifest]: CONTRIBUTING.md
 [application-documentation]: https://prod-manager.tiwabbit.fr/
+[application-security]: http://security.prod-manager.tiwabbit.fr
