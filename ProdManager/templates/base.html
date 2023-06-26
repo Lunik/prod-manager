@@ -19,10 +19,14 @@
     {% endif %}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
-    {% if is_it_winter() %}
+    {% if is_it("winter") %}
     <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager-winter.png') }}">
     {% else %}
+    {% if is_it("summer") %}
+    <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager-summer.png') }}">
+    {% else %}
     <meta property="og:image" content="{{ custom_url_for('static', filename='img/prod-manager.png') }}">
+    {% endif %}
     {% endif %}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ custom_url_for('static', filename='img/apple-touch-icon.png') }}">
@@ -36,8 +40,12 @@
     {% if config['CUSTOM_CSS_SHEET'] %}
       <link rel="stylesheet" href="{{ custom_url_for('static', filename=config['CUSTOM_CSS_SHEET']) }}">
     {% endif %}
-    {% if is_it_winter() %}
-      <style>{% include "fragments/winter/style.css" %}</style>
+    {% if is_it("winter") %}
+      <style>{% include "fragments/themes/winter/style.css" %}</style>
+    {% else %}
+    {% if is_it("summer") %}
+      <style>{% include "fragments/themes/summer/style.css" %}</style>
+    {% endif %}
     {% endif %}
 
     {% block head %}{% endblock %}
