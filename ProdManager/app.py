@@ -13,7 +13,7 @@ from .plugins import (
   scheduler
 )
 
-__version__ = "v0.21.3"
+__version__ = "v0.21.4"
 GIT_PROJECT_URL = "https://gitlab.com/prod-manager/prod-manager"
 GIT_PROJECT_ID = 36953895
 LATEST_VERSION_URL = f"https://gitlab.com/api/v4/projects/{GIT_PROJECT_ID}/releases/permalink/latest"
@@ -196,7 +196,7 @@ def create_app(scheduled_jobs=True):
 
   from ProdManager.helpers.jinja2 import (
     ternary, format_column_name, format_timeline_date,
-    format_template_name, is_it_winter, include_file
+    format_template_name, is_it, include_file
   )
   from ProdManager.helpers.pagination import url_for_paginated
   from ProdManager.helpers.links import custom_url_for
@@ -210,7 +210,7 @@ def create_app(scheduled_jobs=True):
   app.jinja_env.globals['url_for_paginated'] = url_for_paginated
   app.jinja_env.globals['custom_url_for'] = custom_url_for
   app.jinja_env.globals['_'] = text
-  app.jinja_env.globals['is_it_winter'] = is_it_winter
+  app.jinja_env.globals['is_it'] = is_it
   app.jinja_env.globals['get_resource_view'] = get_resource_view
   app.jinja_env.globals['include_file'] = include_file
   app.jinja_env.globals['git_project_url'] = GIT_PROJECT_URL
