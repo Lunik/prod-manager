@@ -1,10 +1,18 @@
 # CHANGELOG
 
-## 0.22.0
+## 0.21.4
 
 ### Added
 
 - doc: Add documentation on where to find security related informations (#181) (!152)
+
+### Security Fix
+
+| Vulnerability ID | Severity | Package    |
+|:-----------------|:---------|:-----------|
+| CVE-2023-2650    | HIGH     | libcrypto3 |
+| CVE-2023-2650    | HIGH     | libssl3    |
+| CVE-2023-32681   | MEDIUM   | requests   |
 
 
 ## 0.21.3
