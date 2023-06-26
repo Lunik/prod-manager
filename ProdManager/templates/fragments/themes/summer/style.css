@@ -1,0 +1,4 @@
+body {
+  background-image: url('{{ custom_url_for("static", filename="img/summer-background.jpeg") }}');
+  background-size: 25%;
+}

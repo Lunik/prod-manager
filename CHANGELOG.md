@@ -5,6 +5,7 @@
 ### Added
 
 - doc: Add documentation on where to find security related informations (#181) (!152)
+- style: Add new summer theme (!153)
 
 ### Security Fix
 

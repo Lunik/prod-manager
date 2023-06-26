@@ -24,10 +24,17 @@ def format_template_name(key, keep="folder"):
   return key
 
 winter_dates = (datetime(datetime.now().year, 12, 1), datetime(datetime.now().year + 1, 1, 31))
+summer_dates = (datetime(datetime.now().year, 6, 1), datetime(datetime.now().year, 8, 31))
 
-def is_it_winter():
-  now = datetime.utcnow()
-  return now >= winter_dates[0] and now <= winter_dates[1]
+def is_it(season):
+  if season == "winter":
+    now = datetime.utcnow()
+    return now >= winter_dates[0] and now <= winter_dates[1]
+  elif season == "summer":
+    now = datetime.utcnow()
+    return now >= summer_dates[0] and now <= summer_dates[1]
+
+  return False
 
 def include_file(name):
   content = b""

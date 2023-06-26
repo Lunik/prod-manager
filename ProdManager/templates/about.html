@@ -7,10 +7,14 @@
 <h1 id="title">{{ _("about_title_alt") }} ProdManager - v{{ app_version.current }} {% include 'fragments/version.html' %}</h1>
 <div id="about">
   <div id="logo" class="about-section">
-    {% if is_it_winter() %}
+    {% if is_it("winter") %}
     <img alt="Prod Manager logo" src="{{ custom_url_for('static', filename='img/prod-manager-winter.svg') }}" />
     {% else %}
+    {% if is_it("summer") %}
+    <img alt="Prod Manager logo" src="{{ custom_url_for('static', filename='img/prod-manager-summer.svg') }}" />
+    {% else %}
     <img alt="Prod Manager logo" src="{{ custom_url_for('static', filename='img/prod-manager.svg') }}" />
+    {% endif %}
     {% endif %}
   </div>
 
