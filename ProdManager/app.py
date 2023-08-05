@@ -13,7 +13,7 @@ from .plugins import (
   scheduler
 )
 
-__version__ = "v0.21.5"
+__version__ = "v0.21.6"
 GIT_PROJECT_URL = "https://gitlab.com/prod-manager/prod-manager"
 GIT_PROJECT_ID = 36953895
 LATEST_VERSION_URL = f"https://gitlab.com/api/v4/projects/{GIT_PROJECT_ID}/releases/permalink/latest"
