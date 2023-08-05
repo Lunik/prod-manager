@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.21.5
+
+### Security Fix
+
+| Vulnerability ID | Severity | Package    |
+|:-----------------|:---------|:-----------|
+| CVE-2023-37920   | HIGH     | certifi    |
+| CVE-2023-2975    | MEDIUM   | libcrypto3 |
+| CVE-2023-3446    | MEDIUM   | libcrypto3 |
+| CVE-2023-3817    | MEDIUM   | libcrypto3 |
+| CVE-2023-2975    | MEDIUM   | libssl3    |
+| CVE-2023-3446    | MEDIUM   | libssl3    |
+| CVE-2023-3817    | MEDIUM   | libssl3    |
+
+
 ## 0.21.4
 
 ### Added
