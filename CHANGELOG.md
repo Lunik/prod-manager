@@ -1,5 +1,58 @@
 # CHANGELOG
 
+## 0.22.0
+
+### Added
+
+- feat(dependencies): Add `Flask` to `3.0.2`
+- feat(dependencies): Upgrade `api4jenkins` to `2.0.3`
+- feat(dependencies): Upgrade `certifi` to `2024.2.2`
+- feat(dependencies): Upgrade `datadog-api-client` to `2.22.0`
+- feat(dependencies): Upgrade `dnspython` to `2.6.0`
+- feat(dependencies): Upgrade `Flask-Migrate` to `4.0.5`
+- feat(dependencies): Upgrade `Flask-SQLAlchemy` to `3.1.1`
+- feat(dependencies): Upgrade `Flask-WTF` to `1.2.1`
+- feat(dependencies): Upgrade `greenlet` to `3.0.3`
+- feat(dependencies): Upgrade `redis` to `5.0.1`
+- feat(dependencies): Upgrade `Werkzeug` to `3.0.1`
+- feat(dependencies): Upgrade `WTForms` to `3.1.2`
+- feat(dependencies): Upgrade `SQLAlchemy` to `2.0.27`
+- feat(dependencies): Upgrade `Jinja2` to `3.1.3`
+- feat(dependencies): Upgrade `lxml` to `5.1.0`
+- feat(dependencies): Upgrade `Markdown` to `3.5.2`
+- feat(dependencies): Upgrade `MarkupSafe` to `2.1.5
+- feat(dependencies): Upgrade `icalendar` to `5.0.11`
+
+### Fixed
+
+- fix(imports): Replace `flask.Markup` by `markupsafe.Markup`
+- fix(imports): Replace `pkg_resources.parse_version` by `packaging.version.parse`
+- ci(jenkins): Fix Jenkins integration tests
+
+### Security Fix
+
+| Vulnerability ID | Severity | Package     |
+|:-----------------|:---------|:------------|
+| CVE-2023-5363    | HIGH     | libcrypto3  |
+| CVE-2023-5678    | MEDIUM   | libcrypto3  |
+| CVE-2023-6129    | MEDIUM   | libcrypto3  |
+| CVE-2023-6237    | MEDIUM   | libcrypto3  |
+| CVE-2024-0727    | MEDIUM   | libcrypto3  |
+| CVE-2023-52425   | HIGH     | libexpat    |
+| CVE-2023-52426   | MEDIUM   | libexpat    |
+| CVE-2023-5363    | HIGH     | libssl3     |
+| CVE-2023-5678    | MEDIUM   | libssl3     |
+| CVE-2023-6129    | MEDIUM   | libssl3     |
+| CVE-2023-6237    | MEDIUM   | libssl3     |
+| CVE-2024-0727    | MEDIUM   | libssl3     |
+| CVE-2023-7104    | HIGH     | sqlite-libs |
+| CVE-2024-22195   | MEDIUM   | Jinja2      |
+| CVE-2023-46136   | MEDIUM   | Werkzeug    |
+| CVE-2023-5752    | MEDIUM   | pip         |
+| CVE-2023-43804   | MEDIUM   | urllib3     |
+| CVE-2023-45803   | MEDIUM   | urllib3     |
+
+
 ## 0.21.5
 
 ### Security Fix

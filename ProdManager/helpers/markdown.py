@@ -1,5 +1,4 @@
-from flask import Markup
-from markupsafe import escape
+from markupsafe import Markup, escape
 from jinja2 import pass_eval_context
 import markdown as md
 

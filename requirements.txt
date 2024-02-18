@@ -5,6 +5,7 @@ pyyaml
 Flask
 django-htmlmin
 lxml
+MarkupSafe
 
 # Markdown support
 Markdown
