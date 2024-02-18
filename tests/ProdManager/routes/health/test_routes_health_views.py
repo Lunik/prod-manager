@@ -2,7 +2,7 @@ import random
 import string
 import re
 from datetime import datetime
-from pkg_resources import parse_version
+from packaging.version import parse as parse_version
 
 import flask_unittest
 import flask.globals

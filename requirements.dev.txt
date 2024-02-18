@@ -10,6 +10,7 @@ pytest-order
 flask-unittest
 
 responses
+pytest-httpx
 
 snakeviz
 

@@ -2,6 +2,12 @@
 
 ## 0.21.6
 
+### Fixed
+
+- fix(imports): Replace `flask.Markup` by `markupsafe.Markup`
+- fix(imports): Replace `pkg_resources.parse_version` by `packaging.version.parse`
+- ci(jenkins): Fix Jenkins integration tests
+
 ### Security Fix
 
 | Vulnerability ID | Severity | Package     |

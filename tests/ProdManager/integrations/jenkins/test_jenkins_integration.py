@@ -1,8 +1,8 @@
 
 import random
 import string
-import responses
 import pytest
+from pytest_httpx import HTTPXMock
 
 from ProdManager.integrations.jenkins.update_monitors import process as update_monitor_process
 from ProdManager.helpers.resource import create_resource, get_resource
@@ -12,6 +12,10 @@ from ProdManager import create_app
 app = create_app(scheduled_jobs=False)
 
 MONITORS = dict()
+
+@pytest.fixture
+def assert_all_responses_were_requested() -> bool:
+    return False
 
 def setup_function():
   with app.app_context():
@@ -116,66 +120,65 @@ def setup_function():
     ).id
 
 
-@responses.activate
-def test_process():
+def test_url(httpx_mock: HTTPXMock):
   jenkins_url = "http://localhost:8080"
 
   # First call
-  responses.get(f"{jenkins_url}/crumbIssuer/api/json", json={"_class":"hudson.security.csrf.DefaultCrumbIssuer","crumb":"xxxxxxxxxx","crumbRequestField":"Jenkins-Crumb"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/crumbIssuer/api/json", json={"_class":"hudson.security.csrf.DefaultCrumbIssuer","crumb":"xxxxxxxxxx","crumbRequestField":"Jenkins-Crumb"})
   # Print version call
-  responses.get(f"{jenkins_url}/", json={}, headers={'x-jenkins': "2.xxx-pytest"})
+  httpx_mock.add_response(method="HEAD", url=f"{jenkins_url}/", headers={'x-jenkins': "2.xxx-pytest"})
 
   # List jobs in folders call
-  responses.get(f"{jenkins_url}/job/project/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
-  responses.get(f"{jenkins_url}/job/project2/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
-  responses.get(f"{jenkins_url}/job/project/job/00002/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
-  responses.get(f"{jenkins_url}/job/project2/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.Folder", "name": "00004", "url": "http://localhost:8080/job/project2/job/00004"}]})
-  responses.get(f"{jenkins_url}/job/project/job/00001/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "my_job_001", "url": "http://localhost:8080/job/project/job/00001/job/my_job_001/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "My Job 001", "url": "http://localhost:8080/job/project/job/00001/job/My%20Job%20001/"}]})
-  responses.get(f"{jenkins_url}/job/project/job/00002/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": []})
-  responses.get(f"{jenkins_url}/job/project/job/00003/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_with_no_build", "url": "http://localhost:8080/job/project/job/00003/job/job_with_no_build/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_failure_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_failure_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_unstable_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_unstable_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_success_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_success_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_invalid_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_invalid_result/"}]})
-  responses.get(f"{jenkins_url}/job/project2/job/00004/api/json?depth=0", json={"_class":"com.cloudbees.hudson.plugins.folder.Folder","jobs": []})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project2/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00002/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/api/json?depth=0&tree=_class", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project2/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.Folder", "name": "00004", "url": "http://localhost:8080/job/project2/job/00004"}]})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "my_job_001", "url": "http://localhost:8080/job/project/job/00001/job/my_job_001/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "My Job 001", "url": "http://localhost:8080/job/project/job/00001/job/My%20Job%20001/"}]})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00002/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": []})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/api/json?depth=0&tree=jobs%5Bname%2Curl%5D", json={"_class": "com.cloudbees.hudson.plugins.folder.Folder","jobs": [{"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_with_no_build", "url": "http://localhost:8080/job/project/job/00003/job/job_with_no_build/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_failure_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_failure_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_unstable_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_unstable_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_success_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_success_result/"}, {"_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob", "name": "job_in_invalid_result", "url": "http://localhost:8080/job/project/job/00003/job/job_in_invalid_result/"}]})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project2/job/00004/api/json?depth=0", json={"_class":"com.cloudbees.hudson.plugins.folder.Folder","jobs": []})
 
   # Get job
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 02"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 02"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 03"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 03"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 04"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 04"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 05"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 05"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 01"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 01"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 06"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 06"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 02"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 02"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 03"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 03"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 04"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 04"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 05"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 05"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 01"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 01"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 06"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0&tree=displayName", json={"_class":"hudson.model.FreeStyleProject", "displayName":"My awesome TU 06"})
 
 
   # Get latest build call
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00001/job/My%20Job%20001/1/"}})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00001/job/my_job_001/1/"}})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild": None})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_unstable_result/1/"}})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_failure_result/1/"}})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_success_result/1/"}})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_invalid_result/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00001/job/My%20Job%20001/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/my_job_001/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00001/job/my_job_001/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_with_no_build/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild": None})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_unstable_result/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_failure_result/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_success_result/1/"}})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/api/json?depth=0&tree=lastCompletedBuild%5Burl%5D", json={"_class":"hudson.model.FreeStyleProject","lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","url":"http://localhost:8080/job/project/job/00003/job/job_in_invalid_result/1/"}})
 
   # Get build call
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/1/api/json?depth=0", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/my_job_001/1/api/json?depth=0", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/1/api/json?depth=0", json={"result": "UNSTABLE"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/1/api/json?depth=0", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/1/api/json?depth=0", json={"result": "FAILURE"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/1/api/json?depth=0", json={"result": "INVALID"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/1/api/json?depth=0", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/my_job_001/1/api/json?depth=0", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/1/api/json?depth=0", json={"result": "UNSTABLE"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/1/api/json?depth=0", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/1/api/json?depth=0", json={"result": "FAILURE"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/1/api/json?depth=0", json={"result": "INVALID"})
 
   # Get build result call
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00001/job/my_job_001/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/1/api/json?depth=0&tree=result", json={"result": "UNSTABLE"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/1/api/json?depth=0&tree=result", json={"result": "FAILURE"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
-  responses.get(f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/1/api/json?depth=0&tree=result", json={"result": "INVALID"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/My%20Job%20001/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00001/job/my_job_001/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_unstable_result/1/api/json?depth=0&tree=result", json={"result": "UNSTABLE"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_failure_result/1/api/json?depth=0&tree=result", json={"result": "FAILURE"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_success_result/1/api/json?depth=0&tree=result", json={"result": "SUCCESS"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/job/project/job/00003/job/job_in_invalid_result/1/api/json?depth=0&tree=result", json={"result": "INVALID"})
 
   update_monitor_process("jenkins", dict(
     url=jenkins_url,
@@ -231,14 +234,13 @@ def test_process():
     assert monitor.status == MonitorStatus.OK
     assert monitor.external_link is None
 
-@responses.activate
-def test_process_2():
+def test_url2(httpx_mock: HTTPXMock):
   jenkins_url = "http://localhost:8080"
 
   # First call
-  responses.get(f"{jenkins_url}/crumbIssuer/api/json", json={"_class":"hudson.security.csrf.DefaultCrumbIssuer","crumb":"xxxxxxxxxx","crumbRequestField":"Jenkins-Crumb"})
+  httpx_mock.add_response(method="GET", url=f"{jenkins_url}/crumbIssuer/api/json", json={"_class":"hudson.security.csrf.DefaultCrumbIssuer","crumb":"xxxxxxxxxx","crumbRequestField":"Jenkins-Crumb"})
   # Print version call
-  responses.get(f"{jenkins_url}/", json={}, headers={'x-jenkins': "2.xxx-pytest"}, status=401)
+  httpx_mock.add_response(method="HEAD", url=f"{jenkins_url}/", headers={'x-jenkins': "2.xxx-pytest"}, status_code=401)
 
 
   with pytest.raises(SystemExit) as pytest_wrapped_e:
