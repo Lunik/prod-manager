@@ -2,6 +2,29 @@
 
 ## 0.21.6
 
+### Security Fix
+
+| Vulnerability ID | Severity | Package     |
+|:-----------------|:---------|:------------|
+| CVE-2023-5363    | HIGH     | libcrypto3  |
+| CVE-2023-5678    | MEDIUM   | libcrypto3  |
+| CVE-2023-6129    | MEDIUM   | libcrypto3  |
+| CVE-2023-6237    | MEDIUM   | libcrypto3  |
+| CVE-2024-0727    | MEDIUM   | libcrypto3  |
+| CVE-2023-52425   | HIGH     | libexpat    |
+| CVE-2023-52426   | MEDIUM   | libexpat    |
+| CVE-2023-5363    | HIGH     | libssl3     |
+| CVE-2023-5678    | MEDIUM   | libssl3     |
+| CVE-2023-6129    | MEDIUM   | libssl3     |
+| CVE-2023-6237    | MEDIUM   | libssl3     |
+| CVE-2024-0727    | MEDIUM   | libssl3     |
+| CVE-2023-7104    | HIGH     | sqlite-libs |
+| CVE-2024-22195   | MEDIUM   | Jinja2      |
+| CVE-2023-46136   | MEDIUM   | Werkzeug    |
+| CVE-2023-5752    | MEDIUM   | pip         |
+| CVE-2023-43804   | MEDIUM   | urllib3     |
+| CVE-2023-45803   | MEDIUM   | urllib3     |
+
 
 ## 0.21.5
 
